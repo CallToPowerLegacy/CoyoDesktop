@@ -1,0 +1,10 @@
+<div class="kalendae-header">
+  <div class="kalendae-date-label-container">
+    <div class="text-muted" translate="MODULE.EVENTS.FILTER.DATE.START"></div>
+    <div>{{($ctrl.dateRange[0] | amDateFormat: $root.dateFormat.short) || '-'}}</div>
+  </div>
+  <div class="kalendae-date-label-container">
+    <div class="text-muted" translate="MODULE.EVENTS.FILTER.DATE.END"></div>
+    <div>{{($ctrl.dateRange[1] | amDateFormat: $root.dateFormat.short) || '-'}}</div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+.coyo-divider {
+  color: $color-gray;
+  cursor: default;
+  display: block;
+  line-height: 1;
+  margin: 24px 0;
+  overflow: hidden;
+  text-align: center;
+  text-transform: uppercase;
+  user-select: none;
+  white-space: nowrap;
+
+  &.empty > span {
+    height: 20px;
+
+    &:before,
+    &:after {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  > span {
+    display: inline-block;
+    position: relative;
+
+    &:before,
+    &:after {
+      background: $color-gray-light;
+      content: '';
+      height: 1px;
+      position: absolute;
+      top: 50%;
+      width: 9999px;
+    }
+
+    &:before {
+      margin-right: 16px;
+      right: 100%;
+    }
+
+    &:after {
+      left: 100%;
+      margin-left: 16px;
+    }
+  }
+}

@@ -1,0 +1,78 @@
+.image-header {
+  background-color: $color-gray-light;
+  position: relative;
+
+  .sender-actions {
+    z-index: 1;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      right: 12px;
+      top: 12px;
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      right: 24px;
+      top: 16px;
+    }
+
+    > * {
+      float: right;
+      margin-right: 8px;
+
+      @media screen and (min-width: $screen-sm-min) {
+        margin-right: 12px;
+      }
+
+      &:first-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  // follow button
+  .user-follow {
+    border: 0;
+    color: $color-white;
+  }
+
+  // cover image
+  .cover-image {
+    background-image: none;
+    background-size: cover;
+    height: 52px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      height: 75px;
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    @media screen and (min-width: $screen-lg-min) {
+      height: 115px;
+    }
+  }
+
+  &.has-cover {
+    .cover-image {
+      @include maintain-ratio(6 1);
+    }
+  }
+
+  // panel below cover image
+  .panel-foreground {
+    background-color: $color-white;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    @media screen and (min-width: $screen-md-min) {
+      border-radius: 0 0 5px 5px;
+    }
+  }
+}

@@ -1,0 +1,87 @@
+<div>
+  <form class="timeline-form-modal" name="$ctrl.form" coyo-form-submit="$ctrl.save()">
+    <div class="modal-content-wrapper">
+
+      <div class="modal-header">
+        <h3 class="modal-title" translate="MODULE.TIMELINE.FORM.MODAL.TITLE"></h3>
+        <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss('cancel')">
+          <i class="zmdi zmdi-close img-close"></i>
+        </span>
+        <coyo-select-sender ng-if="::$ctrl.canActAsSender"
+                            ng-model="$ctrl.author"
+                            required="true"
+                            class="visible-xs"
+                            parameters="{ 'staticOptions' : $ctrl.staticSenderOptions,
+                                        'allowedTypeNames': ['page', 'workspace', 'event'],
+                                        'selectSenderOptionGroups':  $ctrl.selectSenderOptionGroups,
+                                        'position': 'down',
+                                        'findOnlyManagedSenders': true,
+                                        'onlyShowAvatarForMatches' : true,
+                                        'searchDisabled': true,
+                                        'class': 'select-sender-inline'}">
+        </coyo-select-sender>
+      </div>
+
+      <!-- Spinner -->
+      <div class="modal-body text-center pt-xs" ng-show="$ctrl.saving">
+        <coyo-spinner size="sm"></coyo-spinner>
+      </div>
+
+      <div class="modal-body" ng-show="!$ctrl.saving">
+
+        <textarea id="message" name="message"
+                  class="form-control"
+                  ng-attr-placeholder="{{::'MODULE.TIMELINE.FORM.PLACEHOLDER' | translate}}"
+                  ng-model="$ctrl.newItemModel.data.message"
+                  ng-required="true"
+                  ng-keydown="$ctrl.onKeyDown($event)"
+                  ng-init="$ctrl.focusMessageField = true"
+                  ng-focus="$ctrl.form.$pristine = false"
+                  ng-blur="$ctrl.onBlur()"
+                  focus-on="$ctrl.focusMessageField"
+                  coyo-mention-select></textarea>
+
+        <coyo-link-preview ng-model="$ctrl.newItemLinkPreviews" edit-mode="true" focus-var="$ctrl.focusMessageField">
+        </coyo-link-preview>
+
+        <coyo-video-preview ng-model="$ctrl.newItemVideoPreviews" edit-mode="true" focus-var="$ctrl.focusMessageField">
+        </coyo-video-preview>
+
+        <oyoc-timeline-form-attachment-list
+            attachments="$ctrl.newItemAttachments"
+            file-library-attachments="$ctrl.newItemModel.fileLibraryAttachments">
+        </oyoc-timeline-form-attachment-list>
+      </div>
+
+      <div class="modal-footer" ng-show="!$ctrl.saving">
+        <div class="post-action-bar">
+          <div class="post-action-bar-item">
+            <a class="btn btn-link"
+               ng-click="$ctrl.openModalSelectAttachments()"
+               ng-disabled="$ctrl.saving">
+              <i class="zmdi zmdi-attachment-alt zmdi-hc-2x"
+                 ng-class="{'item-active': $ctrl.newItemAttachments.length || $ctrl.newItemModel.fileLibraryAttachments.length}"></i>
+            </a>
+          </div>
+          <div class="post-action-bar-item" coyo-global-permissions="CREATE_STICKY_TIMELINE_ITEM">
+            <a class="btn btn-link"
+               ng-click="$ctrl.openModalSelectSticky()"
+               ng-disabled="$ctrl.saving">
+              <i class="zmdi zmdi-hc-2x zmdi-alert-circle-o" ng-class="{'item-active': $ctrl.stickyExpiry}"></i>
+            </a>
+          </div>
+          <div class="post-action-bar-item" coyo-global-permissions="CREATE_RESTRICTED_TIMELINE_ITEM">
+            <a class="btn btn-link"
+               ng-click="$ctrl.openRestrictionSelectionModal()"
+               ng-disabled="$ctrl.saving">
+              <i class="zmdi zmdi-lock-outline zmdi-hc-2x" ng-class="{'item-active': $ctrl.restricted}"></i>
+            </a>
+          </div>
+        </div>
+        <button class="btn btn-primary" ng-disabled="$ctrl.form.$invalid">
+          <i class="zmdi zmdi-check"></i>&nbsp;{{::'SEND' | translate}}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,83 @@
+.sidebar.messaging {
+
+  .messaging-channel-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .load-more {
+      display: block;
+      padding: 8px 12px;
+      background-color: $color-black;
+      text-align: center;
+    }
+
+    .list-item {
+      padding: 8px 12px;
+      color: $color-gray-light;
+      background-color: $color-black;
+      margin-bottom: 1px;
+    }
+
+    .messaging-channel-info-members {
+      .messaging-channel-info-member {
+        display: flex;
+        align-items: center;
+
+        .user-avatar {
+          flex: none;
+
+          .online-status {
+            border-color: $color-black;
+          }
+        }
+
+        .user-name {
+          flex: 1;
+          color: $color-gray-light;
+
+          @include ellipsis();
+        }
+
+        .user-role {
+          flex: none;
+          font-size: 13px;
+          color: $color-gray;
+        }
+
+        .context-menu {
+          margin-left: 8px;
+        }
+      }
+    }
+
+    .messaging-channel-info-attachments {
+      .messaging-channel-info-attachment {
+        display: block;
+
+        .attachment-name-row {
+          display: flex;
+          align-items: center;
+
+          .attachment-name {
+            flex: 1;
+            padding-left: 6px;
+
+            @include ellipsis();
+          }
+        }
+
+        .attachment-info-row {
+          flex: none;
+          font-size: 13px;
+          color: $color-gray-dark;
+          padding-left: 26px;
+        }
+
+        .file-icon {
+          color: $color-gray-light;
+        }
+      }
+    }
+  }
+}

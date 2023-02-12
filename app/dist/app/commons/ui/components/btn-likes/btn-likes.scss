@@ -1,0 +1,81 @@
+.btn-likes {
+  display: inline-block;
+
+  &.btn-likes-condensed {
+    white-space: nowrap;
+  }
+
+  .btn-likes-handle {
+    color: $color-gray;
+    transition: color linear 0.2s;
+    position: relative;
+
+    .zmdi {
+      position: relative;
+      top: .075em;
+      font-size: 128.571428571%;
+    }
+
+    &.disabled {
+      color: $color-gray;
+    }
+  }
+
+  .btn-likes-handle-hover {
+    &:hover {
+      color: $color-gray-darker;
+    }
+
+    &.disabled {
+      &:hover {
+        color: $color-gray;
+      }
+    }
+  }
+
+  span.btn-likes-handle.disabled {
+    margin-right: .4em;
+  }
+
+  .btn-likes-divider {
+    margin: 0 .4em;
+  }
+
+  .btn-likes-text {
+    color: $color-gray;
+  }
+
+  .btn-likes-count {
+    margin-left: .3em;
+
+    a {
+      color: $color-gray-darker;
+    }
+  }
+
+  &.active {
+    .btn-likes-handle {
+      color: $color-yellow;
+    }
+  }
+}
+
+.btn-likes-modal {
+
+  .like {
+    border-bottom: 1px solid $color-gray-lighter;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+
+    &:last-of-type {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .btn-more {
+    margin: 16px auto;
+    display: block;
+  }
+}

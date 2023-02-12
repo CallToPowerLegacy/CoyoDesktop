@@ -1,0 +1,26 @@
+<li>
+  <a href ui-sref="admin.user-management.user.edit({id: $ctrl.user.id})">
+    <i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;<span translate="ADMIN.USER_MGMT.USERS.OPTIONS.EDIT.MENU"></span>
+  </a>
+</li>
+<li ng-if="$ctrl.user.status === 'INACTIVE'">
+  <a href ng-click="$ctrl.actions.activateUser($ctrl.user)">
+    <i class="zmdi zmdi-hc-fw zmdi-play"></i>&nbsp;<span translate="ADMIN.USER_MGMT.USERS.OPTIONS.ACTIVATE.MENU"></span>
+  </a>
+</li>
+<li ng-if="$ctrl.user.status === 'ACTIVE'">
+  <a href ng-click="$ctrl.actions.deactivateUser($ctrl.user);">
+    <i class="zmdi zmdi-hc-fw zmdi-stop"></i>&nbsp;<span translate="ADMIN.USER_MGMT.USERS.OPTIONS.DEACTIVATE.MENU"></span>
+  </a>
+</li>
+<li class="divider"></li>
+<li ng-if="$ctrl.user.status !== 'DELETED'">
+  <a href ng-click="$ctrl.actions.deleteUser($ctrl.user);">
+    <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;<span translate="ADMIN.USER_MGMT.USERS.OPTIONS.DELETE.MENU"></span>
+  </a>
+</li>
+<li ng-if="$ctrl.user.status === 'DELETED' && !$ctrl.user.anonymized">
+  <a href ng-click="$ctrl.actions.recoverUser($ctrl.user);">
+    <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;<span translate="ADMIN.USER_MGMT.USERS.OPTIONS.RECOVER.MENU"></span>
+  </a>
+</li>

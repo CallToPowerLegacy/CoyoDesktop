@@ -1,0 +1,47 @@
+<div class="tree-node tree-node-content">
+  <div class="wiki-article wiki-article-node">
+    <div class="article-header-top" ui-tree-handle>
+      <div class="left-options" data-nodrag>
+        <div ng-click="ctrl.loadSubArticles(node)"
+             ng-if="!node.nodesLoaded && (node.wikiArticles > 0 || node.nodes.length > 0)">
+          <i class="zmdi zmdi-chevron-right zmdi-hc-lg" ng-if="!node.loading"></i>
+          <i class="zmdi zmdi-spinner zmdi-hc-spin" ng-if="node.loading"></i>
+        </div>
+        <div ng-click="ctrl.toggle(node)"
+             ng-if="node.nodesLoaded && node.nodes.length > 0 && node.collapsed"
+             data-nodrag>
+          <i class="zmdi zmdi-chevron-right zmdi-hc-lg"></i>
+        </div>
+        <div ng-click="ctrl.toggle(node)"
+             ng-if="node.nodesLoaded && node.nodes.length > 0 && !node.collapsed"
+             data-nodrag>
+          <i class="zmdi zmdi-chevron-down zmdi-hc-lg"></i>
+        </div>
+      </div>
+      <div class="clickable" ng-click="ctrl.openView(node)" data-nodrag>
+        <coyo-wiki-article-title article="node"></coyo-wiki-article-title>
+      </div>
+      <div class="article-status-options" ng-if="!ctrl.loading" data-nodrag>
+        <coyo-context-menu class="wiki-article"
+                      title="{{::'APP.WIKI.ARTICLE_OPTIONS' | translate}}"
+                      ng-if="::(node._permissions.edit || node._permissions.delete)"
+                      align-right="true">
+          <li ng-if="::node._permissions.edit">
+            <a ui-sref=".view({id:node.id, editMode:true})">
+              <i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;{{:: 'EDIT' | translate }}
+            </a>
+          </li>
+          <li ng-if="::node._permissions.delete">
+            <a ng-click="ctrl.deleteArticle(node)">
+              <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'DELETE' | translate }}
+            </a>
+          </li>
+        </coyo-context-menu>
+      </div>
+    </div>
+  </div>
+</div>
+<ol ui-tree-nodes ng-model="node.nodes" ng-class="{hidden: node.collapsed}">
+  <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'app/apps/wiki/wiki-article-node.html'">
+  </li>
+</ol>

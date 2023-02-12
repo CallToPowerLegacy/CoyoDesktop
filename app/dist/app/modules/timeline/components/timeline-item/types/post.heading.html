@@ -1,0 +1,25 @@
+<div class="panel-heading timeline-item-heading">
+  <div class="timeline-item-author-avatar" ng-if="::tlItem.ngModel.author">
+    <coyo-sender-avatar sender="::tlItem.ngModel.author" avatar-size="sm"></coyo-sender-avatar>
+  </div>
+
+  <div class="timeline-item-title">
+    <!-- Post Headline -->
+    <a class="timeline-item-author-name" coyo-sender-link="::tlItem.ngModel.author" ng-if="::tlItem.ngModel.author">
+      {{:: tlItem.ngModel.author.displayName }}
+    </a>
+    <i class="zmdi zmdi-caret-right timeline-item-title-divider" ng-if="::tlItem.recipients.length"></i>
+    <span class="timeline-item-recipient" ng-repeat="recipient in ::tlItem.recipients">
+      <i class="zmdi zmdi-globe zmdi-hc-fw" ng-if="::recipient.public && !tlItem.hasShares"></i>
+      <i class="zmdi zmdi-lock zmdi-hc-fw" ng-if="::!recipient.public && !tlItem.hasShares" uib-tooltip="{{::tlItem.getTooltip(recipient)}}" tooltip-append-to-body="true" ></i>
+      <i class="zmdi zmdi-globe zmdi-hc-fw" ng-if="::tlItem.hasShares && tlItem.publicShare" uib-tooltip="{{:: 'MODULE.TIMELINE.TOOLTIP.SHARE.PUBLIC' | translate}}" tooltip-append-to-body="true" ></i>
+      <i class="zmdi zmdi-lock-outline zmdi-hc-fw" ng-if="::tlItem.hasShares && !tlItem.publicShare" uib-tooltip="{{:: 'MODULE.TIMELINE.TOOLTIP.SHARE.PRIVATE' | translate}}" tooltip-append-to-body="true" ></i>
+      <a class="timeline-item-recipient-name" coyo-sender-link="::recipient">{{:: recipient.displayName }}</a><span ng-if="::!$last">,</span>
+    </span>
+
+    <!-- Post Subline -->
+    <div class="timeline-item-time text-muted">
+      <i class="zmdi zmdi-time zmdi-wide"></i> <coyo-time-ago date="::tlItem.ngModel.created"></coyo-time-ago><span ng-if="tlItem.showOriginalAuthor">, {{::'MODULE.TIMELINE.ORIGINAL_AUTHOR.POSTED_BY' | translate}} {{::tlItem.originalAuthor.displayName}}</span>
+    </div>
+  </div>
+</div>

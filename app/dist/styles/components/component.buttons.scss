@@ -1,0 +1,14 @@
+.btn-mobile-label {
+  display: none;
+
+  @media screen and (min-width: $screen-sm-min) {
+    display: inline;
+    margin-left: 4px;
+  }
+}
+
+.btn-right {
+  @media screen and (min-width: $screen-sm-min) {
+    float: right;
+  }
+}

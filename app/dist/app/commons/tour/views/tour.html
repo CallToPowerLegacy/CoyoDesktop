@@ -1,0 +1,8 @@
+<a class="tour-step-close" ng-click="tour.end()"><i class="zmdi zmdi-close"></i></a>
+<div class="tour-step-content-inner" ng-bind-html="tourStep.trustedContent"></div>
+<div class="tour-step-navigation">
+  <oyoc-tour-progress class="progress-bar-wrapper" current-tour="tour"></oyoc-tour-progress>
+  <button class="btn btn-default" type="button" ng-disabled="!tourStep.isPrev()" ng-click="tour.prev()">{{'BACK' | translate}}</button>
+  <button class="btn btn-primary" type="button" ng-show="tourStep.isNext()" ng-disabled="!tourStep.isNext()" ng-click="tour.next()">{{'NEXT' | translate}}</button>
+  <button class="btn btn-primary" type="button" ng-show="!tourStep.isNext()" ng-disabled="tourStep.isNext()" ng-click="tour.end()">{{'FINISH' | translate}}</button>
+</div>

@@ -1,0 +1,65 @@
+.container-main {
+  background-color: $color-background-main;
+  flex: 1;
+  max-width: 100%;
+  min-width: 0;
+
+  .content {
+    margin: 0 auto;
+    max-width: $size-content-max;
+    padding: 62px 6px 0;
+    width: 100%;
+    // Used to avoid disappear content in mobile safari. With this active we need to set a min-height 
+    // See: http://stackoverflow.com/questions/9807620/ipad-safari-scrolling-causes-html-elements-to-disappear-and-reappear-with-a-dela
+    // -webkit-transform: translate3d(0,0,0);
+
+    @media screen and (min-width: $screen-md-min) {
+      padding: 82px 48px 92px;
+    }
+
+    @media screen and (min-width: $screen-lg-min) {
+      padding-top: 32px;
+    }
+  }
+
+  .content-with-sidebar {
+    @media screen and (min-width: $screen-md-min) {
+      display: flex;
+    }
+
+    .content-sidebar {
+      @media screen and (min-width: $screen-md-min) {
+        flex: none;
+        margin-right: 24px;
+        width: 300px;
+      }
+
+      &.content-sidebar-right {
+
+        .panel-body {
+          padding-top: 10px;
+        }
+
+        @media screen and (min-width: $screen-md-min) {
+          margin-right: 0;
+          margin-left: 24px;
+        }
+      }
+    }
+
+    .content-main {
+      @media screen and (min-width: $screen-md-min) {
+        flex: 1;
+        min-width: 0;
+      }
+    }
+  }
+}
+
+.global-edit-mode .container-main .content {
+  padding-bottom: 50px;
+
+  @media screen and (min-width: $screen-md-min) {
+    padding-bottom: 142px;
+  }
+}

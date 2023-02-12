@@ -1,0 +1,25 @@
+.btn-subscribe {
+  display: inline-block;
+
+  a {
+    color: $color-gray;
+    transition: color linear 0.2s;
+    line-height: 26px;
+
+    &:hover {
+      color: $color-gray-darker;
+    }
+
+    &.handle {
+      font-size: 128.571428571%;
+    }
+  }
+
+  &.active a.handle {
+    color: $color-link;
+  }
+
+  &.loading a.handle {
+    color: $color-gray-light;
+  }
+}

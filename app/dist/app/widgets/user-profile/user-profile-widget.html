@@ -1,0 +1,23 @@
+<div class="user-profile-widget">
+  <coyo-widget-status load-data="$ctrl.loadUser()" empty-message="WIDGET.USERPROFILE.USER.NOTFOUND"></coyo-widget-status>
+  <div ng-if="$ctrl.user">
+    <coyo-refresh watch="$ctrl.lastUpdate">
+      <div class="user-profile-widget-header">
+        <coyo-user-avatar user="::$ctrl.user"></coyo-user-avatar>
+
+        <div class="name">
+          <h4><a coyo-sender-link="::$ctrl.user">{{:: $ctrl.user.displayName }}</a></h4>
+          <p class="small text-muted">{{ ::$ctrl.user.properties.jobTitle }}</p>
+        </div>
+      </div>
+      <dl class="small user-profile-widget-infos" ng-if="$ctrl.widget.settings._showInfo">
+        <dt ng-if="::$ctrl.user.email" translate="USER.EMAIL"></dt>
+        <dd ng-if="::$ctrl.user.email"><a href="mailto:{{:: $ctrl.user.email }}">{{ ::$ctrl.user.email }}</a></dd>
+        <dt ng-if="::$ctrl.user.properties.phone" translate="USER.PHONE"></dt>
+        <dd ng-if="::$ctrl.user.properties.phone">{{:: $ctrl.user.properties.phone }}</dd>
+        <dt ng-if="::$ctrl.user.properties.department" translate="USER.DEPARTMENT"></dt>
+        <dd ng-if="::$ctrl.user.properties.department">{{:: $ctrl.user.properties.department }}</dd>
+      </dl>
+    </coyo-refresh>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div ng-show="$ctrl.state !== 'CONNECTED' && !$ctrl.isSilent" class="reconnect-warning-bar" ng-class="{'compact' : $ctrl.compact}">
+  <div ng-show="$ctrl.state !== 'OFFLINE'">
+    <span class="hidden-xs ml-xxs" translate="SOCKETS.RECONNECT.WARNING" translate-values="{{ {countdown: $ctrl.countdown} }}"></span>
+    <a ng-click="$ctrl.reconnect()" class="btn btn-link">
+      <i class="zmdi zmdi-hc-fw zmdi-refresh-sync zmdi-refresh" ng-class="{'zmdi-hc-spin': $ctrl.state === 'CONNECTING'}"></i>&nbsp;{{:: 'RECONNECT' | translate}}
+    </a>
+  </div>
+  <div ng-show="$ctrl.state === 'OFFLINE'">
+    <span class="hidden-xs ml-xxs" translate="SOCKETS.CONNECTION_LOST.WARNING"></span>
+    <a ng-click="$ctrl.reload()" class="btn btn-link">
+      <i class="zmdi zmdi-hc-fw zmdi-refresh-sync zmdi-refresh"></i>&nbsp;{{:: 'RELOAD_PAGE' | translate }}
+    </a>
+  </div>
+</div>

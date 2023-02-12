@@ -1,0 +1,8 @@
+<div class="user-avatar {{::$ctrl.avatarSize}}">
+  <a ng-if="::$ctrl.isLink" href ui-sref="main.profile({userId: $ctrl.user.slug})">
+    <oyoc-user-avatar-image></oyoc-user-avatar-image>
+  </a>
+  <span ng-if="::$ctrl.isNoLink">
+    <oyoc-user-avatar-image></oyoc-user-avatar-image>
+  </span>
+</div>

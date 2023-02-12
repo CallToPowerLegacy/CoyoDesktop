@@ -1,0 +1,74 @@
+<form name="$ctrl.form" coyo-form-submit="$ctrl.save()" class="forum-thread" novalidate>
+  <div class="panel">
+    <div class="forum-thread-header">
+      <div class="create-panel-heading panel-heading panel-heading-main forum-header">
+        <h1 class="panel-title forum-title" translate="APP.FORUM.CREATE.TITLE"></h1>
+      </div>
+    </div>
+
+    <div class="panel-body">
+      <div>
+        <div class="inner-tab">
+          <div class="row">
+            <div class="col-sm-12 forum-thread-title">
+              <div class="form-group" ng-class="{'has-error': $ctrl.form.title.$invalid && $ctrl.form.title.$touched}">
+                <label for="title" class="control-label" translate="APP.FORUM.THREAD.TITLE"></label>
+                <input id="title"
+                       name="title"
+                       type="text"
+                       class="form-control"
+                       maxlength="100"
+                       ng-disabled="$ctrl.saving"
+                       ng-model="$ctrl.thread.title"
+                       ng-required="true"/>
+                <ng-messages for="$ctrl.form.title.$error" class="help-block validation">
+                  <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                </ng-messages>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 forum-thread-text">
+              <coyo-rte ng-model="$ctrl.thread.text" height="$ctrl.options.rte.height" required></coyo-rte>
+            </div>
+          </div>
+        </div>
+        <div class="forum-thread-attachments" ng-if="$ctrl.newItemAttachments.length">
+          <div class="forum-thread-attachment"
+              ng-repeat="attachment in $ctrl.newItemAttachments | limitTo:20"
+              ng-class="{ uploading : attachment.uploading, done : (attachment.progress === 100) }">
+            <div class="forum-thread-attachment-icon">
+              <coyo-file-icon file="::attachment" class="zmdi-hc-lg"></coyo-file-icon>
+            </div>
+            <div class="forum-thread-attachment-name">{{attachment.name}}</div>
+            <div class="forum-thread-attachment-opt">
+              <span class="text-muted" ng-if="attachment.uploading">{{attachment.progress}}%</span>
+              <a ng-if="!attachment.uploading && !$ctrl.saving" ng-click="$ctrl.removeAttachment(attachment)">
+                <i class="zmdi zmdi-close-circle-o red"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer panel-actions">
+      <div class="row">
+        <div class="col-sm-4 col-sm-push-8 col-lg-4 col-lg-push-8">
+          <a class="btn btn-default btn-right forum-thread-attachment-trigger"
+            ngf-select="$ctrl.addAttachments($files, $invalidFiles)"
+            ngf-multiple="true"
+            ng-disabled="$ctrl.loading || $ctrl.saving">
+            <i class="zmdi zmdi-attachment-alt" ng-class="{'item-active': $ctrl.newItemAttachments.length}"></i>&nbsp;{{::'APP.FORUM.ATTACH_FILES' | translate}}
+          </a>
+        </div>
+        <div class="col-sm-8 col-sm-pull-4 col-lg-8 col-lg-pull-4">
+          <coyo-form-submit-button form-ctrl="$ctrl.form" label="SAVE" class="thread-save"></coyo-form-submit-button><!--
+          --><a ng-click="$ctrl.cancel()" class="btn btn-default thread-cancel">
+            <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{:: 'CANCEL' | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

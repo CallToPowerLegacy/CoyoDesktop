@@ -1,0 +1,18 @@
+<a class="user-follow"
+   coyo-global-permissions="FOLLOW_USER"
+   ng-click="follow.toggle();$event.stopPropagation()"
+   ng-show="follow.show">
+  <button class="btn btn-zmdi btn-{{follow.size}}"
+          ng-class="{
+            'btn-default': !follow.darkTheme && !follow.following,
+            'btn-dark': follow.darkTheme && !follow.following,
+            'btn-success': follow.following}"
+          uib-tooltip="{{follow.noLabel ? ((follow.following ? follow.textFollowing : follow.textFollow) | translate) : ''}}"
+          tooltip-append-to-body="true">
+    <i class="zmdi zmdi-hc-fw" ng-class="{
+     'zmdi-account-add': !follow.loading,
+     'zmdi-spinner zmdi-hc-spin':follow.loading }"></i>&nbsp;<!--
+ --><span class="btn-mobile-label" ng-show="!follow.noLabel && !follow.following">{{::follow.textFollow | translate }}</span><!--
+ --><span class="btn-mobile-label" ng-show="!follow.noLabel && follow.following">{{::follow.textFollowing | translate }}</span>
+  </button>
+</a>

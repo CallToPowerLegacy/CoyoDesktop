@@ -1,0 +1,9 @@
+<ui-select ui-select-mobile="{{:: 'MODULE.ACCOUNT.LANGUAGE' | translate }}" ng-model="data.selected"
+           ng-disabled="{{ngDisabled}}" class="select-language">
+  <ui-select-match placeholder="{{::placeholder}}" allow-clear="{{allowClear ? 'true' : 'false'}}">
+    {{$select.selected.name}}
+  </ui-select-match>
+  <ui-select-choices repeat="language.key as language in data.languages | filter: $select.search| orderBy: 'name'">
+    <div ng-bind-html="language.name | highlight: $select.search"></div>
+  </ui-select-choices>
+</ui-select>

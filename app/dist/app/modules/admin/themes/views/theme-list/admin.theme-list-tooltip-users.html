@@ -1,0 +1,5 @@
+<coyo-spinner inverted="true" size="xs" ng-if="$ctrl.users[theme.id] === true"></coyo-spinner>
+<div class="text-left" ng-if="$ctrl.users[theme.id] !== true" >
+  <div ng-repeat="userName in $ctrl.users[theme.id] | limitTo:5">{{:: userName}}</div>
+  <div ng-if="$ctrl.users[theme.id].length > 5">…</div>
+</div>

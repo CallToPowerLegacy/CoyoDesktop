@@ -1,0 +1,12 @@
+<span class="visible-md visible-lg"
+      ng-if="!$ctrl.isStepRegistered && $ctrl.enabled && $ctrl.visible"
+      ng-class="{'tour-placeholder': $ctrl.noHighlight, 'tour-placeholder-highlight': !$ctrl.noHighlight}"
+      tour-step="{{:: $ctrl.topic}}"
+      tour-step-fixed="{{:: $ctrl.fixed}}"
+      tour-step-order="{{:: $ctrl.order}}"
+      tour-step-title="{{:: $ctrl.title}}"
+      tour-step-content="{{:: $ctrl.stepContent}}"
+      tour-step-popup-class="{{$ctrl.popupClass}}"
+      tour-step-placement="{{:: $ctrl.placement}}"
+      tour-step-scroll-into-view="false"
+      tour-step-belongs-to="desktopTour"></span>

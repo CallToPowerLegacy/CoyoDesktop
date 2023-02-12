@@ -1,0 +1,12 @@
+<div class="complete-profile-widget">
+  <h4 class="widget-title">{{$ctrl.widget.settings._titles[0] || ("WIDGET.COMPLETEPROFILE.TITLE" | translate)}}</h4>
+  <coyo-widget-status load-data="$ctrl.loadCompleteProfile()"></coyo-widget-status>
+  <div>
+    <dl class="small mb-0">
+      <dd ng-repeat="item in ::$ctrl.completeInfo">
+        <a ng-class="::{'completed': item.checked, 'bold': !item.checked}" ui-sref="{{::item.href}}">
+          <i class="zmdi" ng-class="::{'zmdi-close': !item.checked, 'zmdi-check': item.checked}"></i>{{::item.msg | translate}}</a>
+      </dd>
+    </dl>
+  </div>
+</div>

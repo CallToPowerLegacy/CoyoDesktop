@@ -1,0 +1,17 @@
+<div id="admin-multiLanguage" class="admin-user" ng-cloak>
+  <div class="panel panel-default panel-tabs">
+    <uib-tabset justified="true" active="-1">
+      <uib-tab ui-sref="admin.multi-language.languages" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-flag"></i>&nbsp;<span class="tab-text" translate="ADMIN.MULTI_LANGUAGE.LANGUAGES.TITLE"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.multi-language.translations" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-translate"></i>&nbsp;<span class="tab-text" translate="ADMIN.TRANSLATIONS.TITLE"></span>
+        </uib-tab-heading>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+  <div ui-view></div>
+</div>

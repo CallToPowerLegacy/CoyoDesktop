@@ -1,0 +1,106 @@
+.modal-header {
+  &.with-tabs {
+    @media (min-width: $screen-sm-min) {
+      position: relative;
+      padding-bottom: 50px;
+      border-width: 3px;
+    }
+  }
+}
+
+.modal-sub-nav {
+  margin-bottom: 15px;
+  width: 100%;
+
+  .widget-filter-container {
+    margin-top: 10px;
+    width: 100%;
+
+    .filter {
+      width: 100%;
+      border-radius: 36px;
+      height: 33px;
+      padding: 7px 14px;
+      outline: 0 none;
+      border: 1px solid $modal-header-border-color;
+    }
+  }
+
+  @media screen and (min-width: $screen-sm-min) {
+    margin-top: -59px;
+  }
+
+  @media (min-width: $screen-md-min) {
+    display: flex;
+
+    .nav {
+      flex: 0 0 auto;
+    }
+
+    .hidden-vertical {
+      flex: 1
+    }
+
+    .widget-filter-container {
+      margin-top: 0;
+      flex: 0 0 auto;
+      width: 250px;
+    }
+  }
+}
+
+.oyoc-widget-config-chooser {
+  @media screen and (min-width: $screen-sm-min) {
+    overflow: visible !important;
+    min-height: 60vh;
+  }
+
+  .widget-config-chooser {
+    margin-top: -8px;
+
+    .tab-pane {
+      &.active {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .widget-entry {
+        width: 140px;
+        flex: 140px 0 0;
+        text-align: center;
+        padding: 12px;
+        border-radius: 5px;
+        margin-top: 8px;
+
+        i {
+          font-size: 36px;
+          height: 64px;
+          width: 64px;
+          color: $color-gray-darker;
+        }
+
+        h5 {
+          font-size: 14px;
+          font-weight: normal;
+          margin-top: 8px;
+          margin-bottom: 0;
+        }
+
+        &:hover {
+          cursor: pointer;
+          background-color: $color-gray-lighter;
+
+          i {
+            color: $color-link;
+            border-color: $color-link;
+          }
+        }
+      }
+    }
+
+    .widgets-empty {
+      flex: 1;
+      padding: 24px 0;
+    }
+  }
+}

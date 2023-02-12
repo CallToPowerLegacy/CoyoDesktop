@@ -1,0 +1,21 @@
+<li>
+  <a href ui-sref="admin.user-directories.edit({id: $ctrl.directory.id})">
+    <i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;<span translate="ADMIN.USER_DIRECTORIES.OPTIONS.EDIT.MENU"></span>
+  </a>
+</li>
+<li ng-if="!$ctrl.directory.active">
+  <a href ng-click="$ctrl.actions.activate($ctrl.directory);">
+    <i class="zmdi zmdi-hc-fw zmdi-play"></i>&nbsp;<span translate="ADMIN.USER_DIRECTORIES.OPTIONS.ACTIVATE.MENU"></span>
+  </a>
+</li>
+<li ng-if="$ctrl.directory.active">
+  <a href ng-click="$ctrl.actions.deactivate($ctrl.directory);">
+    <i class="zmdi zmdi-hc-fw zmdi-stop"></i>&nbsp;<span translate="ADMIN.USER_DIRECTORIES.OPTIONS.DEACTIVATE.MENU"></span>
+  </a>
+</li>
+<li class="divider"></li>
+<li>
+  <a href ng-click="$ctrl.actions.deleteDirectory($ctrl.directory);">
+    <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;<span translate="DELETE"></span>
+  </a>
+</li>

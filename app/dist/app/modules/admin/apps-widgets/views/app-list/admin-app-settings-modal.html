@@ -1,0 +1,25 @@
+<form ng-submit="$ctrl.save()">
+    <div class="modal-content-wrapper admin-app-settings-modal">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                {{:: $ctrl.app.name | translate }}
+            </h3>
+            <span class="modal-close" ng-click="$ctrl.onDismiss ? $ctrl.onDismiss() : $dismiss('cancel')">
+                <i class="zmdi zmdi-close img-close"></i>
+            </span>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <div ng-repeat="senderType in $ctrl.senderTypes">
+                    <coyo-checkbox class="m-0" ng-model="$ctrl.app.enabledSenderTypes[senderType]"></coyo-checkbox>&nbsp;<span translate="ADMIN.APPS_WIDGETS.APPS.HEADERS.{{ senderType | uppercase }}"></span>
+                </div>
+                <div>
+                    <coyo-checkbox ng-disabled="!$ctrl.hasEnabledSender()" class="m-0" ng-model="$ctrl.app.moderatorsOnly"></coyo-checkbox>&nbsp;<span translate="ADMIN.APPS_WIDGETS.APPS.HEADERS.MODERATOR"></span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary"><i class="zmdi zmdi-hc-fw zmdi-check"></i>&nbsp;{{::'SAVE' | translate}}</button>
+        </div>
+    </div>
+</form>

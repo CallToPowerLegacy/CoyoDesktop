@@ -1,0 +1,15 @@
+<div>
+  <div class="video-preview" ng-class="::$ctrl.isEdit() ? 'video-preview-edit' : 'video-preview-post'"
+       ng-repeat="videoPreview in $ctrl.ngModel | orderBy: 'position' track by videoPreview.videoUrl">
+    <div class="video-preview-delete pull-right" ng-if="::$ctrl.isEdit()">
+      <span class="video-preview-delete-button" ng-click="$ctrl.deletePreview(videoPreview.videoUrl)">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+    </div>
+    <div class="iframe-wrapper" ng-style="::{'padding-top': videoPreview.embedCode.heightPercentage + '%'}">
+      <iframe class="video-wrapper" ng-src="{{videoPreview.videoUrl | trustUrl}}"
+              allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
+      <div class="video-wrapper" ng-bind-html="videoPreview.embedCode.html"></div>
+    </div>
+  </div>
+</div>

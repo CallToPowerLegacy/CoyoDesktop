@@ -1,0 +1,19 @@
+<form class="hashtag-form" name="$ctrl.hashtagsForm" role="form" novalidate>
+  <div ng-class="{ 'has-error': $ctrl.hashtagsForm.$invalid }">
+    <tags-input class="hashtag-input"
+        placeholder="#"
+        min-length="2"
+        max-length="100"
+        ng-model="$ctrl.hashtags"
+        on-tag-adding="$ctrl.onTagAdding($tag)"
+        on-tag-added="$ctrl.onTagAdded($tag)"
+        on-tag-removed="$ctrl.onTagRemoved($tag)"
+        on-invalid-tag="$ctrl.onInvalidTag($tag)"
+        ng-keypress="$ctrl.onChange()">
+    </tags-input>
+    <ng-messages for="$ctrl.hashtagsForm.$error" class="help-block validation">
+        <p ng-message="invalid-syntax" translate="ERRORS.VALIDATION.INVALID_HASHTAG"></p>
+        <p ng-message="already-added" translate="ERRORS.VALIDATION.ALREADY_ADDED_HASHTAG"></p>
+    </ng-messages>
+  </div>
+</form>

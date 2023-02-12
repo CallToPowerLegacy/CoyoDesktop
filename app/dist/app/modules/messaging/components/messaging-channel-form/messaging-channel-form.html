@@ -1,0 +1,93 @@
+<div class="messaging-channel-form">
+
+  <div class="messaging-header">
+    <span class="messaging-title" ng-if="!$ctrl.channel.id"
+          translate="{{:: 'MODULE.MESSAGING.CREATE_CHANNEL.'+$ctrl.channel.type+'.TITLE' }}"></span>
+    <span class="messaging-title" ng-if="$ctrl.channel.id"
+          translate="MODULE.MESSAGING.CHANNEL.EDIT.TITLE"></span>
+    <span class="messaging-header-icon-bar">
+      <a ng-if="!$ctrl.channel.id" ng-click="$ctrl.msgSidebar.home()"><i class="zmdi zmdi-close-circle-o"></i></a>
+      <a ng-if="$ctrl.channel.id" ng-click="$ctrl.msgSidebar.switchView('channel')"><i class="zmdi zmdi-close-circle-o"></i></a>
+    </span>
+  </div>
+
+  <div class="messaging-content">
+
+    <div ng-show="!$ctrl.saving">
+
+      <!-- Group form toggle -->
+      <a class="btn btn-link btn-block"
+         ng-click="$ctrl.channel.type = 'GROUP'"
+         ng-if="!$ctrl.channel.id && $ctrl.channel.type === 'SINGLE'">
+        <i class="zmdi zmdi-hc-fw zmdi-accounts-add"></i>&nbsp;{{::'MODULE.MESSAGING.CREATE_CHANNEL.GROUP.TITLE' | translate}}
+      </a>
+
+      <div class="form-group" ng-if="$ctrl.channel.type === 'GROUP'">
+        <span class="icon">
+          <i class="zmdi zmdi-edit pointer" ng-click="$ctrl.focusSubject = true"></i>
+        </span>
+        <input type="text" placeholder="{{::'MODULE.MESSAGING.CHANNEL.NAME' | translate}}"
+               ng-model="$ctrl.channel.name" ng-required="true" required="true" ng-keydown="$ctrl.nameKeyDown($event)"
+               focus-if="$ctrl.focusSubject" ng-blur="$ctrl.focusSubject = false">
+      </div>
+
+      <div class="form-group form-group-users">
+        <span class="icon">
+          <i class="zmdi zmdi-search pointer" ng-show="!$ctrl.loading" ng-click="$ctrl.focusUserSearchTerm = true"></i>
+          <i class="zmdi zmdi-spinner zmdi-hc-spin" ng-show="$ctrl.loading"></i>
+        </span>
+        <input type="text" placeholder="{{::'MODULE.MESSAGING.CREATE_CHANNEL.USER.PLACEHOLDER' | translate}}"
+               ng-model="$ctrl.userSearchTerm"
+               ng-model-options="{ updateOn: 'default blur', debounce: {'default': $root.debounce.sm, 'blur': 0} }"
+               ng-change="$ctrl.loadUserOptions()"
+               focus-if="$ctrl.focusUserSearchTerm"
+               ng-blur="$ctrl.focusUserSearchTerm = false"
+               ng-keydown="$ctrl.addCurrentUser($event)">
+        <a ng-click="$ctrl.showUserOptions()" ng-if="$ctrl.channel.type === 'GROUP'" ng-hide="$ctrl.userOptionsVisible">
+          <i class="zmdi zmdi-plus-circle-o green"></i>
+        </a>
+        <a ng-click="$ctrl.hideUserOptions()" ng-if="$ctrl.channel.type === 'GROUP'" ng-show="$ctrl.userOptionsVisible">
+          <i class="zmdi zmdi-accounts white" ng-class="{ 'text-muted' : !$ctrl.channel.members.length }"></i>
+        </a>
+      </div>
+
+      <div class="messaging-channel-form-user-list">
+
+        <a class="messaging-channel-form-user-item"
+           ng-if="$ctrl.userOptionsVisible"
+           ng-repeat="user in $ctrl.userOptions"
+           ng-click="$ctrl.toggleMembership(user)">
+          <coyo-user-avatar user="user" avatar-size="xs" show-online-status="true" class="mr-xxs" no-link="true"></coyo-user-avatar>
+          <span class="user-name">{{user.displayName}}</span>
+          <i class="zmdi zmdi-plus-circle-o green" ng-if="$ctrl.channel.type === 'GROUP' && !$ctrl.isMember(user)"></i>
+          <i class="zmdi zmdi-close-circle-o" ng-if="$ctrl.channel.type === 'GROUP' && $ctrl.isMember(user)"></i>
+        </a>
+
+        <a class="messaging-channel-form-user-item"
+           ng-if="!$ctrl.userOptionsVisible && member.user.id !== $ctrl.currentUser.id"
+           ng-repeat="member in $ctrl.channel.members"
+           ng-click="$ctrl.removeUser(member.user)">
+          <coyo-user-avatar user="member.user" avatar-size="xs" show-online-status="true" class="mr-xxs" no-link="true"></coyo-user-avatar>
+          <span class="user-name">{{member.user.displayName}}</span>
+          <i class="zmdi zmdi-close-circle-o"></i>
+        </a>
+
+      </div>
+
+      <a ng-show="!$ctrl.loading && !$ctrl.userOptionsVisible && !$ctrl.userSearchTerm"
+         ng-click="$ctrl.createChannel()"
+         ng-disabled="!$ctrl.channel.members.length || !$ctrl.channel.name"
+         class="btn btn-dark btn-block">
+        <i class="zmdi zmdi-hc-fw zmdi-check"></i>&nbsp;<!--
+     --><span ng-if="$ctrl.channel.id" translate="SAVE"></span><!--
+     --><span ng-if="!$ctrl.channel.id" translate="MODULE.MESSAGING.CREATE_CHANNEL.SAVE"></span>
+      </a>
+    </div>
+
+    <!-- Spinner -->
+    <div class="text-center mt-xxs" ng-if="$ctrl.saving">
+      <coyo-spinner inverted="true" size="sm"></coyo-spinner>
+    </div>
+  </div>
+
+</div>

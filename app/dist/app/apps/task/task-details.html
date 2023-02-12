@@ -1,0 +1,12 @@
+<oyoc-create-task task-list="$ctrl.list" app="$ctrl.app" tasks="$ctrl.tasks" ng-if="$ctrl.app._permissions.manageTask"></oyoc-create-task>
+<div>
+  <oyoc-tasks-list class="task-list-undone" app="$ctrl.app" tasks="$ctrl.tasks" task-filter="$ctrl.undoneFilter" show-table-header="true" task-list="$ctrl.list"></oyoc-tasks-list>
+    <coyo-divider class="mv-xs" ng-if="$ctrl.hasUndoneTasks && $ctrl.hasDoneTasks()"">
+        <span translate="APP.TASK.TASKS.DONE"></span>
+    </coyo-divider>
+    <oyoc-tasks-list class="task-list-done" app="$ctrl.app" tasks="$ctrl.tasks" task-filter="$ctrl.doneFilter" task-list="$ctrl.list" class="mt-m done-tasks"></oyoc-tasks-list>
+</div>
+
+<p class="text-center text-muted mv-xs" ng-if="!$ctrl.tasks.length && !$ctrl.loading" translate="APP.TASK.TASKS.EMPTY_LIST"></p>
+<a ng-if="$ctrl.app._permissions.manageTask && $ctrl.hasDoneTasks()" class="btn btn-block btn-link mt-xxs clear-tasks"
+   ng-click="$ctrl.deleteAllDone()" translate="APP.TASK.DELETE.DONE"></a>

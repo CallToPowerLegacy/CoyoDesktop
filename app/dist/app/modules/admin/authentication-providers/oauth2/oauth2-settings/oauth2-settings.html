@@ -1,0 +1,188 @@
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.OAUTH2.PRESETS"></label>
+  <div class="col-sm-9">
+    <ui-select ng-model="$ctrl.preset" on-select="$ctrl.selectPreset($ctrl.preset)" search-enabled="false">
+      <ui-select-match>{{$ctrl.preset.name}}</ui-select-match>
+      <ui-select-choices repeat="preset in $ctrl.presets">{{::preset.name}}</ui-select-choices>
+    </ui-select>
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="ADMIN.AUTHENTICATION.OAUTH2.PRESETS.HELP"></coyo-help>
+  </div>
+</div>
+
+<uib-tabset justified="true" type="tabs">
+  <uib-tab select="$ctrl.activeTab = 'general'">
+    <uib-tab-heading>
+      <span class="tab-text" translate="ADMIN.AUTHENTICATION.OAUTH2.TABS.HEADINGS.GENERAL"></span>
+    </uib-tab-heading>
+  </uib-tab>
+</uib-tabset>
+
+<div ng-show="$ctrl.activeTab === 'general'">
+  <div class="form-group"
+       ng-class="{'has-error': $ctrl.form.mappingId.$invalid && $ctrl.form.mappingId.$touched}">
+    <label for="mappingId" class="col-sm-2 control-label"
+           translate="ADMIN.AUTHENTICATION.OAUTH2.MAPPING_ID"></label>
+    <div class="col-sm-9">
+      <input id="mappingId" name="mappingId" type="text" class="form-control"
+             ng-model="$ctrl.ngModel.properties.mappingId"
+             ng-required="true">
+      <ng-messages for="$ctrl.form.mappingId.$error" class="help-block validation">
+        <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+      </ng-messages>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="ADMIN.AUTHENTICATION.OAUTH2.MAPPING_ID.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <div class="form-group"
+       ng-class="{'has-error': $ctrl.form.clientId.$invalid && $ctrl.form.clientId.$touched}">
+    <label for="clientId" class="col-sm-2 control-label"
+           translate="ADMIN.AUTHENTICATION.OAUTH2.CLIENT_ID"></label>
+    <div class="col-sm-9">
+      <input id="clientId" name="clientId" type="text" class="form-control"
+             ng-model="$ctrl.ngModel.properties.clientId"
+             ng-required="true">
+      <ng-messages for="$ctrl.form.clientId.$error" class="help-block validation">
+        <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+      </ng-messages>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="ADMIN.AUTHENTICATION.OAUTH2.CLIENT_ID.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <div class="form-group"
+       ng-class="{'has-error': $ctrl.form.clientSecret.$invalid && $ctrl.form.clientSecret.$touched}">
+    <label for="clientSecret" class="col-sm-2 control-label"
+           translate="ADMIN.AUTHENTICATION.OAUTH2.CLIENT_SECRET"></label>
+    <div class="col-sm-9">
+      <input id="clientSecret" name="clientSecret" type="text" class="form-control"
+             ng-model="$ctrl.ngModel.properties.clientSecret"
+             ng-required="true">
+      <ng-messages for="$ctrl.form.clientSecret.$error" class="help-block validation">
+        <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+      </ng-messages>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="ADMIN.AUTHENTICATION.OAUTH2.CLIENT_SECRET.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <div class="form-group"
+       ng-class="{'has-error': $ctrl.form.authenticationEndpoint.$invalid && $ctrl.form.authenticationEndpoint.$touched}">
+    <label for="authenticationEndpoint" class="col-sm-2 control-label"
+           translate="ADMIN.AUTHENTICATION.OAUTH2.AUTH_ENDPOINT"></label>
+    <div class="col-sm-9">
+      <input id="authenticationEndpoint" name="authenticationEndpoint" type="url" class="form-control"
+             ng-model="$ctrl.ngModel.properties.authenticationEndpoint"
+             ng-required="true">
+      <ng-messages for="$ctrl.form.authenticationEndpoint.$error" class="help-block validation">
+        <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+      </ng-messages>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="ADMIN.AUTHENTICATION.OAUTH2.AUTH_ENDPOINT.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <div class="form-group"
+       ng-class="{'has-error': $ctrl.form.tokenEndpoint.$invalid && $ctrl.form.tokenEndpoint.$touched}">
+    <label for="tokenEndpoint" class="col-sm-2 control-label"
+           translate="ADMIN.AUTHENTICATION.OAUTH2.TOKEN_ENDPOINT"></label>
+    <div class="col-sm-9">
+      <input id="tokenEndpoint" name="tokenEndpoint" type="url" class="form-control"
+             ng-model="$ctrl.ngModel.properties.tokenEndpoint"
+             ng-required="true">
+      <ng-messages for="$ctrl.form.tokenEndpoint.$error" class="help-block validation">
+        <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+      </ng-messages>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="ADMIN.AUTHENTICATION.OAUTH2.TOKEN_ENDPOINT.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <div class="form-group"
+       ng-class="{'has-error': $ctrl.form.userInfoEndpoint.$invalid && $ctrl.form.userInfoEndpoint.$touched}">
+    <label for="userInfoEndpoint" class="col-sm-2 control-label"
+           translate="ADMIN.AUTHENTICATION.OAUTH2.USER_INFO_ENDPOINT"></label>
+    <div class="col-sm-9">
+      <input id="userInfoEndpoint" name="userInfoEndpoint" type="url" class="form-control"
+             ng-model="$ctrl.ngModel.properties.userInfoEndpoint"
+             ng-required="true">
+      <ng-messages for="$ctrl.form.userInfoEndpoint.$error" class="help-block validation">
+        <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+      </ng-messages>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="ADMIN.AUTHENTICATION.OAUTH2.USER_INFO_ENDPOINT.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <div class="form-group" ng-class="{'has-error': $ctrl.form.scope.$invalid && $ctrl.form.scope.$touched}">
+    <label for="scope" class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.OAUTH2.SCOPE"></label>
+    <div class="col-sm-9">
+      <input id="scope" name="scope" type="text" class="form-control" ng-model="$ctrl.ngModel.properties.scope">
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="ADMIN.AUTHENTICATION.OAUTH2.SCOPE.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <div class="form-group"
+       ng-class="{'has-error': $ctrl.form.authenticationScheme.$invalid && $ctrl.form.authenticationScheme.$touched}">
+    <label class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.OAUTH2.AUTH_SCHEMA"></label>
+    <div class="col-sm-9">
+      <ui-select ng-model="$ctrl.ngModel.properties.authenticationScheme">
+        <ui-select-match allow-clear="false">
+          {{$ctrl.ngModel.properties.authenticationScheme}}
+        </ui-select-match>
+        <ui-select-choices repeat="schema in $ctrl.schemas">
+          {{::schema}}
+        </ui-select-choices>
+      </ui-select>
+      <ng-messages for="$ctrl.form.authenticationScheme.$error" class="help-block validation">
+        <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+      </ng-messages>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="ADMIN.AUTHENTICATION.OAUTH2.AUTH_SCHEMA.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <div class="form-group"
+       ng-class="{'has-error': $ctrl.form.clientAuthenticationScheme.$invalid && $ctrl.form.clientAuthenticationScheme.$touched}">
+    <label class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.OAUTH2.CLIENT_SCHEMA"></label>
+    <div class="col-sm-9">
+      <ui-select ng-model="$ctrl.ngModel.properties.clientAuthenticationScheme">
+        <ui-select-match allow-clear="false">
+          {{$ctrl.ngModel.properties.clientAuthenticationScheme}}
+        </ui-select-match>
+        <ui-select-choices repeat="schema in $ctrl.schemas">
+          {{::schema}}
+        </ui-select-choices>
+      </ui-select>
+      <ng-messages for="$ctrl.form.clientAuthenticationScheme.$error" class="help-block validation">
+        <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+      </ng-messages>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="ADMIN.AUTHENTICATION.OAUTH2.CLIENT_SCHEMA.HELP"></coyo-help>
+    </div>
+  </div>
+</div>
+
+<hr/>
+
+<div class="alert alert-info">
+  <strong translate="ADMIN.AUTHENTICATION.OAUTH2.REDIRECT_URL"></strong>
+  <p ng-if="$ctrl.ngModel.extendedInfo.redirectUrl && $ctrl.ngModel.slug === $ctrl.oldSlug">
+    {{$ctrl.ngModel.extendedInfo.redirectUrl}}
+  </p>
+  <p ng-if="!($ctrl.ngModel.extendedInfo.redirectUrl && $ctrl.ngModel.slug === $ctrl.oldSlug)">
+    <span translate="ADMIN.AUTHENTICATION.OAUTH2.REDIRECT_URL.NOT_YET"></span>
+  </p>
+</div>

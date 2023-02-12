@@ -1,0 +1,9 @@
+/* Hides the demo well in the ngdocs */
+
+#example_demo {
+  display: none !important;
+}
+
+.doc-example-live {
+  display: none !important;
+}

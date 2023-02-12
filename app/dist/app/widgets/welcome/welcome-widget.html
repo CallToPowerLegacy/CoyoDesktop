@@ -1,0 +1,11 @@
+<div class="welcome-widget panel panel-default panel-sm"
+     ng-style="$ctrl.getCoverStyle()"
+     ng-class="{'show-cover': $ctrl.showCover()}">
+  <div class="panel-body user-info">
+    <coyo-user-avatar user="$ctrl.currentUser" show-online-status="true"></coyo-user-avatar>
+    <div class="user-name">
+      {{ $ctrl.widget.settings.welcomeText }}<br>
+      <strong>{{:: $ctrl.currentUser.displayName }}</strong>
+    </div>
+  </div>
+</div>

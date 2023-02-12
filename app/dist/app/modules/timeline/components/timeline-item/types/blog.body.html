@@ -1,0 +1,23 @@
+<div class="panel-body timeline-item-body" ng-controller="BlogTimelineItemController as tlBlog">
+  <div class="article-body">
+    <div class="teaser-image clickable" ng-click="tlBlog.openArticle(tlItem.ngModel.data.article)">
+      <coyo-image-reference file-id="::tlItem.ngModel.data.article.teaserImage.fileId"
+                            sender-id="::tlItem.ngModel.data.article.teaserImage.senderId"
+                            size-definitions="{'default': 'S', 'screen-lg': 'M'}"
+                            placeholder-url="'/assets/images/apps/blogshare_placeholder.svg'"></coyo-image-reference>
+    </div>
+    <div class="message" ng-if="::tlItem.ngModel.data.article.published">
+      <!--<pre>{{tlItem.ngModel | json}}</pre>-->
+      <h1 class="article-title clickable" ng-click="tlBlog.openArticle(tlItem.ngModel.data.article)">
+        <small>{{:: tlItem.ngModel.data.article.app.name }}</small>
+        {{:: tlItem.ngModel.data.article.title }}
+      </h1>
+      <span class="article-teaser-text"
+            ng-bind-html=":: tlItem.ngModel.data.article.teaserText | hashtag | nl2br"></span>
+      &nbsp;<a translate="APP.BLOG.READ_MORE" class="article-teaser-readmore" ng-click="tlBlog.openArticle(tlItem.ngModel.data.article)"></a>
+    </div>
+    <div class="message" ng-if="::!tlItem.ngModel.data.article.published">
+      <div class="alert alert-warning"><span translate="MODULE.TIMELINE.BLOG.WARNING"></span>&nbsp;<a coyo-sender-link="::tlItem.ngModel.author">{{::tlItem.ngModel.author.displayName}}</a>&nbsp;<span translate="MODULE.TIMELINE.BLOG.WARNING2"></span></div>
+    </div>
+  </div>
+</div>

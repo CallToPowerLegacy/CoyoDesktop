@@ -1,0 +1,28 @@
+.coyo-pagination {
+
+  &.pagination {
+
+    .pagination-prev a, .pagination-next a {
+      font-size: 32px;
+      background-color: $color-white;
+      width: 46px;
+      height: 46px;
+
+      @media screen and (min-width: $screen-md-min) {
+        font-size: 16px;
+        background-color: transparent;
+        width: auto;
+        height: auto;
+      }
+    }
+
+    .pagination-page {
+      display: none;
+
+      @media screen and (min-width: $screen-md-min) {
+        display: inline;
+      }
+    }
+  }
+
+}

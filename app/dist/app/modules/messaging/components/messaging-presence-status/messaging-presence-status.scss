@@ -1,0 +1,57 @@
+.messaging-presence-status {
+
+  ul.presence-status-state {
+    margin: 12px 0 0;
+    overflow: hidden;
+
+    li a {
+      background-color: $color-black;
+      color: $color-gray;
+      margin-top: 1px;
+      line-height: 30px;
+    }
+
+    li a:hover, li.active a {
+      background-color: lighten($color-black, 3%);
+      border-color: $color-gray !important;
+      color: $color-gray-light;
+    }
+
+    .zmdi.zmdi-circle {
+      line-height: 30px;
+      @include presence-status-color();
+    }
+  }
+
+  textarea.presence-status-label {
+    background: $color-black;
+    border: 0;
+    border-radius: 0;
+    color: $color-gray-light;
+    margin: 12px 0 0;
+    resize: none;
+
+    &:focus {
+      border: 0;
+      box-shadow: none !important;
+    }
+  }
+
+  .btn-group {
+    width: 100%;
+
+    button {
+      width: 50%;
+      background-color: $color-black;
+      color: $color-gray;
+      border-color: $color-messaging-sidebar-bg;
+      border-right: 0 none;
+      border-radius: 0;
+
+      &:hover {
+        background-color: lighten($color-black, 3%);
+        color: $color-gray-light;
+      }
+    }
+  }
+}

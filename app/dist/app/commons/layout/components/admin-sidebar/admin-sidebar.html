@@ -1,0 +1,218 @@
+<nav class="sidebar sidebar-admin" ng-class="{ 'slide-in' : $ctrl.showSidebar }">
+
+  <ul class="nav nav-icons">
+    <li class="sidebar-headline hidden-md" translate="NAVIGATION.HEADLINE_ADMIN"></li>
+
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_USERS_GROUPS_ROLES">
+      <a ui-sref-active="active" ui-sref="admin.user-management"
+         ng-click="$ctrl.close()"
+         uib-tooltip="{{::'ADMIN.MENU.USER_MGMT' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-account"></i>
+        <span translate="ADMIN.MENU.USER_MGMT"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_SETTINGS">
+      <a ui-sref-active="active"
+         ui-sref="admin.settings"
+         uib-tooltip="{{::'ADMIN.MENU.SETTINGS' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-settings"></i>
+        <span translate="ADMIN.MENU.SETTINGS"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_SECURITY">
+      <a ui-sref-active="active"
+         ui-sref="admin.security"
+         uib-tooltip="{{::'ADMIN.MENU.SECURITY' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-shield-security"></i>
+        <span translate="ADMIN.MENU.SECURITY"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_APPS_WIDGETS">
+      <a ui-sref-active="active"
+         ui-sref="admin.apps-widgets"
+         uib-tooltip-html="::'ADMIN.MENU.APPS_WIDGETS' | translate"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-puzzle-piece"></i>
+        <span translate="ADMIN.MENU.APPS_WIDGETS"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_LANDING_PAGES">
+      <a ui-sref-active="active"
+         ui-sref="admin.landing-pages.list"
+         uib-tooltip-html="::'ADMIN.MENU.LANDING_PAGES' | translate"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-globe"></i>
+        <span translate="ADMIN.MENU.LANDING_PAGES"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_LAUNCHPAD">
+      <a ui-sref-active="active"
+         ui-sref="admin.launchpad.list"
+         uib-tooltip="{{::'ADMIN.MENU.LAUNCHPAD' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-bookmark-outline"></i>
+        <span translate="ADMIN.MENU.LAUNCHPAD"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_THEMES">
+      <a ui-sref-active="active"
+         ui-sref="admin.themes.list"
+         uib-tooltip="{{::'ADMIN.MENU.THEMES' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-invert-colors"></i>
+        <span translate="ADMIN.MENU.THEMES"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_LANGUAGES">
+      <a id="admin-sidebar-multiLanguage"
+         ui-sref-active="active"
+         ui-sref="admin.multi-language"
+         uib-tooltip="{{::'ADMIN.MENU.MULTI_LANGUAGE' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-flag"></i>
+        <span translate="ADMIN.MENU.MULTI_LANGUAGE"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_USER_DIRECTORIES">
+      <a ui-sref-active="active"
+         ui-sref="admin.user-directories.list"
+         uib-tooltip="{{::'ADMIN.MENU.USER_DIRECTORIES' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-accounts-list"></i>
+        <span translate="ADMIN.MENU.USER_DIRECTORIES"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_AUTHENTICATION_PROVIDER_CONFIGS">
+      <a ui-sref-active="active"
+         ui-sref="admin.authentication-providers.list"
+         uib-tooltip="{{::'ADMIN.MENU.AUTHENTICATION_PROVIDERS' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-lock-open"></i>
+        <span translate="ADMIN.MENU.AUTHENTICATION_PROVIDERS"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_API_CLIENTS">
+      <a ui-sref-active="active"
+         ui-sref="admin.api-clients.list"
+         uib-tooltip="{{::'ADMIN.MENU.API_CLIENTS' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-key"></i>
+        <span translate="ADMIN.MENU.API_CLIENTS"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_TERMS">
+      <a ui-sref-active="active"
+         ui-sref="admin.terms"
+         uib-tooltip="{{::'ADMIN.MENU.TERMS' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-shield-security"></i>
+        <span translate="ADMIN.MENU.TERMS"></span>
+        </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_JOBS">
+      <a ui-sref-active="active"
+         ui-sref="admin.jobs.list"
+         uib-tooltip="{{::'ADMIN.MENU.JOBS' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-time"></i>
+        <span translate="ADMIN.MENU.JOBS"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" coyo-global-permissions="MANAGE_STATISTICS">
+      <a ui-sref-active="active"
+         ui-sref="admin.statistics"
+         uib-tooltip="{{::'ADMIN.MENU.STATISTICS' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-chart"></i>
+        <span translate="ADMIN.MENU.STATISTICS"></span>
+      </a>
+    </li>
+    <!--
+    <li class="nav-sidebar-item">
+      <a ui-sref="admin">
+        <i class="zmdi zmdi-chart-donut"></i>
+        <span translate="ADMIN.MENU.REPORTS"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item">
+      <a ui-sref="admin">
+        <i class="zmdi zmdi-notifications"></i>
+        <span translate="ADMIN.MENU.NOTIFICATIONS"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item">
+      <a ui-sref="admin">
+        <i class="zmdi zmdi-text-format"></i>
+        <span translate="ADMIN.MENU.INTERNATIONALIZATION"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item">
+      <a ui-sref="admin">
+        <i class="zmdi zmdi-search"></i>
+        <span translate="ADMIN.MENU.SEARCH"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item">
+      <a ui-sref="admin">
+        <i class="zmdi zmdi-tag-more"></i>
+        <span translate="ADMIN.MENU.HASHTAGS"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item">
+      <a ui-sref="admin">
+        <i class="zmdi zmdi-info-outline"></i>
+        <span translate="ADMIN.MENU.SYSTEM_INFO"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item">
+      <a ui-sref="admin">
+        <i class="zmdi zmdi-key"></i>
+        <span translate="ADMIN.MENU.LICENSE"></span>
+      </a>
+    </li>
+    -->
+
+    <li class="nav-sidebar-item mt-s">
+      <a ui-sref="main"
+         uib-tooltip="{{::'ADMIN.MENU.EXIT' | translate}}"
+         tooltip-placement="right"
+         tooltip-append-to-body="true"
+         tooltip-class="admin-sidebar-tooltip">
+        <i class="zmdi zmdi-close-circle-o"></i>
+        <span translate="ADMIN.MENU.EXIT"></span>
+      </a>
+    </li>
+  </ul>
+
+</nav>

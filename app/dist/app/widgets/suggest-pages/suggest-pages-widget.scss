@@ -1,0 +1,15 @@
+.page-widget {
+  h4.widget-title {
+    margin-bottom: 0;
+    padding-bottom: 8px;
+  }
+
+  .nav.nav-icons > li {
+    margin-left: -30px;
+    margin-right: -30px;
+
+    a:focus {
+      outline: none;
+    }
+  }
+}

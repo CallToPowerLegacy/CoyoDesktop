@@ -1,0 +1,205 @@
+<form class="admin-theme-details" name="themeForm" coyo-form-submit="$ctrl.save()" novalidate>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <a class="btn btn-primary pull-right" ng-if="::!$ctrl.theme.isNew() && $ctrl.themes.length === 1" ui-sref="admin.themes.create">
+        <i class="zmdi zmdi-plus-circle"></i>&nbsp;{{:: 'ADMIN.THEMES.OPTIONS.CREATE' | translate }}
+      </a>
+      <h1 class="panel-title" ng-if="::!$ctrl.theme.isNew()">{{:: 'ADMIN.THEMES.OPTIONS.EDIT' | translate}} <small>{{:: $ctrl.theme.displayName }}</small></h1>
+      <h1 class="panel-title" ng-if="::$ctrl.theme.isNew()" translate="ADMIN.THEMES.OPTIONS.CREATE"></h1>
+    </div>
+    <div class="panel-body form-horizontal">
+      <!-- Basic settings -->
+
+      <div class="form-group" ng-class="{'has-error': themeForm.name.$invalid && themeForm.name.$touched}">
+        <label for="name" class="col-sm-2 control-label" translate="ADMIN.THEMES.NAME.LABEL"></label>
+        <div class="col-sm-10">
+          <div class="input-group">
+            <input id="name" name="name" type="text" class="form-control"
+                   ng-model="$ctrl.theme.name" maxlength="255"
+                   ng-required="true" coyo-check-theme-name="{{::$ctrl.theme.id}}"
+                   ng-model-options="{ updateOn: 'default blur', debounce: {'default': $root.debounce.sm, 'blur': 0} }">
+            <div class="input-group-addon">
+              <coyo-validation-status-icon form-field="themeForm.name"></coyo-validation-status-icon>
+            </div>
+          </div>
+          <ng-messages for="themeForm.name.$error" class="help-block validation">
+            <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+            <p ng-message="themeName" translate="ERRORS.VALIDATION.ALREADY_TAKEN"></p>
+          </ng-messages>
+        </div>
+      </div>
+
+      <div ng-if="::!$ctrl.theme.default">
+        <div class="form-group">
+          <label for="active" class="col-sm-2 control-label" translate="ADMIN.THEMES.ACTIVE.LABEL"></label>
+          <div class="col-sm-10">
+            <div class="checkbox">
+              <label>
+                <coyo-checkbox id="active" name="active" ng-model="$ctrl.theme.active"></coyo-checkbox>
+                {{:: 'ADMIN.THEMES.ACTIVE.HELP' | translate}}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <hr class="lighter">
+
+        <div class="form-group" ng-class="{'has-error': themeForm.users.$invalid}">
+          <label class="col-sm-2 control-label" translate="ADMIN.THEMES.USERS.LABEL"></label>
+          <div class="col-sm-10">
+            <coyo-user-chooser ng-model="$ctrl.theme" users-field="userIds" groups-field="userGroupIds"></coyo-user-chooser>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advanced settings -->
+
+      <uib-tabset justified="true" type="tabs">
+        <uib-tab select="$ctrl.activeTab = 'colors'">
+          <uib-tab-heading translate="ADMIN.THEMES.COLORS.TITLE"></uib-tab-heading>
+        </uib-tab>
+        <uib-tab select="$ctrl.activeTab = 'logos'">
+          <uib-tab-heading translate="ADMIN.THEMES.LOGOS.TITLE"></uib-tab-heading>
+        </uib-tab>
+        <uib-tab select="$ctrl.activeTab = 'advanced'">
+          <uib-tab-heading translate="ADMIN.THEMES.ADVANCED.TITLE"></uib-tab-heading>
+        </uib-tab>
+      </uib-tabset>
+
+      <div class="alert alert-danger" ng-if="$ctrl.errorMessage">{{::'ADMIN.THEMES.ERROR' | translate}} {{$ctrl.errorMessage}}</div>
+
+      <div class="admin-theme-details-colors" ng-show="$ctrl.activeTab === 'colors'">
+        <div class="row">
+          <div class="col-sm-6 row"
+               ng-repeat="settingConfig in ::$ctrl.settingConfigs"
+               ng-class="{'has-error': themeForm['setting_' + settingConfig.key].$invalid}">
+            <label class="col-lg-6 control-label">{{::settingConfig.displayName | translate}}</label>
+            <div class="col-lg-6 input-group">
+              <label for="theme_setting_{{::settingConfig.key}}" class="input-group-addon pointer"
+                     ng-style="{'background-color': $ctrl.theme.settings[settingConfig.key] || settingConfig.defaultValue}">
+              </label>
+              <input colorpicker
+                     colorpicker-size="200"
+                     id="theme_setting_{{::settingConfig.key}}"
+                     name="theme_setting_{{::settingConfig.key}}"
+                     type="text"
+                     class="form-control"
+                     placeholder="{{::settingConfig.defaultValue}}"
+                     ng-pattern="'^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$'"
+                     ng-model="$ctrl.theme.settings[settingConfig.key]">
+              <span class="input-group-addon"
+                    ng-if="!$ctrl.theme.settings[settingConfig.key]"></span>
+              <span class="input-group-addon pointer"
+                    ng-if="$ctrl.theme.settings[settingConfig.key]"
+                    ng-click="$ctrl.theme.settings[settingConfig.key] = null"
+                    uib-tooltip="{{::'ADMIN.THEMES.COLORS.RESTORE_DEFAULT' | translate}}"
+                    tooltip-popup-delay="500"
+                    tooltip-placement="right"
+                    tooltip-append-to-body="true">
+                <i class="zmdi zmdi-close-circle theme-clear"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-theme-details-logos" ng-show="$ctrl.activeTab === 'logos'">
+        <div class="form-group" ng-repeat="imageConfig in ::$ctrl.imageConfigs">
+          <label class="col-sm-2 control-label" translate="{{::imageConfig.displayName}}"></label>
+          <div class="col-sm-9">
+            <span class="pointer"
+                  ngf-select
+                  ngf-change="$ctrl.uploadImage(imageConfig.key)"
+                  ng-model="$ctrl.images[imageConfig.key].fileToUpload"
+                  ngf-accept="imageConfig.acceptTypes"
+                  uib-tooltip="{{::'ADMIN.THEMES.LOGOS.SELECT' | translate}}"
+                  tooltip-popup-delay="500"
+                  tooltip-placement="right"
+                  tooltip-append-to-body="true">
+                <img class="preview" ngf-src="$ctrl.images[imageConfig.key].file" ng-style="{
+                  'max-height': imageConfig.height ? imageConfig.height : 'inherit',
+                  'max-width': imageConfig.width ? imageConfig.width : 'inherit'}">
+                <img class="preview" ng-if="!$ctrl.images[imageConfig.key].file"
+                     ng-src="{{$ctrl.getImgUrl($ctrl.theme.settings[imageConfig.key]) || imageConfig.defaultUrl}}" ng-style="{
+                       'max-height': imageConfig.height ? imageConfig.height : 'inherit',
+                       'max-width': imageConfig.width ? imageConfig.width : 'inherit'}">
+            </span>
+            <span ng-if="$ctrl.theme.settings[imageConfig.key] || $ctrl.images[imageConfig.key].file"
+                  class="pointer"
+                  uib-tooltip="{{::'ADMIN.THEMES.LOGOS.REMOVE' | translate}}"
+                  tooltip-popup-delay="500"
+                  tooltip-placement="right"
+                  tooltip-append-to-body="true"
+                  ng-click="$ctrl.removeImage(imageConfig.key)"><i class="zmdi zmdi-close-circle theme-clear"></i></span>
+          </div>
+          <div class="col-sm-1 hidden-xs text-right">
+            <coyo-help tip="{{::imageConfig.help}}"></coyo-help>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-theme-details-advanced" ng-show="$ctrl.activeTab === 'advanced'">
+        <label for="scss" class="control-label pb-xxs" translate="ADMIN.THEMES.ADVANCED.SCSS"></label>
+        <coyo-help class="hidden-xs pull-right mt-xxs" tip="ADMIN.THEMES.ADVANCED.SCSS.HELP"></coyo-help>
+        <textarea id="scss"
+                  class="form-control mb-s"
+                  ng-model="$ctrl.theme.scss"
+                  rows="10"
+                  ng-attr-placeholder="{{::'ADMIN.THEMES.ADVANCED.SCSS.PLACEHOLDER' | translate}}"></textarea>
+        <label class="control-label pb-xxs" translate="ADMIN.THEMES.ADVANCED.ADDITIONAL.TITLE"></label>
+        <coyo-help class="hidden-xs pull-right mt-xxs" tip="ADMIN.THEMES.ADVANCED.ADDITIONAL.HELP"></coyo-help>
+        <table class="table table-default table-striped table-condensed">
+          <tbody>
+          <tr ng-if="!$ctrl.variables.length">
+            <td colspan="3" class="text-center text-muted">
+              <div class="pv-xxs" translate="ADMIN.THEMES.ADVANCED.ADDITIONAL.EMPTY"></div>
+            </td>
+          </tr>
+          <tr ng-repeat="variable in $ctrl.variables">
+            <td ng-class="{'has-error': form['key_' + $index].$invalid && form['key_' + $index].$touched}">
+              <input class="form-control"
+                     type="text"
+                     id="theme_key_{{::$index}}"
+                     name="theme_key_{{::$index}}"
+                     ng-model="variable.key"
+                     required
+                     placeholder="{{::'ADMIN.THEMES.ADVANCED.ADDITIONAL.KEY_PLACEHOLDER' | translate}}">
+            </td>
+            <td ng-class="{'has-error': form['value_' + $index].$invalid && form['value_' + $index].$touched}">
+              <input class="form-control"
+                     type="text"
+                     id="theme_value_{{::$index}}"
+                     name="theme_value_{{::$index}}"
+                     ng-model="variable.value"
+                     required
+                     placeholder="{{::'ADMIN.THEMES.ADVANCED.ADDITIONAL.VALUE_PLACEHOLDER' | translate}}">
+            </td>
+            <td width="1px;">
+              <span class="theme-variable-remove" ng-click="$ctrl.removeVariable($index)">
+                <i class="zmdi zmdi-close-circle theme-clear"></i>
+              </span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-default" ng-click="$ctrl.addVariable()">
+          <i class="zmdi zmdi-hc-fw zmdi-plus-circle"></i>&nbsp;{{::'ADMIN.THEMES.ADVANCED.ADDITIONAL.ADD' | translate}}
+        </button>
+      </div>
+    </div>
+
+    <div class="panel-footer panel-actions">
+      <div class="row">
+        <div class="col-sm-10 col-sm-push-2">
+          <coyo-form-submit-button form-ctrl="themeForm" label="SAVE"></coyo-form-submit-button><!--
+       --><a ui-sref="^.list" ng-if="::$ctrl.theme.isNew()" class="btn btn-default">
+            <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{::'CANCEL' | translate}}
+          </a><!--
+       --><a ui-sref="^.list" ng-if="::!$ctrl.theme.isNew() && $ctrl.themes.length > 1" class="btn btn-default">
+          <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{::'CANCEL' | translate}}
+        </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

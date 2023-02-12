@@ -1,0 +1,9 @@
+<div class="code-widget">
+  <div ng-if="$ctrl.valid">
+    <coyo-refresh watch="$ctrl.refresh">
+      <div ng-bind-html="$ctrl.html"></div>
+    </coyo-refresh>
+  </div>
+    
+  <div class="alert alert-warning" ng-if="!$ctrl.valid" translate="WIDGET.CODE.SETTINGS.INVALID">
+</div>

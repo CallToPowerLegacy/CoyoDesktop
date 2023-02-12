@@ -1,0 +1,14 @@
+<input ng-if="!config.settings.multiline" name="{{:: settingsForm.getFieldName(config)}}" id="text-{{::config.id}}" class="form-control"
+       ng-model="model.value" ng-minlength="{{config.settings.minlength}}" ng-maxlength="{{config.settings.maxlength}}"
+       ng-required="config.required" type="text">
+
+<textarea ng-if="config.settings.multiline" name="{{:: settingsForm.getFieldName(config)}}" id="textarea-{{::config.id}}" class="form-control"
+          ng-model="model.value" ng-minlength="{{config.settings.minlength}}" ng-maxlength="{{config.settings.maxlength}}"
+          ng-required="config.required"
+          msd-elastic rows="3"></textarea>
+<div ng-if="settingsForm.getField(config).$dirty">
+    <p class="help-block" ng-if="settingsForm.getField(config).$error.minlength"
+       translate="APP.LIST.FIELDS.TEXT.ERROR.MINLENGTH" translate-values="{minlength: config.settings.minlength}"></p>
+    <p class="help-block" ng-if="settingsForm.getField(config).$error.maxlength"
+       translate="APP.LIST.FIELDS.TEXT.ERROR.MAXLENGTH" translate-values="{maxlength: config.settings.maxlength}"></p>
+</div>

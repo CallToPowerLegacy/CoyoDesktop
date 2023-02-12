@@ -1,0 +1,64 @@
+.sidebar.sidebar-admin {
+  @media screen and (min-width: $screen-md-min) {
+    flex: none;
+    position: static;
+    height: 100vh;
+    width: auto;
+    margin-top: 0;
+    overflow: visible;
+    background-color: $color-background-admin-sidebar;
+
+    .nav-sidebar-item {
+      a {
+        border-color: transparent;
+        color: $color-link-admin-sidebar;
+
+        &.active, &:hover, &:focus, &:active {
+          color: $color-white;
+          background-color: darken($color-primary-admin, 3%);
+          border-color: darken($color-primary-admin, 7%);
+        }
+      }
+    }
+
+    .sidebar-headline {
+      border-color: rgba(255, 255, 255, 0.15);
+      color: $color-white;
+    }
+
+    /* FIX height bug in IE */
+    &:before {
+      content: "";
+      height: 100%;
+      width: 67px;
+      position: absolute;
+      background-color: $color-background-admin-sidebar;
+    }
+  }
+
+  @media screen and (min-width: $screen-lg-min) {
+    margin-top: 0;
+    width: 250px;
+    flex-basis: 250px;
+
+    &:before {
+      width: 250px;
+    }
+  }
+
+  @media screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    @include sidebar-collapsed();
+
+    &:before {
+      display: none;
+    }
+  }
+}
+
+.tooltip.admin-sidebar-tooltip {
+  display: none !important;
+
+  @media screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    display: block !important;;
+  }
+}

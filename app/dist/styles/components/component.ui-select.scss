@@ -1,0 +1,69 @@
+.ui-select-container {
+  input[type="search"] {
+    /* to fix mobile chrome bug */
+    width: 100% !important;
+  }
+}
+
+.ui-select-toggle {
+  background: #fff !important;
+  padding-right: 32px;
+  box-shadow: none !important;
+
+  &:hover {
+    border-color: $color-gray-light;
+  }
+
+  span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .btn-link {
+    margin-top: 0 !important;
+    margin-right: 15px !important;
+
+    i {
+      color: $color-gray;
+      display: inline-block;
+      font: normal normal normal 16px/1 'Material-Design-Iconic-Font';
+      margin-right: 0;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+
+      &:before {
+        content: '\f136';
+      }
+    }
+  }
+}
+
+.ui-select-highlight {
+  background-color: transparentize(#428bca, .75);
+  font-weight: normal;
+}
+
+.ui-select-bootstrap .ui-select-choices-row .text-muted {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ui-select-bootstrap .ui-select-choices-row>span {
+  display: block;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+
+.ui-select-bootstrap .ui-select-choices-row.active>span {
+  color: $color-white;
+  background-color: $color-primary;
+
+  .text-muted {
+    color: #fff;
+  }
+  .ui-select-highlight {
+    background-color: transparentize(#fff, .6);
+  }
+}

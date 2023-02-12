@@ -1,0 +1,42 @@
+<div class="profile-tab profile-overview content-with-sidebar">
+
+  <!-- Widget Slot -->
+  <coyo-widget-slot class="widget-slot-content"
+               name="profile-overview-content"
+               hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+  <div class="content-sidebar hidden-xs hidden-sm">
+    <div class="panel panel-default">
+      <div class="panel-body quick-info">
+        <dl>
+          <dt ng-show="profileCtrl.user.email" translate="USER.EMAIL"></dt><dd><a href="mailto:{{profileCtrl.user.email}}">{{ profileCtrl.user.email }}</a></dd>
+          <dt ng-show="profileCtrl.user.properties.phone" translate="USER.PHONE"></dt><dd>{{ profileCtrl.user.properties.phone }}</dd>
+          <dt ng-show="profileCtrl.user.properties.department" translate="USER.DEPARTMENT"></dt><dd>{{ profileCtrl.user.properties.department }}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-main">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          Overview
+        </h3>
+      </div>
+      <div class="panel-body">
+        Have a look at the <a ui-sref="main.profile.info">info tab</a> to get more information.
+        <a href="" class="btn btn-primary btn-block" coyo-file-library-trigger sender="profileCtrl.user">
+          Open File Library
+        </a>
+        <coyo-file-picker sender="::profileCtrl.user"
+                          ng-model="profileCtrl.files">
+        </coyo-file-picker>
+        <coyo-file-picker sender="::profileCtrl.user"
+                          ng-model="profileCtrl.file"
+                          options="{selectMode: 'single'}">
+        </coyo-file-picker>
+      </div>
+    </div>
+  </div>
+</div>

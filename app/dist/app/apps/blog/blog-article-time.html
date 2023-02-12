@@ -1,0 +1,9 @@
+<span class="article-time"><!--
+--><span class="label label-warning"
+        ng-if="article.publishDate && !article.published"
+        uib-tooltip="{{:: 'APP.BLOG.SCHEDULED_FOR' | translate}}"
+        tooltip-placement="top"
+        tooltip-append-to-body="true"><i class="zmdi zmdi-time zmdi-wide"></i>{{ article.publishDate | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short }}</span><!--
+--><span class="time" ng-if="article.published">{{ article.publishDate | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short }}</span><!--
+--><span class="label label-danger" ng-if="!article.publishDate && !article.published" translate="APP.BLOG.DRAFT"></span>
+</span>

@@ -1,0 +1,17 @@
+<div class="admin-terms" ng-cloak>
+  <div class="panel panel-default panel-tabs">
+    <uib-tabset justified="true" active="-1">
+      <uib-tab ui-sref="admin.terms.general" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-shield-security zmdi-wide"></i> <span class="tab-text" translate="ADMIN.TERMS.GENERAL"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.terms.log" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-storage zmdi-wide"></i> <span class="tab-text" translate="ADMIN.TERMS.LOG"></span>
+        </uib-tab-heading>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+  <div ui-view></div>
+</div>

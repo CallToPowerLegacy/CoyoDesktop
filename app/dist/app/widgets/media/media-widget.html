@@ -1,0 +1,42 @@
+<div class="media-widget">
+  <div class="col-xs-12 heading"
+       ng-if="$ctrl.widget.settings.album.title || $ctrl.widget.settings.album.description || $ctrl.widget.settings.album.location">
+    <h3 class="title" ng-if="$ctrl.widget.settings.album.title">{{$ctrl.widget.settings.album.title}}</h3>
+    <h5 class="description" ng-if="$ctrl.widget.settings.album.description">
+      {{$ctrl.widget.settings.album.description}}
+    </h5>
+    <span class="location" ng-if="$ctrl.widget.settings.album.location">
+      <i class="zmdi zmdi-pin"></i>{{$ctrl.widget.settings.album.location}}
+    </span>
+  </div>
+  <div class="media-tiles" ng-click="$ctrl.openLightBoxModal(media.id)"
+       ng-repeat="media in $ctrl.widget.settings._media | filter:{preview:true} | orderBy: 'sortOrderId'">
+    <coyo-cover-image-reference ng-if="::$ctrl.isImage(media.contentType)"
+                          file-id="media.id"
+                          sender-id="media.senderId"
+                          size-definitions="{'default': 'S', 'screen-xs': 'S', 'screen-sm': 'S', 'screen-md': 'S', 'screen-lg': 'S'}"
+                          uib-tooltip="{{ media.description.length > 0 ? media.description : media.name }}"
+                          tooltip-placement="top"
+                          tooltip-append-to-body="true"
+                          tooltip-popup-delay="500"
+                          tooltip-enable="!$root.screenSize.isXs">
+    </coyo-cover-image-reference>
+
+    <coyo-video-reference ng-if="::$ctrl.isVideo(media.contentType)"
+                          file="media"
+                          url="$ctrl.previewUrl"
+                          group-id="media.senderId"
+                          show-controls="false"
+                          show-preview="false"
+                          uib-tooltip="{{ media.description.length > 0 ? media.description : media.name }}"
+                          tooltip-placement="top"
+                          tooltip-append-to-body="true"
+                          tooltip-popup-delay="500"
+                          tooltip-enable="!$root.screenSize.isXs">
+    </coyo-video-reference>
+  </div>
+
+  <h4 class="empty-media" ng-if="$ctrl.widget.settings._media.length === 0">
+    {{::'WIDGET.MEDIA.SETTINGS.MEDIA.EMPTY' | translate}}
+  </h4>
+</div>

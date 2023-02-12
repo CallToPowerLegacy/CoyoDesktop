@@ -1,0 +1,86 @@
+<div class="panel" css-class="$ctrl.cssShakeClass" coyo-shake signal="$ctrl.signal">
+  <div ng-if="$ctrl.error" ng-class="{'error-message': $ctrl.error, 'fade-in': $ctrl.error}"
+       translate="{{$ctrl.error}}"></div>
+  <div class="panel-body">
+    <h2 translate="MODULE.LOGIN.RESET.TITLE"></h2>
+    <p ng-if="!$ctrl.token" ng-show="$ctrl.sent" translate="MODULE.LOGIN.RESET.MAIL_SENT" class="m-s text-muted text-center"></p>
+
+    <!-- Password request form -->
+    <form ng-if="!$ctrl.token" ng-show="!$ctrl.sent" name="requestForm" id="request-form" ng-submit="$ctrl.request(username)" role="form">
+      <div class="form-group" ng-class="{'has-error': requestForm.username.$dirty && requestForm.username.$invalid}">
+        <div class="input-wrapper">
+          <input type="text"
+                 class="form-control"
+                 placeholder="{{:: 'MODULE.LOGIN.USERNAME' | translate }}"
+                 name="username"
+                 id="username"
+                 ng-model="username"
+                 focus-if
+                 required>
+          <i class="zmdi zmdi-account"></i>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" ng-disabled="requestForm.$invalid || $ctrl.loading" class="btn btn-primary btn-block">
+          <span ng-show="!$ctrl.loading" translate="MODULE.LOGIN.RESET.SUBMIT"></span>
+          <i ng-show="$ctrl.loading" class="zmdi zmdi-spinner zmdi-hc-spin"></i>
+        </button>
+      </div>
+    </form>
+
+    <!-- Password reset form -->
+    <form ng-if="$ctrl.token" name="resetForm" id="reset-form" ng-submit="$ctrl.reset($ctrl.token, password)" role="form">
+      <div class="form-group" ng-class="{'has-error': resetForm.password.$dirty && resetForm.password.$invalid}">
+        <div class="input-wrapper">
+          <input type="password"
+                 class="form-control"
+                 placeholder="{{:: 'PASSWORD.CHANGE.NEW_PASSWORD.PLACEHOLDER' | translate }}"
+                 name="password"
+                 id="password"
+                 ng-model="password"
+                 focus-if
+                 coyo-check-matches="$ctrl.passwordPattern"
+                 required>
+          <i class="zmdi zmdi-key"></i>
+        </div>
+        <ng-messages for="resetForm.password.$error" class="help-block validation text-left">
+          <p ng-message="required" translate="PASSWORD.CHANGE.ERRORS.REQUIRED"></p>
+          <p ng-message="matches" translate="PASSWORD.CHANGE.ERRORS.NEW_PASSWORD_INVALID"></p>
+        </ng-messages>
+      </div>
+      <div class="form-group" ng-class="{'has-error': resetForm.password.$valid && resetForm.passwordConfirm.$dirty && resetForm.passwordConfirm.$invalid}">
+        <div class="input-wrapper">
+          <input type="password"
+                 class="form-control"
+                 placeholder="{{:: 'PASSWORD.CHANGE.CONFIRM_PASSWORD.PLACEHOLDER' | translate }}"
+                 name="passwordConfirm"
+                 id="passwordConfirm"
+                 ng-model="passwordConfirm"
+                 coyo-check-equals="password"
+                 required>
+          <i class="zmdi zmdi-key"></i>
+        </div>
+        <ng-messages for="resetForm.passwordConfirm.$error" class="help-block validation text-left" ng-hide="resetForm.password.$invalid">
+          <p ng-message="required" translate="PASSWORD.CHANGE.ERRORS.REQUIRED"></p>
+          <p ng-message="equals" translate="PASSWORD.CHANGE.ERRORS.NEW_NEQ_CONFIRM_NEW"></p>
+        </ng-messages>
+      </div>
+      <div class="form-actions">
+        <button type="submit" ng-disabled="resetForm.$invalid || $ctrl.loading" class="btn btn-primary btn-block">
+          <span ng-show="!$ctrl.loading" translate="MODULE.LOGIN.RESET.SUBMIT"></span>
+          <i ng-show="$ctrl.loading" class="zmdi zmdi-spinner zmdi-hc-spin"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-xs-6">
+        <a ui-sref="front.login" translate="MODULE.LOGIN.RESET.BACK" class="small"></a>
+      </div>
+      <div class="col-xs-6">
+        <div class="pull-right copyright"></div>
+      </div>
+    </div>
+  </div>
+</div>

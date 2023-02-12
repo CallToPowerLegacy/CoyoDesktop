@@ -1,0 +1,109 @@
+/*
+ This widget needs access to its current widget slot size in order to work responsive.
+ Furthermore you should be able to set the padding of the widget panel by your own, because the teaser image needs the total widget width.
+
+ Because this hasn't been implemented yet, the whole styling of the teaser image is missing.
+*/
+
+.widget .single-blog-article-widget {
+  .article-teaser-image {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 16px;
+    min-width: 100%;
+    padding-bottom: 16px;
+
+    img {
+      cursor: pointer;
+      display: block;
+      width: 100%;
+    }
+  }
+
+  .article-meta {
+    align-items: center;
+    display: flex;
+
+    a {
+      flex: 1;
+      margin-right: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  h3 {
+    font-size: 18px;
+    line-height: 1.33333;
+    margin: 4px 0 12px;
+  }
+
+  .article-time,
+  .teaser-text {
+    color: $color-gray;
+    font-size: 13px;
+  }
+
+  .teaser-text {
+    display: block;
+    display: -webkit-box;
+    line-height: 19.5px;
+    margin-bottom: 8px;
+    max-height: 75px;
+    overflow-y: hidden;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+
+  .teaser-more {
+    font-size: 13px;
+  }
+}
+
+.single-blog-article-widget-settings {
+
+  .alert.alert-warning {
+    margin: 3px 0;
+  }
+
+  .ui-select-choices-group .ui-select-choices-row-inner small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .preview-field .text-muted{
+    padding-top: 8px;
+  }
+}
+
+// Stretch the image over widget border
+// only in separate widget slots
+.widget-slot-panels,
+.widget-slot-panel {
+  .widgets-container .widget {
+    .single-blog-article-widget {
+
+      .article-teaser-image {
+        margin: $panel-body-padding-negate-sm;
+        margin-bottom: 0;
+        overflow: hidden;
+
+        @media screen and (min-width: $screen-sm-min) {
+          margin: $panel-body-padding-negate-md;
+          margin-bottom: 0;
+        }
+
+      }
+    }
+    
+    &:first-child .single-blog-article-widget .article-teaser-image,
+    .panel .single-blog-article-widget .article-teaser-image {
+      @media screen and (min-width: $screen-md-min) {
+        border-radius: $panel-border-radius;
+      }
+    }
+  }
+}

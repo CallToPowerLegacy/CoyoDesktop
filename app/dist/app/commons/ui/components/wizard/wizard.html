@@ -1,0 +1,9 @@
+<ul class="coyo-wizard {{class}}">
+  <li ng-repeat-start="state in states"
+      class="coyo-wizard-state"
+      ng-class="{ passed: $index < active, active: $index === active }">
+    <i class="zmdi zmdi-hc-fw zmdi-check coyo-wizard-icon"></i>
+    <span class="coyo-wizard-label" translate="{{ state }}"></span>
+  </li>
+  <li ng-repeat-end ng-if="!$last" class="coyo-wizard-divider"></li>
+</ul>

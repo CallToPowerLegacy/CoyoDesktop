@@ -1,0 +1,10 @@
+.rte-widget {
+  .rte-wrapper {
+    .note-editor {
+      border: 0;
+      &.note-frame.fullscreen {
+        z-index: 1035;
+      }
+    }
+  }
+}

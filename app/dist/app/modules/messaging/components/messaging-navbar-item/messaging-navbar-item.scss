@@ -1,0 +1,15 @@
+.messaging-navbar-item {
+  position: relative;
+
+  .messaging-navbar-item-unread {
+    @include unread-bubble();
+
+    position: absolute;
+    top: 8px;
+    right: 5px;
+
+    @media screen and (min-width: $screen-md-min) {
+      right: 8px;
+    }
+  }
+}

@@ -1,0 +1,56 @@
+.specify-video {
+  div.input-wrapper {
+    position: relative;
+
+    > .zmdi {
+      display: none;
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      > .zmdi {
+        border-right: 1px solid $color-gray-light;
+        color: $color-gray;
+        display: inline-block;
+        font-size: 20px;
+        height: 30px;
+        left: 0;
+        padding: 6px 0 6px 4px;
+        position: absolute;
+        text-align: center;
+        top: 6px;
+        width: 60px;
+      }
+    }
+  }
+
+  // scss-lint:disable QualifyingElement
+  input[type='email'],
+  input[type='password'],
+  input[type='text'],
+  input[type='url'] {
+    -webkit-appearance: none;
+    width: 100%;
+
+    @media screen and (min-width: $screen-md-min) {
+      padding-left: 73px;
+    }
+
+    &:focus {
+      border: 1px solid $color-gray;
+      box-shadow: none;
+
+      + .zmdi {
+        color: $color-primary;
+      }
+    }
+
+    &.ng-valid:not(.ng-neutral) {
+      border-color: $color-valid;
+    }
+
+    &:disabled {
+      color: $color-gray-dark;
+    }
+  }
+  // scss-lint:enable QualifyingElement
+}

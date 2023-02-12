@@ -1,0 +1,60 @@
+<form name="form" role="form" coyo-form-submit="vm.submit(form, vm.firstName, vm.lastName)" novalidate>
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="MODULE.ACCOUNT.MODALS.CHANGE_NAME.TITLE"></h3>
+      <span class="modal-close" ng-click="$dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+    </div>
+    <div class="modal-body">
+
+      <!-- First name -->
+      <div class="form-group"
+           ng-class="{ 'has-error' : form.firstname.$touched && form.firstname.$dirty && form.firstname.$invalid }">
+        <label for="firstname" class="control-label"
+               translate="MODULE.ACCOUNT.MODALS.CHANGE_NAME.FIRSTNAME.HINT"></label>
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="zmdi zmdi-account"></i>
+          </span>
+          <input
+              type="text"
+              class="form-control"
+              id="firstname"
+              name="firstname"
+              ng-model="vm.firstName"
+              placeholder="{{:: 'MODULE.ACCOUNT.MODALS.CHANGE_NAME.FIRSTNAME.PLACEHOLDER' | translate}}"
+              ng-disabled="vm.status.loading"
+              required />
+        </div>
+        <p class="help-block validation" ng-if="form.firstname.$error.required"
+           translate="MODULE.ACCOUNT.MODALS.CHANGE_NAME.FIRSTNAME.MESSAGES.ERRORS.REQUIRED"></p>
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-group"
+           ng-class="{ 'has-error' : form.lastname.$touched && form.lastname.$dirty && form.lastname.$invalid }">
+        <label for="lastname" class="control-label"
+               translate="MODULE.ACCOUNT.MODALS.CHANGE_NAME.LASTNAME.HINT"></label>
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="zmdi zmdi-account"></i>
+          </span>
+          <input
+              type="text"
+              class="form-control"
+              id="lastname"
+              name="lastname"
+              ng-model="vm.lastName"
+              placeholder="{{:: 'MODULE.ACCOUNT.MODALS.CHANGE_NAME.LASTNAME.PLACEHOLDER' | translate}}"
+              ng-disabled="vm.status.loading"
+              required />
+        </div>
+        <p class="help-block validation" ng-if="form.lastname.$error.required"
+           translate="MODULE.ACCOUNT.MODALS.CHANGE_NAME.LASTNAME.MESSAGES.ERRORS.REQUIRED"></p>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <coyo-form-submit-button label="MODULE.ACCOUNT.MODALS.CHANGE_NAME.SUBMIT" form-ctrl="form"></coyo-form-submit-button>
+    </div>
+  </div>
+</form>

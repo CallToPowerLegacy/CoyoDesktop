@@ -1,0 +1,41 @@
+dl {
+  dt {
+    color: $color-gray;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+  dd {
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.dl-horizontal {
+  dt, dd {
+    display: inline-block;
+  }
+
+  dt {
+    margin-right: 12px;
+    width: calc(35% - 12px);
+  }
+
+  dd {
+    margin-left: 12px;
+    width: calc(65% - 12px);
+    word-wrap: break-word;
+  }
+
+  @include xs {
+    dt, dd {
+      display: block;
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+    }
+  }
+}

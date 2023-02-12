@@ -1,0 +1,45 @@
+<section class="profile-tab content-with-sidebar">
+
+  <!-- CONTENT -->
+  <div class="content-main">
+    <!-- Widget Slot -->
+    <coyo-widget-slot class="widget-slot-content"
+                      name="profile-info-content-top"
+                      hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+    <div class="panel panel-default panel-info">
+      <div class="panel-body">
+        <div class="row profile-info-group-row" ng-repeat="groupGroup in profileCtrl.groupList">
+          <div class="col-sm-12 col-md-6" ng-repeat="group in groupGroup">
+            <oyoc-profile-group group="group"
+                                user="profileCtrl.user"
+                                set-header="true"
+                                is-editable="group.editMode"
+                                link-pattern="::profileCtrl.linkPattern"
+                                email-pattern="::profileCtrl.emailPattern"
+                                phone-pattern="::profileCtrl.phonePattern"
+                                on-form-submit="profileCtrl.onSubmit(group)"
+                                on-form-cancel="profileCtrl.onCancel()">
+              <button ng-if="profileCtrl.user._permissions.manage"
+                      class="btn btn-zmdi btn-default btn-sm btn-edit"
+                      ng-click="group.editMode = !group.editMode"
+                      ng-disabled="group.saving"
+                      ng-hide="group.editMode"
+                      type="reset">
+                <i class="zmdi zmdi-edit"></i>
+              </button>
+            </oyoc-profile-group>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Widget Slot -->
+    <coyo-widget-slot class="widget-slot-content"
+                      name="profile-info-content-bottom"
+                      hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+  </div>
+
+  <!-- SIDEBAR -->
+  <oyoc-profile-info-sidebar user="profileCtrl.user"></oyoc-profile-info-sidebar>
+</section>

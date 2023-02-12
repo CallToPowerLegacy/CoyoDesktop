@@ -1,0 +1,173 @@
+<section class="event" ng-cloak>
+
+  <div class="panel panel-default image-header" ng-class="{'has-cover': $ctrl.event.imageUrls.cover}">
+
+    <coyo-tour-step-mobile topic="event" order="105"
+                           image-url="assets/images/tour/tour-mobile-event-1.jpg"
+                           title="{{:: 'TOUR.EVENTS.NAME.TITLE' | translate }}"
+                           content="{{:: 'TOUR.EVENTS.NAME' | translate }}"></coyo-tour-step-mobile>
+
+    <coyo-tour-step-mobile topic="event" order="110"
+                           image-url="assets/images/tour/tour-mobile-event-2.jpg"
+                           title="{{:: 'TOUR.EVENTS.AVATAR.TITLE' | translate }}"
+                           content="{{:: 'TOUR.EVENTS.AVATAR' | translate }}"></coyo-tour-step-mobile>
+
+    <coyo-tour-step-mobile topic="event" order="115"
+                           image-url="assets/images/tour/tour-mobile-event-3.jpg"
+                           title="{{:: 'TOUR.EVENTS.TIMELINE.TITLE' | translate }}"
+                           content="{{:: 'TOUR.EVENTS.TIMELINE' | translate }}"></coyo-tour-step-mobile>
+
+    <coyo-tour-step-mobile topic="event" order="120"
+                           image-url="assets/images/tour/tour-mobile-event-4.jpg"
+                           title="{{:: 'TOUR.EVENTS.INFORMATION.TITLE' | translate }}"
+                           content="{{:: 'TOUR.EVENTS.INFORMATION' | translate }}"></coyo-tour-step-mobile>
+
+    <coyo-tour-step-mobile topic="event" order="125"
+                           image-url="assets/images/tour/tour-mobile-event-5.jpg"
+                           title="{{:: 'TOUR.EVENTS.PARTICIPANTS.TITLE' | translate }}"
+                           content="{{:: 'TOUR.EVENTS.PARTICIPANTS' | translate }}"></coyo-tour-step-mobile>
+
+    <div class="sender-actions">
+
+      <!-- Date badge -->
+      <coyo-event-date-badge date="::$ctrl.event.startDate"></coyo-event-date-badge>
+
+      <!-- Change cover image -->
+      <button class="btn btn-zmdi btn-dark change-cover" ng-if="$ctrl.canManage"
+              ng-click="$ctrl.changeCover($ctrl.event)">
+        <i class="zmdi zmdi-hc-fw zmdi-camera"></i><!--
+     --><span class="btn-mobile-label">{{:: 'MODULE.EVENTS.BUTTONS.CHANGE_COVER'| translate}}</span>
+      </button>
+
+      <coyo-event-participation event="$ctrl.event" disable-change="::$ctrl.hasStarted()"
+                                ng-if="$ctrl.event.canParticipate()"
+                                class="visible-xs"></coyo-event-participation>
+    </div>
+
+    <!-- The cover image -->
+    <coyo-sender-cover-image image-url="$ctrl.event.imageUrls.cover"></coyo-sender-cover-image>
+
+    <div class="panel-foreground">
+
+      <!-- The avatar image -->
+      <div class="event-avatar-container">
+        <coyo-tour-step topic="event" order="110" step-id="event.avatar"
+                        title="{{:: 'TOUR.EVENTS.AVATAR.TITLE' | translate }}"
+                        content="{{:: 'TOUR.EVENTS.AVATAR' | translate }}"></coyo-tour-step>
+        <span ng-if="$ctrl.canManage">
+          <oyoc-user-avatar-overlay class="md visible-xs"
+                                    click-fn="$ctrl.changeAvatar($ctrl.event)"
+                                    icon-class="zmdi-camera"></oyoc-user-avatar-overlay>
+          <oyoc-user-avatar-overlay class="lg hidden-xs"
+                                    click-fn="$ctrl.changeAvatar($ctrl.event)"
+                                    icon-class="zmdi-camera"></oyoc-user-avatar-overlay>
+        </span>
+        <coyo-refresh on-scope-event="eventAvatar:changed">
+          <coyo-event-avatar ng-if="$root.screenSize.isXs"
+                             event="$ctrl.event"
+                             avatar-size="md"
+                             no-link="true"></coyo-event-avatar>
+          <coyo-event-avatar ng-if="!$root.screenSize.isXs"
+                             event="$ctrl.event"
+                             avatar-size="lg"
+                             no-link="true"></coyo-event-avatar>
+        </coyo-refresh>
+      </div>
+
+      <!-- The event name + sender -->
+      <div class="titles-container">
+        <div class="title">
+          {{:: $ctrl.event.displayName}}
+          <coyo-tour-step topic="event" order="105" step-id="event.name" placement="bottom"
+                          title="{{:: 'TOUR.EVENTS.NAME.TITLE' | translate }}"
+                          content="{{:: 'TOUR.EVENTS.NAME' | translate }}"></coyo-tour-step>
+        </div>
+        <div class="subtitle">
+          <i class="zmdi text-muted" ng-class="::$ctrl.event.public ? 'zmdi-globe' : 'zmdi-lock'"></i>&nbsp;
+          <span translate="EVENT.PRIVATE" ng-if="::!$ctrl.event.public" class="text-muted label-visibility"></span>
+          <span translate="EVENT.PUBLIC" ng-if="::$ctrl.event.public" class="text-muted label-visibility"></span>
+          <i class="zmdi zmdi-play ml-xxs mr-xxs"></i>
+          <a coyo-sender-link="::$ctrl.event.sender">{{:: $ctrl.event.sender.displayName}}</a>
+        </div>
+      </div>
+
+      <coyo-event-participation event="$ctrl.event" disable-change="::$ctrl.hasStarted()"
+                                ng-if="$ctrl.event.canParticipate()"
+                                class="hidden-xs"></coyo-event-participation>
+    </div>
+
+    <!-- The navigation menu -->
+    <div class="event-nav">
+      <uib-tabset justified="true" active="-1" type="tabs">
+        <uib-tab ui-sref="main.event.show.timeline" ui-sref-active="active">
+          <uib-tab-heading>
+            <i class="zmdi zmdi-comment-list"></i>
+            <coyo-tour-step topic="event" order="115" step-id="event.timeline"
+                            title="{{:: 'TOUR.EVENTS.TIMELINE.TITLE' | translate }}"
+                            content="{{:: 'TOUR.EVENTS.TIMELINE' | translate }}"></coyo-tour-step>
+            <span class="tab-text" translate="MODULE.EVENTS.TABS.TIMELINE"></span>
+          </uib-tab-heading>
+        </uib-tab>
+        <uib-tab ui-sref="main.event.show.information" ui-sref-active="active">
+          <uib-tab-heading>
+            <i class="zmdi zmdi-info-outline"></i>
+            <coyo-tour-step topic="event" order="115" step-id="event.informations"
+                            title="{{:: 'TOUR.EVENTS.INFORMATION.TITLE' | translate }}"
+                            content="{{:: 'TOUR.EVENTS.INFORMATION' | translate }}"></coyo-tour-step>
+            <span class="tab-text" translate="MODULE.EVENTS.TABS.INFORMATION"></span>
+          </uib-tab-heading>
+        </uib-tab>
+        <uib-tab ng-if="$ctrl.shouldShowParticipants" ui-sref="main.event.show.participants" ui-sref-active="active">
+          <uib-tab-heading>
+            <i class="zmdi zmdi-accounts-alt">
+              <span class="participants-count-tab">{{$ctrl.event.memberCount > 99 ? '99+' : $ctrl.event.memberCount}}</span>
+            </i>
+            <coyo-tour-step topic="event" order="115" step-id="event.participants"
+                            title="{{:: 'TOUR.EVENTS.PARTICIPANTS.TITLE' | translate }}"
+                            content="{{:: 'TOUR.EVENTS.PARTICIPANTS' | translate }}"></coyo-tour-step>
+            <span class="tab-text" translate="MODULE.EVENTS.TAB.PARTICIPANTS"></span>
+          </uib-tab-heading>
+        </uib-tab>
+      </uib-tabset>
+    </div>
+
+    <div class="event-nav-mobile sender-navigation">
+      <ul class="nav nav-tabs nav-justified nav-sender">
+        <li>
+          <a ui-sref="main.event.show.timeline" ui-sref-active="active">
+            <i class="zmdi zmdi-comment-list"></i><span class="hidden-xs hidden-sm tab-text" translate="MODULE.EVENTS.TABS.TIMELINE"></span>
+          </a>
+        </li>
+        <li>
+          <a ui-sref="main.event.show.information" ui-sref-active="active">
+            <i class="zmdi zmdi-info-outline"></i><span class="hidden-xs hidden-sm tab-text" translate="MODULE.EVENTS.TABS.INFORMATION"></span>
+          </a>
+        </li>
+        <li uib-dropdown dropdown-append-to-body>
+          <a uib-dropdown-toggle class="dropdown-more">
+            <i class="zmdi zmdi-more"></i>
+          </a>
+          <ul uib-dropdown-menu role="menu" class="dropdown-menu dropdown-menu-right">
+            <li ng-if="$ctrl.shouldShowParticipants">
+              <a ui-sref="main.event.show.participants" ui-sref-active="active">
+                <i class="zmdi zmdi-hc-fw zmdi-accounts-alt"></i>
+                <span class="tab-text" translate="MODULE.EVENTS.TAB.PARTICIPANTS"></span>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a ui-sref="main.event.show.settings" ng-if="$ctrl.canManage">
+                <i class="zmdi zmdi-hc-fw zmdi-settings"></i>
+                <span class="tab-text" translate="SETTINGS"></span>
+              </a>
+            </li>
+            <li>
+              <coyo-event-subscribe event="$ctrl.event" user="$ctrl.currentUser"></coyo-event-subscribe>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div ui-view></div>
+</section>

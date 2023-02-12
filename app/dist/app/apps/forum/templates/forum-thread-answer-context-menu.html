@@ -1,0 +1,10 @@
+<coyo-context-menu class="thread-answer-context-menu"
+                   title="{{:: 'APP.FORUM.THREAD_OPTIONS' | translate }}"
+                   ng-if="::answer._permissions.delete"
+                   align-right="true">
+  <li ng-if="answer._permissions.delete">
+    <a ng-click="$ctrl.deleteAnswer(answer)">
+      <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'APP.FORUM.THREAD.ANSWER.DELETE' | translate }}
+    </a>
+  </li>
+</coyo-context-menu>

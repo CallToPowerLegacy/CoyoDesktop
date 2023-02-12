@@ -1,0 +1,38 @@
+<label class="col-sm-2 control-label" translate="APP.LIST.FIELDS.OPTIONS.SETTINGS.OPTIONS"></label>
+<div class="col-sm-9">
+    <div  ui-tree="::$ctrl.treeOptions"
+          ui-tree-nodes ng-model="$ctrl.options"
+          data-empty-placeholder-enabled="false" data-drag-enabled="$ctrl.options.length > 1"
+          class="options-field">
+
+        <div class="option-field-item" ng-repeat="option in $ctrl.options" ui-tree-node>
+            <div class="input-group">
+                <a class="input-group-addon" ui-tree-handle ng-class="{ 'disabled': $ctrl.options.length <= 1}">
+                    <i class="zmdi zmdi-swap-vertical"></i>
+                </a>
+                <input id="{{'options-field-option-' + $index}}"
+                       name="{{'options-field-option-' + $index}}"
+                       class="form-control"
+                       type="text"
+                       maxlength="255"
+                       ng-model="option.name"
+                       ng-keydown="$ctrl.handleKeyPress($event, option)"
+                       focus-if="option.id === $ctrl.focusedOption">
+                <span class="input-group-addon delete-option" ng-click="$ctrl.deleteOption($index)" title="{{'DELETE' | translate}}"
+                      ng-if="$ctrl.options.length > 1">
+            <i class="zmdi zmdi-delete"></i>
+            </span>
+            </div>
+        </div>
+
+        <div class="option-field-item">
+            <button name="addOption" class="add-button" type="button" ng-click="$ctrl.addOption()">
+                <i class="zmdi zmdi-plus-circle-o add-answer-icon"></i>
+                <span translate="OPTIONS.FIELD.ADDOPTION"></span>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="col-sm-1 hidden-xs">
+<coyo-help tip="OPTIONS.FIELD.HELP"></coyo-help>
+</div>

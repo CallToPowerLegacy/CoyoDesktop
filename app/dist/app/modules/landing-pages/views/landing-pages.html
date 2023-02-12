@@ -1,0 +1,9 @@
+<div class="landing-pages" ng-class="::{'landing-pages-multiple': $ctrl.landingPages.length > 1}" ui-view></div>
+<div ng-if="::$ctrl.landingPages.length === 0" class="text-center text-muted">
+  <span translate="LANDING_PAGE.NONE"></span>
+  <br>
+  <a coyo-global-permissions="MANAGE_LANDING_PAGES"
+     href
+     ui-sref="admin.landing-pages.list"
+     translate="LANDING_PAGE.ADMIN_LINK"></a>
+</div>

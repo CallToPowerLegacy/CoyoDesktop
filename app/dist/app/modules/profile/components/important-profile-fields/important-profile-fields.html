@@ -1,0 +1,15 @@
+<ul class="important-profile-fields list-unstyled">
+  <li>
+    <div class="important-profile-fields-label" translate="USER.EMAIL"></div>
+    <coyo-render-value class="important-profile-fields-value"
+                     value="$ctrl.user.email"
+                     config="$ctrl.getConfig('EMAIL')"></coyo-render-value>
+  </li>
+  <li ng-repeat="field in $ctrl.importantFields">
+    <div class="important-profile-fields-label">{{:: 'USER.' + field.name | uppercase | translate }}</div>
+    <coyo-render-value class="important-profile-fields-value"
+                       field="field"
+                       value="$ctrl.user.properties[field.name]"
+                       config="$ctrl.getConfig(field.type)"></coyo-render-value>
+  </li>
+</ul>

@@ -1,0 +1,4 @@
+<div>
+  <div ng-repeat="user in ::$ctrl.likeData.others | limitTo : 5 : 1">{{:: user.displayName }}</div>
+  <div ng-if=":: $ctrl.likeData.othersCount > 6">...</div>
+</div>

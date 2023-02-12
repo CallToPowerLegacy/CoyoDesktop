@@ -1,0 +1,37 @@
+<div class="ui-select" ng-init="staticOptions = parameters.staticOptions || []">
+  <ui-select ng-model="data.ngModel"
+             ng-required="::isRequired"
+             ng-disabled="::isDisabled"
+             class="{{::parameters.class}}"
+             search-enabled="::!parameters.searchDisabled"
+             append-to-body="false">
+    <ui-select-match class="ui-select-match"
+                     placeholder="{{:: placeholder | translate }}"
+                     allow-clear="{{ !isRequired }}">
+      <coyo-refresh ng-if="::parameters.onlyShowAvatarForMatches"
+                    watch="$select.selected">
+        <coyo-sender-avatar sender="$select.selected" avatar-size="xs" no-link="true"></coyo-sender-avatar>
+      </coyo-refresh>
+      <span ng-if="::!parameters.onlyShowAvatarForMatches">{{ $select.selected.displayName }}</span>
+    </ui-select-match>
+
+    <ui-select-choices class="ui-select-choices sender-select"
+                       repeat="option in staticOptions.concat(options)"
+                       refresh="refresh($select.search, true, parameters)"
+                       refresh-delay="250"
+                       coyo-infinite-scroll="refresh($select.search, false, parameters)"
+                       coyo-infinite-scroll-threshold="50"
+                       coyo-infinite-scroll-no-initial-load="true"
+                       position="{{::parameters.position ? parameters.position : 'down'}}"
+                       group-by="::parameters.selectSenderOptionGroups">
+      <coyo-sender-avatar sender="option" avatar-size="sm" no-link="true" class="pull-left mr-xxs"></coyo-sender-avatar>
+      <div class="select-sender-display-name" ng-bind-html="::option.displayName | highlight: $select.search"></div>
+      <small class="text-muted" ng-repeat="subline in ::sublines">
+        {{:: (isString(subline) ? option[subline] : subline(option)) || '&nbsp;' }}
+      </small>
+    </ui-select-choices>
+    <ui-select-no-choice class="ui-select-no-choice">
+      <span ng-if="::emptyText">{{:: emptyText | translate }}</span>
+    </ui-select-no-choice>
+  </ui-select>
+</div>

@@ -1,0 +1,33 @@
+<div class="modal-content-wrapper">
+  <div class="modal-header">
+    <h3 class="modal-title" translate="APP.TASK.LIST.MODAL"></h3>
+    <span class="modal-close" ng-click="$dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+  </div>
+  <div class="modal-body modal-task-list" ng-class="::{'task-lists-manager': vm.app._permissions.manageList}" ui-tree="::vm.treeOptions" empty-placeholder-enabled="false" max-depth="1">
+    <ul class="nav nav-default task-list-nav" ui-tree-nodes ng-model="vm.lists">
+      <li ng-repeat="list in vm.lists" ui-tree-node ng-class="{'active': vm.isTaskListActive(list)}">
+        <a href="" ui-sref=".list.details({id: list.id})" ui-sref-opts="{relative: vm.root}">
+          <span ng-bind="list.title"></span>
+          <span class="badge" ng-style="{'background-color': list.color}" ng-bind="list.count"></span>
+          <span class="btn btn-zmdi btn-link btn-move" ui-tree-handle><i class="zmdi zmdi-hc-fw zmdi-swap-vertical"></i></span>
+          <span class="btn btn-zmdi btn-link btn-settings" ng-click="vm.openSettings(list, $event)"><i class="zmdi zmdi-hc-fw zmdi-settings"></i></span>
+        </a>
+      </li>
+    </ul>
+    <div class="task-list-form" ng-if="::vm.app._permissions.manageList">
+      <a href="" class="btn btn-block btn-link btn-add" ng-click="vm.showForm($event)" ng-hide="vm.formVisible">
+        <i class="zmdi zmdi-plus-circle-o"></i>&nbsp;{{:: 'APP.TASK.LIST.ADD' | translate}}
+      </a>
+      <form name="taskListForm" coyo-form-submit="vm.createList()" ng-show="vm.formVisible">
+        <div class="input-group">
+          <input type="text" class="form-control task-list-input" ng-model="vm.listTitle" required
+                 translate translate-attr-placeholder="APP.TASK.LIST.ADD.PLACEHOLDER">
+          <div class="input-group-btn">
+            <coyo-form-submit-button form-ctrl="taskListForm" class="btn-zmdi"></coyo-form-submit-button>
+            <button class="btn btn-default btn-zmdi" type="reset" ng-click="vm.hideForm()"><i class="zmdi zmdi-hc-fw zmdi-close"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

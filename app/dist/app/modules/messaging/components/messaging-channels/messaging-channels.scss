@@ -1,0 +1,99 @@
+.sidebar.messaging {
+  .messaging-channels {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .messaging-header {
+      .messaging-header-icon-bar {
+        a.presence-status .zmdi {
+          @include presence-status-color();
+          &:hover {
+            opacity: 0.75;
+          }
+        }
+      }
+    }
+
+    .messaging-channels-ch {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 12px 18px;
+      cursor: pointer;
+      transition: background-color linear 0.1s;
+
+      // Adjust colors on hover
+      &:hover {
+        background-color: $color-black;
+
+        .messaging-channel-avatar {
+          .user-avatar {
+            .online-status {
+              border-color: $color-black;
+            }
+          }
+        }
+
+        .messaging-channels-ch-unread {
+          border-color: $color-white;
+        }
+      }
+
+      .messaging-channel-avatar {
+        width: 52px;
+        padding-right: 12px;
+
+        text-align: center;
+
+        .user-avatar {
+          .online-status {
+            border-color: $color-messaging-sidebar-bg;
+          }
+        }
+      }
+
+      .messaging-channels-ch-name {
+        flex: 1;
+        overflow: hidden;
+        color: $color-gray-light;
+
+        .line {
+          @include ellipsis();
+
+          &.time {
+            color: $color-gray-dark;
+            font-size: 13px;
+            line-height: 18px;
+          }
+        }
+      }
+
+      .messaging-channels-ch-unread {
+        flex: none;
+        @include unread-bubble();
+      }
+    }
+  }
+
+  @media screen and (min-width: $screen-lg-min) {
+    &.compact .messaging-channels {
+      .messaging-channels-ch {
+        .messaging-channel-avatar {
+          padding: 0;
+          flex: 1;
+        }
+
+        .messaging-channels-ch-name {
+          display: none;
+        }
+
+        .messaging-channels-ch-unread {
+          position: absolute;
+          right: 16px;
+          bottom: 6px;
+        }
+      }
+    }
+  }
+}

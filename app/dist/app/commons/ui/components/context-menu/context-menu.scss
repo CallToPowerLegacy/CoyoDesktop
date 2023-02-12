@@ -1,0 +1,124 @@
+.context-menu {
+
+  .dropdown-menu {
+    @media screen and (max-width: $screen-sm-max) {
+      position: fixed;
+      // 'initial' is not support in IE11, use 'auto' as fallback
+      top: auto;
+      top: initial;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      background-color: transparent;
+      border: 0;
+      display: block;
+      max-height: 0;
+      transition: all .3s;
+      margin: 18px;
+      overflow: hidden;
+
+      li {
+        background-color: transparent;
+        border: 0;
+      }
+
+      li.context-menu-close > a {
+        background-color: #000;
+        margin-top: 12px;
+      }
+
+      li.context-menu-title {
+        color: $color-white;
+        text-align: center;
+      }
+
+      li.context-menu-danger > a {
+        color: $color-red;
+      }
+
+      a {
+        padding: 10px 16px;
+        font-size: 16px;
+        text-align: center;
+        display: block;
+        color: rgba($color-white, 0.9);
+        background-color: rgba($color-black, 0.9);
+        margin-top: 6px;
+        border-radius: 5px;
+
+        .zmdi {
+          width: auto;
+        }
+      }
+    }
+
+    .context-menu-title {
+      @media screen and (min-width: $screen-md-min) {
+        padding: 8px 16px;
+      }
+    }
+
+    // copy of the required default bootstrap styles, but allow for an extra element between ul and li needed to configure the options dynamically
+    * > li {
+      @media screen and (min-width: $screen-md-min) {
+
+        &.active {
+          background-color: $dropdown-link-hover-bg;
+        }
+
+        > a {
+          &:hover,
+          &:focus {
+            background-color: $dropdown-link-hover-bg;
+          }
+
+          display: block;
+          padding: 8px 16px;
+          color: $dropdown-link-color;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  &.dropdown {
+    @media screen and (max-width: $screen-sm-max) {
+      &:before {
+        content: '';
+        left: 0;
+        right: 0;
+        background-color: $color-black;
+        z-index: 1050;
+        opacity: 0;
+        pointer-events: none;
+        margin-left: -1px;
+        margin-right: -1px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+      }
+
+      &.open {
+        &:before {
+          opacity: 0.75;
+          display: block;
+          pointer-events: auto;
+        }
+
+        .dropdown-menu {
+          z-index: 1051;
+          max-height: 100%;
+        }
+      }
+    }
+
+    .context-menu-toggle {
+      color: $color-gray;
+
+      :hover {
+        color: $color-black;
+      }
+    }
+  }
+}

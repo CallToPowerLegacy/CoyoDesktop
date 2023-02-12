@@ -1,0 +1,9 @@
+<a ng-click="$ctrl.open($event)" class="sender-avatar {{::$ctrl.avatarSize}}" ng-class="::{'no-link': !$ctrl.isLink}">
+  <coyo-avatar-image ng-if="!$ctrl.loadError"
+                     on-error="$ctrl.errorHandler()"
+                     image-url="::$ctrl.workspace.imageUrls.avatar"
+                     avatar-size="{{::$ctrl.avatarSize}}"></coyo-avatar-image>
+  <span class="sender-avatar-empty" ng-if="::!$ctrl.workspace.imageUrls.avatar || $ctrl.loadError">
+    {{:: $ctrl.workspace.displayNameInitials }}
+  </span>
+</a>

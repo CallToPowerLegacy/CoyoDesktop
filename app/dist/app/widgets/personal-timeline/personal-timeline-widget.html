@@ -1,0 +1,3 @@
+<div ng-if="::$ctrl.currentUser" class="timeline-widget" ng-form="timeline-form" coyo-isolate-form>
+  <coyo-timeline-stream type="personal" context-id="{{$ctrl.currentUser.id}}"></coyo-timeline-stream>
+</div>

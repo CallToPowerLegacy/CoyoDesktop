@@ -1,0 +1,84 @@
+{
+    "APPLICATION": {
+        "ABOUT": "Handgemacht in Hamburg.",
+        "COPYRIGHT": "© 2017 Denis Meyer. Alle Rechte vorbehalten.",
+        "NAME": "COYO Desktop"
+    },
+    "CLIENT": {
+        "ABOUTPOST": ".",
+        "ABOUTPRE": "Basierend auf COYO Version"
+    },
+    "CONTEXTMENU": {
+        "COPY": "Kopieren",
+        "COPYLINK": "Link kopieren",
+        "INSPECT": "Element untersuchen",
+        "CUT": "Ausschneiden",
+        "PASTE": "Einfügen",
+        "SAVE": "Speichern"
+    },
+    "COYO": {
+        "BUGWEBSITE": "http://service.coyoapp.com",
+        "NAME": "COYO",
+        "WEBSITE": "https://coyoapp.com"
+    },
+    "STR": {
+        "ABOUT": "Über",
+        "ACTIONS": "Aktionen",
+        "CONNECTEDTO": "Verbunden mit",
+        "CONNECTION": "Verbindung",
+        "CURRENTUSER": "Aktueller Nutzer",
+        "COYOMORE": "Webseite der Applikation",
+        "EDIT": "Editieren",
+        "INFORMATION": "Informationen",
+        "LOGIN": "Einloggen",
+        "LOGINNAME": "Login-Name",
+        "LOGOUT": "Ausloggen",
+        "LOGOUTMSG": "Aus COYO ausloggen?",
+        "LOGOUTDETAIL": "Bist du sicher, dass du ausgeloggt werden möchtest?",
+        "MORE": "Mehr",
+        "NO": "Nein",
+        "NOTIFICATION": {
+            "NEWNOTIFICATION": "Du hast 1 ungelesene Benachrichtigung.",
+            "NEWNOTIFICATIONS": "Du hast {{nr}} ungelesene Benachrichtigungen.",
+            "NEWPOST": "Du hast 1 ungelesenen Post.",
+            "NEWPOSTS": "Du hast {{nr}} ungelesene Posts.",
+            "NEWMESSAGE": "Du hast 1 ungelesene Nachricht.",
+            "NEWMESSAGES": "Du hast {{nr}} ungelesene Nachrichten.",
+            "SUMMARIZED": {
+                "NEWNOTIFICATIONANDPOST": "Du hast 1 ungelesene Benachrichtigung und 1 ungelesenen Post.",
+                "NEWNOTIFICATIONSANDPOST": "Du hast {{nr}} ungelesene Benachrichtigungen und 1 ungelesenen Post.",
+                "NEWNOTIFICATIONANDPOSTS": "Du hast 1 ungelesene Benachrichtigung und {{nr}} ungelesene Posts.",
+                "NEWNOTIFICATIONSANDPOSTS": "Du hast {{nr1}} ungelesene Benachrichtigungen und {{nr2}} ungelesene Posts.",
+                "NEWNOTIFICATIONANDMESSAGE": "Du hast 1 ungelesene Benachrichtigung und 1 ungelesene Nachricht.",
+                "NEWNOTIFICATIONSANDMESSAGE": "Du hast {{nr}} ungelesene Benachrichtigungen und 1 ungelesene Nachricht.",
+                "NEWNOTIFICATIONANDMESSAGES": "Du hast 1 ungelesene Benachrichtigung und {{nr}} ungelesene Nachrichten.",
+                "NEWNOTIFICATIONSANDMESSAGES": "Du hast {{nr1}} ungelesene Benachrichtigungen und {{nr2}} ungelesene Nachrichten.",
+                "NEWPOSTANDMESSAGE": "Du hast 1 ungelesenen Post und 1 ungelesene Nachricht.",
+                "NEWPOSTSANDMESSAGE": "Du hast {{nr}} ungelesene Posts und 1 ungelesene Nachricht.",
+                "NEWPOSTANDMESSAGES": "Du hast 1 ungelesenen Post und {{nr}} ungelesene Nachrichten.",
+                "NEWPOSTSANDMESSAGES": "Du hast {{nr1}} ungelesene Posts und {{nr2}} ungelesene Nachrichten.",
+                "NEWNOTIFICATIONANDPOSTANDMESSAGE": "Du hast 1 ungelesene Benachrichtigung, 1 ungelesenen Post und 1 ungelesene Nachricht.",
+                "NEWNOTIFICATIONANDPOSTANDMESSAGES": "Du hast 1 ungelesene Benachrichtigung, 1 ungelesenen Post und {{nr}} ungelesene Nachrichten.",
+                "NEWNOTIFICATIONANDPOSTSANDMESSAGE": "Du hast 1 ungelesene Benachrichtigung, {{nr}} ungelesene Posts und 1 ungelesene Nachricht.",
+                "NEWNOTIFICATIONSANDPOSTANDMESSAGE": "Du hast {{nr}} ungelesene Benachrichtigungen, 1 ungelesenen Post und 1 ungelesene Nachricht.",
+                "NEWNOTIFICATIONANDPOSTSANDMESSAGES": "Du hast 1 ungelesene Benachrichtigung, {{nr1}} ungelesene Posts und {{nr2}} ungelesene Nachrichten.",
+                "NEWNOTIFICATIONSANDPOSTANDMESSAGES": "Du hast {{nr1}} ungelesene Benachrichtigungen, 1 ungelesenen Post und {{nr2}} ungelesene Nachrichten.",
+                "NEWNOTIFICATIONSANDPOSTSANDMESSAGE": "Du hast {{nr1}} ungelesene Benachrichtigungen, {{nr2}} ungelesene Posts und 1 ungelesene Nachricht.",
+                "NEWNOTIFICATIONSANDPOSTSANDMESSAGES": "Du hast {{nr11}} ungelesene Benachrichtigungen, {{nr2}} ungelesene Posts und {{nr3}} ungelesene Nachrichten."
+            }
+        },
+        "NOTIFICATIONS": "Benachrichtigungen",
+        "OK": "OK",
+        "OPENINBROWSER": "Im Browser öffnen",
+        "PLAYSOUNDS": "Akustische Benachrichtigungen",
+        "RELOAD": "Neu laden",
+        "SERVERVERSION": "Server-Version",
+        "SETTINGS": "Einstellungen",
+        "THISAPP": "Diese Anwendung",
+        "USERNAME": "Benutzername",
+        "VISUALNOTIFICATIONS": "Visuelle Benachrichtigungen",
+        "VERSION": "Version",
+        "QUIT": "Beenden",
+        "YES": "Ja"
+    }
+}

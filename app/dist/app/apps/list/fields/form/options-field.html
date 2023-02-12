@@ -1,0 +1,18 @@
+<ui-select ng-if="!config.settings.multi"  ng-model="model.value" ng-required="config.required"
+           theme="bootstrap" name="{{:: settingsForm.getFieldName(config)}}" options-field-model
+           reset-search-input="false">
+    <ui-select-match placeholder="{{:: 'APP.LIST.FIELDS.OPTIONS.PLACEHOLDER' | translate}}"
+                     allow-clear="true">{{$select.selected.name}}</ui-select-match>
+    <ui-select-choices repeat="option.id as option in config.settings.options">
+        <div ng-bind-html="option.name"></div>
+    </ui-select-choices>
+</ui-select>
+
+
+<ui-select ng-if="config.settings.multi" ng-model="model.value" multiple theme="bootstrap" ng-required="config.required"
+           reset-search-input="true" name="{{:: settingsForm.getFieldName(config)}}">
+    <ui-select-match placeholder="{{:: 'APP.LIST.FIELDS.OPTIONS.PLACEHOLDER' | translate}}">{{$item.name}}</ui-select-match>
+    <ui-select-choices repeat="option.id as option in config.settings.options">
+        <div ng-bind-html="option.name"></div>
+    </ui-select-choices>
+</ui-select>

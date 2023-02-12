@@ -1,0 +1,20 @@
+<span>
+  <span class="event-info-date">
+    {{:: $ctrl.event.startDate | amDateFormat:$root.dateFormat.short }}
+    <br/>
+    <span  ng-if="!$ctrl.event.fullDay" class="text-muted small">
+      {{:: $ctrl.event.startDate | amDateFormat:$root.timeFormat.short }}
+      <span ng-if="!$ctrl.event.isMultiDay()">
+        {{'MODULE.EVENTS.TO' | translate}} {{:: $ctrl.event.endDate | amDateFormat:$root.timeFormat.short }}
+      </span>
+    </span>
+  </span>
+  <span ng-if="$ctrl.event.isMultiDay()" class="event-info-date">-</span>
+  <span ng-if="$ctrl.event.isMultiDay()" class="event-info-date">
+    {{:: $ctrl.event.endDate | amDateFormat:$root.dateFormat.short }}
+    <br/>
+    <span ng-if="!$ctrl.event.fullDay" class="text-muted small">
+      {{:: $ctrl.event.endDate | amDateFormat:$root.timeFormat.short }}
+    </span>
+  </span>
+</span>

@@ -1,0 +1,109 @@
+<div class="panel panel-default panel-list-app">
+    <div class="panel-heading">
+        <!-- Search -->
+        <div ng-if="$ctrl.app._permissions.readEntries && $ctrl.fields.length > 0" class="search-wrapper panel-heading-item">
+            <i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-search"></i>
+            <input type="search" class="search-control"
+                   ng-model="$ctrl.search"
+                   ng-model-options="{ debounce: 300 }"
+                   ng-change="$ctrl.searchKeyPressed($event)"
+                   placeholder="{{'APP.LIST.SEARCH' | translate}}">
+        </div>
+
+        <!-- Entry count -->
+        <span ng-if="$ctrl.app._permissions.readEntries && $ctrl.fields.length > 0" class="entry-count panel-heading-item hidden-xs">
+            <span class="entry-count-number">{{$ctrl.currentPage.totalElements}}</span>&nbsp;<span class="entry-count-heading" translate="APP.LIST.ENTRIES" translate-value-entrycount="{{$ctrl.currentPage.totalElements}}"></span>
+        </span>
+
+        <!-- Configure -->
+        <a class="heading-button panel-heading-item" ng-if="$ctrl.app._permissions.manage" ui-sref="^.configure">
+            <i class="zmdi zmdi-hc-fw zmdi-settings"></i>
+            <span class="hidden-xs" translate="APP.LIST.CONFIGURE"></span>
+        </a>
+
+        <!-- Add Entry -->
+        <a class="heading-button panel-heading-item" ng-if="$ctrl.app._permissions.createEntry && $ctrl.fields.length > 0" ng-click="$ctrl.addEntry()">
+            <i class="zmdi zmdi-hc-fw zmdi-plus-circle"></i>
+            <span class="hidden-xs" translate="APP.LIST.ADD_ENTRY"></span>
+        </a>
+    </div>
+
+    <div ng-if="!$ctrl.showCreateEntryForm()" class="panel-body">
+        <!-- Header -->
+        <h3 class="list-element-name">{{$ctrl.app.settings.elementName}}</h3>
+
+        <!-- Table -->
+        <div ng-if="$ctrl.fields.length > 0 && $ctrl.currentPage.totalElements > 0" class="list-app-table">
+            <oyoc-list-app-table-header class="list-app-table-header" fields="$ctrl.fields" on-sort-fn="$ctrl.sort()" app-id="$ctrl.app.id"></oyoc-list-app-table-header>
+            <div class="list-app-table-row" ng-repeat="entry in $ctrl.currentPage.content">
+                <div class="list-app-table-row-item"
+                     ng-class="'field-' + field.key"
+                     ng-repeat="field in $ctrl.fields"
+                     ng-if="!field.hidden"
+                     data-header="{{::field.name}}">
+                    <coyo-list-value app="$ctrl.app" entry="entry" field="field" config="$ctrl.getConfig(field.key)"></coyo-list-value>
+                </div>
+                <div class="btn-container">
+                    <div class="list-app-table-row-show-details options" ng-click="$ctrl.viewEntry(entry)">
+                        <i class="zmdi zmdi-hc-fw zmdi-assignment"></i>
+                    </div>
+                    <div class="list-app-table-row-context-menu options">
+                        <coyo-context-menu align-right="true">
+                            <li>
+                                <a href ng-click="$ctrl.viewEntry(entry)">
+                                    <i class="zmdi zmdi-hc-fw zmdi-assignment"></i>&nbsp;{{:: 'APP.LIST.CONTEXTMENU.OPEN' | translate}}
+                                </a>
+                            </li>
+                            <li ng-if="entry._permissions.edit">
+                                <a href ng-click="$ctrl.editEntry(entry)">
+                                    <i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;{{::'APP.LIST.DETAIL.MODAL.EDIT' | translate}}
+                                </a>
+                            </li>
+                            <coyo-list-entry-subscribe target="entry"></coyo-list-entry-subscribe>
+                            <li>
+                                <a ng-click="$ctrl.viewEntry(entry)">
+                                    <coyo-comments-count class="text-muted" target="entry"></coyo-comments-count>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li ng-if="entry._permissions.delete">
+                                <a href ng-click="$ctrl.deleteEntry(entry)">
+                                    <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'DELETE' | translate}}
+                                </a>
+                            </li>
+                        </coyo-context-menu>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Spinner -->
+        <div class="text-center mb-s mt-s" ng-if="$ctrl.loading">
+            <coyo-spinner size="sm"></coyo-spinner>
+        </div>
+
+        <!-- Pagination -->
+        <coyo-table-pagination ng-if="$ctrl.currentPage.content" page="$ctrl.currentPage"></coyo-table-pagination>
+
+        <!-- Empty messages-->
+        <oyoc-no-fields-message ng-if="$ctrl.app._permissions.readEntries && $ctrl.fields.length <= 0" manage-permission="$ctrl.app._permissions.manage" create-fn="$ctrl.createField()"></oyoc-no-fields-message>
+        <oyoc-no-entries-message ng-if="$ctrl.fields.length > 0 && $ctrl.currentPage.totalElements <= 0 && $ctrl.search.length <= 0" create-permission="$ctrl.app._permissions.createEntry" create-fn="$ctrl.addEntry()"></oyoc-no-entries-message>
+        <oyoc-list-app-message ng-if="$ctrl.fields.length > 0 && $ctrl.currentPage.totalElements <= 0 && $ctrl.search.length > 0" icon="zmdi-search" message="APP.LIST.NO_SEARCH_RESULTS"></oyoc-list-app-message>
+        <oyoc-list-app-message ng-if="!$ctrl.app._permissions.readEntries && !$ctrl.app._permissions.createEntry" icon="zmdi-eye-off" message="APP.LIST.NO_READ_PERMISSIONS"></oyoc-list-app-message>
+    </div>
+
+    <!-- Create entry form -->
+    <form ng-if="$ctrl.showCreateEntryForm()" name="addEntryForm" coyo-form-submit="$ctrl.save(addEntryForm)">
+        <div class="panel-body">
+            <h3 class="list-element-name">{{$ctrl.app.settings.elementName}}</h3>
+            <oyoc-entry-form class="list-app-entry-form" entry="$ctrl.entry" fields="$ctrl.fields" form-ctrl="addEntryForm"></oyoc-entry-form>
+        </div>
+        <div class="panel-footer panel-actions" ng-if="!$ctrl.app._permissions.readEntries && $ctrl.app._permissions.createEntry && $ctrl.fields.length > 0">
+            <div class="row">
+                <div class="col-sm-10 col-sm-push-2">
+                    <coyo-form-submit-button label="SAVE" form-ctrl="addEntryForm"></coyo-form-submit-button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,40 @@
+<form name="apiClientForm" coyo-form-submit="$ctrl.save()" novalidate>
+  <div class="panel panel-default">
+    <div class="panel-heading panel-heading-full-width">
+      <h1 class="panel-title" translate="ADMIN.API_CLIENTS.DETAILS.CREATE"></h1>
+    </div>
+
+    <div class="panel-body form-horizontal">
+
+      <div class="form-group" ng-class="{'has-error': apiClientForm.clientId.$invalid && apiClientForm.clientId.$touched}">
+        <label for="clientId" class="col-sm-2 control-label" translate="ADMIN.API_CLIENTS.DETAILS.CLIENTID"></label>
+        <div class="col-sm-9">
+          <input id="clientId"
+                 name="clientId"
+                 type="text"
+                 class="form-control"
+                 ng-model="$ctrl.client.clientId"
+                 ng-required="true"
+                 maxlength="255"
+                 ng-pattern="'^[A-Za-z0-9-]+$'">
+          <ng-messages for="apiClientForm.clientId.$error" class="help-block validation">
+            <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+            <p ng-message="pattern" translate="ADMIN.API_CLIENTS.ERRORS.VALIDATION.PATTERN"></p>
+          </ng-messages>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="panel-footer panel-actions">
+      <div class="row">
+        <div class="col-sm-10 col-sm-push-2">
+          <coyo-form-submit-button form-ctrl="apiClientForm" label="SAVE"></coyo-form-submit-button><!--
+       --><a ui-sref="^.list" class="btn btn-default">
+            <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{::'CANCEL' | translate}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

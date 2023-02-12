@@ -1,0 +1,33 @@
+<div class="panel">
+  <div class="panel-heading panel-heading-configure" id="panel-content-app">
+    <a class="heading-button panel-heading-item" ng-click="$ctrl.cancel();">
+      <i class="zmdi zmdi-hc-fw zmdi-close"></i>
+      <span class="hidden-xs" translate="CANCEL"></span>
+    </a>
+    <div>
+      <div class="pull-left">
+        <coyo-manage-translations ng-if="$ctrl.isSenderTranslated" current="$ctrl.currentLanguage"
+          default="$ctrl.defaultLanguage" disable-config="true" style-class="panel-content-app"
+                                  on-change="$ctrl.onLanguageChange" on-delete="$ctrl.onLanguageDeleted"
+                                  languages="$ctrl.languages"></coyo-manage-translations>
+      </div>
+      <a ng-click="$ctrl.save();" class="btn btn-primary panel-heading-item">
+        <i class="zmdi zmdi-hc-fw zmdi-check hidden-xs"></i>
+        <span translate="SAVE"></span>
+      </a>
+    </div>
+  </div>
+  <div class="panel-body-content-app panel-body">
+    <div class="col-sm-12 blog-article-text" ng-repeat="(key, value) in $ctrl.languages"
+         ng-if="$ctrl.isTranslationRequired(key)"
+         ng-show="value.active && (key === $ctrl.currentLanguage || key === 'NONE')">
+      <coyo-widget-layout name="{{$ctrl.buildLayoutName(key)}}"
+                          parent="$ctrl.app"
+                          create-mode="$ctrl.currentLanguage != $ctrl.defaultLanguage"
+                          global-events="false"
+                          can-manage="$ctrl.app._permissions.manage"
+                          render-style="plain">
+      </coyo-widget-layout>
+    </div>
+  </div>
+</div>

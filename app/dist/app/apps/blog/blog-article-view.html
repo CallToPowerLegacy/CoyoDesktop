@@ -1,0 +1,89 @@
+<div class="article article-view">
+  <section class="panel panel-default panel-article">
+    <div class="fl-header">
+      <div class="bdv-col bdv-col-home pointer" ui-sref="^">
+        <i class="zmdi zmdi-home zmdi-hc-fw"></i>&nbsp;
+        <span translate="APP.BLOG.ARTICLE.OVERVIEW"></span>
+      </div>
+      <div class="bdv-col bdv-col-placeholder"></div>
+      <div class="bdv-col bdv-col-count" ng-if="ctrl.currentArticleNumber >= 0 && ctrl.nrOfBlogArticles >= 0">
+        {{ ctrl.currentArticleNumber }}/{{:: ctrl.nrOfBlogArticles }}
+      </div>
+      <div class="bdv-col bdv-col-left pointer"
+           ng-click="ctrl.previousArticle()"
+           ng-class="{'inactive': !ctrl.hasPreviousArticle, 'pointer active': ctrl.hasPreviousArticle}">
+        <i class="zmdi zmdi-chevron-left zmdi-hc-lg zmdi-hc-fw"></i>
+      </div>
+      <div class="bdv-col bdv-col-right"
+           ng-click="ctrl.nextArticle()"
+           ng-class="{'inactive': !ctrl.hasNextArticle, 'pointer active': ctrl.hasNextArticle}">
+        <i class="zmdi zmdi-chevron-right zmdi-hc-lg zmdi-hc-fw"></i>
+      </div>
+    </div>
+
+    <div class="panel-heading panel-heading-main article-header">
+      <h1 class="panel-title article-title">
+        {{:: ctrl.article.title }}&nbsp;<oyoc-blog-article-time article="ctrl.article"></oyoc-blog-article-time>
+      </h1>
+      <div class="article-status-options">
+        <coyo-context-menu class="article"
+                      title="{{:: ctrl.article.title }}"
+                      ng-if="ctrl.article._permissions.edit || ctrl.article._permissions.delete"
+                      align-right="true">
+          <li ng-if="ctrl.article._permissions.edit">
+            <a ui-sref="^.edit({id:ctrl.article.id})">
+              <i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;{{:: 'EDIT' | translate }}
+            </a>
+          </li>
+          <li ng-if="ctrl.article._permissions.delete">
+            <a ng-click="ctrl.deleteArticle()">
+              <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'DELETE' | translate }}
+            </a>
+          </li>
+        </coyo-context-menu>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <div class="panel-body article-body panel-teaser-body" ng-if="::ctrl.article.showTeaserWithText">
+        <div class="article-content article-teaser-body">
+          <div ng-if="::ctrl.article.teaserImage" class="article-teaser-image-wrapper">
+            <div class="article-teaser-image">
+              <coyo-image-reference file-id="::ctrl.article.teaserImage.fileId"
+                                    sender-id="::ctrl.article.teaserImage.senderId"
+                                    size-definitions="{'default': 'S', 'screen-lg': 'M'}"></coyo-image-reference>
+            </div>
+          </div>
+          <div class="article-text-wrapper above-text">
+            <div class="article-text" ng-bind-html="::ctrl.article.teaserText | nl2br"></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body article-body article-text-body">
+        <div class="article-content">
+          <coyo-widget-layout name="{{::ctrl.article.buildLayoutName(ctrl.app.id, ctrl.article.usedLanguage)}}"
+                              parent="ctrl.article"
+                              can-manage="ctrl.app._permissions.createArticle"
+                              global-events="false"
+                              render-style="plain"></coyo-widget-layout>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer panel-footer-status">
+      <div class="status-options status-options-left">
+        <coyo-btn-likes class="status-option" target="::ctrl.article"></coyo-btn-likes>
+        <coyo-btn-shares class="status-option" target="::ctrl.article" ng-if="ctrl.article._permissions.share"></coyo-btn-shares>
+      </div>
+
+      <div ng-if="ctrl.article.author" class="article-author">
+        <i class="zmdi zmdi-hc-fw zmdi-account-circle"></i>
+        <a coyo-sender-link="::ctrl.article.author">{{::ctrl.article.author.displayName }}</a>
+      </div>
+    </div>
+
+  </section>
+
+  <coyo-comments ng-if="ctrl.app.settings.commentsAllowed" target="::ctrl.article"></coyo-comments>
+
+</div>

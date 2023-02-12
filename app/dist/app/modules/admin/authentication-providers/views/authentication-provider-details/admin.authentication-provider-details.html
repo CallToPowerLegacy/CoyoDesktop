@@ -1,0 +1,98 @@
+<form name="authenticationProviderForm" coyo-form-submit="$ctrl.save()" novalidate>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h1 class="panel-title" ng-if="!$ctrl.authenticationProvider.isNew()">{{:: 'ADMIN.AUTHENTICATION.OPTIONS.EDIT' |
+        translate}}
+        <small>{{:: $ctrl.authenticationProvider.displayName }}</small>
+      </h1>
+      <h1 class="panel-title" ng-if="$ctrl.authenticationProvider.isNew()"
+          translate="ADMIN.AUTHENTICATION.OPTIONS.CREATE"></h1>
+    </div>
+    <div class="panel-body form-horizontal">
+
+      <div class="form-group"
+           ng-class="{'has-error': authenticationProviderForm.name.$invalid && authenticationProviderForm.name.$touched}">
+        <label for="name" class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.DETAILS.NAME"></label>
+        <div class="col-sm-9">
+          <input id="name" name="name" type="text" class="form-control" ng-model="$ctrl.authenticationProvider.name"
+                 ng-required="true">
+          <ng-messages for="authenticationProviderForm.name.$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+          </ng-messages>
+        </div>
+      </div>
+
+      <div class="form-group"
+           ng-if="!$ctrl.authenticationProvider.isNew() && $ctrl.editSlug"
+           ng-class="{
+             'has-error': (authenticationProviderForm.slug.$invalid && authenticationProviderForm.slug.$touched) || $ctrl.invalidSlug,
+             'has-warning': $ctrl.authenticationProvider.slug !== $ctrl.oldSlug && !authenticationProviderForm.slug.$invalid && !$ctrl.invalidSlug
+           }">
+        <label for="slug" class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.DETAILS.SLUG.LABEL"></label>
+        <div class="col-sm-9">
+          <input id="slug" name="slug" type="text" class="form-control" ng-model="$ctrl.authenticationProvider.slug"
+                 ng-required="true">
+          <p class="help-block" ng-show="$ctrl.oldSlug != $ctrl.authenticationProvider.slug && !authenticationProviderForm.slug.$invalid && !$ctrl.invalidSlug">
+            <i class="zmdi zmdi-alert-triangle"></i>&nbsp;{{:: 'ADMIN.AUTHENTICATION.DETAILS.SLUG.WARNING' | translate }}
+          </p>
+          <p class="help-block" ng-show="$ctrl.invalidSlug" translate="ADMIN.AUTHENTICATION.DETAILS.SLUG.ERROR"></p>
+          <ng-messages for="authenticationProviderForm.slug.$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+          </ng-messages>
+        </div>
+        <coyo-help tip="ADMIN.AUTHENTICATION.DETAILS.SLUG.HELP" class="col-sm-1 hidden-xs"></coyo-help>
+      </div>
+
+      <div class="form-group"
+           ng-class="{'has-error': authenticationProviderForm.type.$invalid && authenticationProviderForm.type.$touched}">
+        <label for="type" class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.DETAILS.TYPE"></label>
+        <div class="col-sm-9">
+          <coyo-select-authentication-provider-type id="type" name="type" ng-required="true"
+                                                    ng-model="$ctrl.authenticationProvider.type"
+                                                    placeholder="{{:: 'ADMIN.AUTHENTICATION.DETAILS.TYPE.PLACEHOLDER' | translate }}">
+          </coyo-select-authentication-provider-type>
+          <ng-messages for="authenticationProviderForm.type.$error" class="help-block validation">
+            <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+          </ng-messages>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="checkActive" class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.DETAILS.ACTIVE"></label>
+        <div class="col-sm-9">
+          <div class="checkbox">
+            <label>
+              <coyo-checkbox id="checkActive" ng-model="$ctrl.authenticationProvider.active"></coyo-checkbox>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="checkAutoLogin" class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.DETAILS.AUTO_LOGIN.LABEL"></label>
+        <div class="col-sm-9">
+          <div class="checkbox">
+            <label>
+              <coyo-checkbox id="checkAutoLogin" ng-model="$ctrl.authenticationProvider.autoLogin"></coyo-checkbox>
+            </label>
+          </div>
+        </div>
+        <coyo-help tip="ADMIN.AUTHENTICATION.DETAILS.AUTO_LOGIN.HELP" class="col-sm-1"></coyo-help>
+      </div>
+
+      <oyoc-authentication-provider-settings provider="$ctrl.authenticationProvider" form="authenticationProviderForm">
+      </oyoc-authentication-provider-settings>
+
+    </div>
+    <div class="panel-footer panel-actions">
+      <div class="row">
+        <div class="col-sm-10 col-sm-push-2">
+          <coyo-form-submit-button form-ctrl="authenticationProviderForm" label="SAVE"></coyo-form-submit-button><!--
+       --><a ui-sref="^.list" class="btn btn-default">
+          <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{::'CANCEL' | translate}}
+        </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

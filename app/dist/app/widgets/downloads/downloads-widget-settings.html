@@ -1,0 +1,17 @@
+<div class="downloads-widget-settings">
+  <div class="text-center m-m" ng-if="$ctrl.loading">
+    <coyo-spinner size="sm"></coyo-spinner>
+  </div>
+
+  <div class="form-group" ng-if="!$ctrl.loading">
+    <label class="col-sm-2 control-label" translate="WIDGETS.DOWNLOADS.SETTINGS.FILES.LABEL"></label>
+    <coyo-file-picker ng-if="!$ctrl.loading" sender="$ctrl.model.settings._sender" class="col-sm-9"
+                      ng-required="true"
+                      ng-model="$ctrl.model.selectedFiles"
+                      options="{selectMode: 'multiple'}">
+    </coyo-file-picker>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="WIDGETS.DOWNLOADS.SETTINGS.FILES.HELP"></coyo-help>
+    </div>
+  </div>
+</div>

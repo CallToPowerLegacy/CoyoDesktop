@@ -1,0 +1,12 @@
+<form name="reconnectForm">
+  <div class="modal-content-wrapper">
+    <div class="modal-body p-s text-muted">
+      <span class="modal-close pull-right" ng-click="$dismiss()"><i class="zmdi zmdi-close img-close"></i></span>
+      <i class="zmdi zmdi-cloud-off"></i>
+      {{:: 'SOCKETS.CONNECTION_LOST.TEXT' | translate }}
+    </div>
+    <div class="modal-footer">
+      <a ng-click="vm.reload()" class="btn btn-danger" translate="RELOAD_PAGE"></a>
+    </div>
+  </div>
+</form>

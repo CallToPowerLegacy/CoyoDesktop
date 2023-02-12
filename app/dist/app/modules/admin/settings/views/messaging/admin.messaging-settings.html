@@ -1,0 +1,125 @@
+<form name="messagingForm" class="form-horizontal" coyo-form-submit="$ctrl.save()">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title" translate="ADMIN.SETTINGS.MESSAGING"></h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="deleteChannels"
+                       class="col-sm-3 control-label"
+                       translate="ADMIN.SETTINGS.CHAT.CHANNELS.LABEL"></label>
+                <div class="col-sm-8">
+                    <div class="table-row">
+                        <coyo-checkbox id="deleteChannels"
+                                       name="deleteChannels"
+                                       true-value="'true'"
+                                       false-value="'false'"
+                                       ng-model="$ctrl.settings.deleteChannelsActive"
+                                       class="table-cell"></coyo-checkbox>
+                    </div>
+                </div>
+                <div class="col-sm-1 hidden-xs">
+                    <coyo-help tip="ADMIN.SETTINGS.CHAT.CHANNELS.HELP"></coyo-help>
+                </div>
+            </div>
+            <div class="form-group"
+                 uib-collapse="!$ctrl.settings.deleteChannelsActive || $ctrl.settings.deleteChannelsActive === 'false'"
+                 ng-class="{'has-error': $ctrl.settings.deleteChannelsActive === 'true' && messagingForm.deleteChannels.$error.required}">
+                <label for="deleteChannelsPeriod"
+                       class="col-sm-3 control-label"
+                       translate="ADMIN.SETTINGS.CHAT.CHANNELPERIOD.LABEL"></label>
+                <div class="col-sm-8">
+                    <input id="deleteChannelsPeriod"
+                           name="deleteChannelsPeriod"
+                           type="number"
+                           class="form-control"
+                           ng-model="$ctrl.settings.deleteChannelsPeriod"
+                           ng-change="$ctrl.onDeleteChannelsPeriodChange()"
+                           ng-required="$ctrl.settings.deleteChannelsActive === 'true'"
+                           ng-disabled="$ctrl.settings.deleteChannelsActive === 'false'">
+                    <ng-messages for="messagingForm.deleteChannelsPeriod.$error" class="help-block validation">
+                        <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                    </ng-messages>
+                </div>
+                <div class="col-sm-1 hidden-xs">
+                    <coyo-help tip="ADMIN.SETTINGS.CHAT.CHANNELPERIOD.HELP"></coyo-help>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="deleteMessages"
+                    class="col-sm-3 control-label"
+                    translate="ADMIN.SETTINGS.CHAT.MESSAGES.LABEL"></label>
+                <div class="col-sm-8">
+                    <div class="table-row">
+                        <coyo-checkbox id="deleteMessages"
+                                       name="deleteMessages"
+                                       true-value="'true'"
+                                       false-value="'false'"
+                                       ng-model="$ctrl.settings.deleteMessagesActive"
+                                       class="table-cell"></coyo-checkbox>
+                    </div>
+                </div>
+                <div class="col-sm-1 hidden-xs">
+                    <coyo-help tip="ADMIN.SETTINGS.CHAT.MESSAGES.HELP"></coyo-help>
+                </div>
+            </div>
+            <div class="form-group"
+                 uib-collapse="!$ctrl.settings.deleteMessagesActive || $ctrl.settings.deleteMessagesActive === 'false'"
+                 ng-class="{'has-error': $ctrl.settings.deleteMessagesActive === 'true' && messagingForm.deleteMessages.$error.required}">
+                <label for="deleteChannelsPeriod" class="col-sm-3 control-label"
+                       translate="ADMIN.SETTINGS.CHAT.MESSAGEPERIOD.LABEL"></label>
+                <div class="col-sm-8">
+                    <input id="deleteChannelsPeriod"
+                           name="deleteChannelsPeriod"
+                           type="number"
+                           class="form-control"
+                           ng-model="$ctrl.settings.deleteMessagesPeriod"
+                           ng-change="$ctrl.onDeleteMessagesPeriodChange()"
+                           ng-required="$ctrl.settings.deleteMessagesActive === 'true'"
+                           ng-disabled="$ctrl.settings.deleteMessagesActive === 'false'">
+                    <ng-messages for="messagingForm.deleteMessagesPeriod.$error" class="help-block validation">
+                        <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                    </ng-messages>
+                </div>
+                <div class="col-sm-1 hidden-xs">
+                    <coyo-help tip="ADMIN.SETTINGS.CHAT.MESSAGEPERIOD.HELP"></coyo-help>
+                </div>
+            </div>
+
+            <coyo-divider ng-click="$ctrl.showAdvanced = !$ctrl.showAdvanced">
+                <span class="messaging-settings-show-advanced-handle">
+                    <span translate="ADMIN.SETTINGS.CHAT.ADVANCED.TITLE"></span>
+                    <i class="zmdi zmdi-hc-fw"
+                    ng-class="{'zmdi-caret-down': !$ctrl.showAdvanced, 'zmdi-caret-up': $ctrl.showAdvanced}"></i>
+                </span>
+            </coyo-divider>
+
+            <div class="form-group" ng-if="$ctrl.showAdvanced">
+                <label for="chatCron" class="col-sm-3 control-label"
+                    translate="ADMIN.SETTINGS.CHAT.JOBCRON.LABEL"></label>
+                <div class="col-sm-8">
+                    <input id="chatCron"
+                           name="chatCron"
+                           type="text"
+                           class="form-control"
+                           ng-model="$ctrl.settings.chatCron"
+                           ng-required="$ctrl.settings.deleteChannelsActive === 'true' || $ctrl.settings.deleteMessagesActive === 'true'"
+                           ng-disabled="$ctrl.settings.deleteChannelsActive === 'false' && $ctrl.settings.deleteMessagesActive === 'false'">
+                    <ng-messages for="messagingForm.chatCron.$error" class="help-block validation">
+                        <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                    </ng-messages>
+                </div>
+                <div class="col-sm-1 hidden-xs">
+                    <coyo-help tip="ADMIN.SETTINGS.CHAT.JOBCRON.HELP"></coyo-help>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer panel-actions">
+            <div class="row">
+                <div class="col-sm-9 col-sm-push-3">
+                    <coyo-form-submit-button label="SAVE" form-ctrl="messagingForm"></coyo-form-submit-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

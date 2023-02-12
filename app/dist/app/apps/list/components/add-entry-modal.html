@@ -1,0 +1,19 @@
+<form name="addEntryForm" coyo-form-submit="$ctrl.save()" novalidate>
+    <div class="modal-content-wrapper">
+        <div class="modal-header">
+            <h3 class="modal-title" translate="APP.LIST.ADD_ENTRY.MODAL.TITLE"></h3>
+            <span class="modal-close" ng-click="$dismiss()">
+                <i class="zmdi zmdi-close img-close"></i>
+            </span>
+        </div>
+        <div class="modal-body">
+            <oyoc-entry-form entry="$ctrl.entry" fields="$ctrl.fields" form-ctrl="addEntryForm"></oyoc-entry-form>
+        </div>
+        <div class="modal-footer">
+            <coyo-form-submit-button label="SAVE" form-ctrl="addEntryForm"></coyo-form-submit-button>
+            <a class="btn btn-default" ng-click="$dismiss()">
+                <i class="zmdi zmdi-hc-fw zmdi-close-circle"></i>&nbsp;{{::'CLOSE' | translate}}
+            </a>
+        </div>
+    </div>
+</form>

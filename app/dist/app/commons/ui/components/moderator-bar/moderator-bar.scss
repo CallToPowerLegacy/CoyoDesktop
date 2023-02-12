@@ -1,0 +1,29 @@
+.moderator-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  color: $color-white;
+  background-color: $brand-info;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1025;
+
+  @media screen and (min-width: $screen-lg-min) {
+    padding-right: $size-sidebar-messaging-static;
+
+    &.compact {
+      padding-right: $size-sidebar-messaging-compact;
+    }
+  }
+
+  a {
+    color: $color-white;
+
+    &:hover {
+      color: $color-gray-lighter;
+    }
+  }
+}

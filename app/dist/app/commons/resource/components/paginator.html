@@ -1,0 +1,15 @@
+<nav>
+  <ul class="pagination">
+    <li ng-class="{disabled: $ctrl.page.first}">
+      <a href ng-click="$ctrl.prev()" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="disabled"><a>{{$ctrl.page.number + 1}}</a></li>
+    <li ng-class="{disabled: $ctrl.page.last}">
+      <a href ng-click="$ctrl.next()" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

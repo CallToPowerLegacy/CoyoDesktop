@@ -1,0 +1,46 @@
+<div class="single-file-widget">
+  <coyo-widget-status
+        load-data="$ctrl.loadFile()"
+        empty-message="WIDGET.SINGLEFILE.NO_FILE"></coyo-widget-status>
+
+  <coyo-refresh watch="$ctrl.lastUpdate">
+    <div class="single-file-widget-details" ng-if="::$ctrl.file && !$ctrl.loading">
+      <div class="single-file-widget-file-image">
+        <coyo-file-preview file="::$ctrl.file"
+                            size="lg"
+                            url="$ctrl.previewUrl"
+                            group-id="$ctrl.file.senderId"
+                            options="{hideNoPreviewAvailableMsg: true, hidePreviewGenerationInformation: true}"
+                            ng-click="$ctrl.showDetails()"
+                            class="img-file-preview"
+                            ng-if="::!$ctrl.widget.settings._hidePreview"></coyo-file-preview>
+        <coyo-file-icon file="::$ctrl.file" class="zmdi-hc-5x" ng-click="$ctrl.showDetails()" ng-if="$ctrl.widget.settings._hidePreview"></coyo-file-icon>
+      </div>
+      <div class="single-file-widget-details-text">
+        <h4>
+          <a href ng-click="$ctrl.showDetails()" ng-if="!$ctrl.editMode" title="{{:: $ctrl.widget.settings.title || $ctrl.file.name }}">
+            {{:: $ctrl.widget.settings.title || $ctrl.file.name }}
+          </a>
+          <input ng-if="$ctrl.editMode"
+                 type="text"
+                 ng-model="$ctrl.widget.settings.title"
+                 placeholder="{{:: $ctrl.file.name }}"
+                 class="inplace-edit" />
+        </h4>
+        <small class="single-file-widget-details-infos text-muted">
+          {{:: $ctrl.fileTypeText | translate }}
+          <span ng-if="!$ctrl.widget.settings._hideDate">
+            &sdot; {{::$ctrl.file.created | amTimezone: $root.timezone | amDateFormat: $root.dateFormat.short }}
+          </span>
+          <br/>
+          <span ng-if="::!$ctrl.widget.settings._hideSender">
+            <a coyo-sender-link="$ctrl.sender">{{:: $ctrl.sender.displayName }}</a>
+          </span>
+          <span ng-if="::!$ctrl.widget.settings._hideDownload">
+            &sdot; <a href coyo-download="::$ctrl.downloadLink" class="single-file-download"><i class="zmdi zmdi-download"></i>{{::'DOWNLOAD' | translate}}</a>
+          </span>
+        </small>
+      </div>
+    </div>
+  </coyo-refresh>
+</div>

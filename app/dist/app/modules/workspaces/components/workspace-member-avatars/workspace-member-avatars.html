@@ -1,0 +1,13 @@
+<div class="workspace-members">
+  <div ng-hide="$ctrl.loading" ng-repeat="member in $ctrl.members">
+    <coyo-user-avatar avatar-size="xs" user="member" no-link="true"></coyo-user-avatar>
+  </div>
+  <div class="xs user-avatar">
+    <span class="user-avatar-image">
+      <a ui-sref="main.workspace.show.members" class="user-avatar-empty">
+        <i ng-if="$ctrl.loading" class="zmdi zmdi-spinner"></i>
+        <span class="workspace-member-count" ng-if="!loading">{{$ctrl.memberCount}}</span>
+      </a>
+    </span>
+  </div>
+</div>

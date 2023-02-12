@@ -1,0 +1,18 @@
+.user-online-widget .user-online-data {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+
+  .user-online-count {
+    color: $color-gray-darker;
+    font-size: 36px;
+    line-height: 36px;
+    margin-right: 12px;
+  }
+
+  .user-online-text {
+    color: $color-gray;
+    font-size: 13px;
+    line-height: 18px;
+  }
+}

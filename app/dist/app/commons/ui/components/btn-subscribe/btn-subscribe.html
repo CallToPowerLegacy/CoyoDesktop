@@ -1,0 +1,8 @@
+<coyo-refresh on-scope-event="subscribe:refresh">
+  <span class="btn-subscribe" ng-class="::{ loading: $ctrl.loading, active: $ctrl.subscribed }">
+    <a class="handle" ng-click="$ctrl.toggle()"
+       uib-tooltip="{{:: $ctrl.subscribed ? $ctrl.tooltip.unsubscribe : $ctrl.tooltip.subscribe | translate}}"
+       tooltip-popup-delay="750" tooltip-placement="left"
+    ><i class="zmdi zmdi-hc-fw" ng-class="::{'zmdi-notifications-none' : !$ctrl.subscribed, 'zmdi-notifications-active' : $ctrl.subscribed}"></i></a>
+  </span>
+</coyo-refresh>

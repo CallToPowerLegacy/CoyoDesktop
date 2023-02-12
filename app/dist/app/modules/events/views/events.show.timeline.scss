@@ -1,0 +1,35 @@
+.event {
+  .panel-infos {
+    padding-left: 0;
+
+    > li {
+      position: relative;
+      display: block;
+      padding: 6px 58px 6px 49px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &.divider {
+        border-bottom: 1px solid $color-border;
+        padding: 12px 0 0 0;
+        margin: 0 0 12px 0;
+      }
+
+      > i {
+        float: left;
+        margin-left: -28px;
+        text-align: center;
+        line-height: 24px;
+        width: 20px;
+      }
+    }
+
+    .event-info-sender {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 10px;
+      line-height: 0; // fix IE display bug
+    }
+  }
+}

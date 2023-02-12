@@ -1,0 +1,20 @@
+<div class="nav-search">
+  <a coyo-global-permissions="SEARCH" class="search-icon"
+     ng-class="{'search-icon-open': !$root.search.visible, 'search-icon-close': $root.search.visible}"
+     ng-click="searchBar.toggle()">
+    <i class="zmdi" ng-class="{'zmdi-search': !$root.search.visible, 'zmdi-close-circle-o': $root.search.visible}"></i>
+  </a>
+  <input type="text" class="form-control"
+         coyo-global-permissions="SEARCH"
+         translate translate-attr-placeholder="SEARCH"
+         ng-class="{'open': $root.search.visible}"
+         ng-focus="searchBar.search(false)"
+         ng-change="searchBar.search(true)"
+         ng-model="$root.search.term"
+         ng-model-options="{ updateOn: 'default blur', debounce: {'default': $root.debounce.lg, 'blur': 0} }"
+         coyo-update-on-enter>
+
+  <coyo-tour-step topic="navigation" order="20" step-id="navigation.search"
+                  title="{{:: 'TOUR.MAIN.SEARCH.TITLE' | translate }}"
+                  content="{{:: 'TOUR.MAIN.SEARCH' | translate }}"></coyo-tour-step>
+</div>

@@ -1,0 +1,19 @@
+<form name="dateRangeForm">
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="ADMIN.STATISTICS.DATE_RANGE.TITLE"></h3>
+      <span class="modal-close" ng-click="$dismiss()">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+    </div>
+    <div class="modal-body p-s">
+      <div class="form-group" ng-class="{'has-error': dateRangeForm.$invalid}">
+        <coyo-date-range-header date-range="vm.dateRange"></coyo-date-range-header>
+        <coyo-date-range-picker ng-model="vm.dateRange" ng-model-options="{allowInvalid: true}" required full-range></coyo-date-range-picker>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <coyo-form-submit-button label="SAVE" form-ctrl="dateRangeForm" ng-click="$close(vm.dateRange)"></coyo-form-submit-button>
+    </div>
+  </div>
+</form>

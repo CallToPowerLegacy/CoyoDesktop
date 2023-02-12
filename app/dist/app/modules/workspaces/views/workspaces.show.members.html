@@ -1,0 +1,33 @@
+<div ng-if="$ctrl.workspace._permissions.manage" class="panel panel-default panel-tabs">
+  <div class="members-tabs-wrapper">
+    <uib-tabset class="members-tabs" justified="true" active="-1">
+      <uib-tab ui-sref="main.workspace.show.members.list" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-accounts zmdi-wide"></i> <span class="tab-text" translate="WORKSPACE.TAB.MEMBERS"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ng-if="$ctrl.workspace.visibility === 'PROTECTED'" ui-sref="main.workspace.show.members.requested" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-hourglass-alt zmdi-wide"></i> <span class="tab-text" translate="WORKSPACE.TAB.REQUESTED"></span>
+          <span ng-if="$ctrl.workspace.requestedCount" class="badge badge-red">{{$ctrl.workspace.requestedCount}}</span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="main.workspace.show.members.invited" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-account-add zmdi-wide"></i> <span class="tab-text" translate="WORKSPACE.TAB.INVITED"></span>
+        </uib-tab-heading>
+      </uib-tab>
+    </uib-tabset>
+    <div class="user-invite-action" uib-dropdown dropdown-append-to-body>
+      <a class="btn btn-link" uib-dropdown-toggle ng-click="$event.stopPropagation()">
+        <i class="zmdi zmdi-hc-fw zmdi-account-add"></i>&nbsp;{{::'WORKSPACE.ACTION.INVITE' | translate}}
+      </a>
+      <ul uib-dropdown-menu class="dropdown-menu-right">
+        <li><a ng-click="$ctrl.inviteAdmins()"><i class="zmdi zmdi-hc-fw zmdi-account-add"></i>&nbsp;{{::'WORKSPACE.ROLE.INVITE.ADMIN' | translate}}</a></li>
+        <li><a ng-click="$ctrl.inviteMembers()"><i class="zmdi zmdi-hc-fw zmdi-account-add"></i>&nbsp;{{::'WORKSPACE.ROLE.INVITE.USER' | translate}}</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div ui-view></div>

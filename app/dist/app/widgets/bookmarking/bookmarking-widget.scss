@@ -1,0 +1,89 @@
+.bookmarking-widget {
+
+  .add-bookmark-title, .add-bookmark-url {
+    margin-bottom: 5px;
+    width: 100%;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+
+  .flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .bookmark, .add-bookmark {
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .bookmark-icon, .add-bookmark-url-icon {
+      color: $color-gray-darker;
+      margin-left: 3px;
+      margin-right: 11px;
+
+      .has-error {
+        color:$color-red;
+      }
+    }
+
+    .add-bookmark-url-icon {
+      color: $color-green;
+      margin-left: 1px;
+      margin-right: 10px;
+    }
+
+    .bookmark-settings {
+      word-break: break-all;
+      width: 100%;
+
+      .bookmark-title, .bookmark-url {
+        width: 100%;
+        webkit-box-flex: 1;
+        flex: 1;
+      }
+
+      .inplace-edit {
+        width: 100%;
+        background: transparent;
+        border: 0;
+        outline: 0;
+        padding: 0;
+        padding-right: 5px;
+      }
+    }
+
+    .toggle-icon {
+      margin-right: 5px;
+    }
+
+    .delete-icon, .toggle-icon, .check-icon {
+      padding-top: 1px;
+
+      i {
+        color: $color-gray;
+
+        &:hover, &:focus {
+          cursor: pointer;
+          color: $color-gray-darker;
+        }
+      }
+     }
+  }
+
+  .add-bookmark {
+    .bookmark-settings .inplace-edit {
+      border-bottom: 1px solid #DADADA;
+    }
+  }
+
+  .open-panel a:hover {
+    text-decoration: underline;
+    color: $color-gray-darker;
+  }
+}

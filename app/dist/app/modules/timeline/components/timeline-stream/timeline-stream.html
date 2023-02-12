@@ -1,0 +1,38 @@
+<div class="timeline-stream" ng-show="::$ctrl.visible">
+
+  <div ng-if="::$ctrl.canPost">
+    <a class="btn btn-primary btn-block btn-sm mb-xxs visible-xs" ng-click="$ctrl.openFormModal()">
+      <i class="zmdi zmdi-edit"></i>&nbsp;{{::'MODULE.TIMELINE.FORM.MODAL.TRIGGER' | translate}}
+    </a>
+
+    <div class="hidden-xs tour-placeholder-container">
+      <oyoc-timeline-form-inline context-id="{{::$ctrl.contextId}}" timeline-type="::$ctrl.type"></oyoc-timeline-form-inline>
+      <coyo-tour-step topic="timeline" order="55" step-id="timeline.stream" placement="bottom"
+                      title="{{:: 'TOUR.MAIN.TIMELINE.TITLE' | translate }}"
+                      content="{{:: 'TOUR.MAIN.TIMELINE' | translate }}"></coyo-tour-step>
+    </div>
+  </div>
+
+  <div class="text-center load-new-items" ng-if="$ctrl.loadingNew">
+    <coyo-spinner size="sm"></coyo-spinner>
+  </div>
+  <div class="text-center pv-xxs load-new-items" ng-if="!$ctrl.loadingNew && $ctrl.newItemsCount">
+    <button class="btn btn-sm btn-primary"
+            ng-click="$ctrl.loadNew()"
+            translate="MORE.NEW"
+            translate-values="{newItems: $ctrl.newItemsCount}">
+    </button>
+  </div>
+
+  <div class="animate-move" ng-repeat="item in $ctrl.items track by item.id" ng-if="$ctrl.contextSenders">
+    <coyo-timeline-item ng-model="item" context-senders="{{::$ctrl.contextSenders}}" is-new="item.isNew"></coyo-timeline-item>
+  </div>
+
+  <div class="text-center" ng-if="$ctrl.loading">
+    <coyo-spinner size="sm"></coyo-spinner>
+  </div>
+  <div class="text-center pv-xxs" ng-if="!$ctrl.loading && !$ctrl.itemsLast">
+    <button class="btn btn-sm btn-primary" ng-click="$ctrl.loadMore()" translate="MORE"></button>
+  </div>
+
+</div>

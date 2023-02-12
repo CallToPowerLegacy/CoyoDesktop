@@ -1,0 +1,21 @@
+<li>
+  <a href ui-sref="admin.authentication-providers.edit({id: $ctrl.authenticationProvider.id})">
+    <i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;<span translate="ADMIN.AUTHENTICATION.OPTIONS.EDIT.MENU"></span>
+  </a>
+</li>
+<li ng-if="!$ctrl.authenticationProvider.active">
+  <a href ng-click="$ctrl.actions.activate($ctrl.authenticationProvider);">
+    <i class="zmdi zmdi-hc-fw zmdi-play"></i>&nbsp;<span translate="ADMIN.AUTHENTICATION.OPTIONS.ACTIVATE.MENU"></span>
+  </a>
+</li>
+<li ng-if="$ctrl.authenticationProvider.active">
+  <a href ng-click="$ctrl.actions.deactivate($ctrl.authenticationProvider);">
+    <i class="zmdi zmdi-hc-fw zmdi-stop"></i>&nbsp;<span translate="ADMIN.AUTHENTICATION.OPTIONS.DEACTIVATE.MENU"></span>
+  </a>
+</li>
+<li class="divider"></li>
+<li>
+  <a href ng-click="$ctrl.actions.deleteAuthenticationProvider($ctrl.authenticationProvider);">
+    <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;<span translate="ADMIN.AUTHENTICATION.OPTIONS.DELETE.MENU"></span>
+  </a>
+</li>

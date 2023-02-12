@@ -1,0 +1,12 @@
+<div class=form-group>
+  <div class="col-sm-12" ng-if="!$ctrl.ableToLoadAllPages">
+    <p class="alert alert-warning" translate="WIDGETS.SUGGEST_PAGES.SETTINGS.PAGE_LOAD_ERROR"></p>
+  </div>
+
+  <label class="col-sm-2 control-label" translate="WIDGETS.SUGGEST_PAGES.SETTINGS.PAGE.LABEL"></label>
+
+  <div class="col-sm-9" ng-if="!$ctrl.loading">
+    <coyo-select-pages ng-required="true" ng-model="$ctrl.model.selectedPages"></coyo-select-pages>
+  </div>
+  <div class="col-sm-1 hidden-xs"><coyo-help tip="WIDGETS.SUGGEST_PAGES.SETTINGS.PAGE.HELP"></coyo-help></div>
+</div>

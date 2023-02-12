@@ -1,0 +1,40 @@
+<div class="panel panel-default" ng-if="!$ctrl.isMobile">
+  <div class="panel-heading">
+    <h1 class="panel-title" translate="ADMIN.APPS_WIDGETS.APPS.TITLE"></h1>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th translate="ADMIN.APPS_WIDGETS.APPS.HEADERS.APP"></th>
+          <th ng-repeat="senderType in $ctrl.senderTypes" class="text-center" translate="ADMIN.APPS_WIDGETS.APPS.HEADERS.{{ senderType | uppercase }}"></th>
+          <th class="text-center" translate="ADMIN.APPS_WIDGETS.APPS.HEADERS.MODERATOR"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="app in $ctrl.apps">
+          <td>
+            {{:: app.name | translate }}<br>
+            <small class="text-muted hidden-xs">{{:: app.description | translate }}</small>
+          </td>
+          <td class="text-center" ng-repeat="senderType in $ctrl.senderTypes">
+            <coyo-checkbox class="m-0" ng-model="app.enabledSenderTypes[senderType]" ng-click="$ctrl.toggle(senderType, app)"></coyo-checkbox>
+          </td>
+          <td class="text-center">
+            <coyo-checkbox ng-disabled="!app.enabled" class="m-0" ng-model="app.moderatorsOnly" ng-click="$ctrl.toggleModerator(app)"></coyo-checkbox>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="admin-app-settings">
+  <div ng-if="$ctrl.isMobile">
+    <coyo-mobile-menu-item
+        ng-repeat="app in $ctrl.apps"
+        on-click="$ctrl.openSettings(app)"
+        label-text="{{:: app.name }}"
+        icon="'zmdi ' + app.icon"></coyo-mobile-menu-item>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="sender-navigation panel-navigation-mobil">
+  <ul class="nav nav-tabs nav-justified nav-sender">
+    <li ng-repeat="app in $ctrl.apps" ui-sref-active="{'active': $ctrl.getRootState(app)}" ng-class="{ 'hidden-xs': $index > 2, 'hidden-sm': $index > 5, 'app-inactive': !app.active }">
+      <a coyo-app-href="app" sender-type="{{$ctrl.sender.typeName}}">
+        <i class="zmdi" ng-class="$ctrl.getIcon(app)"></i>
+        <span>{{::app.name}}</span>
+      </a>
+    </li>
+    <li uib-dropdown
+        dropdown-append-to-body
+        ng-class="{
+          'hidden-xs': $ctrl.appLength <= 3 && !$ctrl.sender._permissions.manageApps && !$ctrl.currentApp._permissions.manage && !$ctrl.slotFilled,
+          'hidden-sm': $ctrl.appLength <= 6 && !$ctrl.sender._permissions.manageApps && !$ctrl.currentApp._permissions.manage && !$ctrl.slotFilled }">
+      <a uib-dropdown-toggle class="dropdown-more">
+        <i class="zmdi zmdi-more"></i>
+      </a>
+      <ul uib-dropdown-menu role="menu" class="dropdown-menu-right dropdown-menu-nav-sender">
+        <ng-transclude ng-transclude-slot="top"></ng-transclude>
+        <li ng-repeat="app in $ctrl.apps" ui-sref-active="{'active': $ctrl.getRootState(app)}" ng-class="{ 'hidden-xs': $index <= 2, 'hidden-sm': $index <= 5, 'app-inactive': !app.active }">
+          <a coyo-app-href="app" sender-type="{{$ctrl.sender.typeName}}">
+            <i class="zmdi zmdi-hc-fw" ng-class="$ctrl.getIcon(app)"></i> {{app.name}}
+          </a>
+        </li>
+        <li class="divider" ng-class="{ 'hidden-xs': $ctrl.apps.length <= 3, 'hidden-sm': $ctrl.apps.length <= 6 }"></li>
+        <ng-transclude ng-transclude-slot="middle"></ng-transclude>
+        <li ng-if="$ctrl.sender._permissions.manageApps">
+          <a ng-click="$ctrl.addApp($ctrl.sender, $ctrl.apps)">
+            <i class="zmdi zmdi-hc-fw zmdi-plus-circle"></i> <span translate="APPS.ADD"></span>
+          </a>
+        </li>
+        <li ng-if="$ctrl.currentApp._permissions.manage">
+          <a ng-click="$ctrl.editApp()">
+            <i class="zmdi zmdi-hc-fw zmdi-settings"></i> <span translate="APPS.EDIT"></span>
+          </a>
+        </li>
+        <ng-transclude ng-transclude-slot="bottom"></ng-transclude>
+      </ul>
+    </li>
+  </ul>
+</div>

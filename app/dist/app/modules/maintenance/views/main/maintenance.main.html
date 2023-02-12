@@ -1,0 +1,27 @@
+<div class="panel maintenance">
+  <div ng-if="$ctrl.status.error" class="error-message fade-in">
+    {{$ctrl.status.message}}
+  </div>
+  <div class="panel-body">
+    <h2 ng-if="$ctrl.headline" ng-bind="$ctrl.headline"></h2>
+    <h2 ng-if="!$ctrl.headline" translate="MODULE.MAINTENANCE.HEADLINE"></h2>
+    <div class="alert alert-danger">
+      <span ng-if="$ctrl.message"  ng-bind="$ctrl.message"></span>
+      <span ng-if="!$ctrl.message" translate="MODULE.MAINTENANCE.MESSAGE"></span>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-xs-8">
+        <span ng-if="$ctrl.currentUser">
+          <a href ng-click="$ctrl.logout()" target="_self" translate="BUTTONS.LOGOUT" class="small"></a>
+          <i class="mh-xxs text-muted">|</i>
+        </span>
+        <a href="{{$ctrl.selfLink}}" target="_self" translate="MODULE.MAINTENANCE.RELOAD_PAGE" class="small"></a>
+      </div>
+      <div class="col-xs-4">
+        <div class="pull-right copyright"></div>
+      </div>
+    </div>
+  </div>
+</div>

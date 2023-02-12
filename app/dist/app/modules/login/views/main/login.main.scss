@@ -1,0 +1,26 @@
+// Login
+// --------------------------------------------------
+
+.backend-url-reset {
+  position: absolute;
+  top: 11px;
+  right: 12px;
+
+  .zmdi {
+    font-size: 20px;
+    color: $color-gray-darker;
+
+    &:hover {
+      color: $color-red;
+    }
+  }
+}
+
+.auto-login-msg {
+  color: rgba($color-white, 0.5);
+  font-size: 20px;
+}
+
+#login-error {
+  padding: 12px;
+}

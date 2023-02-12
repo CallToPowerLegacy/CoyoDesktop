@@ -1,0 +1,8 @@
+<ui-select ng-model="data.selected" class="select-language">
+  <ui-select-match placeholder="{{::placeholder}}" allow-clear="false">
+    <span data-ng-if="$select.selected">{{ languageKeyPrefix + '.' + $select.selected + '.LABEL' | translate}}</span>
+  </ui-select-match>
+  <ui-select-choices repeat="visibility in data.visibilities">
+    <div>{{ ::languageKeyPrefix + '.' + visibility + '.LABEL' | translate}}</div>
+  </ui-select-choices>
+</ui-select>

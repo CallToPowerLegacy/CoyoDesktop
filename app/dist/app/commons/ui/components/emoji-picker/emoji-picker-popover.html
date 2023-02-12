@@ -1,0 +1,4 @@
+<div class="emoji-picker-popover" coyo-infinite-scroll="$ctrl.showMore()">
+  <span id="emoji-{{$index}}" class="emoji" ng-repeat="emoji in $ctrl.emojis | limitTo: $ctrl.limit"
+        ng-click="$ctrl.select($index)" ng-bind-html="emoji"></span>
+</div>

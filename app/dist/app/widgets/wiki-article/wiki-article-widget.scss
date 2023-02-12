@@ -1,0 +1,47 @@
+.widget .single-wiki-article-widget {
+
+  h4 {
+    margin-bottom: 2px;
+  }
+
+  .article-meta {
+    align-items: center;
+    display: flex;
+
+    a {
+      flex: 1;
+      margin-right: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  h3 {
+    font-size: 18px;
+    line-height: 1.33333;
+    margin: 4px 0 0;
+  }
+
+  .article-time,
+  .teaser-text {
+    color: $color-gray;
+    font-size: 13px;
+  }
+}
+
+.single-wiki-article-widget-settings {
+
+  .alert.alert-warning {
+    margin: 3px 0;
+  }
+
+  .ui-select-choices-group .ui-select-choices-row-inner small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .preview-field .text-muted {
+    padding-top: 8px;
+  }
+}

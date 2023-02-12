@@ -1,0 +1,5 @@
+<div class="text-center m-m" ng-show="$ctrl.loading">
+  <coyo-spinner size="sm"></coyo-spinner>
+</div>
+<p class="widget-status-alert text-muted alert alert-warning" ng-if="$ctrl.errorMessage">{{::$ctrl.errorMessage}}</p>
+<em class="text-muted" ng-if="$ctrl.emptyResult">{{::$ctrl.emptyMessage | translate}}</em>

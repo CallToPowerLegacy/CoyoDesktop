@@ -1,0 +1,124 @@
+.workspaces-list .category-manager li.filter-entry {
+  &:hover:not(.filter-entry-editing) > a {
+    padding-right: 88px !important;
+  }
+
+  @media screen and (min-width: $screen-md-min) {
+    &.filter-entry-options:hover > a .badge {
+      display: none;
+    }
+  }
+}
+
+.workspace-card {
+  height: 80px;
+  position: relative;
+
+  .sender-avatar {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+
+    img,
+    .sender-avatar-empty {
+      border-radius: 0;
+      background-color: $color-workspace-avatar-bg;
+
+      @media screen and (min-width: $screen-md-min) {
+        border-radius: 5px 0 0 5px;
+      }
+    }
+  }
+
+  .panel-body {
+    height: 100%;
+    padding-left: 98px;
+    position: relative;
+
+    h4 {
+      margin: 1px 0 6px;
+      position: relative;
+      @include ellipsis();
+    }
+  }
+
+  .workspace-card-labels {
+    width: 100%;
+    max-height: 25px;
+    overflow: hidden;
+    white-space: nowrap;
+    .label {
+      margin-right: 4px;
+    }
+  }
+  .ribbon {
+    user-select: none;
+    cursor: default;
+    position: absolute;
+    left: -5px; top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 76px;
+    height: 76px;
+    text-align: right;
+
+    @media screen and (min-width: $screen-md-min) {
+      border-radius: $border-radius-base;
+    }
+
+    p {
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+      color: $color-white;
+      background: $color-blue;
+      line-height: 20px;
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+      width: 102px;
+      display: block;
+      position: absolute;
+      top: 20px;
+      left: -21px;
+      margin: 0;
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 100%;
+        z-index: -1;
+        border: 3px solid darken($color-blue, 15%);
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 100%;
+        z-index: -1;
+        border: 3px solid darken($color-blue, 15%);
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+      }
+    }
+  }
+
+  p.ribbon-archived {
+    background: $coyo-ribbon-archived-bg;
+    z-index: 2;
+
+    &:before {
+      border-top-color: $coyo-ribbon-archived-bg-shadow;
+      border-left-color: $coyo-ribbon-archived-bg-shadow;
+    }
+    &:after {
+      border-top-color: $coyo-ribbon-archived-bg-shadow;
+      border-right-color: $coyo-ribbon-archived-bg-shadow;
+    }
+  }
+}

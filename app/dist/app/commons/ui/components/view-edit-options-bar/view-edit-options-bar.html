@@ -1,0 +1,13 @@
+<div ng-show="$root.globalEditMode" class="view-edit-options-bar" ng-class="{'compact' : $ctrl.compact}">
+  <coyo-help guide="widgets" class="pull-left" tip="VIEW.HELP" placement="top-left"></coyo-help>
+
+  <span translate="VIEW.EDIT.TEXT" class="hidden-xs ml-xxs"></span>
+
+  <a ng-click="$ctrl.save()" class="btn btn-link">
+    <i class="zmdi zmdi-hc-fw zmdi-check"></i>&nbsp;{{::'SAVE' | translate}}
+  </a>
+
+  <a ng-click="$ctrl.cancel()" class="btn btn-link">
+    <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{::'CANCEL' | translate}}
+  </a>
+</div>

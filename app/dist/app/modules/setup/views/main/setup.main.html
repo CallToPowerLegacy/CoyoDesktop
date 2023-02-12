@@ -1,0 +1,307 @@
+<div class="setup-container">
+  <h1 class="logo">Coyo</h1>
+  <div class="setup-content">
+
+    <section class="setup" ng-if="!vm.isSetUp && !vm.settingUp">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <h3 ng-if="vm.wizard.active < 0" class="panel-title" translate="MODULE.SETUP.WELCOME.WELCOME"></h3>
+          <h3 ng-if="vm.wizard.active >= 0" class="panel-title" translate="MODULE.SETUP.TITLE"></h3>
+        </div>
+
+        <div ng-show="vm.wizard.active < 0" class="welcome">
+          <div class="panel-body">
+            <div class="col-sm-12">
+              <div class="welcome-section">
+                <span ng-if="!vm.backendUrl">{{ ::'MODULE.SETUP.WELCOME.SETUP.NO_BACKEND_URL' | translate }}</span>
+              </div>
+              <div class="welcome-section" ng-if="vm.backendUrl">
+                {{ ::'MODULE.SETUP.WELCOME.SETUP.BACKEND_URL' | translate }}
+                <div class="form-group backend-url">
+                  <div class="col-sm-12">
+                    <div class="input-wrapper">
+                      <input type="text" class="form-control" value="{{vm.backendUrl}}" disabled>
+                      <i class="zmdi zmdi-globe"></i>
+                      <a class="backend-url-reset" ng-click="vm.resetBackendUrl()"><i
+                          class="zmdi zmdi-close-circle-o"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer panel-actions">
+            <div class="row">
+              <div class="footer-buttons-welcome col-sm-12">
+                <button class="btn btn-primary" ng-click="vm.wizard.active = 0">
+                  <i class="zmdi zmdi-arrow-right"></i>&nbsp;{{::'MODULE.SETUP.FORM.BUTTON.START' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-body visible-xs" ng-if="vm.wizard.active >= 0 && vm.wizard.active <= 2">
+          <h4>{{ vm.wizard.states[vm.wizard.active] | translate}}</h4>
+        </div>
+        <div class="panel-body hidden-xs mt-xs" ng-show="vm.wizard.active >= 0">
+          <coyo-wizard states="vm.wizard.states" active="vm.wizard.active"></coyo-wizard>
+        </div>
+
+        <!-- Network Name (Step 1) -->
+        <form name="setupForm0"
+              class="form-horizontal"
+              coyo-form-submit="vm.next(setupForm0, vm.model)"
+              ng-show="vm.wizard.active === 0">
+          <div class="panel-body">
+            <div class="pb-xs" translate="MODULE.SETUP.FORM.NETWORKNAME.DESCRIPTION"></div>
+            <div class="form-group"
+                 ng-class="{'has-error': setupForm0.networkname.$dirty && setupForm0.networkname.$error.required}">
+              <div class="col-sm-11">
+                <div class="input-wrapper">
+                  <input type="text"
+                         class="form-control"
+                         placeholder="{{:: 'MODULE.SETUP.FORM.NETWORKNAME' | translate }}"
+                         name="networkname"
+                         id="networkname"
+                         ng-model="vm.model.networkName"
+                         focus-if="vm.wizard.active === 0"
+                         required>
+                  <i class="zmdi zmdi-globe"></i>
+                </div>
+                <ng-messages for="setupForm0.networkname.$error" class="help-block validation">
+                  <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                </ng-messages>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer panel-actions">
+            <div class="row">
+              <div class="col-sm-12 footer-buttons">
+                <a ng-click="vm.back()" class="btn btn-default">
+                  <i class="zmdi zmdi-hc-fw zmdi-arrow-left"></i>&nbsp;{{:: 'BACK' | translate }}
+                </a><!--
+             -->
+                <coyo-form-submit-button label="CONTINUE" form-ctrl="setupForm0"
+                                         icon="zmdi-arrow-right"></coyo-form-submit-button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <!-- Initial User (Step 2) -->
+        <form name="setupForm1"
+              class="form-horizontal"
+              coyo-form-submit="vm.next(setupForm1, vm.model)"
+              ng-show="vm.wizard.active === 1">
+          <div class="panel-body">
+            <div class="pb-xs">
+              {{ ::'MODULE.SETUP.TIP.INITIAL_USER' | translate}}
+            </div>
+
+            <!-- First name of the administrator -->
+            <div class="form-group"
+                 ng-class="{'has-error': setupForm1.firstname.$dirty && setupForm1.firstname.$error.required}">
+              <div class="col-sm-12">
+                <div class="input-wrapper">
+                  <input type="text"
+                         class="form-control"
+                         placeholder="{{:: 'MODULE.SETUP.FORM.FIRSTNAME' | translate }}"
+                         name="firstname"
+                         id="firstname"
+                         ng-model="vm.model.firstName"
+                         focus-if="vm.wizard.active === 1"
+                         required>
+                  <i class="zmdi zmdi-account"></i>
+                </div>
+                <ng-messages for="setupForm1.firstname.$error" class="help-block validation">
+                  <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                </ng-messages>
+              </div>
+            </div>
+
+            <!-- Last name of the administrator -->
+            <div class="form-group"
+                 ng-class="{'has-error': setupForm1.lastname.$dirty && setupForm1.lastname.$error.required}">
+              <div class="col-sm-12">
+                <div class="input-wrapper">
+                  <input type="text"
+                         class="form-control"
+                         placeholder="{{:: 'MODULE.SETUP.FORM.LASTNAME' | translate }}"
+                         name="lastname"
+                         id="lastname"
+                         ng-model="vm.model.lastName"
+                         required>
+                  <i class="zmdi zmdi-account"></i>
+                </div>
+                <ng-messages for="setupForm1.lastname.$error" class="help-block validation">
+                  <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                </ng-messages>
+              </div>
+            </div>
+
+            <!-- Email address of the administrator -->
+            <div class="form-group"
+                 ng-class="{'has-error': setupForm1.email.$dirty && (setupForm1.email.$invalid || setupForm1.email.$error.required)}">
+              <div class="col-sm-12">
+                <div class="input-wrapper">
+                  <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      ng-model="vm.model.email"
+                      coyo-check-matches="vm.emailPattern"
+                      placeholder="{{::'MODULE.SETUP.FORM.EMAIL' | translate}}"
+                      required/>
+                  <i class="zmdi zmdi-email"></i>
+                </div>
+                <ng-messages for="setupForm1.email.$error" class="help-block validation">
+                  <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                  <p ng-message="matches" translate="MODULE.SETUP.FORM.EMAIL.INVALID"></p>
+                </ng-messages>
+              </div>
+            </div>
+
+            <!-- Password of the administrator -->
+            <div class="form-group"
+                 ng-class="{ 'has-error': setupForm1.password.$touched && setupForm1.password.$dirty && (setupForm1.password.$invalid || setupForm1.password.$error.required)}">
+              <div class="col-sm-12">
+                <div class="input-wrapper">
+                  <input
+                      type="{{ vm.inputTypes.password === 'text' ? 'text' : 'password' }}"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      ng-model="vm.model.password"
+                      coyo-check-matches="vm.passwordPattern"
+                      placeholder="{{::'MODULE.SETUP.FORM.PASSWORD.PASSWORD' | translate}}"
+                      required/>
+                  <i class="zmdi zmdi-key"
+                     ng-click="vm.inputTypes.password = (vm.inputTypes.password === 'password') ? 'text' : 'password'"
+                     ng-class="{'zmdi-key': vm.inputTypes.password !== 'text', 'zmdi-edit': vm.inputTypes.password === 'text'}"></i>
+                </div>
+                <ng-messages for="setupForm1.password.$error" class="help-block validation">
+                  <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                  <p ng-message="matches" translate="MODULE.SETUP.FORM.PASSWORD.INVALID"></p>
+                </ng-messages>
+              </div>
+            </div>
+
+            <!-- Password confirmation -->
+            <div class="form-group"
+                 ng-class="{ 'has-error': setupForm1.passwordconfirm.$touched && setupForm1.passwordconfirm.$dirty && (setupForm1.passwordconfirm.$invalid || setupForm1.passwordconfirm.$error.required)}">
+              <div class="col-sm-12">
+                <div class="input-wrapper">
+                  <input
+                      type="{{ vm.inputTypes.passwordconfirm === 'text' ? 'text' : 'password' }}"
+                      class="form-control"
+                      id="passwordconfirm"
+                      name="passwordconfirm"
+                      ng-model="vm.passwordConfirm"
+                      coyo-check-equals="vm.model.password"
+                      placeholder="{{::'MODULE.SETUP.FORM.PASSWORD.CONFIRM' | translate}}"
+                      required/>
+                  <i class="zmdi zmdi-key"
+                     ng-click="vm.inputTypes.passwordconfirm = (vm.inputTypes.passwordconfirm === 'password') ? 'text' : 'password'"
+                     ng-class="{'zmdi-key': vm.inputTypes.passwordconfirm !== 'text', 'zmdi-edit': vm.inputTypes.passwordconfirm === 'text'}"></i>
+                </div>
+                <ng-messages for="setupForm1.passwordconfirm.$error" class="help-block validation">
+                  <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                  <p ng-message="equals" translate="MODULE.SETUP.FORM.PASSWORD.MISMATCH"></p>
+                </ng-messages>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer panel-actions">
+            <div class="row">
+              <div class="col-sm-12 footer-buttons">
+                <a ng-click="vm.back()" class="btn btn-default">
+                  <i class="zmdi zmdi-hc-fw zmdi-arrow-left"></i>&nbsp;{{:: 'BACK' | translate }}
+                </a>
+                <coyo-form-submit-button label="CONTINUE" form-ctrl="setupForm1"
+                                         icon="zmdi-arrow-right"></coyo-form-submit-button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <!-- Demo data (Step 3) -->
+        <form name="setupForm2"
+              class="form-horizontal"
+              coyo-form-submit="vm.next(setupForm2, vm.model)"
+              ng-show="vm.wizard.active === 2">
+          <div class="panel-body">
+            <div class="panel-body">
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <div class="radio">
+                    <label>
+                      <input name="demoData" type="radio" ng-model="vm.demoData" value="TRUE">
+                      {{:: 'MODULE.SETUP.FORM.DEMODATA.CREATE' | translate }}
+                      <p class="text-muted">
+                        {{ ::'MODULE.SETUP.TIP.DEMODATA.CREATE' | translate}}
+                      </p>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input name="demoData" type="radio" ng-model="vm.demoData" value="FALSE">
+                      {{:: 'MODULE.SETUP.FORM.DEMODATA.DONT_CREATE' | translate }}
+                      <p class="text-muted">
+                        {{ ::'MODULE.SETUP.TIP.DEMODATA.DONT_CREATE' | translate}}
+                      </p>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-12" data-ng-if="vm.demoData === 'FALSE'">
+                  <h3 translate="MODULE.SETUP.FORM.CONFIRM_EMPTY_INSTALLATION.TITLE"></h3>
+                  <div class="radio">
+                    <label>
+                      <input name="confirmEmptyInstallation" type="radio" ng-model="vm.confirmEmptyInstallation"
+                             value="TRUE">
+                      {{ ::'MODULE.SETUP.FORM.CONFIRM_EMPTY_INSTALLATION.YES' | translate }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-footer panel-actions">
+            <div class="row">
+              <div class="col-sm-12 footer-buttons">
+                <a ng-click="vm.back()" class="btn btn-default">
+                  <i class="zmdi zmdi-hc-fw zmdi-arrow-left"></i>&nbsp;{{:: 'BACK' | translate }}
+                </a>
+                <coyo-form-submit-button
+                    disabled="vm.demoData === undefined || vm.demoData === 'FALSE' && vm.confirmEmptyInstallation !== 'TRUE'"
+                    label="MODULE.SETUP.FORM.BUTTON.FINISH"
+                    form-ctrl="setupForm2" icon="zmdi-check"></coyo-form-submit-button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="setting-up text-center" ng-if="vm.settingUp">
+      <div class="m-m">
+        <coyo-spinner inverted="true"></coyo-spinner>
+      </div>
+      <div>
+        <div ng-if="!vm.model.demoData">
+          {{ ::'MODULE.SETUP.SETTING_UP.SETUP.WITHOUT_DEMO_DATA' | translate }}
+        </div>
+        <div ng-if="vm.model.demoData">
+          {{ ::'MODULE.SETUP.SETTING_UP.SETUP.WITH_DEMO_DATA' | translate }}
+        </div>
+        <div>
+          {{ ::'MODULE.SETUP.SETTING_UP.WAIT' | translate }}
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

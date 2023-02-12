@@ -1,0 +1,23 @@
+.callout-widget-settings {
+
+  .preview-field .alert {
+    min-height: 56px;
+    word-wrap: break-word;
+
+    @media screen and (min-width: $screen-xs-max) {
+      margin-top: -6.5px;
+    }
+  }
+}
+
+.callout-widget {
+  word-wrap: break-word;
+
+  .markdown-editable-display p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.panel .callout-widget .alert {
+    margin-bottom: 0;
+}

@@ -1,0 +1,9 @@
+<a class="help zmdi zmdi-help"
+   ng-if="$ctrl.tip"
+   uib-tooltip="{{ $ctrl.tip | translate }}"
+   tooltip-placement="{{ $ctrl.placement }}"
+   tooltip-append-to-body="true"
+   ng-href="{{ $ctrl.link }}"
+   ng-click="$ctrl.click($event)"
+   target="_blank"
+></a>

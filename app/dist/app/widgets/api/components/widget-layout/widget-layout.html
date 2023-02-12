@@ -1,0 +1,57 @@
+<div class="widget-layout widget-slot-{{$ctrl.renderStyle}} clearfix" ng-class="{'edit-mode': $ctrl.editMode}">
+
+  <!-- Spinner -->
+  <div class="text-center" ng-if="$ctrl.loading">
+    <coyo-spinner size="sm"></coyo-spinner>
+  </div>
+
+  <!-- Row -->
+  <div ng-show="!$ctrl.loading">
+    <div class="widget-layout-row"
+         ng-repeat="row in $ctrl.layout.settings.rows track by row.name"
+         ng-if="$ctrl.isRowVisible(row)">
+
+      <div class="widget-layout-row-options" ng-if="$ctrl.canManage" ng-hide="$ctrl.simpleMode">
+        <a class="widget-layout-btn widget-layout-row-create" ng-click="$ctrl.addRow($index)"
+           uib-tooltip="{{::'WIDGETS.LAYOUT.ROW.CREATE' | translate}}" tooltip-append-to-body="true"
+           tooltip-placement="right" tooltip-class="widget-layout-row-option-tooltip">
+          <i class="zmdi zmdi-plus"></i>
+        </a>
+        <a class="widget-layout-btn widget-layout-row-delete" ng-click="$ctrl.removeRow($index)"
+           uib-tooltip="{{::'WIDGETS.LAYOUT.ROW.DELETE' | translate}}" tooltip-append-to-body="true"
+           tooltip-placement="right" tooltip-class="widget-layout-row-option-tooltip">
+          <i class="zmdi zmdi-minus"></i>
+        </a>
+      </div>
+
+      <div class="row">
+
+        <!-- Slot -->
+        <div class="widget-layout-row-slot-wrapper col-md-{{slot.cols}}"
+             ng-repeat="slot in row.slots track by slot.name">
+
+          <coyo-widget-slot name="{{$ctrl.buildSlotName(slot.name)}}"
+                            copy-mode="$ctrl.copyMode"
+                            parent="$ctrl.parent"
+                            can-manage="$ctrl.canManage"
+                            global-events="$ctrl.globalEvents"
+                            render-style="{{$ctrl.renderStyle}}"
+                            initial-edit-mode="$ctrl.editMode"
+                            hide-slot-placeholder="true"
+                            loading-promises="$ctrl.loadingPromises"
+                            simple-mode="$ctrl.simpleMode"
+                            options="$ctrl.options"
+                            add-initial-widget="$ctrl.addInitialWidget"></coyo-widget-slot>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="widget-layout-row-options last" ng-hide="$ctrl.simpleMode">
+    <a class="widget-layout-btn widget-layout-row-create" ng-click="$ctrl.addRow($ctrl.layout.settings.rows.length)"
+       uib-tooltip="{{::'WIDGETS.LAYOUT.ROW.CREATE' | translate}}" tooltip-append-to-body="true"
+       tooltip-placement="right" tooltip-class="widget-layout-row-option-tooltip">
+      <i class="zmdi zmdi-plus"></i>
+    </a>
+  </div>
+</div>

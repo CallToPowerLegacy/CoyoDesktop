@@ -1,0 +1,22 @@
+<form name="settingsForm" coyo-form-submit="vm.save()">
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="WIDGETS.SETTINGS.TITLE"></h3>
+      <span class="modal-close" ng-click="$dismiss()">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+    </div>
+    <div class="modal-body p-s">
+      <div class="form-horizontal">
+        <oyoc-settings-view
+                model="vm.widget"
+                config="vm.widgetConfig"
+                form-ctrl="settingsForm"
+                save-callbacks="vm.saveCallbacks"></oyoc-settings-view>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <coyo-form-submit-button label="SAVE" form-ctrl="settingsForm"></coyo-form-submit-button>
+    </div>
+  </div>
+</form>

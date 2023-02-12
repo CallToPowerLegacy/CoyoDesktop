@@ -1,0 +1,7 @@
+<a class="event-subscribe" ng-click="$ctrl.toggle()">
+  <i ng-if="!$ctrl.loading && $ctrl.subscribed" class="zmdi zmdi-hc-fw zmdi-notifications-active"></i>
+  <i ng-if="!$ctrl.loading && !$ctrl.subscribed" class="zmdi zmdi-hc-fw zmdi-notifications-none"></i>
+  <i ng-if="$ctrl.loading" class="zmdi zmdi-hc-fw zmdi-hc-spin zmdi-spinner"></i>
+  <span ng-if="!$ctrl.subscribed" translate="EVENT.SUBSCRIBE"></span>
+  <span ng-if="$ctrl.subscribed" translate="EVENT.SUBSCRIBED"></span>
+</a>

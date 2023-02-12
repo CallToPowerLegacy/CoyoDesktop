@@ -1,0 +1,108 @@
+<nav class="sidebar visible-xs visible-sm" ng-class="{ 'slide-in' : $ctrl.showSidebar }">
+
+  <!-- Homepages -->
+  <ul class="nav nav-icons nav-collapse" ng-class="{'nav-collapsed-false': !$ctrl.navState['homepages'] }" ng-if="::$ctrl.landingPages.length > 1" coyo-global-permissions="ACCESS_LANDING_PAGES">
+    <li class="sidebar-headline" ng-click="$ctrl.navCollapse('homepages')" translate="NAVIGATION.HEADLINE_NEWS"></li>
+    <li class="nav-sidebar-item" ui-sref-active="active" ng-repeat="landingPage in ::$ctrl.landingPages">
+      <a ng-if="::!landingPage.configuredUrl" ui-sref="main.landing-page.show({idOrSlug: landingPage.slug})"><i class="zmdi zmdi-globe"></i>{{:: landingPage.displayName }}</a>
+      <a ng-if="::landingPage.configuredUrl && !landingPage.newTab" ng-href="{{:: landingPage.configuredUrl}}"><i class="zmdi zmdi-globe"></i>{{:: landingPage.displayName }}</a>
+      <a ng-if="::landingPage.configuredUrl && landingPage.newTab" ng-href="{{:: landingPage.configuredUrl}}" target="_blank"><i class="zmdi zmdi-globe"></i>{{:: landingPage.displayName }}</a>
+    </li>
+  </ul>
+
+  <!-- Main -->
+  <ul class="nav nav-icons nav-collapse" ng-class="{'nav-collapsed-false': !$ctrl.navState['main'] }">
+    <li class="sidebar-headline" ng-click="$ctrl.navCollapse('main')" translate="NAVIGATION.HEADLINE_MAIN"></li>
+    <li class="nav-sidebar-item" ui-sref-active="active" ng-if="::$ctrl.landingPages.length === 1" coyo-global-permissions="ACCESS_LANDING_PAGES">
+      <a ui-sref="main.landing-page.show({idOrSlug: $ctrl.landingPages[0].slug})"><i class="zmdi zmdi-globe"></i>{{:: $ctrl.landingPages[0].displayName }}</a>
+    </li>
+    <li class="nav-sidebar-item" ui-sref-active="active" coyo-global-permissions="ACCESS_PAGES">
+      <a ui-sref="main.page"><i class="zmdi zmdi-layers"></i><span translate="NAVIGATION.PAGES"></span></a>
+    </li>
+    <li class="nav-sidebar-item" ui-sref-active="active" coyo-global-permissions="ACCESS_WORKSPACES">
+      <a ui-sref="main.workspace"><i class="zmdi zmdi-apps"></i><span translate="NAVIGATION.WORKSPACES"></span></a>
+    </li>
+    <li class="nav-sidebar-item" ui-sref-active="active" coyo-global-permissions="ACCESS_EVENTS">
+      <a ui-sref="main.event"><i class="zmdi zmdi-calendar"></i><span translate="NAVIGATION.EVENTS"></span></a>
+    </li>
+    <li class="nav-sidebar-item" ui-sref-active="active" coyo-global-permissions="ACCESS_COLLEAGUE_LIST">
+      <a ui-sref="main.colleagues">
+        <i class="zmdi zmdi-accounts-alt"></i><span translate="NAVIGATION.COLLEAGUES"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" ui-sref-active="active" coyo-global-permissions="ACCESS_OWN_USER_PROFILE">
+      <a ui-sref="main.profile.current"><i class="zmdi zmdi-account-circle"></i><span translate="NAVIGATION.PROFILE"></span></a>
+    </li>
+    <li class="nav-sidebar-item" ui-sref-active="active">
+      <a coyo-file-library-trigger sender="::$ctrl.user">
+        <i class="zmdi zmdi-file"></i><span translate="NAVIGATION.FILE_LIBRARY"></span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- My Pages -->
+  <ul class="nav nav-icons nav-collapse" ng-class="{'nav-collapsed-false': !$ctrl.navState['pages'] }" ng-if="$ctrl.mySubscriptions['page'].loading || $ctrl.mySubscriptions['page'].items.length">
+    <li class="sidebar-headline" ng-click="$ctrl.navCollapse('pages')" translate="WIDGET.SUBSCRIPTIONS.PAGE"></li>
+    <li class="nav-sidebar-item" ng-repeat="sender in $ctrl.mySubscriptions['page'].items track by sender.id">
+      <a ng-click="::$ctrl.openSender(sender)"><i class="zmdi zmdi-{{:: $ctrl.mySubscriptions['page'].icon }}"></i> {{:: sender.displayName }}</a>
+    </li>
+    <li class="text-center" ng-show="$ctrl.mySubscriptions['page'].loading">
+      <coyo-spinner size="sm"></coyo-spinner>
+    </li>
+    <coyo-filter-expand on-click="$ctrl.loadMoreSubscriptions('page')" ng-hide="$ctrl.mySubscriptions['page'].loading || $ctrl.mySubscriptions['page'].currentPage.last"></coyo-filter-expand>
+  </ul>
+
+  <!-- My Workspaces -->
+  <ul class="nav nav-icons nav-collapse" ng-class="{'nav-collapsed-false': !$ctrl.navState['workspaces'] }" ng-if="$ctrl.mySubscriptions['workspace'].loading || $ctrl.mySubscriptions['workspace'].items.length">
+    <li class="sidebar-headline" ng-click="$ctrl.navCollapse('workspaces')" translate="WIDGET.SUBSCRIPTIONS.WORKSPACE"></li>
+    <li class="nav-sidebar-item" ng-repeat="sender in $ctrl.mySubscriptions['workspace'].items track by sender.id">
+      <a ng-click="::$ctrl.openSender(sender)"><i class="zmdi zmdi-{{:: $ctrl.mySubscriptions['workspace'].icon }}"></i> {{:: sender.displayName }}</a>
+    </li>
+    <li class="text-center" ng-show="$ctrl.mySubscriptions['workspace'].loading">
+      <coyo-spinner size="sm"></coyo-spinner>
+    </li>
+    <coyo-filter-expand on-click="$ctrl.loadMoreSubscriptions('workspace')" ng-hide="$ctrl.mySubscriptions['workspace'].loading || $ctrl.mySubscriptions['workspace'].currentPage.last"></coyo-filter-expand>
+  </ul>
+
+  <!-- More -->
+  <ul class="nav nav-icons nav-collapse" ng-class="{'nav-collapsed-false': !$ctrl.navState['more'] }">
+    <li class="sidebar-headline" ng-click="$ctrl.navCollapse('more')" translate="NAVIGATION.CONTEXT.HEADLINE"></li>
+    <li class="nav-sidebar-item" ui-sref-active="active" coyo-global-permissions="{{::$ctrl.allAdminPermissions}}">
+      <a ui-sref="admin"><i class="zmdi zmdi-settings"></i><span translate="ADMIN.TITLE"></span></a>
+    </li>
+    <li class="nav-sidebar-item" ui-sref-active="active" coyo-global-permissions="MANAGE_REPORTS">
+      <a ui-sref="main.report"><i class="zmdi zmdi-alert-circle"></i><span translate="NAVIGATION.REPORTS"></span></a>
+    </li>
+    <oyoc-moderator-navbar-item user="::$ctrl.user"></oyoc-moderator-navbar-item>
+    <oyoc-view-edit-nav-item class="nav-sidebar-item"></oyoc-view-edit-nav-item>
+    <li class="nav-sidebar-item" ui-sref-active="active"
+        coyo-global-permissions="MANAGE_ACCOUNT_SETTINGS,ACCESS_OWN_USER_PROFILE" require-all-permissions="true">
+      <a ui-sref="main.account">
+        <i class="zmdi zmdi-account-box-o"></i><span translate="MODULE.ACCOUNT.HEADER"></span>
+      </a>
+    </li>
+    <li class="nav-sidebar-item" ui-sref-active="active" coyo-global-permissions="MANAGE_NOTIFICATION_SETTINGS"
+        ng-if="::$ctrl.hasNotificationSettings">
+      <a ui-sref="main.account-notifications">
+        <i class="zmdi zmdi-notifications-none"></i>
+        <span translate="MODULE.ACCOUNT.NOTIFICATION_SETTINGS.HEADER"></span>
+      </a>
+    </li>
+    <li ng-if="::$ctrl.hasTourSteps()" class="nav-sidebar-item">
+      <a ng-click="$ctrl.restartTour()"><i class="zmdi zmdi-pin-help"></i> {{::'NAVIGATION.TOUR.RESTART'|translate}}</a>
+    </li>
+    <li class="nav-sidebar-item" ng-if="::$ctrl.termsActive">
+      <a ng-click="$ctrl.showTerms()"><i class="zmdi zmdi-shield-security"></i>&nbsp;{{::'NAVIGATION.TERMS'| translate}}</a>
+    </li>
+    <li class="nav-sidebar-item">
+      <a ng-click="$ctrl.help($event)"><i class="zmdi zmdi-help-outline"></i> {{::'HELP'|translate}}</a>
+    </li>
+    <li class="nav-sidebar-item">
+      <a ng-click="$ctrl.about($event)" class="coyo-c"> {{::'ABOUT'|translate}}</a>
+    </li>
+    <li class="nav-sidebar-item" ui-sref-active="active">
+      <a href ng-click="$ctrl.logout()"><i class="zmdi zmdi-power"></i><span translate="MODULE.LOGOUT.HEADER"></span>
+      </a>
+    </li>
+  </ul>
+</nav>

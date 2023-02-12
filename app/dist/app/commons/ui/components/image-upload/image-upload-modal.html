@@ -1,0 +1,49 @@
+<div class="modal-content-wrapper image-upload-modal">
+  <div class="modal-header">
+    <h3 class="modal-title">{{:: vm.title | translate }}
+      <button class="btn btn-danger btn-xs ml-xs hidden-xs"
+              ng-if="vm.canDelete"
+              ng-disabled="vm.status.uploading || vm.status.selecting || vm.status.deleting"
+              ng-click="vm.deleteImage()">
+        <span ng-if="!vm.status.deleting" translate="MODULE.PROFILE.MODALS.IMAGE_UPLOAD.REMOVE"></span>
+        <span ng-if="vm.status.deleting" translate="MODULE.PROFILE.MODALS.IMAGE_UPLOAD.REMOVING"></span>
+      </button>
+    </h3>
+    <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss()">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+
+  <div class="modal-body">
+    <coyo-image-upload ng-model="vm.croppedImage"
+                  area-type="{{vm.areaType}}"
+                  crop-aspect-ratio="{{vm.cropAspectRatio}}"
+                  image-size="vm.imageSize"
+                  key-drag-n-drop="MODULE.PROFILE.MODALS.IMAGE_UPLOAD.DRAGNDROP"
+                  key-content-error="MODULE.PROFILE.MODALS.IMAGE_UPLOAD.CONTENT_ERROR"
+                  selecting="vm.status.selecting"></coyo-image-upload>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-danger visible-xs"
+            ng-if="vm.canDelete"
+            ng-disabled="vm.status.uploading || vm.status.selecting || vm.status.deleting"
+            ng-click="vm.deleteImage()">
+      <i class="zmdi"
+         ng-class="{'zmdi-close': !vm.status.deleting, 'zmdi-spinner zmdi-hc-spin': vm.status.deleting}">
+      </i>
+      <span ng-if="!vm.status.deleting" translate="MODULE.PROFILE.MODALS.IMAGE_UPLOAD.REMOVE"></span>
+      <span ng-if="vm.status.deleting" translate="MODULE.PROFILE.MODALS.IMAGE_UPLOAD.REMOVING"></span>
+    </button>
+    <button class="btn btn-primary"
+            ng-disabled="!vm.croppedImage || vm.status.uploading || vm.status.selecting || vm.status.deleting"
+            ng-click="vm.upload(vm.croppedImage)">
+      <i class="zmdi"
+         ng-class="{'zmdi-upload': !vm.status.uploading && !vm.status.selecting, 'zmdi-spinner zmdi-hc-spin': vm.status.uploading || vm.status.selecting}">
+      </i>
+      <span ng-if="vm.status.uploading && !vm.status.selecting" translate="UPLOADING"></span>
+      <span ng-if="!vm.status.uploading && !vm.status.selecting" translate="UPLOAD"></span>
+      <span ng-if="!vm.status.uploading && vm.status.selecting" translate="PROCESSING"></span>
+    </button>
+  </div>
+</div>

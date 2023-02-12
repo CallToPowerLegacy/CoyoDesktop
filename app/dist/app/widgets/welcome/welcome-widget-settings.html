@@ -1,0 +1,18 @@
+<div class="form-group" ng-class="{'has-error': settingsForm.welcomeText.$invalid}">
+  <label class="col-sm-4 control-label" translate="WIDGET.WELCOME.SETTINGS.TEXT.LABEL"></label>
+  <div class="col-sm-7">
+    <input name="welcomeText" class="form-control" type="text" required maxlength="40" ng-model="model.settings.welcomeText">
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGET.WELCOME.SETTINGS.TEXT.HELP"></coyo-help>
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-sm-4 control-label" translate="WIDGET.WELCOME.SETTINGS.SHOW_COVER.LABEL"></label>
+  <div class="col-sm-7">
+    <coyo-checkbox ng-model="model.settings._showCover"></coyo-checkbox>
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGET.WELCOME.SETTINGS.SHOW_COVER.HELP"></coyo-help>
+  </div>
+</div>

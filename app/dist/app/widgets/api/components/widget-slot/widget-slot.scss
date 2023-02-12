@@ -1,0 +1,291 @@
+.widget-slot {
+  position: relative;
+
+  &.edit-mode {
+    min-height: 37px;
+    padding-bottom: 16px;
+
+    .widget {
+
+      &:hover {
+        background-color: $color-widget-hover-bg;
+        .panel {
+          background-color: $color-widget-hover-bg;
+        }
+
+        .widget-options {
+          display: block;
+        }
+      }
+
+      .widget-options {
+        display: block;
+
+        @media screen and (min-width: $screen-md-min) {
+          display: none;
+        }
+
+        .btn {
+          &.active {
+            background-color: $color-black;
+          }
+        }
+
+        .widget-input-title {
+          position: absolute;
+          top: 19px;
+          width: 100%;
+          min-width: 170px;
+          right: 0;
+          display: block;
+          background-color: $color-gray-darker;
+          padding: 3px 5px;
+          border-radius: 3px;
+          box-shadow: none;
+
+          input {
+            background-color: $color-black;
+            outline: 0;
+            border: 0;
+            width: 100%;
+            color: $color-white;
+            padding: 0 5px;
+            font-size: 13px;
+            margin-bottom: 3px;
+
+            &:last-of-type {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+
+    .btn-dark { color: #FDFDFD; background-color: #555; }
+
+    .btn-dark:hover { color: #FDFDFD; background-color: #333; }
+
+    &.widget-slot-panels {
+      margin-bottom: 32px;
+      border: 2px dashed $color-gray-light;
+
+      .widget-slot-options {
+        bottom: -13px;
+      }
+    }
+
+    &.widget-slot-plain {
+      outline: 2px dashed $color-gray-light;
+
+      .widget-slot-options {
+        bottom: -13px;
+      }
+    }
+
+    &.widget-slot-panel {
+      .widget-slot-options {
+        bottom: 15px;
+
+        @media screen and (min-width: $screen-md-min) {
+          bottom: 27.5px;
+        }
+      }
+    }
+
+    .widget-slot-options {
+      &.divider {
+        margin: 12px 0 -32px;
+
+        @media screen and (min-width: $screen-md-min) {
+          margin: -8px 0 -18px;
+        }
+      }
+    }
+  }
+
+  &.widget-slot-panel {
+    .widget-slot-options {
+      bottom: 0px;
+    }
+  }
+
+  &.widget-slot-plain .widget {
+    padding-bottom: 24px;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  .widget-slot-create {
+    color: $color-gray;
+    font-size: 18px;
+
+    &:hover {
+      color: $color-link;
+    }
+  }
+
+  .widget-slot-options {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    display: inline-block;
+    z-index: 1;
+
+    ul {
+      margin: 0;
+    }
+
+    &.divider {
+      position: relative;
+      display: block;
+      margin: 0;
+
+      @media screen and (min-width: $screen-md-min) {
+        margin: 0 0 14px;
+      }
+
+      ul {
+        display: inline-block;
+        position: relative;
+        &:before,
+        &:after {
+          background: $color-gray-light;
+          content: '';
+          height: 1px;
+          position: absolute;
+          top: 50%;
+          width: 9999px;
+        }
+        &:before {
+          margin-right: 8px;
+          right: 100%;
+        }
+
+        &:after {
+          left: 100%;
+          margin-left: 8px;
+        }
+      }
+    }
+
+    li {
+      display: inline-flex;
+      align-content: center;
+      justify-content: center;
+      height: 25px;
+      width: 25px;
+      border-radius: 50%;
+
+      margin-left: 2px;
+      margin-right: 2px;
+
+      a {
+        color: $color-white;
+
+        .zmdi {
+          font-size: 13px;
+        }
+      }
+    }
+    .widget-slot-option-primary {
+      background-color: $color-link;
+      &:hover {
+        background-color: darken($color-link, 8%);
+      }
+    }
+
+    .widget-slot-option-default {
+      background-color: $color-gray;
+      &:hover {
+        background-color: $color-gray-darker;
+      }
+    }
+
+    .widget-slot-option-alternate {
+      background-color: $color-green;
+      &:hover {
+        background-color: darken($color-green, 8%);
+      }
+    }
+  }
+}
+
+.widget {
+  position: relative;
+  line-height: $widget-line-height;
+
+  .widget-title {
+    font-size: 16px;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+    color: $color-gray;
+  }
+
+  .widget-options {
+    position: absolute;
+    top: -20px;
+    right: 6px;
+    z-index: 10;
+
+    display: none;
+
+    .btn {
+      font-size: 12px;
+      padding: 0px 6px;
+
+      &.active {
+        background-color: $color-black;
+        color: $color-white;
+      }
+
+      &.toggled {
+        background-color: $color-red;
+      }
+
+      > a {
+        color: inherit;
+      }
+    }
+
+    .context-menu {
+      @media screen and (min-width: $screen-md-min) {
+        top: 1px;
+        left: -24px;
+
+        ul.dropdown-menu {
+          min-width: inherit;
+          li a {
+            color: $color-white;
+            background-color: $color-gray-darker;
+            font-size: 12px;
+            padding: 2px 8px;
+            &:hover {
+              background-color: $color-black;
+              color: $color-white;
+            }
+            &.active {
+              background-color: $color-black;
+              color: $color-white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.widget-clipped {
+    opacity: 0.5;
+    background-color: $color-widget-hover-bg;
+
+    .widget-options {
+      display: block;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-top: 0;
+  }
+}

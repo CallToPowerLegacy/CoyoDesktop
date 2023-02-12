@@ -1,0 +1,4 @@
+<select class="form-control" ng-model="$ctrl.ngModel">
+  <option value="" selected translate="EVENT.REMINDER.NO"></option>
+  <option ng-repeat="entry in $ctrl.intervalValues track by $index" value="{{::entry.value}}" translate="EVENT.REMINDER.{{::entry.value}}"></option>
+</select>

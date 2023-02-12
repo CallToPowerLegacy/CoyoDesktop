@@ -1,0 +1,553 @@
+.panel-list-app {
+
+  .panel-body {
+    position: relative;
+
+    .list-app-entry-form {
+      margin-top: 22px;
+    }
+  }
+
+  .panel-heading {
+    background-color: $breadcrumb-bg;
+    display: flex;
+    padding: 0;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0;
+    border: 0;
+
+    .panel-heading-item {
+      padding: 12px;
+      border-left: 1px solid $color-gray-light;
+
+      &:first-child {
+        border: none;
+      }
+    }
+
+    .search-wrapper {
+      flex: 1;
+      display: flex;
+      position: relative;
+      align-items: center;
+      color: $text-color;
+
+      a.btn-zmdi {
+        padding: 0;
+        margin: 0;
+        color: $color-gray-darker;
+      }
+
+      input[type="search"] {
+        color: $input-color;
+        background-color: transparent;
+        border: 0;
+        outline: 0;
+        flex: 1;
+        margin-left: 6px;
+
+        &::-webkit-input-placeholder {
+          color: $color-gray;
+        }
+        &:-moz-placeholder {
+          color: $color-gray;
+          opacity: 1;
+        }
+        &::-moz-placeholder {
+          color: $color-gray;
+          opacity: 1;
+        }
+        &:-ms-input-placeholder {
+          color: $color-gray;
+        }
+      }
+
+      .btn-reset {
+        margin-right: -16px;
+        visibility: hidden;
+
+        &.is-visible {
+          visibility: visible;
+        }
+      }
+    }
+
+    &.panel-heading-configure {
+      justify-content: space-between;
+    }
+
+    a.heading-button {
+      font-size: 20px;
+      line-height: 30px;
+
+      @media screen and (min-width: $screen-sm-min) {
+        font-size: inherit;
+        line-height: inherit;
+      }
+    }
+
+    .entry-count {
+      font-size: 13px;
+
+      .entry-count-heading {
+        color: $color-gray;
+      }
+
+      .entry-count-number {
+        font-size: 15px;
+      }
+    }
+  }
+
+  h3.list-element-name {
+    border-bottom: solid $color-gray-light 1px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      margin-top: 0;
+    }
+  }
+
+  .list-app-no-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    .list-app-icon-big {
+      background-color: $color-gray-lighter;
+      margin: 25px 0 0;
+      padding: 15px;
+      border-radius: 100%;
+
+      @media screen and (min-width: $screen-sm-min) {
+        margin: 25px 0 0;
+      }
+
+      i {
+        color: $color-gray;
+        height: 50px;
+        width: 50px;
+        line-height: 50px;
+        font-size: 42px;
+      }
+    }
+
+    .list-app-empty-text {
+      width: 100%;
+      color: $color-gray;
+      text-align: center;
+      margin: 15px 0;
+      word-wrap: break-word;
+    }
+
+    .btn-configure {
+      margin: 20px 0 15px;
+    }
+  }
+
+
+  .list-app-table {
+    padding: 5px 0 15px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+
+    // .Table-header
+    &-header {
+      display: none;
+      width: 100%;
+      border-bottom: 1px solid rgba(51, 51, 51, 0.05);
+      padding: 25px 0;
+
+      > .list-app-table-row-item:last-child {
+        padding-right: 35px;
+      }
+
+      > .list-app-table-row-item:hover {
+        cursor: pointer;
+      }
+
+      @media screen and (min-width: $screen-sm-min) {
+        display: flex;
+        color: $color-gray;
+        text-transform: uppercase;
+        padding: 25px 15px 0;
+
+        &:hover {
+          background-color: transparent!important;
+        }
+      }
+    }
+
+    // .Table-row
+    &-row {
+      width: 100%;
+      border-bottom: 1px solid rgba(51, 51, 51, 0.05);
+      padding: 10px 0 0 0;
+
+      &:nth-of-type(odd) {
+        background-color: rgba(218, 218, 218, 0.1);
+      }
+
+      &:last-of-type {
+        border-bottom: 0;
+      }
+
+      &:hover .options {
+          opacity: 1;
+      }
+
+      @media screen and (min-width: $screen-sm-min) {
+        display: flex;
+        flex-flow: row nowrap;
+        padding: 0 15px;
+
+        &:hover {
+          background-color: rgba(218, 218, 218, 0.25);
+        }
+      }
+
+      // .Table-row-item
+      &-item {
+
+        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+          width: 100%;
+          display: inline-block;
+        }
+
+        display: flex;
+        flex-flow: row wrap;
+        flex-grow: 1;
+        flex-basis: 0;
+        padding: 5px 0;
+        word-break: break-word;
+        word-wrap: break-word;
+
+        &:before {
+          content: attr(data-header);
+          width: 100%;
+          color: $color-gray;
+          text-transform: uppercase;
+          text-align: left;
+          padding-right: 25px;
+        }
+
+        coyo-render-value {
+          width: 55%;
+
+          @media screen and (min-width: $screen-sm-min) {
+            width: auto;
+          }
+        }
+
+        @media screen and (min-width: $screen-sm-min) {
+          margin-right: 5px;
+          &:before { content: none; }
+        }
+      }
+
+      &-context-menu {
+        width: 5px;
+        cursor: pointer;
+        padding-right: 20px;
+
+        @media screen and (min-width: $screen-sm-min) {
+          opacity: 0;
+          padding-right: 0;
+        }
+      }
+
+      &-show-details {
+        padding-right: 20px;
+        width: 20px;
+        cursor: pointer;
+
+        @media screen and (min-width: $screen-sm-min) {
+          opacity: 0;
+        }
+      }
+
+      .btn-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 5px;
+      }
+    }
+
+  }
+
+  .pagination {
+    margin-bottom: 0;
+  }
+}
+
+.field-checkbox {
+  .zmdi-check {
+    color: $color-green;
+  }
+  .zmdi-close {
+    color: $color-red;
+  }
+  .inline-edit {
+    cursor: pointer;
+  }
+}
+
+.field-user {
+  .user-avatar {
+    display: none;
+
+    @media screen and (min-width: $screen-sm-min) {
+      display: block;
+    }
+  }
+
+  .user-field-wrapper {
+
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      display: inline-block;
+    }
+
+    display: flex;
+    align-items: baseline;
+
+    & +.user-field-wrapper {
+      margin-top: 10px;
+    }
+  }
+
+}
+
+.field-options {
+  .option-field-item {
+
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      display: inline-block;
+    }
+
+    width: 100%;
+    display: flex;
+    word-break: break-word;
+    word-wrap: break-word;
+  }
+}
+
+.field-text {
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+
+.list-app-fields {
+
+  .list-app-field-header {
+    display: none;
+
+    @media screen and (min-width: $screen-sm-min) {
+      display: flex;
+      border-bottom: 1px solid $color-gray-light;
+      margin-top: 24px;
+
+      .field-header {
+        flex: 1;
+        padding: 8px;
+        text-transform: uppercase;
+        color: $color-gray;
+      }
+
+      .field-header-type {
+        text-indent: 75px;
+      }
+    }
+  }
+
+  .list-app-field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px;
+    border-bottom: 1px solid $color-gray-light;
+
+    &:hover {
+      background-color: $color-gray-lighter;
+
+      .field-handle, .field-options {
+        visibility: visible;
+      }
+    }
+
+    &:last-child {
+      border: 0;
+    }
+
+    .field-icon {
+      flex: 0 0 75px;
+      color: $color-gray-darker;
+    }
+
+    .field-type {
+      display: none;
+
+      @media screen and (min-width: $screen-sm-min) {
+        display: inline;
+        flex: 1;
+      }
+    }
+
+    .field-name {
+      flex: 1;
+      font-size: 17px;
+      font-style: italic;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media screen and (min-width: $screen-sm-min) {
+        font-size: 16px;
+      }
+    }
+
+    .field-handle, .field-options {
+      color: $color-gray-darker;
+
+      @media screen and (min-width: $screen-sm-min) {
+        visibility: hidden;
+      }
+    }
+  }
+
+}
+
+.list-app-field-types {
+
+  .list-app-field-type {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 16px 24px;
+    border-top: 1px solid $color-gray-light;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $color-gray-lighter;
+
+      @media screen and (min-width: $screen-sm-min) {
+        .field-type-arrow {
+          visibility: visible;
+        }
+      }
+    }
+
+    @media screen and (min-width: $screen-sm-min) {
+      padding: 12px;
+      flex-wrap: nowrap;
+    }
+
+    &:first-child {
+      border: 0;
+    }
+
+    .field-type-icon {
+      flex: 0 0 40px;
+      color: $color-gray-darker;
+    }
+
+    .field-type-title {
+      flex: 0 0 17%;
+      font-size: 18px;
+
+      @media screen and (min-width: $screen-sm-min) {
+        font-size: 16px;
+      }
+    }
+
+    .field-type-description {
+      flex: 1 0 100%;
+      color: $color-gray-dark;
+      padding-top: 4px;
+      line-height: 22px;
+
+      @media screen and (min-width: $screen-sm-min) {
+        flex: 2;
+        font-size: 14px;
+        line-height: 18px;
+      }
+    }
+
+    .field-type-arrow {
+      display: none;
+
+      @media screen and (min-width: $screen-sm-min) {
+        display: inline;
+        color: $color-gray-dark;
+        visibility: hidden;
+      }
+    }
+
+  }
+
+}
+
+.modal-body-field-type {
+  padding: 0;
+
+  @media screen and (min-width: $screen-sm-min) {
+    padding: 16px 24px;
+  }
+}
+
+.option-field-settings {
+  .option-field-option {
+    margin-bottom: 10px;
+  }
+}
+
+.option-field-settings, .list-app-fields {
+  .angular-ui-tree-placeholder {
+    background: $color-gray-lighter;
+    border: 1px dashed $color-gray;
+  }
+}
+
+.angular-ui-tree-drag .list-app-field {
+  .field-handle, .field-options {
+    visibility: visible;
+  }
+}
+
+.list-app-entry-form {
+
+  .form-group {
+    > div:first-child {
+      text-align: left;
+    }
+
+    .description-text {
+      font-size: 14px;
+    }
+  }
+
+  label.control-label {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    color: $color-gray-dark;
+    @media screen and (min-width: $screen-sm-min) {
+      font-size: 16px;
+      text-align: left;
+    }
+
+  }
+  textarea {
+    resize: none;
+  }
+}
+
+.list-settings-show-advanced-handle {
+  cursor: pointer;
+}

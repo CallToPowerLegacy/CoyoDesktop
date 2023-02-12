@@ -1,0 +1,182 @@
+
+.panel-body > coyo-widget > coyo-poll-widget {
+  margin: $panel-body-padding-negate-sm;
+
+  @media (min-width: $screen-md-min) {
+    margin: $panel-body-padding-negate-md;
+  }
+
+  h3.question-title {
+    margin: $panel-body-padding;
+  }
+
+  p.question-description {
+    margin: $panel-body-padding;
+  }
+
+  .question-votes {
+    margin-right: 30px;
+  }
+
+  .question-answer:first-child {
+    margin-left: 30px;
+  }
+
+  .question-row > .question-radio {
+      margin: 0 0 0 30px;
+  }
+}
+
+coyo-poll-widget {
+  display: block;
+
+  h3.question-title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  p.question-description {
+    margin-top: 0;
+  }
+
+  .question-row {
+    display: flex;
+    border-top: 1px solid $table-border-color;
+
+    .question-radio {
+      width: 30px;
+      display: flex;
+      align-items: center;
+
+      > label {
+        min-height: 20px;
+      }
+    }
+
+    .question-answer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 14px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      > div:first-child:not(.vote-container) {
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+
+      .vote-container {
+        background-color: $color-gray-lighter;
+      }
+
+      .vote-bar {
+        background-color: $color-green;
+        border-radius: 5px;
+        width: 75%;
+        height: 7px;
+        transition: width 0.5s;
+      }
+    }
+
+    .question-radio.checkbox + .question-answer {
+      margin: 0 15px;
+    }
+
+    .question-votes {
+      width: 60px;
+      height: 60px;
+      margin: auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 10px 0;
+
+      &.clickable {
+        color: $color-black;
+      }
+
+      > * {
+        display: block;
+      }
+
+      > b {
+        font-size: 26px;
+        line-height: 26px;
+      }
+      > small {
+
+      }
+    }
+    .clickable:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.poll-widget-settings {
+  .add-button {
+    text-align: start;
+  }
+
+}
+
+
+.tab-bar {
+  margin-bottom: 15px;
+
+  > .nav-tabs {
+    text-align: center;
+  }
+
+  .modal-sub-nav {
+    margin-top: 0;
+  }
+
+  .delete-option {
+    background-color: transparent;
+  }
+
+  .delete-option:hover > .zmdi {
+    cursor: pointer;
+    color: darken($color-gray-darker, 25%);
+  }
+
+  .input-group > .form-control {
+    border-right: 0;
+  }
+
+  .poll-widget-container {
+    padding: 15px;
+  }
+
+  .add-button > .add-answer-icon {
+    padding-right: 5px;
+  }
+}
+
+.badge-orange {
+  background-color: #f1ad4c;
+}
+
+.btn-voters-modal {
+
+  .voter {
+    border-bottom: 1px solid $color-gray-lighter;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+
+    &:last-of-type {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .btn-more {
+    margin: 16px auto;
+    display: block;
+  }
+}

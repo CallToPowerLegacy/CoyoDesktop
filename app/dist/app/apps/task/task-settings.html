@@ -1,0 +1,41 @@
+<!-- Manage tasks settings -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="APP.TASK.MANAGE_TASKS"></label>
+  <div class="col-sm-10">
+    <div class="radio">
+      <label>
+        <input name="manage-tasks" type="radio" ng-model="model.settings.manageTasks" value="ADMIN">
+        <i class="zmdi zmdi-lock-outline zmdi-wide"></i>&nbsp;{{:: 'APP.TASK.MANAGE_TASKS.ADMIN.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.TASK.MANAGE_TASKS.ADMIN.DESCRIPTION' | translate }}</span>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="manage-tasks" type="radio" ng-model="model.settings.manageTasks" value="VIEWER">
+        <i class="zmdi zmdi-globe zmdi-wide"></i>&nbsp;{{:: 'APP.TASK.MANAGE_TASKS.VIEWER.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.TASK.MANAGE_TASKS.VIEWER.DESCRIPTION' | translate }}</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- Manage list settings -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="APP.TASK.MANAGE_LIST"></label>
+  <div class="col-sm-10">
+    <div class="radio">
+      <label>
+        <input name="manage-list" type="radio" ng-model="model.settings.manageList" value="ADMIN">
+        <i class="zmdi zmdi-lock-outline zmdi-wide"></i>&nbsp;{{:: 'APP.TASK.MANAGE_LIST.ADMIN.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.TASK.MANAGE_LIST.ADMIN.DESCRIPTION' | translate }}</span>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="manage-list" type="radio" ng-model="model.settings.manageList" value="VIEWER">
+        <i class="zmdi zmdi-globe zmdi-wide"></i>&nbsp;{{:: 'APP.TASK.MANAGE_LIST.VIEWER.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.TASK.MANAGE_LIST.VIEWER.DESCRIPTION' | translate }}</span>
+      </label>
+    </div>
+  </div>
+</div>

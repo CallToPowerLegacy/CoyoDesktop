@@ -1,0 +1,128 @@
+<section class="content-with-sidebar">
+  <div class="content-sidebar" ng-show="$ctrl.currentPage.totalElements">
+    <div class="tour-placeholder-container">
+
+      <coyo-tour-step ng-if="$ctrl.currentPage.totalElements"
+                      topic="search" order="110" step-id="search.filter" placement="right"
+                      title="{{:: 'TOUR.SEARCH.FILTER.TITLE' | translate }}"
+                      content="{{:: 'TOUR.SEARCH.FILTER' | translate }}"></coyo-tour-step>
+
+      <coyo-filterbox vertical="true">
+        <fb-filter>
+          <coyo-filter title-key="MODULE.SEARCH.FILTER">
+            <coyo-filter-entry text-key="MODULE.SEARCH.FILTER.TYPE.ALL"
+                               active="!$root.search.filter.type.length"
+                               icon="zmdi-check-all"
+                               on-click="$ctrl.clearFilter('type')"
+                               badge="$ctrl.typeAggregationTotal"></coyo-filter-entry>
+            <coyo-filter-entry ng-repeat="agg in $ctrl.currentPage.aggregations.type | orderBy:['-count','label']"
+                               text="{{:: agg.label }}"
+                               active="$root.search.filter.type.indexOf(agg.key) >= 0"
+                               icon="zmdi-{{:: $ctrl.getType(agg.key).icon }}"
+                               icon-color="{{:: $ctrl.getType(agg.key).color }}"
+                               on-click="$ctrl.toggleFilter('type', agg.key, false)"
+                               badge="agg.count"></coyo-filter-entry>
+
+            <li class="divider" ng-if="!$ctrl.isEmpty($ctrl.currentPage.aggregations.type)"></li>
+
+            <coyo-filter-entry text-key="MODULE.SEARCH.FILTER.MODIFIED.EVER"
+                               active="!$root.search.filter.modified.length"
+                               icon="zmdi-check-all"
+                               on-click="$ctrl.clearFilter('modified')"
+                               badge="$ctrl.currentPage.totalElements"></coyo-filter-entry>
+            <coyo-filter-entry ng-repeat="agg in $ctrl.currentPage.aggregations.modified | orderBy:['-count','label']"
+                               text-key="{{:: 'MODULE.SEARCH.FILTER.MODIFIED.' + agg.key }}"
+                               active="$root.search.filter.modified.indexOf(agg.key) == 0"
+                               icon="zmdi-time"
+                               on-click="$ctrl.toggleFilter('modified', agg.key, true)"
+                               badge="agg.count"></coyo-filter-entry>
+
+            <li class="divider" ng-if="!$ctrl.isEmpty($ctrl.currentPage.aggregations.sender)"></li>
+
+            <coyo-filter-entry ng-repeat="agg in $ctrl.currentPage.aggregations.sender | orderBy:['-count','label']"
+                               text="{{:: agg.label }}"
+                               active="$root.search.filter.sender.indexOf(agg.key) >= 0"
+                               icon="zmdi-{{:: $ctrl.getType(agg.data.typeName).icon }}"
+                               icon-color="{{:: $ctrl.getType(agg.data.typeName).color }}"
+                               on-click="$ctrl.toggleFilter('sender', agg.key, false)"
+                               badge="agg.count"></coyo-filter-entry>
+
+          </coyo-filter>
+        </fb-filter>
+      </coyo-filterbox>
+    </div>
+  </div>
+
+  <coyo-tour-step-mobile topic="search" order="105"
+                         image-url="assets/images/tour/tour-mobile-search-2.jpg"
+                         title="{{:: 'TOUR.SEARCH.RESULTLIST.TITLE' | translate }}"
+                         content="{{:: 'TOUR.SEARCH.RESULTLIST' | translate }}"></coyo-tour-step-mobile>
+
+  <coyo-tour-step-mobile topic="search" order="110"
+                         image-url="assets/images/tour/tour-mobile-search-3.jpg"
+                         title="{{:: 'TOUR.SEARCH.FILTER.TITLE' | translate }}"
+                         content="{{:: 'TOUR.SEARCH.FILTER' | translate }}"></coyo-tour-step-mobile>
+
+  <div class="content-main">
+    <!-- help text -->
+    <div class="text-center text-muted ph-l pv-s"
+         ng-show="!$ctrl.loading && !$root.search.term">
+      <span translate="MODULE.SEARCH.HELP"></span>
+    </div>
+
+    <!-- empty text -->
+    <div class="text-center text-muted ph-l pv-s"
+         ng-show="!$ctrl.loading && $root.search.term && !$ctrl.currentPage.totalElements">
+      <span translate="MODULE.SEARCH.EMPTY" translate-values="{TERM: $root.search.term}"></span>
+    </div>
+
+    <!-- search results -->
+    <div class="panel panel-default tour-placeholder-container" ng-show="$ctrl.currentPage.content.length">
+      <coyo-tour-step ng-if="$ctrl.currentPage.totalElements"
+                      topic="search" order="105" step-id="search.results"
+                      placement="bottom" popup-class="mt-l" no-highlight="true"
+                      title="{{:: 'TOUR.SEARCH.RESULTLIST.TITLE' | translate }}"
+                      content="{{:: 'TOUR.SEARCH.RESULTLIST' | translate }}"></coyo-tour-step>
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          {{:: 'MODULE.SEARCH.TITLE' | translate }}
+          <small class="search-term-preview">"{{ $root.search.term }}"</small>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <div class="search-result" ng-repeat="result in $ctrl.currentPage.content" ng-click="$ctrl.openResult(result)"
+             ng-class="{'no-link': !result.canLinkToResult}">
+          <div class="search-result-body">
+            <span class="search-result-icon zmdi zmdi-{{:: $ctrl.getType(result.typeName).icon }}"
+                  uib-tooltip="{{:: $ctrl.getType(result.typeName).label | translate }}"
+                  style="color: {{:: $ctrl.getType(result.typeName).color }};"></span>
+            <div class="search-result-middle">
+              <div class="search-result-name">{{:: result.displayName }}</div>
+              <div class="search-result-excerpt" ng-bind-html="::result.excerpt"></div>
+            </div>
+            <div class="search-result-right">
+              <div class="search-result-sender" ng-if="result.sender">
+                <a ng-click="$ctrl.openSender(result); $event.stopPropagation()"
+                   ng-class="{'no-link': !result.canLinkToSender}">
+                  <i class="zmdi zmdi-wide zmdi-{{:: $ctrl.getType(result.sender.typeName).icon }}"
+                     uib-tooltip="{{:: $ctrl.getType(result.sender.typeName).label | translate }}"></i>
+                  {{result.sender.displayName}}
+                </a>
+              </div>
+              <coyo-time-ago date="result.modified" class="search-result-modified"></coyo-time-ago>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- spinner / loading (only show on initial load) -->
+    <div class="text-center m-m" ng-if="!$ctrl.currentPage && $ctrl.loading">
+      <coyo-spinner></coyo-spinner>
+    </div>
+
+    <coyo-table-pagination ng-if="$ctrl.currentPage"
+                           page="$ctrl.currentPage"
+                           on-change="$ctrl.search($ctrl.currentPage._queryParams._page, false)"></coyo-table-pagination>
+  </div>
+</section>

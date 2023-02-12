@@ -1,0 +1,66 @@
+.table > tbody {
+  td.column-active-label {
+    width: 100px;
+  }
+
+  td.column-icon {
+    font-size: 24px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .column-options * {
+    opacity: 0;
+    transition: opacity linear .1s;
+  }
+
+  .column-options {
+    white-space: nowrap;
+    width: 1px;
+
+    .dropdown.open, .dropdown.open * {
+      opacity: 1 !important;
+    }
+  }
+
+  tr:hover .column-options * {
+    opacity: 1;
+  }
+
+  td small {
+    font-size: 14px;
+  }
+}
+
+th.sort {
+  cursor: pointer;
+  position: relative;
+
+  &:hover::after { opacity: .5; content: "\f2f7"; }
+  &.sort-asc::after { opacity: 1; content: "\f2f7"; }
+  &.sort-desc::after { opacity: 1; content: "\f2f1"; }
+
+  &::after {
+    position: absolute;
+    display: inline-block;
+    font: normal normal normal 14px/1 'Material-Design-Iconic-Font';
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    bottom: 18px;
+    margin-left: 5px;
+    width: 18px;
+    text-align: right;
+  }
+}
+
+.angular-ui-tree-drag {
+  background: opacify($color-gray-lighter, 0.9);
+  border-top: 1px solid $color-gray-light;
+  border-bottom: 1px solid $color-gray-light;
+
+  td {
+    padding: $table-cell-padding;
+  }
+}

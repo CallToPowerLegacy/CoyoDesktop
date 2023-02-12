@@ -1,0 +1,20 @@
+.pages-create {
+  .coyo-wizard {
+    margin: 0 36px;
+  }
+}
+
+.pages-create,
+.pages-settings {
+  .panel-heading {
+    display: flex;
+
+    .panel-title {
+      flex: 1;
+    }
+  }
+
+  .description {
+    min-height: 42px;
+  }
+}

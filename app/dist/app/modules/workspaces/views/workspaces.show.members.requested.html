@@ -1,0 +1,44 @@
+<div class="workspace-users-list content-main">
+  <div class="row">
+    <div class="col-xl-6" ng-repeat="membership in $ctrl.currentPage.content">
+      <coyo-user-card user="membership.user"
+                      current-user="$ctrl.currentUser"
+                      subtitle="{{::'WORKSPACE.PENDING.MEMBERSHIP' | translate}}">
+        <card-header>
+          <span class="card-actions card-actions-multiple">
+
+            <!-- Approve Button -->
+            <a ng-click="$ctrl.approve(membership.user.id, $event)"
+               class="btn btn-success btn-inverse btn-zmdi"
+               uib-tooltip="{{::'WORKSPACE.ACTION.APPROVE' | translate}}"
+               tooltip-placement="left"
+               tooltip-append-to-body="true"
+               tooltip-popup-delay="500">
+              <i class="zmdi zmdi-hc-fw zmdi-check"></i>
+            </a>
+
+            <!-- Decline Button -->
+            <a ng-click="$ctrl.decline(membership.user.id, $event)"
+               class="btn btn-danger btn-inverse btn-zmdi"
+               uib-tooltip="{{::'WORKSPACE.ACTION.DECLINE' | translate}}"
+               tooltip-placement="left"
+               tooltip-append-to-body="true"
+               tooltip-popup-delay="500">
+              <i class="zmdi zmdi-hc-fw zmdi-close"></i>
+            </a>
+          </span>
+        </card-header>
+      </coyo-user-card>
+    </div>
+  </div>
+
+  <!-- empty text -->
+  <div class="text-center text-muted ph-l pv-s"
+       ng-show="!$ctrl.loading && !$ctrl.currentPage.content.length" translate="WORKSPACE.REQUESTED.EMPTY">
+  </div>
+
+  <div class="col-xs-12" ng-if="$ctrl.currentPage.content">
+    <coyo-table-pagination page="$ctrl.currentPage"></coyo-table-pagination>
+  </div>
+
+</div>

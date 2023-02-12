@@ -1,0 +1,75 @@
+<div ng-hide="$ctrl.autoLogin" class="panel login" css-class="$ctrl.cssShakeClass" coyo-shake signal="$ctrl.signal">
+  <div ng-if="$ctrl.status.error" id="login-error" class="error-message fade-in">
+    {{$ctrl.status.message}}
+  </div>
+  <div class="panel-body">
+    <h2 translate="MODULE.LOGIN.LOGIN_TO_ACCOUNT"></h2>
+    <form name="form" id="login-form" ng-submit="$ctrl.login()" role="form">
+      <div class="form-group backend-url" ng-if="$ctrl.backendUrl">
+        <div class="input-wrapper">
+          <input type="text" class="form-control" value="{{$ctrl.backendUrl}}" disabled>
+          <i class="zmdi zmdi-globe" uib-tooltip="{{::'MODULE.LOGIN.BACKEND_URL.TIP' | translate}}"
+             tooltip-popup-delay="500"></i>
+          <a class="backend-url-reset" ng-click="$ctrl.resetBackendUrl()"><i class="zmdi zmdi-close-circle-o"></i></a>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': form.username.$dirty && form.username.$error.required}">
+        <div class="input-wrapper">
+          <input type="text"
+                 class="form-control"
+                 placeholder="{{:: 'MODULE.LOGIN.USERNAME' | translate }}"
+                 name="username"
+                 id="username"
+                 ng-model="$ctrl.user.username"
+                 focus-if="!loginFocus && !$ctrl.user.username" ng-change="loginFocus = true"
+                 required>
+          <i class="zmdi zmdi-account"></i>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{'has-error': form.password.$dirty && form.password.$error.required}">
+        <div class="input-wrapper">
+          <input type="password"
+                 class="form-control"
+                 placeholder="{{:: 'MODULE.LOGIN.PASSWORD' | translate }}"
+                 name="password"
+                 id="password"
+                 ng-model="$ctrl.user.password"
+                 focus-if="!loginFocus && $ctrl.user.username" ng-change="loginFocus = true"
+                 required>
+          <i class="zmdi zmdi-key"></i>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" ng-disabled="form.$invalid || $ctrl.status.loggingIn" class="btn btn-primary btn-block">
+          <span ng-show="!$ctrl.status.loggingIn" translate="MODULE.LOGIN.LOG_IN"></span>
+          <i ng-show="$ctrl.status.loggingIn" class="zmdi zmdi-spinner zmdi-hc-spin"></i>
+        </button>
+        <a ng-repeat="config in $ctrl.authenticationProviderConfigs"
+           class="btn btn-default btn-block mt-xxs"
+           ng-href="{{$ctrl.getLoginUrl(config.slug)}}"
+           target="_self"
+           translate="MODULE.LOGIN.SSO.REDIRECT_BUTTON"
+           translate-values="config">
+        </a>
+      </div>
+    </form>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-xs-6"><a ui-sref="front.reset" translate="MODULE.LOGIN.RESET.LINK" class="small"></a>
+      </div>
+      <div class="col-xs-6">
+        <div class="pull-right copyright"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div ng-if="$ctrl.autoLogin" class="auto-login-msg">
+  <p translate="MODULE.LOGIN.SSO.REDIRECT_MESSAGE"></p>
+  <button type="submit"
+          ng-disabled="$ctrl.autoLoginStarted"
+          class="btn btn-default mt-xs"
+          ng-click="$ctrl.cancelAutoLogin()"
+          translate="MODULE.LOGIN.SSO.REDIRECT_CANCEL"></button>
+</div>

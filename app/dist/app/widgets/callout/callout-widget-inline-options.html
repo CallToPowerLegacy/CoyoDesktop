@@ -1,0 +1,14 @@
+<span class="btn btn-dark btn-xs btn-zmdi">
+  <a id="{{::$ctrl.menuToggleId}}">
+    <i class="zmdi {{$ctrl.model.settings._callout.icon}} zmdi-hc-fw"></i>
+  </a>
+  <coyo-context-menu toggle-element="#{{::$ctrl.menuToggleId}}">
+    <li>
+      <a ng-repeat="option in $ctrl.options"
+       ng-class="{'active': $ctrl.model.settings._callout.alertClass === option.alertClass}"
+       ng-click="$ctrl.selectOption(option)">
+        <i class="zmdi {{::option.icon}} zmdi-hc-fw"></i>&nbsp;{{::option.title | translate}}
+      </a>
+    </li>
+  </coyo-context-menu>
+</span>

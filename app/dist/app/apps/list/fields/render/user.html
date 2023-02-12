@@ -1,0 +1,4 @@
+<span class="user-field-wrapper" ng-repeat="user in value">
+    <coyo-user-avatar user="user" avatar-size="xs" show-online-status="false" class="mr-xxs" no-link="true"></coyo-user-avatar>
+    <a ui-sref="main.profile({userId: user.slug})">{{::user.displayName}}</a>
+</span>

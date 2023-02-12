@@ -1,0 +1,19 @@
+// Stretch the image over widget border
+// only in separate widget slots
+.widget-slot-panels,
+.widget-slot-panel {
+  .teaser-slider {
+    .swiper-container {
+      margin: $panel-body-padding-negate-sm;
+      overflow: hidden;
+
+      @media screen and (min-width: $screen-md-min) {
+        border-radius: $panel-border-radius;
+      }
+
+      @media screen and (min-width: $screen-sm-min) {
+        margin: $panel-body-padding-negate-md;
+      }
+    }
+  }
+}

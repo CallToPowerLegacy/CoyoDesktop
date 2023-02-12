@@ -1,0 +1,74 @@
+.sub-navigation .navbar.coyo-navbar {
+  background-color: $color-white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  color: $color-gray-dark;
+  display: none;
+  height: 40px;
+  min-height: 40px;
+
+  .nav {
+    overflow-x: auto;
+    width: 100%;
+
+    > li {
+      flex: 1;
+      text-align: center;
+
+      > a {
+        color: $color-gray;
+        padding: 8px 18px;
+
+        &:hover, &:focus {
+          background-color: transparent;
+        }
+        &:hover {
+          color: $color-gray-darker;
+        }
+      }
+    }
+  }
+
+  .nav > .active > a,
+  .nav > .active > a:focus {
+    background-color: transparent;
+    color: $color-primary;
+    font-weight: bold;
+  }
+
+  @media screen and (min-width: $screen-md-min) {
+    display: block;
+    position: fixed;
+    top: 50px;
+    z-index: $zindex-subnav;
+
+    .coyo-navbar-flex {
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+
+    .nav {
+      width: initial;
+
+      > li {
+        flex: none;
+        text-align: left;
+      }
+    }
+  }
+
+  @media screen and (min-width: $screen-lg-min) {
+    position: static;
+  }
+}
+
+.landing-pages-multiple {
+  @media screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    padding-top: 40px;
+  }
+}
+
+.global-edit-mode .landing-pages {
+  @media screen and (max-width: $screen-sm-max) {
+    margin-top: 12px;
+  }
+}

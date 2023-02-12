@@ -1,0 +1,113 @@
+<div class="admin-user-directories" ng-cloak>
+
+  <div class="text-center mv-m" ng-show="$ctrl.loading">
+    <coyo-spinner></coyo-spinner>
+  </div>
+
+  <div ng-if="!$ctrl.loading">
+    <coyo-filterbox>
+      <fb-search>
+        <coyo-search-filter change="$ctrl.onChangeName"
+                            placeholder="ADMIN.USER_DIRECTORIES.SEARCH"
+                            search-term="{{$ctrl.queryParams.name}}"></coyo-search-filter>
+      </fb-search>
+      <fb-count>
+        <coyo-counter value="$ctrl.userDirectories.length"
+                      key-none="ADMIN.USER_DIRECTORIES.DIRECTORIES_NONE"
+                      key-singular="ADMIN.USER_DIRECTORIES.DIRECTORIES_SINGULAR"
+                      key-plural="ADMIN.USER_DIRECTORIES.DIRECTORIES_PLURAL"></coyo-counter>
+      </fb-count>
+      <fb-actions>
+        <li>
+          <a ui-sref="admin.user-directories.create">
+            <i class="zmdi zmdi-plus-circle"></i>&nbsp;{{:: 'ADMIN.USER_DIRECTORIES.OPTIONS.CREATE' | translate }}
+          </a>
+        </li>
+      </fb-actions>
+    </coyo-filterbox>
+
+    <div class="panel panel-default panel-groups panel-list">
+      <div class="panel-body">
+
+        <!-- mobile view -->
+        <ul ng-if="$ctrl.isMobile" class="list-group">
+          <li ng-if="$ctrl.page.content.length"
+              class="text-center text-muted pv-s"
+              translate="ADMIN.USER_DIRECTORIES.EMPTY"></li>
+          <li ng-repeat="row in $ctrl.userDirectories track by row.id"
+              ng-class="{'animate-removal': $ctrl.userAction }"
+              id="group-row-{{$index}}"
+              class="list-group-item">
+            <div class="row">
+              <div class="col-xs-8" ng-class="{'text-muted': row.id === $ctrl.internalUserDirectory.id}">
+                <div>{{:: row.displayName }}</div>
+                <div class="text-muted">{{:: $ctrl.getTypeName(row.type) | translate }}</div>
+              </div>
+              <div class="col-xs-2">
+                <coyo-job-status job-status="row.syncJob.jobStatus"
+                                 compact="true"
+                                 link-to-jobs="true"
+                                 label-unknown-progress="{{:: 'ADMIN.USER_DIRECTORIES.SYNC_JOB.RUNNING' | translate }}">
+                </coyo-job-status>
+              </div>
+              <div class="col-xs-2 text-right">
+                <coyo-active-label ng-model="row.active"></coyo-active-label>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <coyo-context-menu ng-repeat="row in $ctrl.userDirectories track by row.id"
+                           ng-if="$ctrl.isMobile && row.id !== $ctrl.internalUserDirectory.id"
+                           toggle-element="#group-row-{{$index}}"
+                           title="{{row.displayName}}">
+          <oyoc-user-directory-options actions="$ctrl.actions" directory="row"></oyoc-user-directory-options>
+        </coyo-context-menu>
+
+        <!-- desktop view -->
+        <table ng-if="!$ctrl.isMobile" class="table table-striped table-hover m-0">
+          <colgroup>
+            <col>
+            <col width="30%">
+            <col width="15%">
+            <col width="15%">
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th translate="ADMIN.USER_DIRECTORIES.HEADINGS.NAME"></th>
+              <th translate="ADMIN.USER_DIRECTORIES.HEADINGS.TYPE"></th>
+              <th translate="ADMIN.USER_DIRECTORIES.HEADINGS.JOB"></th>
+              <th translate="ADMIN.USER_DIRECTORIES.HEADINGS.ACTIVE"></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-hide="$ctrl.userDirectories.length">
+              <td colspan="5" class="text-center text-muted" translate="ADMIN.USER_DIRECTORIES.EMPTY"></td>
+            </tr>
+            <tr ng-repeat="row in $ctrl.userDirectories track by row.id" ng-class="{'animate-removal': $ctrl.userAction, 'text-muted': row.id === $ctrl.internalUserDirectory.id}">
+              <td>{{:: row.displayName }}</td>
+              <td>{{:: $ctrl.getTypeName(row.type) | translate }}</td>
+              <td>
+                <coyo-job-status job-status="row.syncJob.jobStatus"
+                                 job-name="row.syncJob.name"
+                                 compact="true"
+                                 link-to-jobs="true"
+                                 label-unknown-progress="{{:: 'ADMIN.USER_DIRECTORIES.SYNC_JOB.RUNNING' | translate }}">
+                </coyo-job-status>
+              </td>
+              <td>
+                <coyo-active-label ng-model="row.active"></coyo-active-label>
+              </td>
+              <td class="column-options">
+                <coyo-context-menu align-right="true" ng-if="row.id !== $ctrl.internalUserDirectory.id">
+                  <oyoc-user-directory-options actions="$ctrl.actions" directory="row"></oyoc-user-directory-options>
+                </coyo-context-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

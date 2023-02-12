@@ -1,0 +1,32 @@
+<div class="admin-settings" ng-cloak>
+  <div class="panel panel-default panel-tabs">
+    <uib-tabset justified="true" active="-1">
+      <uib-tab ui-sref="admin.settings.general" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-settings zmdi-wide"></i> <span class="tab-text" translate="ADMIN.SETTINGS.GENERAL"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.settings.registration" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-account zmdi-wide"></i> <span class="tab-text" translate="ADMIN.SETTINGS.REGISTRATION"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.settings.notification" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-notifications zmdi-wide"></i> <span class="tab-text" translate="ADMIN.SETTINGS.NOTIFICATION"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.settings.messaging" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-comments zmdi-wide"></i> <span class="tab-text" translate="ADMIN.MENU.MESSAGING"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.settings.maintenance" ui-sref-active="active" coyo-global-permissions="MANAGE_MAINTENANCE">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-wrench zmdi-wide"></i> <span class="tab-text" translate="ADMIN.MENU.MAINTENANCE"></span>
+        </uib-tab-heading>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+  <div ui-view></div>
+</div>

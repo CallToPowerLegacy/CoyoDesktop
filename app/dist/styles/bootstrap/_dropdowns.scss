@@ -1,0 +1,26 @@
+.dropdown-menu {
+  padding: 0;
+  @include box-shadow(0, 1px, 1px, 0, rgba(0,0,0,.05));
+
+  > li > a {
+    color: $color-gray-darker;
+    padding: $padding-base-vertical $padding-base-horizontal;
+  }
+
+  .divider {
+    margin: 0;
+  }
+
+  i {
+    margin-left: -4px;
+    margin-right: 4px;
+  }
+
+  > .active > a {
+    &, &:hover, &:focus {
+      color: $dropdown-link-color;
+      border-left: 4px solid $color-blue;
+      padding-left: $padding-base-horizontal - 4px;
+    }
+  }
+}

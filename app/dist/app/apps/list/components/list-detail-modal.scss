@@ -1,0 +1,243 @@
+.list-entry-details-modal {
+  .modal-header {
+    border: 0;
+  }
+
+  .modal-mobileheader {
+    min-height: 80px;
+    height: 80px;
+    display: flex;
+
+    @media screen and (min-width: $screen-sm-min) {
+      display: none;
+    }
+
+    .tab {
+      border-bottom: 5px solid $color-gray-dark;
+      flex: 1;
+      cursor: pointer;
+
+      a {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        text-align: center;
+        color: $color-gray-dark;
+      }
+
+      &.active {
+        border-color: $color-blue;
+
+        a {
+          color: $color-blue;
+        }
+      }
+
+      i {
+        font-size: 1.5em;
+      }
+
+      span {
+        font-weight: 600;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .modal-subheader {
+    height: 40px;
+    background-color: $color-gray-lighter;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 24px;
+    border-bottom: 1px solid $color-gray-light;
+
+    @media screen and (min-width: $screen-sm-min) {
+      border-top: 1px solid $color-gray-light;
+    }
+
+    .action {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 14px 0;
+
+      &:last-child {
+        padding-right: 0;
+      }
+
+      @media screen and (min-width: $screen-sm-min) {
+        & + .action {
+          border-left: 1px solid $color-gray-light;
+        }
+      }
+    }
+  }
+
+  .modal-body {
+    min-height: 300px;
+  }
+
+  .modal-body.list-entry-details {
+    padding-top: 0px;
+  }
+
+  div.table {
+
+    > div {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 10px 0;
+
+      @media screen and (min-width: $screen-sm-min) {
+        padding: 12px;
+
+        &:first-child {
+          padding-top: 20px;
+        }
+      }
+
+    }
+
+    .table-label {
+      width: 100%;
+      font-weight: 600;
+      margin: 10px 0;
+      color: $color-gray-dark;
+
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+
+      @media screen and (min-width: $screen-sm-min) {
+        width: inherit;
+        font-size: 16px;
+        text-align: right;
+        margin: 0;
+        padding-right: 25px;
+        text-transform: uppercase;
+        flex: 1 0 150px;
+      }
+
+    }
+
+    .table-content {
+      flex: 8;
+      font-weight: 600;
+    }
+  }
+
+  .field-user {
+    .user-avatar {
+      display: inline-block;
+    }
+
+    .user-field-wrapper {
+      display: flex;
+      align-items: baseline;
+
+      & + .user-field-wrapper {
+        margin-top: 10px;
+      }
+    }
+
+  }
+
+  .modal-body.list-entry-comments-tab {
+    .comments {
+      margin: -16px;
+    }
+  }
+
+  .modal-body.list-entry-history {
+    padding: 50px 24px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      padding-left: 120px;
+      padding-right: 120px;
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      padding-left: 160px;
+      padding-right: 160px;
+    }
+
+    display: flex;
+    flex-wrap: wrap;
+
+    .icon-wrapper {
+      height: 85px;
+      width: 85px;
+      border-radius: 50%;
+      background-color: $color-gray-lighter;
+      color: $color-gray-dark;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        font-size: 2.5em;
+        font-weight: 600;
+
+        &.zmdi-plus {
+          font-size: 3.2em;
+        }
+      }
+    }
+
+    label {
+      margin: 15px 0 15px;
+      color: $color-gray;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    p.list-entry-history-date {
+      color: $color-gray;
+    }
+
+    .col-flex {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .mobile-spacer {
+      width: 100%;
+      margin: 30px 0;
+    }
+  }
+
+  .modal-details-edit-body {
+    overflow: auto;
+  }
+}
+
+.list-entry-modal-comments {
+  .comments {
+    margin: 0;
+  }
+}
+
+.list-app-entry-form-label-row {
+  margin-top: 10px;
+
+  @media screen and (min-width: $screen-md-min) {
+    margin-top: 2px;
+  }
+}
+
+.list-app-entry-form {
+  &.form-horizontal {
+    .form-group {
+      margin: 0;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+.error-state {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: $color-primary;
+  @include background-gradient-top-left-to-bottom-right($color-primary, $color-secondary);
+
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  .error-icon {
+    font-size: 64px;
+  }
+
+  .error-message {
+    color: rgba($color-white, 0.5);
+    font-size: 20px;
+  }
+
+  .error-title {
+    color: $color-white;
+    font-size: 36px;
+    font-weight: 300;
+  }
+
+  .error-buttons a:not(:last-child) {
+    margin-right: 16px;
+  }
+}

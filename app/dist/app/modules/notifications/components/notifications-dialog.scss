@@ -1,0 +1,232 @@
+.notifications-dialog-parent {
+  position: relative;
+
+  .zmdi-caret-up {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    color: $color-white;
+    font-size: 70px;
+    line-height: 18px;
+    position: absolute;
+    top: 37px;
+    z-index: 2000;
+    overflow: hidden;
+  }
+
+  .notifications-unseen {
+    @include unread-bubble();
+
+    position: absolute;
+    left: 24px;
+    top: 8px;
+
+    @media screen and (min-width: $screen-md-min) {
+      left: 28px;
+    }
+  }
+}
+
+.notifications-dialog {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 50px);
+  z-index: 300;
+
+  @media screen and (min-width: $screen-md-min) {
+    position: absolute;
+    top: 52px;
+    left: calc(50% - 170px);
+    width: 340px;
+    height: 540px;
+  }
+
+  @include dropdown();
+
+  @media screen and (max-width: $screen-sm-max) {
+    border: 0;
+    border-radius: 0;
+  }
+
+  display: flex;
+  flex-direction: column;
+}
+
+ul.notifications-tabs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+
+  > li {
+    flex: 1;
+
+    > a {
+      cursor: pointer;
+      display: block;
+      height: 100%;
+      width: 100%;
+      color: $color-gray-dark;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 14px;
+
+      padding: 12px 0 9px 0;
+
+      background-color: $color-white;
+      border-bottom: 2px solid $color-gray-light;
+
+      transition: all linear 0.25s;
+
+      &:hover {
+        border-bottom: 2px solid $color-gray;
+      }
+
+      &.active {
+        border-bottom: 2px solid $color-link;
+        color: $text-color;
+      }
+
+      .badge {
+        margin-left: 4px;
+      }
+    }
+  }
+}
+
+.notifications-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  flex: 1;
+
+  overflow-y: scroll;
+
+  .spinner {
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  .empty {
+    text-align: center;
+    color: $color-gray;
+    padding: 20px;
+  }
+
+  > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      width: 100%;
+      background-color: $color-white;
+      font-size: 14px;
+
+      display: flex;
+      border-bottom: 1px solid $color-gray-lighter;
+      padding: 15px 20px;
+      cursor: pointer;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      &.highlighted {
+        background-color: $color-gray-lighter;
+        border-bottom-color: $color-gray-light;
+
+        &:hover {
+          background-color: darken($color-gray-lighter, 2%);
+        }
+      }
+
+      &:hover {
+        background-color: $color-gray-lighter;
+      }
+
+      .notification-options {
+        padding-top: 4px;
+
+        > a {
+          display: block;
+          width: 100%;
+          color: $color-gray-dark;
+          font-size: 12px;
+          text-align: right;
+
+          transition: color linear 0.25s;
+
+          &:hover {
+            color: $color-link;
+          }
+        }
+      }
+
+      .notification-content {
+        flex: 1;
+        font-size: 14px;
+        padding: 0 15px;
+        min-width: 0;
+
+        .text {
+          color: $text-color;
+        }
+
+        .excerpt {
+          word-break: break-word;
+          overflow-wrap: break-word;
+          overflow: hidden;
+
+          font-size: 12px;
+          color: $color-gray-darker;
+          border: 1px solid $color-gray-light;
+          border-radius: 5px;
+          background-color: $color-white;
+          padding: 8px 12px;
+          margin: 8px 0;
+        }
+
+        .time {
+          font-size: 12px;
+          color: $color-gray-dark;
+        }
+      }
+    }
+  }
+}
+
+.notifications-activity {
+  .notification-icon {
+    width: 26px;
+    font-size: 30px;
+    color: $color-gray-darker;
+    text-align: center;
+    margin-top: 2px;
+  }
+}
+
+.notifications-discussion {
+  .user-avatar {
+    margin-top: 5px;
+  }
+}
+
+.notifications-mark-clicked {
+  font-size: 14px;
+  border-radius: 0 0 5px 5px;
+  border-top: 1px solid $color-gray-light;
+  text-align: center;
+  color: $text-color;
+  padding: 8px 0;
+
+  transition: background-color linear 0.15s;
+
+  &:hover {
+    color: $text-color;
+    background-color: $color-gray-lighter;
+  }
+}

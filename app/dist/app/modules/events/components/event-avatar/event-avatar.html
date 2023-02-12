@@ -1,0 +1,11 @@
+<a ng-click="$ctrl.open($event)" class="sender-avatar event-avatar {{::$ctrl.avatarSize}}" ng-class="::{'no-link': !$ctrl.isLink}">
+  <coyo-event-date-overlay date="::$ctrl.event.startDate"
+                           ng-if="::$ctrl.showOverlay"></coyo-event-date-overlay>
+  <coyo-avatar-image ng-if="!$ctrl.loadError"
+                     on-error="$ctrl.errorHandler()"
+                     image-url="::$ctrl.event.imageUrls.avatar"
+                     avatar-size="{{::$ctrl.avatarSize}}"></coyo-avatar-image>
+  <span class="sender-avatar-empty" ng-if="::!$ctrl.event.imageUrls.avatar || $ctrl.loadError">
+    {{:: $ctrl.event.displayNameInitials }}
+  </span>
+</a>

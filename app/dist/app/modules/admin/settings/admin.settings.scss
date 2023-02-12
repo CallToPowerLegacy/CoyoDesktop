@@ -1,0 +1,10 @@
+.admin-settings {
+  .nav.nav-tabs > li > a,
+  .nav.nav-tabs.nav-justified > li > a {
+    text-overflow: inherit;
+    
+    @media screen and (min-width: $screen-xs-max) {
+      text-overflow: ellipsis;
+    }
+  }
+}

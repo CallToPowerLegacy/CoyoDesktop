@@ -1,0 +1,19 @@
+// Mixins - Set the user-selection mode
+// ------------------------------------
+
+// example usage:
+// @include user-select(none|all)
+@mixin user-select($mode) {
+  // scss-lint:disable VendorPrefix
+  &::-webkit-user-select {
+    user-select: $mode;
+  }
+  &::-moz-user-select {
+    user-select: $mode;
+  }
+  &::-ms-user-select {
+    user-select: $mode;
+  }
+  // scss-lint:enable VendorPrefix
+  user-select: $mode;
+}

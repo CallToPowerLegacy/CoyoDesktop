@@ -1,0 +1,179 @@
+/**
+* Use with .navbar (bootstrap) and .coyo-navbar
+*/
+.coyo-navbar-flex {
+  display: flex;
+  margin: 0 auto;
+  max-width: $layout-max-width;
+  position: relative;
+  height: 100%;
+
+  .nav {
+    display: flex;
+    height: 100%;
+
+    .nav-item {
+      cursor: pointer;
+      height: 100%;
+
+      .nav-item-combined {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        .zmdi {
+          font-size: 17px;
+          width: 1.3em;
+          vertical-align: -4%;
+        }
+      }
+
+      .nav-item-icon {
+        font-size: 22px;
+        font-weight: 100;
+        padding: 15px;
+
+        @media screen and (min-width: $screen-md-min) {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+      .nav-item-profile {
+        padding-top: 15px;
+        padding-bottom: 14px;
+
+        .profile-thumb {
+          background: $coyo-navbar-text;
+          border-radius: 26px;
+          float: left;
+          height: 22px;
+          width: 22px;
+        }
+
+        > i {
+          display: inline-block;
+          float: left;
+          font-size: 24px;
+          margin-left: 10px;
+        }
+      }
+
+      .nav-item-brand {
+        font-size: 20px;
+        line-height: $navbar-height;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  .nav-brand-box {
+    display: none;
+    height: 100%;
+    padding: 0 20px;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: $coyo-navbar-hover;
+      color: $coyo-navbar-text;
+      outline: none;
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      display: block;
+    }
+  }
+
+  .nav-search {
+    flex: auto;
+    height: 100%;
+    position: relative;
+    z-index: 3;
+  }
+
+  .search-icon {
+    color: $coyo-navbar-text;
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    text-decoration: none;
+    z-index: 3;
+
+    > i {
+      margin-top: -1px;
+      font-size: 22px;
+      font-weight: 100;
+    }
+
+  }
+
+  .search-icon-close {
+    display: none;
+    height: 36px;
+    padding: 8px;
+    top: 7px;
+    right: 8px;
+    width: 36px;
+
+    @media screen and (min-width: $screen-md-min) {
+      display: block;
+    }
+  }
+
+  .search-icon-open {
+    display: none;
+    height: 100%;
+    padding: 16px 15px;
+    right: 0;
+    top: 0;
+
+    @media screen and (min-width: $screen-md-min) {
+      display: block;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    &:hover {
+      background-color: $coyo-navbar-hover;
+    }
+  }
+
+  .form-control {
+    background-color: $coyo-navbar-active;
+    border-radius: 36px;
+    border: 0;
+    box-shadow: none;
+    color: $coyo-navbar-text;
+    height: 33px;
+    outline: none;
+    position: absolute;
+    top: 9px;
+    right: 8px;
+
+    opacity: 1;
+    width: calc(100% - 16px);
+
+    &:focus {
+      background-color: $coyo-navbar-input-active;
+      border-color: $coyo-navbar-active;
+      box-shadow: 0 0 0 1.5px $coyo-navbar-active;
+    }
+
+    @include placeholder-color($coyo-navbar-placeholder);
+
+    @media screen and (min-width: $screen-md-min) {
+      opacity: 0;
+      width: 0;
+
+      transition: all ease-in-out .3s;
+      transition-property: opacity, width;
+
+      &.open {
+        opacity: 1;
+        width: calc(100% - 20px);
+      }
+    }
+  }
+}

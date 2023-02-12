@@ -1,0 +1,258 @@
+.pi-container {
+  .pi-preview-image-container,
+  .pi-preview-pdf-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .pi-preview-video-container {
+    width: 100%;
+    min-height: 1px; /* hack so a video is displayed in safari */
+    display: flex;
+
+    video {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .pi-spinner-vert-container {
+    text-align: center;
+  }
+
+  .pi-spinner-container {
+    text-align: center;
+  }
+
+  .pdf-js-view {
+    display: none;
+
+    @media screen and (min-width: $screen-sm-min) {
+      display: block;
+    }
+
+    #sidebarContainer {
+      display: none;
+    }
+
+    #toolbarViewer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: 250;
+      height: 50px;
+      overflow: hidden;
+      background-color: $color-primary;
+      color: $color-white;
+      top: 0;
+
+      #toolbarViewerLeft {
+        float: left;
+        padding-left: 15px;
+
+        > * {
+          float: left;
+        }
+
+        #sidebarToggle,
+        #viewFind,
+        .toolbarButtonSpacer,
+        .splitToolbarButtonSeparator{
+          display: none;
+        }
+
+        #previous {
+          &::before {
+            content: "\f2ea";
+          }
+        }
+
+        #next {
+          &::before {
+            content: "\f2ee";
+          }
+        }
+
+        #pageNumber {
+          text-align: center;
+        }
+
+        #numPages {
+          line-height: 50px;
+        }
+      }
+
+      #toolbarViewerMiddle {
+        .splitToolbarButtonSeparator {
+          display: none;
+        }
+
+        .splitToolbarButton,
+        #scaleSelectContainer {
+          display: inline-block !important;
+        }
+
+        #scaleSelectContainer {
+          max-width: none !important;
+
+          #scaleSelect {
+            padding: 0 5px;
+          }
+        }
+
+        #zoomOut {
+          &::before {
+            content: "\f273";
+          }
+        }
+
+        #zoomIn {
+          &::before {
+            content: "\f278";
+          }
+        }
+      }
+
+      #toolbarViewerRight {
+        float: right;
+        padding-right: 15px;
+
+        #presentationMode,
+        #openFile,
+        #download,
+        #viewBookmark,
+        #secondaryToolbarToggle,
+        .splitToolbarButtonSeparator {
+          display: none;
+        }
+
+        #print {
+          display: none; //FIXME: PDF-Preview - fix bug that breaks printing layout
+          &::before {
+            content: "\f1b0";
+          }
+        }
+      }
+
+      .toolbarField,
+      select {
+        margin: 12px 5px 12px 5px;
+        background-color: darken($color-primary, 10%);
+        border: 0 none;
+        border-radius: 5px;
+        height: 26px;
+      }
+
+      button.toolbarButton::before {
+        font-family: 'Material-Design-Iconic-Font';
+      }
+
+      #previous,
+      #next,
+      #zoomOut,
+      #zoomIn,
+      #print {
+        display: inline-block;
+        background: transparent;
+        border: 0;
+        outline: 0 none;
+        line-height: 50px;
+
+        span {
+          display: none;
+        }
+
+        &[disabled] {
+          opacity: 0.2;
+        }
+      }
+    }
+
+    #viewerContainer {
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      outline: none;
+      padding: 70px 0 25px 0;
+
+      #viewer {
+        .page {
+          margin: 0 auto 25px;
+          overflow: hidden;
+          border: 0 none;
+        }
+      }
+    }
+
+    #loadingBar {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      width: 100%;
+      background-color: $color-gray;
+      z-index: 200;
+
+      .progress {
+        height: 3px;
+        border-radius: 0;
+        background-color: $color-navbar-border;
+        margin-bottom: 0;
+      }
+    }
+
+    #overlayContainer {
+      position: absolute;
+      z-index: 199;
+      width: 100%;
+      left: 0;
+
+      .container {
+        background-color: $modal-content-bg;
+        border: 1px solid $modal-content-fallback-border-color; //old browsers fallback (ie8 etc)
+        border: 1px solid $modal-content-border-color;
+        border-radius: $border-radius-large;
+        @include box-shadow(0, 3px, 9px, 0, rgba(0,0,0,.5));
+        padding: 25px;
+        max-width: 90%;
+
+        progress {
+          width: 80%;
+          display: block;
+          margin: 0 auto;
+        }
+
+        button {
+          margin-top: 15px;
+          @extend .btn, .btn-primary;
+        }
+      }
+    }
+
+    #errorWrapper {
+      background-color: $modal-content-bg;
+      border: 1px solid $modal-content-fallback-border-color; //old browsers fallback (ie8 etc)
+      border: 1px solid $modal-content-border-color;
+      border-radius: $border-radius-large;
+      @include box-shadow(0, 3px, 9px, 0, rgba(0,0,0,.5));
+      padding: 25px;
+      max-width: 90%;
+      margin: 0 auto;
+
+      button {
+        display: none;
+      }
+    }
+
+    #printContainer {
+      display: none;
+    }
+  }
+
+}
+
+//FIXME: PDF-Preview - fix bug that appends file inputs on the end of body after show pdf-viewer
+body > #fileInput { display: none; }

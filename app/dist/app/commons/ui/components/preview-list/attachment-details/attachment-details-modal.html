@@ -1,0 +1,48 @@
+<div class="modal-content-wrapper">
+  <div class="modal-header">
+    <h3 class="modal-title">
+      <small class="text-muted">{{:: $ctrl.fileType | translate }}</small>
+      {{ $ctrl.attachment.name }}
+    </h3>
+    <span class="modal-close" ng-click="$close()">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+
+  <div class="modal-file-preview">
+    <div class="fd-preview">
+      <coyo-file-preview file="$ctrl.attachment"
+                         url="$ctrl.previewUrl"
+                         group-id="$ctrl.groupId"
+                         size="{{$ctrl.attachment.contentType === 'image/gif' ? 'original' : 'xl'}}"
+                         options="$ctrl.previewOptions"></coyo-file-preview>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <div class="file-details-action-bar pr-xxs">
+      <a href
+         coyo-download="::$ctrl.downloadUrl"
+         class="btn btn-link btn-zmdi"
+         uib-tooltip="{{:: 'DOWNLOAD' | translate }}"
+         tooltip-append-to-body="true"
+         tooltip-placement="bottom"
+         tooltip-popup-delay="500"
+         tooltip-enable="!$root.screenSize.isXs">
+        <i class="zmdi zmdi-hc-fw zmdi-download zmdi-hc-lg"></i>
+      </a>
+    </div>
+    <div class="attachment-details">
+      <dl class="coyo-file-details dl-horizontal">
+        <dt translate="FILE_DETAILS.FILESIZE"></dt>
+        <dd>{{:: $ctrl.attachment.length | fileSize }}</dd>
+        <dt translate="FILE_DETAILS.FILETYPE"></dt>
+        <dd>{{:: $ctrl.attachment.contentType }}</dd>
+        <dt translate="FILE_DETAILS.AUTHOR"></dt>
+        <dd><a href coyo-sender-link="$ctrl.author">{{:: $ctrl.author.displayName }}</a></dd>
+        <dt translate="FILE_DETAILS.FILE_CREATED"></dt>
+        <dd>{{:: $ctrl.attachment.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short }}</dd>
+      </dl>
+    </div>
+  </div>
+</div>

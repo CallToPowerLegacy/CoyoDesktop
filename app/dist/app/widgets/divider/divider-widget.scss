@@ -1,0 +1,12 @@
+.widget-divider .coyo-divider {
+  margin: 0;
+}
+
+// Special styling in case this widget is rendered in a panel slot
+.widget-slot-panel .widget-divider {
+  margin: -.5*nth($panel-body-padding, 1) -1*nth($panel-body-padding, 2);
+
+  @media screen and (max-width: $screen-xs-max) {
+    margin: -.5*nth($panel-xs-body-padding, 1) -1*nth($panel-xs-body-padding, 2);
+  }
+}

@@ -1,0 +1,5 @@
+<span ng-show="$ctrl.target._permissions.share === true || $ctrl.count > 0" class="btn-shares" ng-class="{ loading: $ctrl.isLoading, active: $ctrl.count > 0 }">
+  <a ng-show="::$ctrl.target._permissions.share === true" class="handle" ng-click="$ctrl.share()"><i class="zmdi zmdi-hc-fw zmdi-hc-flip-horizontal zmdi-mail-reply"></i></a>
+  <span ng-show="::$ctrl.target._permissions.share !== true" class="disabled"><i class="zmdi zmdi-hc-fw zmdi-hc-flip-horizontal zmdi-mail-reply"></i></span>
+  <a class="count" ng-click="$ctrl.show()" ng-show="$ctrl.count > 0">{{ $ctrl.count }}</a>
+</span>

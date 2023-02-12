@@ -1,0 +1,49 @@
+<div class="lightbox-modal modal-content-wrapper modal-options" ng-keydown="$ctrl.keystroke($event)" tabindex="0"
+     autofocus>
+  <div class="modal-header">
+    <div class="col-xs-5 col-sm-2 header-left">
+      <span class="index">
+        {{ $ctrl.currentMedia.sortOrderId + 1 }} {{ ::'WIDGET.MEDIA.LIGHTBOX.OF' | translate}} {{ ::$ctrl.media.length }}
+      </span>
+        <span class="download" coyo-download="$ctrl.downloadUrl" uib-tooltip="{{:: 'DOWNLOAD' | translate }}"
+              tooltip-append-to-body="true" tooltip-placement="bottom" tooltip-popup-delay="500"
+              tooltip-enable="!$root.screenSize.isXs">
+        <i class="zmdi zmdi-hc-fw zmdi-download"></i>
+      </span>
+    </div>
+
+    <div class="col-xs-6 col-sm-9 header-middle">
+      <span class="title" ng-if="::$ctrl.album.title" ng-bind="::$ctrl.album.title">
+      </span>
+      <span class="separator description" ng-if="::$ctrl.album.title && ($ctrl.currentMedia.description || $ctrl.currentMedia.name)">
+      </span>
+      <span class="description" ng-if="$ctrl.currentMedia.description" ng-bind="$ctrl.currentMedia.description">
+      </span>
+      <span class="description" ng-if="!$ctrl.currentMedia.description && $ctrl.currentMedia.name" ng-bind="$ctrl.currentMedia.name">
+      </span>
+    </div>
+
+    <div class="col-xs-1 col-sm-1 header-right">
+      <span class="modal-close" ng-click="$ctrl.close()"><i class="zmdi zmdi-close img-close"></i></span>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <div ng-if="$ctrl.showControls && $ctrl.media.length > 1">
+      <span class="chevron-left" ng-click="$ctrl.loadPrevious()"><i class="zmdi zmdi-chevron-left"></i></span>
+      <span class="chevron-right" ng-click="$ctrl.loadNext()"><i class="zmdi zmdi-chevron-right"></i></span>
+    </div>
+    <coyo-image-reference ng-if="$ctrl.isImage($ctrl.currentMedia.contentType)"
+                          file-id="$ctrl.currentMedia.id"
+                          sender-id="$ctrl.currentMedia.senderId"
+                          size-definitions="{'default': 'XXL', 'screen-xs': 'XL', 'screen-sm': 'XXL'}">
+    </coyo-image-reference>
+    <coyo-video-reference ng-if="$ctrl.isVideo($ctrl.currentMedia.contentType)"
+                          file="$ctrl.currentMedia"
+                          url="$ctrl.previewUrl"
+                          group-id="$ctrl.currentMedia.senderId"
+                          show-controls="true"
+                          show-preview="true">
+    </coyo-video-reference>
+  </div>
+</div>

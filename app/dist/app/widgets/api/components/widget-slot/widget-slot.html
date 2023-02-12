@@ -1,0 +1,91 @@
+<div class="widget-slot widget-slot-{{$ctrl.name}} widget-slot-{{::$ctrl.renderStyle}} clearfix {{$ctrl.editMode ? 'edit-mode' : ''}}">
+  <div ng-if="$ctrl.hasVisibleWidgets() || $ctrl.editMode" ng-class="::{ panel: $ctrl.renderStyle === 'panel' }">
+
+    <div class="widgets-container">
+
+      <!-- Render widgets -->
+      <div ng-repeat="widget in $ctrl.widgets | filter:{deleted:false}" class="widget"
+           ng-init="widget.showWidget={show: true}; widgetScope = this;"
+           ng-show="$ctrl.editMode || widget.showWidget.show">
+
+        <div ng-if="$ctrl.editMode && $ctrl.isMobileHidden(widget)" class="alert alert-info mb-xxs">
+          <i class="zmdi zmdi-hc-fw zmdi-smartphone-erase"></i>
+          <span translate="WIDGETS.MOBILE.HIDDEN"></span>
+        </div>
+
+        <div ng-class="{'panel' : $ctrl.hasPanel(widget),
+                        'widget-clipped' : $root.widgetClipboard.widget === widget.model}"
+             ng-if="!($ctrl.isMobileHidden(widget) && ($root.screenSize.isXs ||$root.screenSize.isSm)) || $ctrl.editMode">
+          <div class="widget-inner" ng-class="{ 'panel-body' : $ctrl.hasPanelBody(widget) }">
+
+            <!-- Render widget -->
+            <coyo-widget widget-model="widget.model"
+                    widget-config="widget.config"
+                    edit-mode="$ctrl.editMode"
+                    options="$ctrl.options"
+                    show-widget="widget.showWidget"></coyo-widget>
+
+            <!-- Widget options -->
+            <div ng-if="$ctrl.canManage && !$ctrl.simpleMode"
+                 class="btn-group widget-options">
+              <oyoc-widget-inline-options model="::widget.model"
+                                          ng-if="widget.model._permissions.manage"
+                                          config="::widget.config"
+                                          widget-scope="::widgetScope"></oyoc-widget-inline-options>
+              <a ng-click="$ctrl.orderWidget(widget, true)" ng-if="!$first"
+                 class="btn btn-xs btn-dark btn-zmdi widget-order-up">
+                <i class="zmdi zmdi-chevron-up zmdi-hc-fw"></i>
+              </a>
+              <a ng-click="$ctrl.orderWidget(widget, false)" ng-if="!$last"
+                 class="btn btn-xs btn-dark btn-zmdi widget-order-down">
+                <i class="zmdi zmdi-chevron-down zmdi-hc-fw"></i>
+              </a>
+              <a ng-click="$ctrl.renameWidget(widget)" ng-if="widget.config.titles.length && widget.model._permissions.manage" class="btn btn-xs btn-dark btn-zdmi widget-rename" ng-class="{'active': widget.model._showTitleInput}">
+                <i class="zmdi zmdi-format-color-text zmdi-hc-fw"></i>
+              </a>
+              <span class="widget-input-title btn-dark" ng-if="widget.model._showTitleInput && widget.config.titles.length && widget.model._permissions.manage">
+                <input ng-model="widget.model.settings._titles[$index]" ng-repeat="title in widget.config.titles track by $index" placeholder="{{title | translate}}"/>
+              </span>
+              <a ng-click="$ctrl.cutWidget($ctrl.widgets, widget)" class="btn btn-xs btn-dark btn-zmdi widget-cut" ng-if="widget.model._permissions.manage">
+                <i class="zmdi zmdi-scissors zmdi-hc-fw"></i>
+              </a>
+              <a ng-if="::widget.config.settings && widget.model._permissions.manage" ng-click="$ctrl.editWidget(widget, widgetScope)" class="btn btn-xs btn-dark btn-zmdi widget-edit">
+                <i class="zmdi zmdi-settings zmdi-hc-fw"></i>
+              </a>
+              <a ng-click="$ctrl.toggleMobile(widget.model)"
+                 ng-if="widget.model._permissions.manage"
+                 class="btn btn-xs btn-dark btn-zmdi widget-toggle-mobile"
+                 ng-class="{'toggled' : widget.model.settings._hideMobile}">
+                <i class="zmdi zmdi-smartphone-erase zmdi-hc-fw"></i>
+              </a>
+              <a ng-click="$ctrl.removeWidget(widget)" ng-if="widget.model._permissions.manage" class="btn btn-xs btn-dark btn-zmdi widget-remove">
+                <i class="zmdi zmdi-delete zmdi-hc-fw"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ng-class="{'divider': $ctrl.showOptionsDivider()}"
+       class="widget-slot-options"
+       ng-if="$ctrl.canManage">
+
+    <ul class="list-unstyled">
+      <li ng-if="$ctrl.isAddButtonVisible()"
+          ng-class="{'widget-slot-option-alternate': $ctrl.editMode, 'widget-slot-option-default': !$ctrl.editMode}">
+        <a ng-click="$ctrl.addWidget()" uib-tooltip="{{::'WIDGETS.TOOLTIPS.ADD_WIDGET' | translate}}" tooltip-append-to-body="true">
+          <i class="zmdi zmdi-hc-fw zmdi-plus"></i>
+        </a>
+      </li>
+
+      <li ng-if="$ctrl.isPasteButtonVisible()" class="widget-slot-option-alternate">
+        <a ng-click="$ctrl.pasteWidget()" uib-tooltip="{{::'WIDGETS.TOOLTIPS.PASTE_WIDGET' | translate}}" tooltip-append-to-body="true">
+          <i class="zmdi zmdi-hc-fw zmdi-long-arrow-tab zmdi-hc-rotate-270"></i>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+</div>

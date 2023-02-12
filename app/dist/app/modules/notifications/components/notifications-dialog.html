@@ -1,0 +1,95 @@
+<li class="nav-item notifications-dialog-parent" ng-show="$ctrl.visible">
+  <a class="nav-item-icon zmdi zmdi-notifications-none" id="notification-toggle" ng-click="$ctrl.toggle();$event.stopPropagation()">
+    <span class="notifications-unseen" ng-if="$ctrl.status && $ctrl.status.unseen._total > 0">
+      {{ $ctrl.status.unseen._total >= 100 ? '99+' : $ctrl.status.unseen._total}}
+    </span>
+  </a>
+
+  <span class="zmdi zmdi-caret-up" ng-if="$ctrl.show"></span>
+
+  <div id="notifications-dialog" class="notifications-dialog" ng-if="$ctrl.show" click-outside="$ctrl.close()" outside-if-not="notification-toggle">
+
+    <ul class="notifications-tabs">
+      <li ng-repeat="category in ::$ctrl.categories">
+        <a ng-class="{active: $ctrl.category == category}" ng-click="$ctrl.switchCategory(category);$event.stopPropagation()">
+          {{:: 'NOTIFICATIONS.CATEGORY.' + category | translate }}
+          <span ng-if="$ctrl.status && $ctrl.status.unseen[category] > 0"
+                class="badge badge-red"
+                uib-tooltip="{{:: 'NOTIFICATIONS.UNSEEN' | translate }}"
+                tooltip-placement="bottom"
+                tooltip-popup-delay="500"
+                tooltip-append-to-body="true">
+            {{$ctrl.status.unseen[category]}}
+          </span>
+          <span ng-if="$ctrl.status && $ctrl.status.unclicked[category] > 0 && $ctrl.status.unseen[category] <= 0"
+                class="badge badge-muted"
+                uib-tooltip="{{:: 'NOTIFICATIONS.UNCLICKED' | translate }}"
+                tooltip-placement="bottom"
+                tooltip-popup-delay="500"
+                tooltip-append-to-body="true">
+            {{$ctrl.status.unclicked[category]}}
+          </span>
+        </a>
+      </li>
+    </ul>
+
+    <div ng-repeat="category in ::$ctrl.categories"
+         class="notifications-items notifications-{{:: category | lowercase }}"
+         ng-if="$ctrl.category == category"
+         coyo-infinite-scroll="$ctrl.loadMore(category)">
+
+      <ul>
+        <li class="item"
+            ng-repeat="notification in $ctrl.data[category].items"
+            ng-class="{highlighted: !notification.clicked}"
+            ng-click="$ctrl.open(notification)">
+          <coyo-user-avatar ng-if="::category == 'DISCUSSION'" user="::notification.author" avatar-size="sm"></coyo-user-avatar>
+          <i ng-if="::category == 'ACTIVITY'" class="notification-icon zmdi zmdi-{{:: $ctrl.getIcon(notification.typeName) }}"></i>
+
+          <div class="notification-content">
+            <div class="text" ng-bind-html="::notification.messageKey | translate:notification.messageArguments | boldify"></div>
+            <div class="excerpt" ng-if="::notification.excerpt">{{:: notification.excerpt }}</div>
+            <div class="time">
+              <i class="zmdi zmdi-time zmdi-wide"></i>
+              <coyo-time-ago date="::notification.created"></coyo-time-ago>
+            </div>
+          </div>
+
+          <!--
+          <div class="notification-options hide">
+            <a ng-if="notification.subscribed"
+               ng-click="$ctrl.unsubscribe(notification);$event.stopPropagation()"
+               class="zmdi zmdi-check-circle"
+               uib-tooltip="{{:: 'NOTIFICATIONS.OPTIONS.UNSUBSCRIBE' | translate }}"
+               tooltip-popup-delay="500"
+               tooltip-placement="left"></a>
+            <a ng-if="!notification.subscribed"
+               ng-click="$ctrl.subscribe(notification);$event.stopPropagation()"
+               class="zmdi zmdi-circle-o"
+               uib-tooltip="{{:: 'NOTIFICATIONS.OPTIONS.SUBSCRIBE' | translate }}"
+               tooltip-popup-delay="500"
+               tooltip-placement="left"></a>
+          </div>
+          -->
+        </li>
+      </ul>
+
+      <div class="empty" ng-if="$ctrl.data[category].items && !$ctrl.data[category].items.length" translate="NOTIFICATIONS.EMPTY"></div>
+
+      <div class="spinner" ng-if="$ctrl.data[category].loading">
+        <coyo-spinner></coyo-spinner>
+      </div>
+    </div>
+
+    <a class="notifications-mark-clicked"
+       ng-click="$ctrl.markAllClicked($ctrl.category)"
+       ng-if="$ctrl.category && $ctrl.status.unclicked[$ctrl.category] > 0">
+      <i class="zmdi zmdi-check-all zmdi-wide"></i>&nbsp;{{:: 'NOTIFICATIONS.MARK_CLICKED' | translate }}
+    </a>
+  </div>
+
+  <coyo-tour-step topic="navigation" order="25" step-id="navigation.notifications"
+                  title="{{:: 'TOUR.MAIN.NOTIFICATIONS.TITLE' | translate }}"
+                  content="{{:: 'TOUR.MAIN.NOTIFICATIONS' | translate }}"></coyo-tour-step>
+
+</li>

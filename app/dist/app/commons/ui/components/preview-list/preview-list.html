@@ -1,0 +1,31 @@
+<div class="attachment-previews">
+  <a href
+     class="item-attachment"
+     title="{{::attachment.name}}"
+     ng-repeat="attachment in $ctrl.attachments | orderBy: 'id' | filter: {previewAvailable:true}"
+     ng-click="$ctrl.showDetails(attachment)"
+     ng-class="{'single-file': $ctrl.attachments.length === 1, 'same-size': $ctrl.sameSize}">
+    <coyo-file-preview file="attachment"
+                        url="::$ctrl.getPreviewUrl(attachment)"
+                        group-id="::$ctrl.getGroupId(attachment)"
+                        size="{{$ctrl.imageSize}}"
+                        options="{hideNoPreviewAvailableMsg: false,
+                                  hidePreviewGenerationInformation: true,
+                                  backgroundImage: $ctrl.attachments.length !== 1}"></coyo-file-preview>
+  </a>
+</div>
+<div class="attachment-list">
+  <a href
+     class="item-attachment"
+     title="{{::attachment.name}}"
+     ng-repeat="attachment in $ctrl.attachments | orderBy: 'id' | filter: {previewAvailable:false}"
+     ng-click="$ctrl.showDetails(attachment)">
+    <span class="item-attachment-icon">
+      <coyo-file-icon file="::attachment" class="zmdi-hc-lg"></coyo-file-icon>
+    </span>
+    <span class="item-attachment-name">
+      {{::attachment.name}}
+    </span>
+    <span class="item-attachment-length">{{::attachment.length | fileSize}}</span>
+  </a>
+</div>

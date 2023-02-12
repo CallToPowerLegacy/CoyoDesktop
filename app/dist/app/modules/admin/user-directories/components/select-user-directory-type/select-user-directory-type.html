@@ -1,0 +1,9 @@
+<ui-select ui-select-mobile="{{:: 'ADMIN.USER_DIRECTORIES' | translate }}" ng-model="$ctrl.data.selected" ng-disabled="{{$ctrl.ngDisabled}}" class="select-user-directories">
+  <ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="{{$ctrl.allowClear ? 'true' : 'false'}}">
+    {{$select.selected.name}}
+  </ui-select-match>
+  <ui-select-choices repeat="directoryType.key as directoryType in $ctrl.data.directoryTypes | filter: $select.search">
+    <div ng-bind-html="directoryType.name | highlight: $select.search"></div>
+    <div class="small text-muted" ng-bind-html="directoryType.description | highlight: $select.search"></div>
+  </ui-select-choices>
+</ui-select>

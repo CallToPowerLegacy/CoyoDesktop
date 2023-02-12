@@ -1,0 +1,43 @@
+.fl-file-picker {
+
+  ul.fl-file-picker-list {
+    list-style: none;
+    margin: 12px 0 8px;
+    padding: 0;
+
+    li {
+      background-color: $color-gray-lighter;
+      border: $color-gray-light solid 1px;
+      border-radius: 5px;
+      margin: 6px 0;
+      padding: 6px 22px 6px 8px;
+      position: relative;
+      @include ellipsis();
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .remove-file {
+        color: $color-gray;
+        position: absolute;
+        right: 8px;
+
+        &:hover {
+          color: $color-red;
+        }
+      }
+
+    }
+  }
+
+}
+
+.has-error ul.fl-file-picker-list li {
+  border-color: $color-red;
+  color: $color-red;
+}

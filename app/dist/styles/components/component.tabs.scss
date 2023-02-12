@@ -1,0 +1,21 @@
+@media screen and (max-width: $screen-xs-max) {
+  .nav-tabs-justified, .nav-tabs.nav-justified {
+    .tab-text {
+      display: none;
+    }
+
+    .zmdi {
+      font-size: 22px;
+      vertical-align: bottom;
+    }
+  }
+}
+
+.uib-tab {
+  uib-tab-heading .tab-indicator {
+    color: $color-yellow;
+  }
+  uib-tab-heading {
+    @include user-select(none);
+  }
+}

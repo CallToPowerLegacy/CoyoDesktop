@@ -1,0 +1,69 @@
+<div class="panel panel-default panel-list admin-languages">
+  <div class="panel-body">
+
+    <!-- mobile view -->
+    <ul ng-if="$ctrl.mobile" class="list-group">
+      <li ng-repeat="language in $ctrl.languages | orderBy: 'name' track by language.model.language"
+          id="language-{{$index}}"
+          class="list-group-item">
+        <div class="row">
+          <div class="col-xs-8">
+            <div>
+              <coyo-country-flag country="language.model.language" form="rounded"></coyo-country-flag> &nbsp;
+              {{language.name}}
+              <small class="text-muted" ng-if="language.model.defaultLanguage"><br>{{'ADMIN.SETTINGS.DEFAULT_LANGUAGE.LABEL'
+                | translate}}
+              </small>
+            </div>
+          </div>
+          <div class="col-xs-4 text-right">
+            <coyo-active-label ng-model="language.model.active"></coyo-active-label>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <coyo-context-menu ng-if="$ctrl.mobile"
+                       ng-repeat="language in $ctrl.languages | orderBy: 'name' track by language.model.language"
+                       toggle-element="#language-{{$index}}"
+                       title="{{language.name}}">
+      <li ng-if="!language.model.defaultLanguage">
+        <a ng-click="$ctrl.toggleActive(language.model)">
+          <span ng-if="language.model.active"><i class="zmdi zmdi-hc-fw zmdi-stop"></i>&nbsp;<span translate="ADMIN.USER_MGMT.USERS.OPTIONS.DEACTIVATE.MENU"></span></span>
+          <span ng-if="!language.model.active"><i class="zmdi zmdi-hc-fw zmdi-play"></i>&nbsp;<span translate="ADMIN.USER_MGMT.USERS.OPTIONS.ACTIVATE.MENU"></span></span>
+        </a>
+      </li>
+    </coyo-context-menu>
+
+    <!-- desktop view -->
+    <table ng-if="!$ctrl.mobile" class="table table-striped table-hover m-0">
+      <thead>
+        <tr>
+          <th translate="ADMIN.MULTI_LANGUAGE.LANGUAGES.HEADINGS.NAME"></th>
+          <th translate="ADMIN.MULTI_LANGUAGE.LANGUAGES.HEADINGS.ACTIVE"></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="language in $ctrl.languages | orderBy: 'name' track by language.model.language">
+          <td>
+            <coyo-country-flag country="language.model.language" form="rounded"></coyo-country-flag> &nbsp;
+            {{language.name}}<span ng-if="language.model.defaultLanguage">&nbsp;({{'ADMIN.SETTINGS.DEFAULT_LANGUAGE.LABEL' | translate}})</span>
+          </td>
+          <td>
+            <coyo-active-label ng-model="language.model.active"></coyo-active-label>
+          </td>
+          <td class="column-options">
+            <coyo-context-menu align-right="true" ng-if="!language.model.defaultLanguage">
+              <li>
+                <a ng-click="$ctrl.toggleActive(language.model)">
+                  <span ng-if="language.model.active"><i class="zmdi zmdi-hc-fw zmdi-stop"></i>&nbsp;<span translate="ADMIN.USER_MGMT.USERS.OPTIONS.DEACTIVATE.MENU"></span></span>
+                  <span ng-if="!language.model.active"><i class="zmdi zmdi-hc-fw zmdi-play"></i>&nbsp;<span translate="ADMIN.USER_MGMT.USERS.OPTIONS.ACTIVATE.MENU"></span></span>
+                </a>
+              </li>
+            </coyo-context-menu>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

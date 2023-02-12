@@ -1,0 +1,51 @@
+.welcome-widget {
+
+  .user-info {
+    display: flex;
+
+    .user-avatar {
+      margin-right: 16px;
+    }
+
+    .user-name {
+      flex: 1;
+      align-self: center;
+      word-break: break-all;
+    }
+
+  }
+
+  &.show-cover {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    .user-info {
+      background-color: rgba(0, 0, 0, 0.2);
+
+      .user-avatar-empty, .user-avatar img {
+        border: 2px solid $color-white;
+      }
+
+      .user-name {
+        color: $color-white;
+        text-shadow: 1px 1px 1px $color-black;
+      }
+
+      @media screen and (min-width: $screen-md-min) {
+        border-radius: 5px;
+      }
+    }
+
+  }
+}
+
+.widget-slot-plain,
+.widget-slot-panel {
+  .welcome-widget {
+    box-shadow: none;
+    .user-info {
+      padding: 0;
+    }
+  }
+}

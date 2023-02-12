@@ -1,0 +1,57 @@
+<div class="pi-container"
+     ng-class="{'loading' : $ctrl.loading, 'unavailable' : !$ctrl.previewAvailable || $ctrl.conversionError, 'processing' : $ctrl.isProcessing}">
+  <!--IMAGE PREVIEW-->
+  <div class="pi-preview-image-container"
+       ng-if="(!$ctrl.options.showPdfDesktop && ($root.screenSize.isMd || $root.screenSize.isLg)) ||
+              (!$ctrl.options.showPdfMobile && ($root.screenSize.isXs || $root.screenSize.isSm)) ||
+              (!$ctrl.pdfPreviewAvailable && $ctrl.file.contentType !== 'application/pdf' && !$ctrl.videoType)">
+    <img ng-if="!$ctrl.loading && $ctrl.previewAvailable && !$ctrl.isProcessing && $ctrl.imageSrc && !$ctrl.options.backgroundImage"
+         ng-src="{{ $ctrl.imageSrc }}"
+         ng-error="$ctrl.onError()">
+    <div ng-if="!$ctrl.loading && $ctrl.previewAvailable && !$ctrl.isProcessing && $ctrl.imageSrc && $ctrl.options.backgroundImage"
+        ng-style="{'background-image': 'url({{$ctrl.imageSrc}})'}"
+        ng-error="$ctrl.onError()"
+        class="pi-background-container"></div>
+  </div>
+
+  <!--PDF PREVIEW-->
+  <div class="pi-preview-pdf-container"
+       ng-if="(($root.screenSize.isMd || $root.screenSize.isLg) && ($ctrl.options.showPdfDesktop && ($ctrl.pdfPreviewAvailable || $ctrl.file.contentType === 'application/pdf'))) ||
+              (($root.screenSize.isXs || $root.screenSize.isSm) && ($ctrl.options.showPdfMobile && ($ctrl.pdfPreviewAvailable || $ctrl.file.contentType === 'application/pdf')))">
+    <pdfjs-viewer ng-if="!$ctrl.loading && ($ctrl.pdfPreviewAvailable || $ctrl.file.contentType === 'application/pdf') && !$ctrl.isProcessing"
+                  src="{{$ctrl.pdfSrc}}"
+                  class="pdf-js-view"
+                  download="false"
+                  open="false"
+                  options="{ 'withCredentials': true }">
+    </pdfjs-viewer>
+  </div>
+
+  <!--VIDEO Streaming -->
+  <div class="pi-preview-video-container"
+       ng-if="$ctrl.videoType" >
+    <video controls>
+      <source ng-src="{{$ctrl.videoUrl}}" type="{{$ctrl.file.contentType}}" />
+    </video>
+  </div>
+
+  <!--SPINNER-->
+  <div ng-if="!$ctrl.loading && ($ctrl.isProcessing || !$ctrl.previewAvailable || (!$ctrl.imageSrc && !$ctrl.videoUrl))" class="pi-file-icon">
+    <coyo-file-icon ng-if="$ctrl.conversionError || !$ctrl.isProcessing" file="::$ctrl.file" class="zmdi-hc-fw zmdi-hc-5x"></coyo-file-icon>
+    <div class="pi-spinner-vert-container" ng-if="!$ctrl.conversionError && $ctrl.isProcessing">
+      <coyo-spinner></coyo-spinner>
+    </div>
+    <div ng-if="!$ctrl.options.hideNoPreviewAvailableMsg && !$ctrl.previewAvailable"
+         class="text-muted no-preview-available"
+         translate="FILE_LIBRARY.PREVIEW.NOTAVAILABLE.TEXT"></div>
+  </div>
+  <div class="alert alert-info" ng-if="!$ctrl.options.hidePreviewGenerationInformation && !$ctrl.conversionError && !$ctrl.loading && $ctrl.isProcessing && $ctrl.previewAvailable">
+    <div translate="FILE_LIBRARY.PREVIEW.NOTYETAVAILABLE.TEXT"></div>
+  </div>
+  <div class="alert alert-warning" ng-if="!$ctrl.options.hidePreviewGenerationInformation && $ctrl.previewAvailable && $ctrl.conversionError">
+    <div translate="FILE_LIBRARY.PREVIEW.NOTAVAILABLE.TEXT_WS"></div>
+  </div>
+  <div class="pi-spinner-container" ng-if="$ctrl.loading">
+    <coyo-spinner></coyo-spinner>
+  </div>
+</div>

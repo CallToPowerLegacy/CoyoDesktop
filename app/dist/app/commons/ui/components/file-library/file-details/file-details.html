@@ -1,0 +1,31 @@
+<dl class="coyo-file-details dl-horizontal">
+  <dt translate="FILE_DETAILS.FILESIZE"></dt>
+  <dd>{{:: $ctrl.file.length | fileSize }}</dd>
+  <dt translate="FILE_DETAILS.FILETYPE"></dt>
+  <dd>{{:: $ctrl.file.contentType }}</dd>
+  <dt translate="FILE_DETAILS.FILE_ORIGIN"></dt>
+  <dd><a href coyo-sender-link="$ctrl.sender">{{:: $ctrl.sender.displayName }}</a></dd>
+  <dt ng-if="$ctrl.file.author" translate="FILE_DETAILS.AUTHOR"></dt>
+  <dd ng-if="$ctrl.file.author">
+    <a ui-sref="main.profile({userId: user.slug})">{{::$ctrl.file.author.displayName}}</a>
+  </dd>
+  <dt translate="FILE_DETAILS.FILE_MODIFIED"></dt>
+  <dd>{{:: $ctrl.file.modified | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short }}</dd>
+  <dt>
+    <a ng-if="!$ctrl.isEditable && $ctrl.file._permissions.manage" class="btn btn-xs btn-link btn-edit" ng-click="$ctrl.isEditable = true">
+      <i class="zmdi zmdi-hc-fw zmdi-edit"></i>
+    </a><!--
+ -->{{:: 'FILE_DETAILS.DESCRIPTION' | translate }}
+  </dt>
+  <dd>
+    <form name="descriptionForm" coyo-form-submit="$ctrl.saveDescription()" ng-reset="$ctrl.resetDescription()" coyo-toggle-form="$ctrl.isEditable" coyo-delay-form="$ctrl.file">
+      <textarea rows="1" class="form-control" ng-model="$ctrl.file.description" msd-elastic coyo-toggle-field="$ctrl.file.description | markdown | hashtag "></textarea>
+      <div ng-if="$ctrl.isEditable">
+        <coyo-form-submit-button class="btn-sm mr-xxs" label="SAVE" form-ctrl="descriptionForm"></coyo-form-submit-button><!--
+     --><button type="reset" class="btn btn-sm btn-default">
+        <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{:: 'CANCEL' | translate }}
+      </button>
+      </div>
+    </form>
+  </dd>
+</dl>

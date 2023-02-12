@@ -1,0 +1,11 @@
+<ui-select ui-select-mobile="{{:: 'WIDGET.HASHTAG.SETTINGS.PERIOD' | translate }}"
+           ng-model="$ctrl.ngModel"
+           search-enabled="false"
+           append-to-body="true">
+    <ui-select-match allow-clear="false">
+        {{$select.selected.name | translate}}
+    </ui-select-match>
+    <ui-select-choices repeat="item.value as item in $ctrl.items">
+        <div ng-bind="item.name | translate"></div>
+    </ui-select-choices>
+</ui-select>

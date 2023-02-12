@@ -1,0 +1,53 @@
+.btn-comments {
+  display: inline-block;
+  white-space: nowrap;
+
+  a {
+    color: $color-gray;
+    transition: color linear 0.2s;
+
+    &:hover {
+      color: $color-gray-darker;
+    }
+
+    &.handle {
+      .zmdi {
+        position: relative;
+        top: .075em;
+        font-size: 130%;
+      }
+    }
+
+    &.count {
+      margin-left: 4px;
+      text-decoration: none;
+    }
+  }
+
+  &.active a.handle {
+    color: $color-link;
+  }
+
+  &.active a.count {
+    color: inherit;
+  }
+
+  &.loading a.handle,
+  &.loading a.count {
+    color: $color-gray-light;
+  }
+}
+
+.btn-likes-modal {
+
+  .like {
+    border-bottom: 1px solid $color-gray-lighter;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+
+    &:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+}

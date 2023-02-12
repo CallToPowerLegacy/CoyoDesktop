@@ -1,0 +1,39 @@
+<form class="form-horizontal" name="taskListSettingsForm" role="form" coyo-form-submit="$close(vm.list)" novalidate>
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="APP.TASK.LIST.SETTINGS.MODAL"></h3>
+      <span class="modal-close" ng-click="$dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="list-name" class="col-sm-3 control-label" translate="APP.TASK.LIST.SETTINGS.TITLE"></label>
+        <div class="col-sm-9">
+          <input id="list-name" name="list-name" class="form-control" type="text" ng-model="vm.list.title" maxlength="255" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="list-color" class="col-sm-3 control-label" translate="APP.TASK.LIST.SETTINGS.COLOR"></label>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <span class="input-group-addon pointer" ng-click="vm.openColorpicker($event)" ng-style="{'background-color': vm.list.color}"></span>
+            <input colorpicker
+                   colorpicker-size="200"
+                   id="list-color"
+                   name="list-color"
+                   type="text"
+                   class="form-control"
+                   ng-pattern="'^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$'"
+                   ng-model="vm.list.color"
+                   required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <coyo-form-submit-button label="SAVE" form-ctrl="taskListSettingsForm"></coyo-form-submit-button>
+      <button class="btn btn-condensed btn-danger" ng-click="vm.deleteList($event)">
+        <i class="zmdi zmdi-hc-fw zmdi-delete"></i>{{:: 'DELETE' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

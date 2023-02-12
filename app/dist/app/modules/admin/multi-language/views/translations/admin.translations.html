@@ -1,0 +1,125 @@
+<div class="admin-translations">
+  <coyo-filterbox filter-active="$ctrl.filter.languages.length" ng-if="$ctrl.filter.languages.length">
+    <fb-search>
+      <coyo-search-filter change="$ctrl.filter.search"
+                    placeholder="ADMIN.TRANSLATIONS.FILTER.SEARCH"
+                    search-term="{{$ctrl.filter.searchTerm}}"></coyo-search-filter>
+    </fb-search>
+    <fb-count>
+      <coyo-counter value="$ctrl.translationKeys.length"
+             key-none="ADMIN.TRANSLATIONS.KEYS.KEYS_NONE"
+             key-singular="ADMIN.TRANSLATIONS.KEYS.KEYS_SINGULAR"
+             key-plural="ADMIN.TRANSLATIONS.KEYS.KEYS_PLURAL"></coyo-counter>
+    </fb-count>
+    <fb-actions>
+      <li>
+        <a ng-click="$ctrl.deleteAllKeys()" class="btn-translation-reset">
+          <i class="zmdi zmdi-delete"></i>&nbsp;{{:: 'RESET_ALL' | translate }}
+        </a>
+      </li>
+    </fb-actions>
+  </coyo-filterbox>
+
+  <div class="panel panel-default panel-list">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <span ng-click="$ctrl.toggleLanguageMenu()">
+          {{'LANGUAGE.LANGUAGES.' + $ctrl.filter.activeLanguage | uppercase | translate}}
+          <i class="zmdi zmdi-caret-down ml-xxs"></i>
+        </span>
+      </h3>
+      <div class="checkbox pull-right">
+        <label>
+          <coyo-checkbox id="showOnlyTranslatedKeys"
+                        ng-model="$ctrl.filter.status.onlyTranslatedKeys"
+                        ng-click="$ctrl.filter.status.translated($ctrl.filter.activeLanguage)"></coyo-checkbox>
+          {{'ADMIN.TRANSLATIONS.HEADINGS.OVERRIDE' | translate }}
+        </label>
+      </div>
+      <coyo-filter id="translation-language-menu"
+                   title-key="ADMIN.TRANSLATIONS.FILTER.LANGUAGE"
+                   ng-show="$ctrl.filterOpen"
+                   click-outside="$ctrl.toggleLanguageMenu(false)">
+        <coyo-filter-entry ng-repeat="language in $ctrl.filter.languages"
+                           icon="zmdi-comment"
+                           active="$ctrl.filter.activeLanguage === language.language"
+                           on-click="$ctrl.filter.status.language(language.language)"
+                           text-key="{{::language.name}}"></coyo-filter-entry>
+      </coyo-filter>
+      <div class="alert alert-warning" ng-if="!$ctrl.isInAvailableLanguageKeys($ctrl.filter.activeLanguage)" translate="ADMIN.TRANSLATIONS.FILTER.LANGUAGE.WARN"></div>
+    </div>
+    <div class="text-center m-m" ng-show="$ctrl.reloadTable">
+      <coyo-spinner></coyo-spinner>
+    </div>
+
+    <div class="panel-body" ng-if="!$ctrl.reloadTable">
+
+      <!-- mobile view -->
+      <ul ng-if="$ctrl.mobile" class="list-group"
+        coyo-infinite-scroll-element="$window">
+        <li ng-hide="$ctrl.translationKeys.length > 0"
+            class="text-center text-muted pv-s"
+            translate="ADMIN.TRANSLATIONS.PLACEHOLDER.EMPTY">
+        </li>
+        <li class="list-group-item"
+            ng-repeat="value in $ctrl.translationKeys"
+            ng-class="{'override': $ctrl.getTranslated(value.key)}">
+            <div class="row key">{{::value.key}}</div>
+            <div class="row">{{::value.value}}</div>
+            <div class="row key-edit" ng-click="$ctrl.editKey($event, value.key)">
+              <span class="text-muted" translate="ADMIN.TRANSLATIONS.PLACEHOLDER.OVERRIDE"></span>
+              <textarea ng-attr-placeholder="{{::value.value}}"
+                        class="input"
+                        ng-blur="$ctrl.saveKey($event, value.key)"
+                        ng-keypress="$ctrl.onTranslateKeypress($event, value.key)">{{$ctrl.getTranslated(value.key).translation}}</textarea>
+            </div>
+        </li>
+      </ul>
+
+      <!-- desktop view -->
+      <table ng-if="!$ctrl.mobile" class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th translate="ADMIN.TRANSLATIONS.HEADINGS.KEY"></th>
+            <th translate="ADMIN.TRANSLATIONS.HEADINGS.TRANSLATION"></th>
+            <th translate="ADMIN.TRANSLATIONS.HEADINGS.OVERRIDE"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-hide="$ctrl.translationKeys.length > 0">
+            <td colspan="3" class="text-center text-muted" translate="ADMIN.TRANSLATIONS.PLACEHOLDER.EMPTY"></td>
+          </tr>
+          <tr ng-repeat="value in $ctrl.translationKeys | limitTo: $ctrl.pageSize : $ctrl.currentPage()"  ng-class="{'override': $ctrl.getTranslated(value.key)}">
+            <td title="{{::value.key}}">{{::value.key}}</td>
+            <td title="{{::value.value}}">{{::value.value}}</td>
+            <td class="key-edit" ng-click="$ctrl.editKey($event, value.key)">
+              <span class="text-muted" translate="ADMIN.TRANSLATIONS.PLACEHOLDER.OVERRIDE"></span>
+              <div class="output">{{$ctrl.getTranslated(value.key).translation}}</div>
+              <textarea class="input"
+                    msd-elastic
+                    rows="1"
+                    ng-model="$ctrl.currentEditValues[value.key]"
+                    ng-attr-placeholder="{{::value.value}}"
+                    ng-blur="$ctrl.saveKey($event, value.key)"
+                    ng-keypress="$ctrl.onTranslateKeypress($event, value.key)"></textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+  <div class="text-center" ng-if="!$ctrl.mobile">
+    <ul uib-pagination
+        ng-show="$ctrl.translationKeys.length > $ctrl.pageSize"
+        previous-text="‹"
+        next-text="›"
+        ng-model="$ctrl.page"
+        items-per-page="$ctrl.pageSize"
+        total-items="$ctrl.translationKeys.length"
+        max-size="10"
+        force-ellipses="true"
+        rotate="true">
+    </ul>
+  </div>
+</div>

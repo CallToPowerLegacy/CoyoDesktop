@@ -1,0 +1,22 @@
+<div class="panel-heading timeline-item-heading">
+  <div class="timeline-item-author-avatar" ng-if="::tlItem.ngModel.author">
+    <coyo-sender-avatar sender="::tlItem.ngModel.author" avatar-size="sm"></coyo-sender-avatar>
+  </div>
+
+  <div class="timeline-item-title">
+    <!-- Post Headline -->
+    <a class="timeline-item-author-name" coyo-sender-link="::tlItem.ngModel.author" ng-if="::tlItem.ngModel.author">
+      {{:: tlItem.ngModel.author.displayName }}
+    </a>
+    <i class="zmdi zmdi-caret-right timeline-item-title-divider"></i>
+    <span class="timeline-item-recipient">
+      <a class="timeline-item-recipient-name" coyo-sender-link="::tlItem.ngModel.data.article.sender">{{:: tlItem.ngModel.data.article.sender.displayName }}</a>
+    </span>
+
+    <!-- Post Subline -->
+    <div class="timeline-item-time text-muted">
+      <p ng-if="::tlItem.ngModel.data.article.publishDate"><i class="zmdi zmdi-time zmdi-wide"></i> <coyo-time-ago date="::tlItem.ngModel.data.article.publishDate"></coyo-time-ago></p>
+      <p ng-if="::!tlItem.ngModel.data.article.publishDate"><i class="zmdi zmdi-time zmdi-wide"></i> <coyo-time-ago date="::tlItem.ngModel.data.article.created"></coyo-time-ago></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,140 @@
+<section class="pages-settings">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{:: $ctrl.oldName }} <small translate="SETTINGS"></small></h3>
+    </div>
+
+    <form name="workspaceForm" class="form-horizontal" coyo-form-submit="$ctrl.save()">
+      <div class="panel-body">
+        <div class="form-group" ng-class="{'has-error': workspaceForm.name.$invalid}">
+          <label for="name" class="col-sm-2 control-label" translate="WORKSPACE.NAME.LABEL"></label>
+          <div class="col-sm-9">
+            <div class="input-group">
+              <input id="name" name="name" type="text" class="form-control" ng-model="$ctrl.workspace.name" maxlength="255"
+                     ng-required="true" workspace-name="{{ $ctrl.workspace.id }}"
+                     ng-model-options="{ updateOn: 'default blur', debounce: {'default': $root.debounce.sm, 'blur': 0} }">
+              <div class="input-group-addon">
+                <coyo-validation-status-icon form-field="workspaceForm.name"></coyo-validation-status-icon>
+              </div>
+            </div>
+            <ng-messages for="workspaceForm.name.$error" class="help-block validation">
+              <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+              <p ng-message="workspaceName">{{:: 'ERRORS.VALIDATION.ALREADY_TAKEN' | translate }}</p>
+            </ng-messages>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="WORKSPACE.NAME.HELP"></coyo-help>
+          </div>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': workspaceForm.slug.$invalid, 'has-warning': $ctrl.oldSlug != $ctrl.workspace.slug }">
+          <label for="slug" class="col-sm-2 control-label" translate="WORKSPACE.SLUG.LABEL"></label>
+          <div class="col-sm-9">
+            <div class="input-group">
+              <div class="input-group-addon">
+                <span class="visible-xs">/</span>
+                <span class="hidden-xs">{{:: $ctrl.baseUrl }}</span>
+              </div>
+              <input id="slug" name="slug" type="text" class="form-control" ng-model="$ctrl.workspace.slug" maxlength="255"
+                     ng-required="true" coyo-check-sender-slug="{{ $ctrl.workspace.id }}" ng-pattern="'^[a-z0-9-]+$'"
+                     ng-model-options="{ updateOn: 'default blur', debounce: {'default': $root.debounce.sm, 'blur': 0} }">
+              <div class="input-group-addon">
+                <coyo-validation-status-icon form-field="workspaceForm.slug"></coyo-validation-status-icon>
+              </div>
+            </div>
+            <p class="help-block" ng-show="$ctrl.oldSlug != $ctrl.workspace.slug && !workspaceForm.slug.$invalid">
+              <i class="zmdi zmdi-alert-triangle"></i>&nbsp;{{:: 'WORKSPACE.SLUG.WARNING' | translate }}
+            </p>
+            <ng-messages for="workspaceForm.slug.$error" class="help-block validation">
+              <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+              <p ng-message="pattern" translate="ERRORS.VALIDATION.PATTERN"></p>
+              <p ng-message="senderSlug" translate="ERRORS.VALIDATION.ALREADY_TAKEN"></p>
+            </ng-messages>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="WORKSPACE.SLUG.HELP"></coyo-help>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label" translate="WORKSPACE.CATEGORY.LABEL"></label>
+          <div class="col-sm-9">
+            <coyo-select-workspace-category ng-model="$ctrl.workspace.categories" placeholder="WORKSPACE.CATEGORY.NONE"></coyo-select-workspace-category>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="WORKSPACE.CATEGORY.HELP"></coyo-help>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label" translate="WORKSPACE.DESCRIPTION.LABEL"></label>
+          <div class="col-sm-9">
+            <textarea class="description form-control resize-v" ng-model="$ctrl.workspace.description" rows="3"></textarea>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="WORKSPACE.DESCRIPTION.HELP"></coyo-help>
+          </div>
+        </div>
+
+        <hr class="lighter">
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label" translate="WORKSPACE.VISIBILITY.LABEL"></label>
+          <div class="col-sm-10">
+            <div class="radio">
+              <label>
+                <input name="visibility" type="radio" ng-model="$ctrl.workspace.visibility" value="PUBLIC">
+                <coyo-workspace-visibility visibility="PUBLIC"></coyo-workspace-visibility> {{:: 'WORKSPACE.VISIBILITY.PUBLIC.LABEL' | translate }}
+                <p class="help-block" translate="WORKSPACE.VISIBILITY.PUBLIC.HELP"></p>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input name="visibility" type="radio" ng-model="$ctrl.workspace.visibility" value="PROTECTED">
+                <coyo-workspace-visibility visibility="PROTECTED"></coyo-workspace-visibility> {{:: 'WORKSPACE.VISIBILITY.PROTECTED.LABEL' | translate }}
+                <p class="help-block" translate="WORKSPACE.VISIBILITY.PROTECTED.HELP"></p>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input name="visibility" type="radio" ng-model="$ctrl.workspace.visibility" value="PRIVATE">
+                <coyo-workspace-visibility visibility="PRIVATE"></coyo-workspace-visibility> {{:: 'WORKSPACE.VISIBILITY.PRIVATE.LABEL' | translate }}
+                <p class="help-block" translate="WORKSPACE.VISIBILITY.PRIVATE.HELP"></p>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <hr class="lighter">
+
+        <div class="form-group">
+          <label for="archived" class="col-sm-2 control-label" translate="WORKSPACE.ARCHIVED.LABEL.SHORT"></label>
+          <div class="col-sm-9">
+            <div class="checkbox">
+              <label>
+                <coyo-checkbox id="archived" name="app-default" ng-model="$ctrl.workspace.archived"></coyo-checkbox>
+                {{:: 'WORKSPACE.ARCHIVED.LABEL' | translate }}
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="WORKSPACE.ARCHIVED.HELP"></coyo-help>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer panel-actions">
+        <div class="row">
+          <div class="col-sm-10 col-sm-push-2">
+            <coyo-form-submit-button label="SAVE" form-ctrl="workspaceForm"></coyo-form-submit-button><!--
+         --><a ui-sref="main.workspace.show({idOrSlug: $ctrl.oldSlug})" class="btn btn-default">
+              <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{:: 'CANCEL'| translate }}
+            </a>
+            <a ng-click="$ctrl.delete()" ng-if="$ctrl.workspace._permissions.delete" class="btn btn-danger pull-right">
+              <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'DELETE'| translate}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

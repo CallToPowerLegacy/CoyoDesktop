@@ -1,0 +1,12 @@
+<ui-select ui-select-mobile="{{:: 'MODULE.ACCOUNT.TIMEZONE' | translate }}" ng-model="data.selected" ng-disabled="{{ngDisabled}}" class="select-timezone">
+  <ui-select-match placeholder="{{::placeholder}}" allow-clear="{{allowClear ? 'true' : 'false'}}">
+    {{$select.selected.utc}}
+  </ui-select-match>
+  <ui-select-choices repeat="timeZone.key as timeZone in data.timeZones | filter: $select.search">
+    <div class="locations" ng-bind-html="timeZone.loc | highlight: $select.search"></div>
+    <div class="small text-muted">
+      <div class="pull-left" ng-bind-html="timeZone.utc | highlight: $select.search"></div>
+      <div class="text-right">{{::data.reference | amTimezone:timeZone.key | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short}}</div>
+    </div>
+  </ui-select-choices>
+</ui-select>

@@ -1,0 +1,12 @@
+.badge {
+  position: relative;
+  top: -2px;
+
+  &.badge-red {
+    background-color: $color-red;
+  }
+
+  &.badge-muted {
+    background-color: $color-gray-light;
+  }
+}

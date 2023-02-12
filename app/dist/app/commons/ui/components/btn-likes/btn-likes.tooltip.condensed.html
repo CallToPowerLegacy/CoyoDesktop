@@ -1,0 +1,4 @@
+<div class="btn-likes-tooltip-condensed">
+  <div ng-repeat="user in ::$ctrl.likeData.total | limitTo : 5">{{:: user.displayName }}</div>
+  <div ng-if=":: $ctrl.likeData.totalCount > 5">...</div>
+</div>

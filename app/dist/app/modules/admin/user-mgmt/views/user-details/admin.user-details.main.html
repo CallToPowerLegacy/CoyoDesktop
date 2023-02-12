@@ -1,0 +1,312 @@
+<form name="userForm" coyo-form-submit="$ctrl.save()" novalidate>
+  <div class="panel panel-default">
+    <div class="panel-heading panel-heading-full-width">
+      <h1 class="panel-title" ng-if="!$ctrl.user.isNew()">{{:: 'ADMIN.USER_MGMT.USERS.OPTIONS.EDIT' | translate}} <small>{{:: $ctrl.user.displayName }}</small></h1>
+      <h1 class="panel-title" ng-if="$ctrl.user.isNew()" translate="ADMIN.USER_MGMT.USERS.DETAILS.CREATE"></h1>
+    </div>
+
+    <uib-tabset justified="true" type="tabs">
+      <uib-tab select="$ctrl.activeTab = 'general'">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-account zmdi-wide"></i>
+          <span class="tab-text" translate="ADMIN.USER_MGMT.USERS.TABS.HEADINGS.GENERAL"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab select="$ctrl.activeTab = 'advanced'">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-settings zmdi-wide"></i>
+          <span class="tab-text" translate="ADMIN.USER_MGMT.USERS.TABS.HEADINGS.ADVANCED"></span>
+        </uib-tab-heading>
+      </uib-tab>
+    </uib-tabset>
+
+    <div class="panel-body form-horizontal" ng-show="$ctrl.activeTab === 'general'">
+
+      <div class="form-group" ng-class="{'has-error': userForm.firstname.$invalid && userForm.firstname.$touched}">
+        <label for="firstname" class="col-sm-2 control-label" translate="USER.FIRSTNAME"></label>
+        <div class="col-sm-9">
+          <input id="firstname" name="firstname" type="text" class="form-control" ng-model="$ctrl.user.firstname" ng-required="!$ctrl.user.anonymized">
+          <ng-messages for="userForm.firstname.$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+          </ng-messages>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': userForm.lastname.$invalid && userForm.lastname.$touched}">
+        <label for="lastname" class="col-sm-2 control-label" translate="USER.LASTNAME"></label>
+        <div class="col-sm-9">
+          <input id="lastname" name="lastname" type="text" class="form-control" ng-model="$ctrl.user.lastname" ng-required="!$ctrl.user.anonymized">
+          <ng-messages for="userForm.lastname.$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+          </ng-messages>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': userForm.email.$invalid && userForm.email.$touched}">
+        <label for="email" class="col-sm-2 control-label" translate="USER.EMAIL"></label>
+        <div class="col-sm-9">
+          <input id="email" name="email" type="email" class="form-control" ng-model="$ctrl.user.email" ng-required="!$ctrl.user.anonymized && !($ctrl.remoteUserDirectory && !$ctrl.user.isNew())">
+          <ng-messages for="userForm.email.$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            <p ng-message="email">{{:: 'ERRORS.VALIDATION.INVALID_EMAIL' | translate }}</p>
+          </ng-messages>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="groups" class="col-sm-2 control-label" translate="USER.GROUPS"></label>
+        <div class="col-sm-9">
+          <coyo-select-groups id="groups" ng-model="$ctrl.groups" placeholder="ADMIN.USER_MGMT.USERS.DETAILS.SELECT_GROUPS"></coyo-select-groups>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="roles" class="col-sm-2 control-label" translate="USER.ROLES"></label>
+        <div class="col-sm-9">
+          <coyo-select-roles id="roles" ng-model="$ctrl.roles" placeholder="ADMIN.USER_MGMT.USERS.DETAILS.SELECT_ROLES"></coyo-select-roles>
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.user.status !== 'DELETED'">
+        <label for="active" class="col-sm-2 control-label" translate="USER.ACTIVE"></label>
+        <div class="col-sm-9">
+          <div class="checkbox">
+            <label>
+              <coyo-checkbox id="active" ng-change="$ctrl.handleActiveChanged()" ng-model="$ctrl.user.active"></coyo-checkbox>
+              {{:: 'USER.ACTIVE.DESCRIPTION' | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="active" class="col-sm-2 control-label" translate="USER.SUPERADMIN"></label>
+        <div class="col-sm-9">
+          <div class="checkbox">
+            <label>
+              <coyo-checkbox id="superadmin" ng-disabled="!$ctrl.currentUser.superadmin" ng-model="$ctrl.user.superadmin"></coyo-checkbox>
+              {{:: 'USER.SUPERADMIN.ADMIN.DESCRIPTION' | translate }}
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="USER.SUPERADMIN.ADMIN.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <hr class="divider-full-width" ng-if="::$ctrl.user.isNew()">
+
+      <div class="form-group" ng-if="$ctrl.user.isNew()">
+        <label for="welcomeMail" class="col-sm-2 control-label" translate="USER.WELCOME.MAIL"></label>
+        <div class="col-sm-9">
+          <div class="checkbox">
+            <label>
+              <coyo-checkbox id="welcomeMail" ng-change="$ctrl.handleWelcomeMailChanged()" ng-disabled="!$ctrl.user.active" ng-model="$ctrl.user.welcomeMail"></coyo-checkbox>
+              {{:: 'USER.WELCOME.MAIL.DESCRIPTION' | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" ng-show="$ctrl.user.welcomeMail">
+        <label for="generatePassword" class="col-sm-2 control-label" translate="USER.GENERATE.PASSWORD"></label>
+        <div class="col-sm-9">
+          <div class="checkbox">
+            <label>
+              <coyo-checkbox id="generatePassword" ng-change="$ctrl.handleGeneratePasswordChanged()" ng-disabled="!$ctrl.user.active" ng-model="$ctrl.user.generatePassword"></coyo-checkbox>
+              {{:: 'USER.GENERATE.PASSWORD.DESCRIPTION' | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <hr ng-if="!$ctrl.remoteUserDirectory" class="divider-full-width">
+
+      <div ng-if="!$ctrl.remoteUserDirectory"
+           class="form-group"
+           ng-class="{'has-error': userForm.password.$invalid && userForm.password.$touched}">
+        <label for="password" class="col-sm-2 control-label" translate="USER.PASSWORD"></label>
+        <div class="col-sm-9">
+          <div class="input-group">
+          <input id="password" name="password" type="password" coyo-check-password class="form-control" ng-model="$ctrl.user.password"
+                 ng-required="$ctrl.user.isNew() && !$ctrl.user.generatePassword" ng-disabled="$ctrl.user.generatePassword" placeholder="{{::$ctrl.passwordPlaceholder}}">
+            <span class="input-group-addon">
+              <coyo-validation-status-icon form-field="userForm.password"></coyo-validation-status-icon>
+            </span>
+          </div>
+          <ng-messages for="userForm.password.$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            <p ng-message="password">{{:: 'ERRORS.VALIDATION.INVALID_PASSWORD' | translate }}</p>
+          </ng-messages>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-body form-horizontal" ng-show="$ctrl.activeTab === 'advanced'">
+
+      <div class="form-group"
+           ng-class="{'has-warning': $ctrl.hasRemoteDirectoryChangedWarning() || $ctrl.hasRemoteDirectoryRemovedWarning()}">
+        <label for="remoteUserDirectory"
+               class="col-sm-2 control-label"
+               translate="ADMIN.USER_MGMT.USERS.DETAILS.REMOTE_USER_DIRECTORY.LABEL"></label>
+        <div class="col-sm-9">
+          <coyo-select-user-directory id="remoteUserDirectory"
+                                      ng-model="$ctrl.remoteUserDirectory"></coyo-select-user-directory>
+          <p class="help-block" ng-show="$ctrl.hasRemoteDirectoryChangedWarning()">
+            <i class="zmdi zmdi-alert-triangle"></i>&nbsp;{{:: 'ADMIN.USER_MGMT.USERS.DETAILS.REMOTE_USER_DIRECTORY.WARNING_CHANGED' | translate }}
+          </p>
+          <p class="help-block" ng-show="$ctrl.hasRemoteDirectoryRemovedWarning()">
+            <i class="zmdi zmdi-alert-triangle"></i>&nbsp;{{:: 'ADMIN.USER_MGMT.USERS.DETAILS.REMOTE_USER_DIRECTORY.WARNING_REMOVED' | translate }}
+          </p>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_MGMT.USERS.DETAILS.REMOTE_USER_DIRECTORY.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group"
+           ng-class="{
+              'has-warning': $ctrl.hasRemoteUserIdWarning(),
+              'has-error': userForm.remoteUserId.$invalid && userForm.remoteUserId.$touched
+              }">
+        <label for="remoteUserId"
+               class="col-sm-2 control-label"
+               translate="ADMIN.USER_MGMT.USERS.DETAILS.REMOTE_USER_ID.LABEL"></label>
+        <div class="col-sm-9">
+          <input id="remoteUserId"
+                 name="remoteUserId"
+                 type="text"
+                 class="form-control"
+                 ng-model="$ctrl.user.remoteUserId"
+                 ng-required="$ctrl.remoteUserDirectory">
+          <ng-messages for="userForm.remoteUserId.$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+          </ng-messages>
+          <p class="help-block"
+             ng-show="$ctrl.hasRemoteUserIdWarning()">
+            <i class="zmdi zmdi-alert-triangle"></i>&nbsp;{{:: 'ADMIN.USER_MGMT.USERS.DETAILS.REMOTE_USER_ID.WARNING' | translate }}
+          </p>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_MGMT.USERS.DETAILS.REMOTE_USER_ID.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group"
+           ng-class="{
+              'has-error': userForm.remoteLogonName.$invalid && userForm.remoteLogonName.$touched
+              }"
+            ng-if="$ctrl.user.remoteUser">
+        <label for="remoteUserId"
+               class="col-sm-2 control-label"
+               translate="ADMIN.USER_MGMT.USERS.DETAILS.REMOTE_LOGON_NAME.LABEL"></label>
+        <div class="col-sm-9">
+          <input id="remoteLogonName"
+                 name="remoteLogonName"
+                 type="text"
+                 class="form-control"
+                 ng-model="$ctrl.user.remoteLogonName"
+                 ng-required="!$ctrl.user.anonymized && $ctrl.user.remoteUser">
+          <ng-messages for="userForm.remoteLogonName.$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+          </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_MGMT.USERS.DETAILS.REMOTE_LOGON_NAME.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="loginName"
+               class="col-sm-2 control-label"
+               translate="ADMIN.USER_MGMT.USERS.DETAILS.LOGIN_NAME.LABEL"></label>
+        <div class="col-sm-9">
+          <input id="loginName"
+                  name="loginName"
+                  type="text"
+                  class="form-control"
+                  ng-disabled="!$ctrl.user.remoteUser && $ctrl.user.email"
+                  ng-model="$ctrl.user.loginName">
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_MGMT.USERS.DETAILS.LOGIN_NAME.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="loginNameAlt"
+               class="col-sm-2 control-label"
+               translate="ADMIN.USER_MGMT.USERS.DETAILS.LOGIN_NAME_ALT.LABEL"></label>
+        <div class="col-sm-9">
+          <input id="loginNameAlt"
+                  name="loginNameAlt"
+                  type="text"
+                  class="form-control"
+                  ng-model="$ctrl.user.loginNameAlt">
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_MGMT.USERS.DETAILS.LOGIN_NAME_ALT.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <hr class="divider-full-width"/>
+
+      <div ng-if="!$ctrl.user.isNew()" class="form-group" ng-class="{'has-error': userForm.slug.$invalid, 'has-warning': ($ctrl.oldSlug != $ctrl.user.slug)}">
+        <label for="slug" class="col-sm-2 control-label" translate="ADMIN.USER_MGMT.USERS.DETAILS.SLUG.LABEL"></label>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <span class="visible-xs">/</span>
+              <span class="hidden-xs">{{::$ctrl.baseUrl}}</span>
+            </div>
+            <input id="slug" name="slug" type="text" class="form-control" ng-model="$ctrl.user.slug" maxlength="255"
+                   ng-required="true" coyo-check-sender-slug="{{$ctrl.user.id}}" ng-pattern="'^[a-z0-9-]+$'"
+                   ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+            <div class="input-group-addon">
+              <coyo-validation-status-icon form-field="userForm.slug"></coyo-validation-status-icon>
+            </div>
+          </div>
+          <p class="help-block" ng-show="$ctrl.oldSlug != $ctrl.user.slug && !userForm.slug.$invalid">
+            <i class="zmdi zmdi-alert-triangle"></i>&nbsp;{{:: 'ADMIN.USER_MGMT.USERS.DETAILS.SLUG.WARNING' | translate }}
+          </p>
+          <ng-messages for="userForm.slug.$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            <p ng-message="pattern">{{:: 'ERRORS.VALIDATION.PATTERN' | translate }}</p>
+            <p ng-message="senderSlug">{{:: 'ERRORS.VALIDATION.ALREADY_TAKEN' | translate }}</p>
+          </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_MGMT.USERS.DETAILS.SLUG.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="persistedDisplayName"
+               class="col-sm-2 control-label"
+               translate="ADMIN.USER_MGMT.USERS.DETAILS.DISPLAYNAME.LABEL"></label>
+        <div class="col-sm-9">
+          <input id="persistedDisplayName"
+                 name="persistedDisplayName"
+                 type="text"
+                 class="form-control"
+                 ng-model="$ctrl.user.persistedDisplayName">
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_MGMT.USERS.DETAILS.DISPLAYNAME.HELP"></coyo-help>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="panel-footer panel-actions">
+      <div class="row">
+        <div class="col-sm-10 col-sm-push-2">
+          <coyo-form-submit-button form-ctrl="userForm" label="SAVE"></coyo-form-submit-button><!--
+       --><a ui-sref="^" class="btn btn-default">
+            <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{::'CANCEL' | translate}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

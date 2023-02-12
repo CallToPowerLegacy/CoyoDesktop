@@ -1,0 +1,31 @@
+<div class="modal-content-wrapper public-link-modal">
+  <div class="modal-header">
+    <h3 class="modal-title" translate="PUBLIC_LINK.TITLE"></h3>
+    <span class="modal-close" ng-click="$dismiss(vm.link)">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+  <div class="modal-body">
+    <p translate="PUBLIC_LINK.INTRO"></p>
+    <p ng-if="vm.link">
+      <button type="button" class="btn btn-zmdi btn-default btn-xs pull-right ml-xs"
+              ngclipboard data-clipboard-text="{{vm.link.downloadUrl}}"
+              uib-tooltip="{{:: 'PUBLIC_LINK.COPY' | translate }}"
+              tooltip-enable="!$root.screenSize.isXs"
+              tooltip-placement="left">
+        <i class="zmdi zmdi-assignment"></i>
+      </button>
+      <a class="link-url" href="{{vm.link.downloadUrl}}" target="_blank" ng-if="vm.link && vm.link.active">{{vm.link.downloadUrl}}</a>
+      <span class="link-url text-muted" ng-if="!vm.link || !vm.link.active">{{vm.link.downloadUrl}}</span>
+      <span class="small help-block text-warning" ng-if="vm.link && !vm.link.active" translate="PUBLIC_LINK.INFO"></span>
+    </p>
+  </div>
+  <div class="link-actions modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="vm.createOrRecreate(vm.link)" ng-disabled="vm.loading">
+      <i class="zmdi zmdi-wide" ng-class="{'zmdi-refresh': vm.link, 'zmdi-plus-circle': !vm.link}"></i>&nbsp;{{ vm.link ? 'PUBLIC_LINK.RECREATE' : 'PUBLIC_LINK.CREATE' | translate }}
+    </button>
+    <button type="button" class="btn pull-right" ng-class="{'btn-danger': vm.link.active, 'btn-success': !vm.link.active}" ng-click="vm.toggleActivate()" ng-if="vm.link">
+      <i class="zmdi zmdi-wide" ng-class="{'zmdi-pause-circle-outline': vm.link.active, 'zmdi-play-circle-outline': !vm.link.active}"></i>&nbsp;{{ vm.link.active ? 'PUBLIC_LINK.DEACTIVATE' : 'PUBLIC_LINK.ACTIVATE' | translate }}
+    </button>
+  </div>
+</div>

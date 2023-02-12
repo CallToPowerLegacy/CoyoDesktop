@@ -1,0 +1,16 @@
+<section class="container-wrapper" oyoc-suppress-scroll>
+  <section class="container-main">
+    <div oyoc-backdrop></div>
+    <oyoc-main-sidebar landing-pages="::$ctrl.landingPages"
+                       ng-if="$root.screenSize.isSm || $root.screenSize.isXs"></oyoc-main-sidebar>
+    <oyoc-main-navigation></oyoc-main-navigation>
+    <oyoc-sub-navigation landing-pages="::$ctrl.landingPages"></oyoc-sub-navigation>
+    <div class="content" ui-view></div>
+  </section>
+  <oyoc-messaging-sidebar></oyoc-messaging-sidebar>
+  <oyoc-reconnect-warning-bar></oyoc-reconnect-warning-bar>
+  <oyoc-view-edit-options-bar></oyoc-view-edit-options-bar>
+  <oyoc-moderator-bar></oyoc-moderator-bar>
+  <oyoc-maintenance-message></oyoc-maintenance-message>
+  <oyoc-maintenance-admin-message></oyoc-maintenance-admin-message>
+</section>

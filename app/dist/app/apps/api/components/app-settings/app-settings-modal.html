@@ -1,0 +1,19 @@
+<form name="settingsForm" coyo-form-submit="vm.save()">
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="APPS.SETTINGS.TITLE"></h3>
+      <span class="modal-close" ng-click="$dismiss()">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+    </div>
+    <div class="modal-body p-s">
+      <oyoc-app-settings app="vm.app" form-ctrl="settingsForm" save-callbacks="vm.saveCallbacks"></oyoc-app-settings>
+    </div>
+    <div class="modal-footer">
+      <coyo-form-submit-button label="SAVE" form-ctrl="settingsForm"></coyo-form-submit-button><!--
+   --><button class="btn btn-condensed btn-danger" ng-click="vm.confirmRemoveApp($event)">
+        <i class="zmdi zmdi-hc-fw zmdi-delete"></i>{{:: 'APPS.SETTINGS.REMOVE.REMOVE' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

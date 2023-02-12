@@ -1,0 +1,16 @@
+.cover-image-reference-container {
+  width: 64px;
+  height: 64px;
+
+  .picture {
+    width: 100%;
+    padding-bottom: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+.no-preview-text {
+  margin-left: 10px;
+}

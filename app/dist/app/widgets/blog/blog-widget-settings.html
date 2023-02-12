@@ -1,0 +1,18 @@
+<div class=form-group>
+  <label class="col-sm-2 control-label" translate="WIDGETS.BLOG.SETTINGS.BLOG_APP.LABEL"></label>
+  <div class="col-sm-9">
+    <coyo-select-blog-app ng-model="model.settings._app"></coyo-select-blog-app>
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGETS.BLOG.SETTINGS.BLOG_APP.HELP"></coyo-help>
+  </div>
+</div>
+<div class="form-group" ng-class="{'has-error': settingsForm.articleCount.$invalid}">
+  <label class="col-sm-2 control-label" translate="WIDGETS.BLOG.SETTINGS.ARTICLE_COUNT.LABEL"></label>
+  <div class="col-sm-9">
+    <input name="articleCount" class="form-control" type="number" min="1" max="20" ng-model="model.settings._articleCount">
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGETS.BLOG.SETTINGS.ARTICLE_COUNT.HELP"></coyo-help>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<coyo-spinner inverted="true" size="xs" ng-if="$ctrl.groups[theme.id] === true"></coyo-spinner>
+<div class="text-left" ng-if="$ctrl.groups[theme.id] !== true" >
+  <div ng-repeat="groupName in $ctrl.groups[theme.id] | limitTo:5">{{:: groupName}}</div>
+  <div ng-if="$ctrl.groups[theme.id].length > 5">…</div>
+</div>

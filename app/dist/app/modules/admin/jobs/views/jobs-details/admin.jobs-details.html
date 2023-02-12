@@ -1,0 +1,87 @@
+<div class="admin-jobs-details" ng-cloak>
+
+    <div class="panel panel-default panel-users panel-list" ng-hide="$ctrl.firstLoad">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{:: 'ADMIN.JOBS.DETAILS.TITLE' | translate}}
+                <small>{{:: $ctrl.job.displayName }}</small>
+            </h3>
+        </div>
+
+        <div class="panel-body">
+
+            <!-- desktop view -->
+            <table ng-if="!$ctrl.mobile" class="table table-striped table-hover m-0">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+
+                <thead>
+                <tr>
+                    <th coyo-table-sorting page="$ctrl.job.jobStatuses" property="executionId"
+                        title="{{:: 'ADMIN.JOBS.DETAILS.HEADINGS.EXECUTION_ID' | translate }}"></th>
+                    <th coyo-table-sorting page="$ctrl.job.jobStatuses" property="state"
+                        title="{{:: 'ADMIN.JOBS.DETAILS.HEADINGS.STATUS' | translate }}"></th>
+                    <th>{{:: 'ADMIN.JOBS.DETAILS.HEADINGS.START_TIME' | translate }}</th>
+                    <th>{{:: 'ADMIN.JOBS.DETAILS.HEADINGS.END_TIME' | translate }}</th>
+                    <th>{{:: 'ADMIN.JOBS.DETAILS.HEADINGS.DURATION' | translate }}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr ng-hide="$ctrl.job.jobStatuses.content.length > 0 || $ctrl.firstLoad">
+                    <td colspan="7" class="text-center text-muted"
+                        translate="ADMIN.JOBS.DETAILS.STATUS.NEVER_STARTED_YET"></td>
+                </tr>
+                <tr ng-repeat="row in $ctrl.job.jobStatuses.content track by row.executionId"
+                    ng-class="{'animate-removal': vm.userAction }">
+                    <td><span>{{row.executionId}}</span></td>
+                    <td>
+                        <coyo-job-status job-status="row" without-time="true" link-to-jobs="false"
+                                         label-unknown-progress="{{:: 'ADMIN.JOBS.DETAILS.STATUS.UNKNOWN_PROGRESS' | translate }}"
+                                         label-no-status="{{:: 'ADMIN.JOBS.DETAILS.STATUS.NEVER_STARTED_YET' | translate }}">
+                        </coyo-job-status>
+                    </td>
+                    <td>{{ row.startTime | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.short + ' '
+                        + $root.timeFormat.short }}
+                    </td>
+                    <td>{{ row.endTime | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.short + ' '
+                        + $root.timeFormat.short }}
+                    </td>
+                    <td><span ng-if="row.endTime">{{ row.duration | amDurationFormat : row.durationUnit }}</span></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <coyo-table-pagination page="$ctrl.page"></coyo-table-pagination>
+        </div>
+
+        <div class="panel-footer panel-actions">
+            <div class="row">
+                <div class="col-sm-9 col-sm-push-2">
+                    <a ng-click="$ctrl.close();" class="btn btn-primary">
+                        <i class="zmdi zmdi-hc-fw zmdi-close-circle"></i>&nbsp;{{:: 'CLOSE' | translate }}
+                    </a>
+                    <a ng-click="$ctrl.refresh();" class="btn btn-default">
+                        <i ng-show="$ctrl.loading" class="zmdi zmdi-hc-fw zmdi-hc-spin zmdi-spinner"></i>
+                        <i ng-hide="$ctrl.loading" class="zmdi zmdi-hc-fw zmdi-refresh"></i>&nbsp;{{:: 'REFRESH' |
+                        translate }}
+                    </a>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.startJob()"
+                            ng-if="$ctrl.job.lastOrCurrentJobStatus.state !== 'RUNNING'">
+                        <i class="zmdi zmdi-hc-fw zmdi-play"></i>&nbsp;{{:: 'ADMIN.JOBS.DETAILS.START_MANUALLY' |
+                        translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center m-m" ng-show="$ctrl.job.loading">
+        <coyo-spinner></coyo-spinner>
+    </div>
+
+</div>

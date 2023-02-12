@@ -1,0 +1,16 @@
+<span class="context-menu dropdown dropdown-toggle {{::$ctrl.id}}"
+      ng-class="{'open': $ctrl.open, 'dropdown-menu-right': $ctrl.alignRight }" ng-click="$ctrl.toggleMenu()">
+  <span ng-if="::!$ctrl.toggleElement" class="pointer context-menu-toggle"><i class="zmdi zmdi-hc-fw zmdi-more-vert"></i></span>
+  <ul ng-show="$ctrl.open"
+      id="{{::$ctrl.id}}"
+      class="context-menu-list dropdown-menu"
+      ng-class="::{'dropdown-menu-right': $ctrl.alignRight}"
+      ng-mousemove="$event.stopPropagation();"
+      ng-mousedown="$event.stopPropagation(); $event.preventDefault();"
+      click-outside="$ctrl.toggleMenu(false)" outside-if-not="{{::$ctrl.id}}">
+    <li class="context-menu-title" ng-class="::{'visible-xs visible-sm': !$ctrl.titleDesktop}" ng-if="::$ctrl.title">{{::$ctrl.title}}</li>
+    <li class="divider" ng-if="::$ctrl.title && $ctrl.titleDesktop"></li>
+    <ng-transclude></ng-transclude>
+    <li class="context-menu-close visible-xs visible-sm"><a translate="CANCEL" ng-click="$ctrl.toggleMenu(false); $event.stopPropagation()"></a></li>
+  </ul>
+</span>

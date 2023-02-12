@@ -1,0 +1,11 @@
+.animate-removal {
+  opacity: 1;
+
+  &.ng-leave {
+    transition: opacity linear .7s;
+
+    &.ng-leave-active {
+      opacity: 0;
+    }
+  }
+}

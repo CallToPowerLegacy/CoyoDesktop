@@ -1,0 +1,27 @@
+<div class="form-horizontal list-app-entry-form">
+    <div class="form-group" ng-repeat="field in $ctrl.fields" ng-class="{'has-error': $ctrl.showInitialValidationErrors(field) && $ctrl.formCtrl['field-' + field.id].$invalid}">
+        <div class="row list-app-entry-form-label-row">
+            <div class="col-sm-12 text-left">
+                <label class="control-label">{{::field.name}}
+                    <div ng-if="::field.required" class="label-required" translate="REQUIRED"></div>
+                </label>
+            </div>
+        </div>
+        <div class="row list-app-entry-form-field-row">
+            <div class="col-sm-12 text-left">
+                <oyoc-settings-view
+                        model="$ctrl.getFieldValue(field.id)"
+                        config="$ctrl.getFieldConfig(field)"
+                        settings-property="form"
+                        form-ctrl="$ctrl.formCtrl">
+                </oyoc-settings-view>
+                <p class="help-block" translate="APP.LIST.FIELDS.ERROR.REQUIRED"
+                ng-if="$ctrl.showInitialValidationErrors(field) && $ctrl.formCtrl['field-' + field.id].$error.required">
+                </p>
+            </div>
+            <div class="col-sm-12">
+                <span class="text-muted description-text">{{::field.help}}</span>
+            </div>
+        </div>
+    </div>
+</div>

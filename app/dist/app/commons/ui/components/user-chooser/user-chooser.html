@@ -1,0 +1,5 @@
+<span ng-click="$ctrl.openChooser()" class="user-chooser btn btn-default" ng-class="{disabled: $ctrl.loading}">
+   <i class="zmdi zmdi-hc-fw zmdi-account-add"></i><!--
+--><span ng-hide="$ctrl.loading" translate="{{:: $ctrl.btnTitle }}" translate-value-users="{{$ctrl.ngModel.users.length || 0}}" translate-value-groups="{{$ctrl.ngModel.groups.length || 0}}"></span><!--
+--><span ng-show="$ctrl.loading">{{:: 'USER_CHOOSER.BUTTON_TITLE.LOADING' | translate }}&nbsp;<i class="zmdi zmdi-spinner zmdi-hc-spin"></i></span>
+</span>

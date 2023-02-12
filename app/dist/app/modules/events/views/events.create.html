@@ -1,0 +1,219 @@
+<section class="events-create">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title" translate="MODULE.EVENTS.CREATE.TITLE"></h3>
+    </div>
+
+    <!-- Wizard -->
+    <div class="panel-body hidden-xs">
+      <coyo-wizard states="$ctrl.wizard.states" active="$ctrl.wizard.active"></coyo-wizard>
+    </div>
+
+    <!-- Step 1 -->
+    <form name="$ctrl.eventsForm1" class="form-horizontal" coyo-form-submit="$ctrl.next($ctrl.eventsForm1)" ng-show="$ctrl.wizard.active == 0">
+      <div class="panel-body">
+        <!-- Title -->
+        <div class="form-group" ng-class="{'has-error': $ctrl.eventsForm1.name.$touched && $ctrl.eventsForm1.name.$invalid}">
+          <label for="name" class="col-sm-2 control-label" translate="EVENT.TITLE.LABEL"></label>
+          <div class="col-sm-9">
+            <input id="name" name="name" type="text" class="form-control" ng-model="$ctrl.event.name" maxlength="255"
+                   ng-required="true" ng-model-options="{ updateOn: 'default blur', debounce: {'default': $root.debounce.sm, 'blur': 0} }">
+            <ng-messages for="$ctrl.eventsForm1.name.$error" class="help-block validation">
+              <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+              <p ng-message="pageName" translate="ERRORS.VALIDATION.ALREADY_TAKEN"></p>
+            </ng-messages>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="EVENT.TITLE.HELP"></coyo-help>
+          </div>
+        </div>
+        <!-- Place -->
+        <div class="form-group">
+          <label for="place" class="col-sm-2 control-label" translate="EVENT.PLACE.LABEL"></label>
+          <div class="col-sm-9">
+            <input id="place" title="place" ng-model="$ctrl.event.place" class="form-control" maxlength="255">
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="EVENT.PLACE.HELP"></coyo-help>
+          </div>
+        </div>
+        <!-- Description -->
+        <div class="form-group">
+          <label class="col-sm-2 control-label" translate="EVENT.DESCRIPTION.LABEL"></label>
+          <div class="col-sm-9">
+            <textarea class="form-control" ng-model="$ctrl.event.description" msd-elastic rows="5"></textarea>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="EVENT.DESCRIPTION.HELP"></coyo-help>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer panel-actions">
+        <div class="row">
+          <div class="col-sm-10 col-sm-push-2">
+            <a href="" ng-click="$ctrl.cancel()" class="btn btn-default">
+              <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{:: 'CANCEL' | translate }}
+            </a><!--
+         --><coyo-form-submit-button label="CONTINUE" form-ctrl="$ctrl.eventsForm1" icon="zmdi-arrow-right"></coyo-form-submit-button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Step 2 -->
+    <form name="$ctrl.eventsForm2" class="form-horizontal" coyo-form-submit="$ctrl.next($ctrl.eventsForm2)" ng-show="$ctrl.wizard.active == 1">
+      <div class="panel-body">
+        <!-- Full Day -->
+        <div class="form-group">
+          <label for="full-day" class="col-sm-2 control-label" translate="EVENT.FULL_DAY.LABEL"></label>
+          <div class="col-sm-9">
+            <coyo-checkbox id="full-day" name="full-day" ng-model="$ctrl.event.fullDay"></coyo-checkbox>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="EVENT.FULL_DAY.HELP"></coyo-help>
+          </div>
+        </div>
+        <!-- Select Date-->
+        <div class="form-group">
+          <label class="col-sm-2 control-label" translate="EVENT.DATE_START.LABEL"></label>
+          <div class="col-sm-3 input-group">
+            <span class="input-group-addon pointer" ng-click="startDateIsOpen = true"><i class="zmdi zmdi-calendar"></i></span>
+            <input id="eventStart" type="text" class="form-control" name="eventStart"
+                   datetime-picker="{{$ctrl.event.fullDay ? 'dd MMM yyyy': 'dd MMM yyyy HH:mm'}}"
+                   ng-model="$ctrl.event.startDate"
+                   is-open="startDateIsOpen"
+                   ng-focus="startDateIsOpen = true"
+                   ng-change="$ctrl.changeStart()"
+                   timepicker-options="{'showMeridian': false}"
+                   enable-time="!$ctrl.event.fullDay"
+                   ng-required="true">
+          </div>
+          <label class="col-sm-1 control-label" translate="EVENT.DATE_END.LABEL"></label>
+          <div class="col-sm-3" ng-class="{'has-error': $ctrl.eventsForm2.eventEnd.$invalid}">
+            <div class="input-group">
+              <span class="input-group-addon pointer" ng-click="endDateIsOpen = true"><i class="zmdi zmdi-calendar"></i></span>
+              <input id="eventEnd" type="text" class="form-control" name="eventEnd"
+                     datetime-picker="{{$ctrl.event.fullDay ? 'dd MMM yyyy': 'dd MMM yyyy HH:mm'}}"
+                     ng-model="$ctrl.event.endDate"
+                     is-open="endDateIsOpen"
+                     ng-focus="endDateIsOpen = true"
+                     ng-change="$ctrl.changeEnd()"
+                     timepicker-options="{'showMeridian': false}"
+                     enable-time="!$ctrl.event.fullDay"
+                     ng-required="true">
+            </div>
+            <ng-messages for="$ctrl.eventsForm2.eventEnd.$error" class="help-block">
+              <p ng-message="endDateNotAfterStartDate" translate="ERRORS.VALIDATION.END_DATE_NOT_AFTER_START_DATE"></p>
+            </ng-messages>
+          </div>
+          <div class="col-sm-1 col-sm-offset-2 hidden-xs">
+            <coyo-help tip="EVENT.DATE.HELP"></coyo-help>
+          </div>
+        </div>
+        <!-- eventAlertInterval -->
+        <div ng-hide="true" class="form-group"> <!-- TODO remove ng-hide when backend provides alert functionality; currently not on the road map -->
+          <label class="col-sm-2 control-label" translate="EVENT.REMINDER.LABEL"></label>
+          <div class="col-sm-9">
+            <coyo-event-alert-interval ng-model="$ctrl.event.eventAlertInterval"></coyo-event-alert-interval>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="EVENT.REMINDER.HELP"></coyo-help>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer panel-actions">
+        <div class="row">
+          <div class="col-sm-10 col-sm-push-2">
+            <a ng-click="$ctrl.back()" class="btn btn-default">
+              <i class="zmdi zmdi-hc-fw zmdi-arrow-left"></i>&nbsp;{{:: 'BACK' | translate }}
+            </a><!--
+         --><coyo-form-submit-button label="CONTINUE" form-ctrl="$ctrl.eventsForm2" icon="zmdi-arrow-right"></coyo-form-submit-button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Step 3 -->
+    <form name="$ctrl.eventsForm3" class="form-horizontal" coyo-form-submit="$ctrl.next($ctrl.eventsForm3)" ng-show="$ctrl.wizard.active == 2">
+      <div class="panel-body">
+        <!-- Host -->
+        <div class="form-group">
+          <label class="col-sm-2 control-label" translate="EVENT.SENDER.LABEL"></label>
+          <div class="col-sm-9">
+            <coyo-select-sender ng-model="$ctrl.sender" placeholder="EVENT.SENDER.PLACEHOLDER" ng-required="true"
+                                parameters="{'findOnlyManagedSenders': true}"></coyo-select-sender>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="EVENT.SENDER.HELP"></coyo-help>
+          </div>
+        </div>
+        <!-- Admins -->
+        <div class="form-group">
+          <label class="col-sm-2 control-label" translate="EVENT.ADMINS.LABEL"></label>
+          <div class="col-sm-9">
+            <coyo-user-chooser name="admins" id="admins" ng-model="$ctrl.event" users-field="adminIds" groups-field="adminGroupIds"></coyo-user-chooser>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="EVENT.ADMINS.HELP"></coyo-help>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer panel-actions">
+        <div class="row">
+          <div class="col-sm-10 col-sm-push-2">
+            <a ng-click="$ctrl.back()" class="btn btn-default">
+              <i class="zmdi zmdi-hc-fw zmdi-arrow-left"></i>&nbsp;{{:: 'BACK' | translate }}
+            </a><!--
+         --><coyo-form-submit-button label="CONTINUE" form-ctrl="$ctrl.eventsForm3" icon="zmdi-arrow-right"></coyo-form-submit-button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+      <!-- Step 4 -->
+    <form name="$ctrl.eventsForm4" class="form-horizontal" coyo-form-submit="$ctrl.next($ctrl.eventsForm4)" ng-show="$ctrl.wizard.active == 3">
+      <div class="panel-body">
+        <!-- invite people -->
+        <div class="form-group">
+          <label class="col-sm-2 control-label" translate="EVENT.MEMBER_GROUP.LABEL"></label>
+          <div class="col-sm-9">
+            <coyo-user-chooser name="invited-people" id="invited-people" ng-model="$ctrl.event" users-field="memberIds" groups-field="memberGroupIds"></coyo-user-chooser>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="EVENT.MEMBER_GROUP.HELP"></coyo-help>
+          </div>
+        </div>
+        <!-- Member -->
+        <div class="form-group">
+          <label for="full-day" class="col-sm-2 control-label" translate="EVENT.SHOW_PRTICIPANTS.LABEL"></label>
+          <div class="col-sm-9">
+            <coyo-checkbox id="show-memver" name="show-participants" ng-model="$ctrl.event.showParticipants"></coyo-checkbox>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="EVENT.SHOW_PRTICIPANTS.HELP"></coyo-help>
+          </div>
+        </div>
+        <!-- Request definite answers -->
+        <div class="form-group">
+          <label for="request-definite-answers" class="col-sm-2 control-label" translate="EVENT.DEFINITE_ANSWERS.LABEL"></label>
+          <div class="col-sm-9">
+            <coyo-checkbox id="request-definite-answers" name="definite-answers" ng-model="$ctrl.event.requestDefiniteAnswer"></coyo-checkbox>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="EVENT.DEFINITE_ANSWERS.HELP"></coyo-help>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer panel-actions">
+        <div class="row">
+          <div class="col-sm-10 col-sm-push-2">
+            <a ng-click="$ctrl.back()" class="btn btn-default">
+              <i class="zmdi zmdi-hc-fw zmdi-arrow-left"></i>&nbsp;{{:: 'BACK' | translate }}
+            </a><!--
+         --><coyo-form-submit-button label="CREATE" form-ctrl="$ctrl.eventsForm4"></coyo-form-submit-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

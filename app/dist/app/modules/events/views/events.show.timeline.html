@@ -1,0 +1,91 @@
+<section class="event-tab content-with-sidebar">
+
+  <!-- Sidebar -->
+  <div class="content-sidebar visible-lg">
+
+    <coyo-widget-slot class="widget-slot-sidebar"
+                      name="event-sidebar-top"
+                      parent="$ctrl.event"
+                      can-manage="$ctrl.event._permissions.manageSlots"
+                      hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+    <!-- Information -->
+    <div class="panel panel-sm">
+      <div class="panel-body pb-xxs">
+        <div class="text-muted text-uppercase" translate="MODULE.EVENTS.HEADLINE.INFORMATION"></div>
+      </div>
+      <ul class="pb-xs panel-infos pb-xs">
+        <li class="divider"></li>
+        <li>
+          <i class="zmdi zmdi-time"></i>
+          <coyo-event-date event="$ctrl.event"></coyo-event-date>
+        </li>
+        <li ng-if=":: $ctrl.event.place" class="divider"></li>
+        <li ng-if=":: $ctrl.event.place">
+          <i class="zmdi zmdi-pin"></i>
+          <span>{{:: $ctrl.event.place}}</span>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <i class="zmdi zmdi-account-circle"></i>
+          <div>{{::'MODULE.EVENTS.HEADLINE.HOST' | translate}}</div>
+          <div class="event-info-sender">
+            <coyo-sender-avatar sender="$ctrl.event.sender" avatar-size="xs"></coyo-sender-avatar>
+            <a coyo-sender-link="::$ctrl.event.sender" class="ml-xxs">{{$ctrl.event.sender.displayName}}</a>
+          </div>
+          <div class="event-info-sender" ng-repeat="host in $ctrl.hosts">
+            <coyo-user-avatar user="::host" avatar-size="xs"></coyo-user-avatar>
+            <a coyo-sender-link="::host" class="ml-xxs">{{host.displayName}}</a>
+          </div>
+        </li>
+        <li class="divider" ng-if="::$ctrl.event.description"></li>
+        <li ng-if="::$ctrl.event.description">
+          <i class="zmdi zmdi-format-align-left"></i>
+          {{::$ctrl.event.description | limitTo: 120}}{{$ctrl.event.description.length > 120 ? '…' : ''}}
+          <a ui-sref="main.event.show.information" translate="MODULE.EVENTS.MORE_INFORMATION"></a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Options -->
+    <div class="panel panel-sm">
+      <div class="panel-body pb-xxs">
+        <div class="text-muted text-uppercase" translate="MODULE.EVENTS.HEADLINE.OPTIONS"></div>
+      </div>
+      <ul class="nav nav-default nav-icons nav-sender-options pb-xs">
+        <!--<li ng-if="$ctrl.event._permissions.canSubscribe">-->
+        <li>
+          <coyo-event-subscribe event="$ctrl.event" user="$ctrl.currentUser"></coyo-event-subscribe>
+        </li>
+        <li ng-if="$ctrl.event._permissions.manage">
+          <a ng-click="$ctrl.inviteMembers()">
+            <i class="zmdi zmdi-accounts-alt"></i>{{:: 'EVENT.INVITE_MEMBER' | translate}}
+          </a>
+        </li>
+        <li ng-if="$ctrl.event._permissions.manage">
+          <a ui-sref="main.event.show.settings">
+            <i class="zmdi zmdi-settings"></i><span translate="SETTINGS"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <coyo-widget-slot class="widget-slot-sidebar"
+                      name="event-sidebar-bottom"
+                      parent="$ctrl.event"
+                      can-manage="$ctrl.event._permissions.manageSlots"
+                      hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+  </div>
+
+  <!-- Content Main -->
+  <div class="content-main event-timeline-app">
+
+    <coyo-widget-slot class="widget-slot-content"
+                      name="event-content"
+                      parent="$ctrl.event"
+                      can-manage="$ctrl.event._permissions.manageSlots"
+                      hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+    <coyo-timeline-stream type="sender" context-id="{{:: $ctrl.event.id}}"></coyo-timeline-stream>
+  </div>
+</section>

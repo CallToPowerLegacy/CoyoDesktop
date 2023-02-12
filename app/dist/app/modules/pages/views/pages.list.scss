@@ -1,0 +1,142 @@
+.pages-list .category-manager li.filter-entry {
+  &:hover:not(.filter-entry-editing) > a {
+    padding-right: 88px !important;
+  }
+
+  @media screen and (min-width: $screen-md-min) {
+    &.filter-entry-options:hover > a .badge {
+      display: none;
+    }
+  }
+}
+
+.page-card {
+  height: 324px;
+
+  .page-card-heading {
+    display: flex;
+    height: 126px;
+
+    .panel-card-cover {
+      background-color:  $color-gray-lighter;
+      border-radius: 5px 5px 0 0;
+      height: 50%;
+      width: 100%;
+      cursor: pointer;
+      .cover-image {
+        background-size: cover;
+        height: 100%;
+        @media screen and (min-width: $screen-md-min) {
+          border-radius: 5px 5px 0 0;
+        }
+      }
+    }
+
+    .page-avatar-wrapper {
+      flex: 1;
+
+      .sender-avatar {
+        left: 20px;
+        position: absolute;
+        top: 20px;
+
+        img,
+        .sender-avatar-empty {
+          width: 86px;
+          height: 86px;
+          border-radius: 2px;
+          background-color: $color-page-avatar-bg;
+          -webkit-box-shadow: 0px 0px 0px 3px $color-white;
+          -moz-box-shadow: 0px 0px 0px 3px $color-white;
+          box-shadow: 0px 0px 0px 3px $color-white;
+
+          @media screen and (min-width: $screen-md-min) {
+            border-radius: 3px;
+            -webkit-box-shadow: 0px 0px 0px 4px $color-white;
+            -moz-box-shadow: 0px 0px 0px 4px $color-white;
+            box-shadow: 0px 0px 0px 4px $color-white;
+          }
+        }
+      }
+    }
+  }
+
+  .page-subscribe-wrapper {
+    position: absolute;
+    right: 20px;
+
+    .tour-placeholder-container {
+      position: relative;
+      top: 43px;
+      display: block;
+    }
+
+    .page-autosubscription-hint {
+      position: relative;
+      top: 67px;
+      font-size: small;
+      color: $color-green;
+
+      .page-autosubscription-help {
+        color: $color-gray;
+        font-size: medium;
+        margin-left: 6px;
+        position: relative;
+        top: 2px;
+      }
+    }
+  }
+
+  .panel-body {
+    padding: 0;
+    position: relative;
+
+    .page-card-body {
+      padding: 0 20px;
+      height: 154px;
+
+      h4 {
+        margin-top: 0;
+        @include ellipsis();
+
+        @media screen and (min-width: $screen-md-min) {
+          font-size: 20px;
+        }
+      }
+
+      .page-description {
+        color: $color-gray;
+        font-size: 14px;
+        @include ellipsis-multiline(2, 50px);
+        margin-bottom: 2px;
+      }
+
+      .page-meta-info-wrapper {
+        height: 62px;
+      }
+    }
+    .page-card-footer {
+      padding: 0 20px;
+      max-height: 25px;
+    }
+
+    .page-card-labels {
+      width: 100%;
+      .page-card-labels-wrapper {
+        max-height: 25px;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        .label {
+          overflow: hidden;
+          white-space: nowrap;
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+
+  .page-card-apps {
+    font-size: 14px;
+  }
+}

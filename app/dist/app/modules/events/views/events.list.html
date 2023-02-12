@@ -1,0 +1,68 @@
+<section class="events-list content-with-sidebar">
+  <div class="content-sidebar">
+
+    <!-- Widget Slot -->
+    <coyo-widget-slot class="widget-slot-sidebar hidden-xs hidden-sm"
+                      name="events-list-top"
+                      hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+    <!-- Filter -->
+    <coyo-filterbox vertical="true" class="panel-navigation" filter-active="$ctrl.dateRange.length">
+      <fb-filter>
+        <coyo-filter title-key="MODULE.EVENTS.FILTER.DATE">
+          <coyo-date-range-header date-range="$ctrl.dateRange"></coyo-date-range-header>
+          <coyo-date-range-picker ng-model="$ctrl.dateRange" ng-change="$ctrl.filter($ctrl.dateRange)"></coyo-date-range-picker>
+          <button type="button" class="btn btn-block btn-link" ng-click="$ctrl.clearDate()" ng-disabled="!$ctrl.dateRange.length">
+            <i class="zmdi zmdi-close-circle-o"></i>&nbsp;{{::'MODULE.EVENTS.FILTER.DATE.CLEAR' | translate}}
+          </button>
+        </coyo-filter>
+      </fb-filter>
+
+      <fb-actions>
+        <li>
+          <a ui-sref="main.event.create" ui-sref-opts="{inherit: false}" class="tour-placeholder-container" coyo-global-permissions="CREATE_EVENT">
+            <i class="zmdi zmdi-plus-circle"></i>&nbsp;{{:: 'MODULE.EVENTS.CREATE.TITLE' | translate}}
+            <coyo-tour-step topic="events" order="110" placement="bottom"  step-id="events.create"
+                            title="{{:: 'TOUR.EVENTS.CREATE.TITLE' | translate }}"
+                            content="{{:: 'TOUR.EVENTS.CREATE' | translate }}"></coyo-tour-step>
+          </a>
+        </li>
+      </fb-actions>
+      <fb-search>
+        <coyo-search-filter change="$ctrl.search" placeholder="SEARCH"
+                            search-term="{{$ctrl.query.term}}"></coyo-search-filter>
+      </fb-search>
+    </coyo-filterbox>
+
+    <!-- Tour -->
+    <coyo-tour-step-mobile topic="events" order="105"
+                           image-url="assets/images/tour/tour-mobile-events-list.jpg"
+                           title="{{:: 'TOUR.EVENTS.LIST.TITLE' | translate }}"
+                           content="{{:: 'TOUR.EVENTS.LIST' | translate }}"></coyo-tour-step-mobile>
+
+    <coyo-tour-step-mobile topic="events" order="110"
+                           image-url="assets/images/tour/tour-mobile-events-create.jpg"
+                           title="{{:: 'TOUR.EVENTS.CREATE.TITLE' | translate }}"
+                           content="{{:: 'TOUR.EVENTS.CREATE' | translate }}"></coyo-tour-step-mobile>
+
+    <coyo-tour-step-mobile topic="events" order="115"
+                           image-url="assets/images/tour/tour-mobile-events-list-attend.jpg"
+                           title="{{:: 'TOUR.EVENTS.ATTEND.TITLE' | translate }}"
+                           content="{{:: 'TOUR.EVENTS.ATTEND' | translate }}"></coyo-tour-step-mobile>
+
+    <!-- Widget Slot -->
+    <coyo-widget-slot class="widget-slot-sidebar hidden-xs hidden-sm"
+                      name="events-list-bottom"
+                      hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+  </div>
+  <div class="content-main">
+
+    <!-- Widget Slot -->
+    <coyo-widget-slot class="widget-slot-content"
+                      name="events-list-content"
+                      hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+    <coyo-event-list page="$ctrl.currentPage" loading="$ctrl.loading" show-tour="true"></coyo-event-list>
+  </div>
+</section>

@@ -1,0 +1,84 @@
+<form name="form" coyo-form-submit="ctrl.save()" class="wiki-article article-edit">
+  <div class="panel">
+    <div class="wiki-article-header">
+      <div class="panel-heading panel-heading-main article-header edit-article">
+        <h1 class="panel-title article-title" translate="APP.WIKI.CREATE"></h1>
+        <coyo-manage-translations ng-if="ctrl.isSenderTranslated" current="ctrl.currentLanguage"
+                                  default="ctrl.defaultLanguage" disable-config="true"
+                                  on-change="ctrl.onLanguageChange" on-delete="ctrl.onLanguageDeleted"
+                                  languages="ctrl.languages"></coyo-manage-translations>
+      </div>
+    </div>
+
+    <div class="panel-body" ng-show="!ctrl.loading">
+      <div>
+        <div class="inner-tab">
+          <div class="row">
+            <div class="col-sm-12 wiki-article-title">
+              <div class="form-group last-form-group"
+                   ng-class="{'has-error': form['title-' + key].$invalid && form['title-' + key].$touched}"
+                   ng-repeat="(key, value) in ctrl.languages"
+                   ng-if="ctrl.isTranslationRequired(key)"
+                   ng-show="value.active && (key === ctrl.currentLanguage || key === 'NONE')">
+                <label for="title-{{key}}" class="control-label">{{:: "APP.WIKI.ARTICLE.TITLE" | translate }}&nbsp;
+                  <coyo-country-flag country="ctrl.currentLanguage" form="rounded" dependent-to-translations="true">
+                  </coyo-country-flag>
+                </label>
+                <input id="title-{{key}}"
+                       name="title-{{key}}"
+                       type="text"
+                       class="form-control"
+                       maxlength="255"
+                       ng-model="ctrl.languages[key].translations.title"
+                       ng-change="ctrl.updateValidity(key, form['title-' + key].$valid)"
+                       ng-required="true"/>
+                <ng-messages for="form['title-' + key].$error" class="help-block validation">
+                  <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                </ng-messages>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 wiki-article-parent mt-xs">
+              <div class="form-group">
+                <label class="control-label" translate="APP.WIKI.SELECT.PARENT.LABEL"></label>
+                <coyo-select-wiki-article ng-model="ctrl.article.parentId"
+                                          placeholder="APP.WIKI.SELECT.PARENT.NO_ARTICLES_FOUND"></coyo-select-wiki-article>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 wiki-article-text" ng-repeat="(key, value) in ctrl.languages"
+                 ng-if="ctrl.isTranslationRequired(key)"
+                 ng-show="value.active && (key === ctrl.currentLanguage || key === 'NONE')">
+              <coyo-widget-layout name="{{ctrl.article.buildLayoutName(ctrl.app.id, key)}}"
+                                  parent="ctrl.article"
+                                  create-mode="ctrl.article.isNew() || (ctrl.currentLanguage != ctrl.defaultLanguage)"
+                                  global-events="false"
+                                  can-manage="ctrl.app._permissions.createArticle"
+                                  render-style="plain"
+                                  simple-mode="ctrl.simpleMode"
+                                  add-initial-widget="ctrl.simpleMode && !ctrl.languageInitialised[ctrl.currentLanguage]">
+              </coyo-widget-layout>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-body text-center m-m" ng-show="ctrl.loading">
+      <coyo-spinner></coyo-spinner>
+    </div>
+
+    <div class="panel-footer panel-actions">
+      <coyo-form-submit-button form-ctrl="form" label="SAVE" class="article-save"></coyo-form-submit-button><!--
+   --><a ng-click="ctrl.cancel()" class="btn btn-default article-cancel">
+        <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{:: 'CANCEL' | translate }}
+      </a>
+      <a href class="btn btn-link btn-right" ng-click="ctrl.simpleMode = !ctrl.simpleMode">
+        <span ng-if="!ctrl.simpleMode">{{::'WIDGETS.LAYOUT.EDIT_MODE.SIMPLE' | translate}}</span>
+        <span ng-if="ctrl.simpleMode">{{::'WIDGETS.LAYOUT.EDIT_MODE.ADVANCED' | translate}}</span>
+      </a>
+    </div>
+  </div>
+</form>

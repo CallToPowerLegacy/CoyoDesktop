@@ -1,0 +1,33 @@
+<div class="modal-content-wrapper" ng-if="!confirm.loading">
+    <div class="modal-header">
+        <h3 class="modal-title" translate="APPS.SETTINGS.REMOVE.CONFIRM.TITLE"></h3>
+        <span class="modal-close" ng-click="$dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+    </div>
+    <div class="modal-body" ng-show="!$ctrl.showDeleteFilesHint">
+        <div translate="APPS.SETTINGS.REMOVE.CONFIRM.TEXT_NO_FILES"></div>
+    </div>
+    <div class="modal-body" ng-show="!!$ctrl.showDeleteFilesHint">
+        <div translate="APPS.SETTINGS.REMOVE.CONFIRM.TEXT"></div>
+        <div class="form-group">
+            <div class="col-sm-11">
+                <div class="checkbox">
+                    <label>
+                        <coyo-checkbox ng-model="$ctrl.deleteAppFiles"></coyo-checkbox>
+                        {{:: 'APPS.SETTINGS.REMOVE.CONFIRM.CHECKBOX_LABEL' | translate }}
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-1 hidden-xs pt-xxs">
+                <coyo-help tip="APPS.SETTINGS.REMOVE.CONFIRM.HELP"></coyo-help>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" ng-click="$close($ctrl.deleteAppFiles)">
+            <i class="zmdi zmdi-hc-fw zmdi-delete"></i> {{:: 'APPS.SETTINGS.REMOVE.REMOVE' | translate }}
+        </button>
+        <button class="btn btn-default" ng-click="$dismiss('cancel')">
+            {{:: 'CANCEL' | translate }}
+        </button>
+    </div>
+</div>

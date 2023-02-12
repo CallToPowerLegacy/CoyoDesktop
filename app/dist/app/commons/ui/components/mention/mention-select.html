@@ -1,0 +1,9 @@
+<ul class="dropdown-menu mention-menu">
+  <li mentio-menu-item="item" ng-repeat="item in items">
+    <a>
+      <coyo-user-avatar user="item" no-link="true" avatar-size="xs"></coyo-user-avatar>
+      <div class="mention-title">{{:: item.displayName }}</div>
+      <div class="small mention-subtitle">@{{:: item.slug }}</div>
+    </a>
+  </li>
+</ul>

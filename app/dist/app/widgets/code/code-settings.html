@@ -1,0 +1,33 @@
+<div class="code-widget-warning">
+  <div class="alert alert-warning" translate="WIDGET.CODE.WARNING">
+</div>
+
+<div class="form-horizontal code-widget-settings">
+  <div class="form-group">
+    <div class="col-sm-12 col-header">
+      <label translate="WIDGET.CODE.SETTINGS.HTML.TEXT"></label>
+      <coyo-help class="code-tip hidden-xs" tip="WIDGET.CODE.SETTINGS.HTML.HELP"></coyo-help>
+    </div>
+    <div class="code-textarea">
+      <textarea rows="8" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form-control" placeholder="{{:: $ctrl.placeholderHtml }}" ng-model="model.settings._html_content"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12 col-header">
+      <label translate="WIDGET.CODE.SETTINGS.JS.TEXT"></label>
+      <coyo-help class="code-tip hidden-xs" tip="WIDGET.CODE.SETTINGS.JS.HELP"></coyo-help>
+    </div>
+    <div class="code-textarea">
+      <textarea rows="8" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form-control" placeholder="{{:: $ctrl.placeholderJs }}" ng-model="model.settings._js_content"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12 col-header">
+      <label translate="WIDGET.CODE.SETTINGS.CSS.TEXT"></label>
+      <coyo-help class="code-tip hidden-xs" tip="WIDGET.CODE.SETTINGS.CSS.HELP"></coyo-help>
+    </div>
+    <div class="code-textarea">
+      <textarea rows="8" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form-control" placeholder="{{:: $ctrl.placeholderCss }}" ng-model="model.settings._css_content"></textarea>
+    </div>
+  </div>
+</div>

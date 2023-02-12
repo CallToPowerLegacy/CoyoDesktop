@@ -1,0 +1,151 @@
+.coyo-event-participation {
+  .btn {
+    border: 0;
+
+    &:active {
+      box-shadow: none;
+    }
+  }
+
+  .form-control {
+    &.ui-select-toggle {
+      color: $color-white;
+
+      @include box-shadow(0, -3px, 0, 0, rgba(0, 0, 0, .1), true, true);
+
+      &:hover {
+        @include box-shadow(0, -3px, 0, 0, rgba(0, 0, 0, .2), true, true);
+      }
+
+      // bugfix: dropdown does not open when clicking on caret
+      &::after {
+        font-family: 'Material-Design-Iconic-Font';
+        content: "\f2f2";
+        position: absolute;
+        font-size: 16px;
+        right: 1em;
+        top: 0;
+        line-height: 32px;
+      }
+
+      .caret {
+        display: none;
+      }
+      // end bugfix
+    }
+  }
+
+  &.pending {
+    .ui-select-toggle {
+      color: $color-primary !important;
+    }
+
+    .participation-disabled,
+    .ui-select-toggle {
+      &::before {
+        content: "\f1f5";
+      }
+    }
+  }
+
+  &.attending {
+    .ui-select-toggle {
+      background-color: $color-green !important;
+    }
+
+    .participation-disabled,
+    .ui-select-toggle {
+      &::before {
+        content: "\f269";
+      }
+    }
+  }
+
+  &.maybe_attending {
+    .ui-select-toggle {
+      background-color: $color-orange !important;
+    }
+
+    .participation-disabled,
+    .ui-select-toggle {
+      &::before {
+        content: "\f268";
+      }
+    }
+  }
+
+  &.not_attending {
+    .ui-select-toggle {
+      background-color: $color-gray !important;
+    }
+
+    .participation-disabled,
+    .ui-select-toggle {
+      background-color: $color-gray !important;
+      color: $color-white;
+
+      &::before {
+        content: "\f136";
+      }
+    }
+  }
+
+  .participation-disabled,
+  .event-participation .ui-select-toggle {
+    &::before {
+      font-family: 'Material-Design-Iconic-Font';
+      position: absolute;
+      top: 0;
+      line-height: 32px;
+      left: 10px;
+      padding-right: 2px;
+    }
+
+    @media screen and (max-width: $screen-sm-max) {
+      .ui-select-match-text {
+        display: none;
+      }
+
+      &::before {
+        //display: block;
+      }
+    }
+  }
+}
+
+.event-participation {
+  .ui-select-match-text {
+    padding-right: 0;
+  }
+
+  .ui-select-choices-row.disabled {
+    display: none;
+  }
+}
+
+.coyo-event-participation,
+.event-participation {
+  .btn {
+    position: relative;
+    padding: 6px 24px 6px 30px;
+    font-size: 13px;
+    line-height: 18px;
+    border-radius: 3px;
+    height: 32px;
+
+    &.participation-disabled {
+      padding-right: 12px;
+    }
+  }
+
+  &.ui-select-mobile.open {
+    .form-control {
+      &.ui-select-toggle {
+        padding: 11px 24px 11px 12px;
+        border-radius: 0;
+        height: 47px;
+        line-height: 25px;
+      }
+    }
+  }
+}

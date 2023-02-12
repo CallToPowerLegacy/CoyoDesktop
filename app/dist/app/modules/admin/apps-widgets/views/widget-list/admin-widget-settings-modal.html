@@ -1,0 +1,23 @@
+<form ng-submit="$ctrl.save()">
+    <div class="modal-content-wrapper admin-widget-settings-modal">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                {{:: $ctrl.widget.name | translate }}
+            </h3>
+            <span class="modal-close" ng-click="$ctrl.onDismiss ? $ctrl.onDismiss() : $dismiss('cancel')">
+                <i class="zmdi zmdi-close img-close"></i>
+            </span>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <coyo-checkbox class="m-0" ng-model="$ctrl.widget.enabled"></coyo-checkbox>&nbsp;<span translate="ADMIN.APPS_WIDGETS.WIDGETS.HEADERS.ENABLED"></span>
+                <div>
+                    <coyo-checkbox ng-disabled="!$ctrl.isWidgetEnabled()" class="m-0" ng-model="$ctrl.widget.moderatorsOnly"></coyo-checkbox>&nbsp;<span translate="ADMIN.APPS_WIDGETS.WIDGETS.HEADERS.MODERATOR"></span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary"><i class="zmdi zmdi-hc-fw zmdi-check"></i>&nbsp;{{::'SAVE' | translate}}</button>
+        </div>
+    </div>
+</form>

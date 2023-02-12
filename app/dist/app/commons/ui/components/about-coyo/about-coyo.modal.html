@@ -1,0 +1,20 @@
+<div class="modal-content-wrapper about-coyo-modal">
+  <div class="modal-header about-coyo-header">
+    <span class="about-coyo-brand"></span>
+    <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss('cancel')">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+
+  <div class="modal-body">
+    <span class="with-love">Made with love in Hamburg, Germany</span>
+    <div class="version-container">
+      <span>{{::'ABOUT_COYO.VERSION'|translate}}:</span>
+      <h4>{{vm.version}}</h4>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <a href="https://www.coyoapp.com" target="_blank" class="btn btn-secondary">www.coyoapp.com</a>
+  </div>
+</div>

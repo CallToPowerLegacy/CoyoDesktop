@@ -1,0 +1,168 @@
+<div class="main-navigation">
+  <div class="layout-header">
+    <div class="layout-header-inner">
+      <a class="layout-header-brand"></a>
+      <input type="search" name="search" class="form-control layout-header-search" placeholder="Search">
+    </div>
+  </div>
+
+  <!-- mobile tours -->
+  <coyo-tour-step-mobile topic="navigation" order="5"
+                         title="{{:: 'TOUR.MAIN.WELCOME.TITLE' | translate }}"
+                         content="{{:: 'TOUR.MAIN.WELCOME' | translate }}"></coyo-tour-step-mobile>
+
+  <coyo-tour-step-mobile topic="navigation" order="10"
+                         image-url="assets/images/tour/tour-mobile-nav-1.jpg"
+                         title="{{:: 'TOUR.MAIN.MOBILE.NAVIGATION.TITLE' | translate }}"
+                         content="{{:: 'TOUR.MAIN.MOBILE.NAVIGATION' | translate }}"></coyo-tour-step-mobile>
+
+  <coyo-tour-step-mobile topic="navigation" order="15"
+                         image-url="assets/images/tour/tour-mobile-nav-2.jpg"
+                         title="{{:: 'TOUR.MAIN.SEARCH.TITLE' | translate }}"
+                         content="{{:: 'TOUR.MAIN.SEARCH' | translate }}"></coyo-tour-step-mobile>
+
+  <coyo-tour-step-mobile topic="navigation" order="20"
+                         image-url="assets/images/tour/tour-mobile-nav-3.jpg"
+                         title="{{:: 'TOUR.MAIN.NOTIFICATIONS.TITLE' | translate }}"
+                         content="{{:: 'TOUR.MAIN.NOTIFICATIONS' | translate }}"></coyo-tour-step-mobile>
+
+  <coyo-tour-step-mobile topic="navigation" order="25"
+                         image-url="assets/images/tour/tour-mobile-nav-4.jpg"
+                         title="{{:: 'TOUR.MAIN.MESSAGING.TITLE' | translate }}"
+                         content="{{:: 'TOUR.MAIN.MESSAGING' | translate }}"></coyo-tour-step-mobile>
+  <!-- end mobile tours -->
+
+  <nav class="navbar coyo-navbar navbar-fixed-top navbar-main">
+    <div class="coyo-navbar-flex" ng-class="{'nav-search-open' : $root.search.visible}">
+      <ul class="nav nav-left">
+        <li class="nav-item hidden-xs hidden-sm"
+            ui-sref-active="active"
+            ng-class="::{'nav-item-no-link': !$ctrl.accessLandingPages}">
+          <span ng-if="::!$ctrl.accessLandingPages" class="nav-item-brand"></span>
+          <a ng-if="::$ctrl.accessLandingPages" class="nav-item-brand" ui-sref="main.landing-page({refreshLandingPages: true})"
+             ui-sref-opts="{reload: 'main.landing-page'}"></a>
+          <coyo-tour-step topic="navigation" order="5"  step-id="navigation.welcome"
+                          title="{{:: 'TOUR.MAIN.WELCOME.TITLE' | translate }}"
+                          content="{{:: 'TOUR.MAIN.WELCOME' | translate }}"></coyo-tour-step>
+        </li>
+
+        <li class="nav-item visible-xs visible-sm">
+          <a class="nav-item-icon zmdi zmdi-menu" ng-click="$ctrl.openMenu()"></a>
+        </li>
+
+        <li class="nav-item hidden-sm hidden-xs"
+            ng-hide="$root.search.visible"
+            ui-sref-active="active"
+            coyo-global-permissions="ACCESS_PAGES">
+          <a class="nav-item-combined" ui-sref="main.page"><i class="zmdi zmdi-hc-fw zmdi-layers"></i>&nbsp;{{:: 'NAVIGATION.PAGES' | translate}}</a>
+          <coyo-tour-step topic="navigation" order="10" step-id="navigation.pages"
+                          title="{{:: 'TOUR.MAIN.PAGES.TITLE' | translate }}"
+                          content="{{:: 'TOUR.MAIN.PAGES' | translate }}"></coyo-tour-step>
+        </li>
+        <li class="nav-item hidden-sm hidden-xs"
+            ng-hide="$root.search.visible"
+            ui-sref-active="active"
+            coyo-global-permissions="ACCESS_WORKSPACES">
+          <a class="nav-item-combined" ui-sref="main.workspace"><i class="zmdi zmdi-hc-fw zmdi-apps"></i>&nbsp;{{:: 'NAVIGATION.WORKSPACES' | translate}}</a>
+
+          <coyo-tour-step topic="navigation" order="15" step-id="navigation.workspaces"
+                          title="{{:: 'TOUR.MAIN.WORKSPACES.TITLE' | translate }}"
+                          content="{{:: 'TOUR.MAIN.WORKSPACES' | translate }}"></coyo-tour-step>
+        </li>
+        <li class="nav-item hidden-sm hidden-xs"
+            ng-hide="$root.search.visible"
+            ui-sref-active="active"
+            coyo-global-permissions="ACCESS_EVENTS">
+          <a class="nav-item-combined" ui-sref="main.event"><i class="zmdi zmdi-hc-fw zmdi-calendar"></i>&nbsp;{{:: 'NAVIGATION.EVENTS' | translate}}</a>
+
+          <coyo-tour-step topic="navigation" order="20" step-id="navigation.events"
+                          title="{{:: 'TOUR.MAIN.EVENTS.TITLE' | translate }}"
+                          content="{{:: 'TOUR.MAIN.EVENTS' | translate }}"></coyo-tour-step>
+        </li>
+      </ul>
+
+      <oyoc-search-bar></oyoc-search-bar>
+
+      <ul class="nav nav-right">
+        <oyoc-launchpad-navbar-item></oyoc-launchpad-navbar-item>
+        <oyoc-notifications-dialog></oyoc-notifications-dialog>
+        <oyoc-messaging-navbar-item></oyoc-messaging-navbar-item>
+        <li class="nav-item hidden-sm hidden-xs" ui-sref-active="active"
+            coyo-global-permissions="ACCESS_COLLEAGUE_LIST">
+          <a class="nav-item-icon zmdi zmdi-accounts-alt" ui-sref="main.colleagues"></a>
+          <coyo-tour-step topic="navigation" order="30" step-id="navigation.colleagues"
+                          title="{{:: 'TOUR.MAIN.COLLEAGUES.TITLE' | translate }}"
+                          content="{{:: 'TOUR.MAIN.COLLEAGUES' | translate }}"></coyo-tour-step>
+        </li>
+        <li ng-if="$root.screenSize.isMd || $root.screenSize.isLg" class="nav-item" uib-dropdown>
+          <a class="nav-item-profile" uib-dropdown-toggle>
+            <coyo-user-avatar user="::$ctrl.user"
+                              ng-if="::$ctrl.user"
+                              class="profile-thumb"
+                              avatar-size="xs"
+                              ng-click="$event.stopPropagation()"></coyo-user-avatar>
+            <i class="zmdi zmdi-caret-down"></i>
+          </a>
+          <ul class="dropdown-menu pull-right" role="menu">
+            <li ui-sref-active="active" coyo-global-permissions="{{::$ctrl.allAdminPermissions}}">
+              <a ui-sref="admin">
+                <i class="zmdi zmdi-settings zmdi-hc-fw"></i>&nbsp;{{:: 'ADMIN.TITLE' | translate}}
+              </a>
+            </li>
+            <li ui-sref-active="active" coyo-global-permissions="MANAGE_REPORTS">
+              <a ui-sref="main.report">
+                <i class="zmdi zmdi-alert-circle zmdi-hc-fw"></i>&nbsp;{{:: 'NAVIGATION.REPORTS' | translate}}
+              </a>
+            </li>
+            <oyoc-moderator-navbar-item user="::$ctrl.user"></oyoc-moderator-navbar-item>
+            <oyoc-view-edit-nav-item></oyoc-view-edit-nav-item>
+            <li class="divider" coyo-global-permissions="MANAGE_GLOBAL_WIDGETS,{{::$ctrl.allAdminPermissions}}"></li>
+            <li ui-sref-active="active" coyo-global-permissions="ACCESS_OWN_USER_PROFILE">
+              <a ui-sref="main.profile({userId: $ctrl.user.slug})">
+                <i class="zmdi zmdi-account-circle zmdi-hc-fw"></i>&nbsp;{{:: 'NAVIGATION.PROFILE' | translate}}
+              </a>
+            </li>
+            <li ui-sref-active="active">
+              <a coyo-file-library-trigger sender="::$ctrl.user">
+                <i class="zmdi zmdi-file zmdi-hc-fw"></i>&nbsp;{{:: 'NAVIGATION.FILE_LIBRARY' | translate}}
+              </a>
+            </li>
+            <li class="divider" coyo-global-permissions="ACCESS_FILES"></li>
+            <li ui-sref-active="active" coyo-global-permissions="MANAGE_ACCOUNT_SETTINGS,ACCESS_OWN_USER_PROFILE" require-all-permissions="true">
+              <a ui-sref="main.account">
+                <i class="zmdi zmdi-account-box-o zmdi-hc-fw"></i>&nbsp;{{:: 'MODULE.ACCOUNT.HEADER' | translate }}
+              </a>
+            </li>
+            <li ui-sref-active="active" coyo-global-permissions="MANAGE_NOTIFICATION_SETTINGS" ng-if="::$ctrl.hasNotificationSettings">
+              <a ui-sref="main.account-notifications">
+                <i class="zmdi zmdi-notifications-none zmdi-hc-fw"></i>&nbsp;{{:: 'MODULE.ACCOUNT.NOTIFICATION_SETTINGS.HEADER' | translate}}
+              </a>
+            </li>
+            <li class="divider" coyo-global-permissions="MANAGE_ACCOUNT_SETTINGS,MANAGE_NOTIFICATION_SETTINGS"></li>
+            <li ng-if="::$ctrl.hasTourSteps()">
+              <a ng-click="$ctrl.restartTour()"><i class="zmdi zmdi-pin-help zmdi-hc-fw"></i>&nbsp;{{::'NAVIGATION.TOUR.RESTART'| translate}}</a>
+            </li>
+            <li ng-if="::$ctrl.termsActive">
+              <a ng-click="$ctrl.showTerms()"><i class="zmdi zmdi-shield-security zmdi-hc-fw"></i>&nbsp;{{::'NAVIGATION.TERMS'| translate}}</a>
+            </li>
+            <li>
+              <a ng-click="$ctrl.help($event)"><i class="zmdi zmdi-help-outline zmdi-hc-fw"></i>&nbsp;{{::'HELP'|translate}}</a>
+            </li>
+            <li>
+              <a ng-click="$ctrl.about($event)" class="coyo-c">&nbsp;{{::'ABOUT'|translate}}</a>
+            </li>
+            <li class="divider"></li>
+            <li ui-sref-active="active">
+              <a href ng-click="$ctrl.logout()"><i class="zmdi zmdi-power zmdi-hc-fw"></i>&nbsp;{{:: 'MODULE.LOGOUT.HEADER' | translate}}
+              </a>
+            </li>
+          </ul>
+          <coyo-tour-step topic="navigation" order="35" step-id="navigation.profile"
+                          title="{{:: 'TOUR.MAIN.PROFILE.TITLE' | translate }}"
+                          content="{{:: 'TOUR.MAIN.PROFILE' | translate }}"></coyo-tour-step>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <oyoc-loadingbar-container></oyoc-loadingbar-container>
+</div>

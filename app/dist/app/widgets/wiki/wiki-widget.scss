@@ -1,0 +1,29 @@
+.wiki-widget {
+
+  .wiki-widget-article {
+    display: flex;
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .wiki-widget-icon {
+      color: $color-gray-darker;
+      margin-left: 3px;
+      margin-right: 11px;
+    }
+
+    .wiki-widget-info {
+      -ms-word-break: break-all;
+      word-break: break-all;
+      word-break: break-word;
+    }
+  }
+}
+
+.wiki-widget-settings {
+  .alert.alert-warning {
+    margin: 3px 0;
+  }
+}

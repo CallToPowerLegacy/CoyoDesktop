@@ -1,0 +1,45 @@
+<div class="sender-navigation panel-navigation">
+  <div class="panel panel-sm"
+       ng-repeat="appGroup in $ctrl.sender.appNavigation"
+       ui-tree="$ctrl.treeOptions"
+       max-depth="1"
+       drag-enabled="$ctrl.sender._permissions.manageApps && !$ctrl.appsStatus.busy && $ctrl.apps.length > 1"
+       ng-if="$ctrl.sender._permissions.manageApps || $ctrl.containsActiveApps(appGroup)">
+    <div class="panel-body pb-xxs">
+      <input class="nav-sender-title"
+             type="text"
+             ng-model="appGroup.name"
+             ng-model-options="{updateOn: 'blur'}"
+             ng-change="$ctrl.saveNavigation()"
+             ng-readonly="!$ctrl.sender._permissions.manageApps || $ctrl.appsStatus.busy"
+             placeholder="{{::'NAVIGATION' | translate}}">
+      <span class="btn btn-zmdi btn-link btn-delete-group disabled"
+            ng-if="appGroup.apps.length && $ctrl.sender._permissions.manageApps"><i class="zmdi zmdi-delete"></i></span>
+      <span class="btn btn-zmdi btn-link btn-delete-group"
+            ng-if="!appGroup.apps.length && $ctrl.sender._permissions.manageApps"
+            ng-class="{disabled: $ctrl.appsStatus.busy}"
+            ng-click="$ctrl.deleteGroup($index)"><i class="zmdi zmdi-delete"></i></span>
+    </div>
+    <coyo-refresh watch="$ctrl.lastAppUpdate">
+      <ul class="nav nav-default nav-icons" ui-tree-nodes max-depth="1" ng-model="appGroup.apps">
+        <li ng-repeat="app in ::$ctrl.getAppsByGroup(appGroup)"
+            ui-tree-node
+            ui-sref-active="{'active': $ctrl.getRootState(app)}"
+            class="filter-entry"
+            ng-class="::{'app-inactive': !app.active}">
+          <a coyo-app-href="app" sender-type="{{$ctrl.sender.typeName}}">
+            <i class="zmdi" ng-class="$ctrl.getIcon(app)"></i> {{::app.name}}
+            <span ng-if="$ctrl.apps.length > 1 && $ctrl.sender._permissions.manageApps"
+                  ui-tree-handle
+                  class="btn btn-zmdi btn-link btn-sort-handle"
+                  ng-class="::{disabled: $ctrl.appsStatus.busy}"><i class="zmdi zmdi-swap-vertical"></i></span>
+            <span ng-if="app._permissions.manage"
+                  class="btn btn-zmdi btn-link btn-settings"
+                  ng-class="::{disabled: $ctrl.appsStatus.busy}"
+                  ng-click="$ctrl.openSettings(app, $event)"><i class="zmdi zmdi-settings"></i></span>
+          </a>
+        </li>
+      </ul>
+    </coyo-refresh>
+  </div>
+</div>

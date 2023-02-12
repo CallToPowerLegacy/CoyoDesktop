@@ -1,0 +1,76 @@
+<div class="account-notification-settings">
+  <div class="visible-md-block visible-lg-block">
+    <section class="panel panel-default">
+      <div class="panel-heading panel-heading-main">
+        <h1 class="panel-title" translate="MODULE.ACCOUNT.NOTIFICATION_SETTINGS.HEADER"></h1>
+      </div>
+      <div class="panel-body">
+        <table class="table table-striped">
+          <tbody>
+          <tr ng-repeat="setting in $ctrl.settings">
+            <td class="column-icon">
+              <i class="zmdi zmdi-{{$ctrl.channelMetadata[setting.channel].icon}} zmdi-wide"></i>
+            </td>
+            <td>
+              {{:: 'MODULE.ACCOUNT.NOTIFICATION_SETTINGS.CHANNEL.' + setting.channel + '.NAME' | translate }}
+              <div class="text-muted">
+                {{:: 'MODULE.ACCOUNT.NOTIFICATION_SETTINGS.CHANNEL.' + setting.channel + '.DESCRIPTION' | translate }}
+              </div>
+
+              <oyoc-notifications-source-select
+                  ng-if="::$ctrl.channelMetadata[setting.channel].selectNotificationSources"
+                  class="form-group form-group-sm mt-xs"
+                  setting="setting"
+                  notification-sources="::$ctrl.channelMetadata[setting.channel].notificationSources"
+                  on-selection-change="$ctrl.save(setting)"></oyoc-notifications-source-select>
+
+              <div class="alert alert-warning"
+                   ng-if="setting.active && setting.channel === 'BROWSER' && !$ctrl.browserNotificationsActive">
+                {{:: 'MODULE.ACCOUNT.NOTIFICATION_SETTINGS.FORM.NOTIFICATIONS.BROWSER.WARNING' | translate }}
+              </div>
+
+              <oyoc-notifications-interval-select class="form-group form-group-sm mt-xs"
+                                                  ng-if="::$ctrl.channelMetadata[setting.channel].intervalConfigurable"
+                                                  setting="setting"
+                                                  on-selection-change="$ctrl.save(setting)"></oyoc-notifications-interval-select>
+            </td>
+            <td class="column-active-label no-user-select">
+              <coyo-active-label ng-model="setting.active" ng-click="$ctrl.toggle(setting)"></coyo-active-label>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <span class="text-muted" ng-if="!$ctrl.settings.length"
+              translate="MODULE.ACCOUNT.NOTIFICATION_SETTINGS.NO_NOTIFICATIONS"></span>
+      </div>
+    </section>
+    <section class="panel panel-default">
+      <div class="panel-heading panel-heading-main">
+        <h1 class="panel-title" translate="MODULE.ACCOUNT.HASHTAG_SUBSCRIPTION_ADMINISTRATION.HEADER"></h1>
+      </div>
+      <div class="panel-body">
+        <div class="text-muted">
+          {{:: 'MODULE.ACCOUNT.HASHTAG_SUBSCRIPTION_ADMINISTRATION.DESCRIPTION' | translate }}
+        </div>
+        <oyoc-hashtag-subscriptions-select></oyoc-hashtag-subscriptions-select>
+      </div>
+    </section>
+  </div>
+  <div class="hidden-md hidden-lg">
+    <coyo-mobile-menu-item
+        ng-repeat="setting in $ctrl.settings"
+        on-click="$ctrl.openSettings(setting)"
+        label-text="{{'MODULE.ACCOUNT.NOTIFICATION_SETTINGS.CHANNEL.' + setting.channel + '.NAME'}}"
+        preview-value="{{'MODULE.ACCOUNT.NOTIFICATION_SETTINGS.STATUS.' + (setting.active ? 'ACTIVE' : 'INACTIVE') | translate}}"
+        icon="'zmdi zmdi-' + $ctrl.channelMetadata[setting.channel].icon"></coyo-mobile-menu-item>
+    <coyo-mobile-menu-item
+        on-click="$ctrl.openHashtagSubscriptions()"
+        label-text="MODULE.ACCOUNT.HASHTAG_SUBSCRIPTION_ADMINISTRATION.NAME"
+        icon="'zmdi zmdi-star-outline'"></coyo-mobile-menu-item>
+    <div class="panel panel-default" ng-if="!$ctrl.settings.length">
+      <div class="panel-body">
+        <span class="text-muted" translate="MODULE.ACCOUNT.NOTIFICATION_SETTINGS.NO_NOTIFICATIONS"></span>
+      </div>
+    </div>
+  </div>
+</div>

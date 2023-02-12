@@ -1,0 +1,34 @@
+<div class="form-group">
+    <label for="field-multiline" class="col-sm-2 control-label" translate="APP.LIST.FIELDS.TEXT.SETTINGS.MULTILINE"></label>
+    <div class="col-sm-9">
+        <div class="checkbox">
+            <label>
+                <coyo-checkbox id="field-multiline" name="field-multiline" ng-model="model.multiline"></coyo-checkbox>
+                {{:: 'APP.LIST.FIELDS.TEXT.SETTINGS.MULTILINE.LABEL' | translate}}
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="APP.LIST.FIELDS.TEXT.SETTINGS.MULTILINE.HELP"></coyo-help>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="field-minlength" class="col-sm-2 control-label" translate="APP.LIST.FIELDS.TEXT.SETTINGS.MINLENGTH"></label>
+    <div class="col-sm-9">
+        <input class="form-control" type="number" min="0" ng-model="model.minlength" id="field-minlength" name="field-minlength">
+    </div>
+    <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="APP.LIST.FIELDS.TEXT.SETTINGS.MINLENGTH.HELP"></coyo-help>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="field-maxlength" class="col-sm-2 control-label" translate="APP.LIST.FIELDS.TEXT.SETTINGS.MAXLENGTH"></label>
+    <div class="col-sm-9">
+        <input class="form-control" type="number" min="0" ng-model="model.maxlength" id="field-maxlength" name="field-maxlength">
+    </div>
+    <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="APP.LIST.FIELDS.TEXT.SETTINGS.MAXLENGTH.HELP"></coyo-help>
+    </div>
+</div>

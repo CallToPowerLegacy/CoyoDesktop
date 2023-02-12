@@ -1,0 +1,8 @@
+.btn.btn-mobile {
+  width: 100%;
+  display: block;
+  @media screen and (min-width: $screen-sm-min) {
+   width: auto;
+   display: inline-block;
+  }
+}

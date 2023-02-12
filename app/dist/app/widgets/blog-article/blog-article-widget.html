@@ -1,0 +1,30 @@
+<div class="single-blog-article-widget">
+  <coyo-widget-status load-data="$ctrl.loadArticle()" empty-message="WIDGETS.BLOGARTICLE.NO_ARTICLES"></coyo-widget-status>
+
+  <coyo-refresh watch="$ctrl.lastUpdate">
+    <coyo-image-reference class="article-teaser-image"
+                          ng-if="::$ctrl.widget.article.teaserImageWide.fileId"
+                          ng-click="$ctrl.go($ctrl.widget.article.articleTarget)"
+                          file-id="::$ctrl.widget.article.teaserImageWide.fileId"
+                          sender-id="::$ctrl.widget.article.teaserImageWide.senderId"
+                          size-definitions="{'default': 'XL', 'screen-sm': 'XXL'}">
+    </coyo-image-reference>
+    <div ng-if="::$ctrl.widget.article">
+      <div class="article-meta">
+        <a class="article-sender" href
+           ng-click="$ctrl.go($ctrl.widget.article.senderTarget)"
+           title="{{::$ctrl.widget.article.senderName}}">{{::$ctrl.widget.article.senderName}}</a>
+        <span class="article-time" ng-if="::$ctrl.widget.article.published">{{::$ctrl.widget.article.published | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.medium}}</span>
+      </div>
+      <h3 class="article-title pointer"
+          ng-click="$ctrl.go($ctrl.widget.article.articleTarget)">
+        {{::$ctrl.widget.article.title}}
+      </h3>
+
+      <p class="teaser-text">
+        {{::$ctrl.widget.article.teaserText}}
+      </p>
+      <a class="teaser-more" href ng-if="::$ctrl.widget.article" ng-click="$ctrl.go($ctrl.widget.article.articleTarget)" translate="WIDGETS.BLOGARTICLE.READMORE"></a>
+    </div>
+  </coyo-refresh>
+</div>

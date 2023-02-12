@@ -1,0 +1,707 @@
+<uib-tabset justified="true" type="tabs">
+  <uib-tab select="$ctrl.activeTab = 'connection'">
+    <uib-tab-heading>
+      <i class="zmdi zmdi-wifi-alt zmdi-wide"></i>
+      <span class="tab-text" translate="ADMIN.USER_DIRECTORIES.LDAP.TABS.CONNECTION.HEADING"></span>
+      <i ng-if="$ctrl.form.connection.$invalid && ($ctrl.form.connection.$touched || $ctrl.ngModel.active)"
+         class="tab-indicator zmdi zmdi-alert-triangle"
+         uib-tooltip="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.TABS.CONNECTION.INVALID' | translate}}"
+         tooltip-placement="top"
+         tooltip-append-to-body="true"></i>
+    </uib-tab-heading>
+  </uib-tab>
+  <uib-tab select="$ctrl.activeTab = 'ldapuser'">
+    <uib-tab-heading>
+      <i class="zmdi zmdi-account zmdi-wide"></i>
+      <span class="tab-text" translate="ADMIN.USER_DIRECTORIES.LDAP.TABS.USER.HEADING"></span>
+      <i ng-if="$ctrl.form.ldapuser.$invalid && ($ctrl.form.ldapuser.$touched || $ctrl.ngModel.active)"
+         class="tab-indicator zmdi zmdi-alert-triangle"
+         uib-tooltip="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.TABS.USER.INVALID' | translate}}"
+         tooltip-placement="top"
+         tooltip-append-to-body="true"></i>
+    </uib-tab-heading>
+  </uib-tab>
+  <uib-tab select="$ctrl.activeTab = 'ldapgroup'">
+    <uib-tab-heading>
+      <i class="zmdi zmdi-accounts zmdi-wide"></i>
+      <span class="tab-text" translate="ADMIN.USER_DIRECTORIES.LDAP.TABS.GROUP.HEADING"></span>
+      <i ng-if="$ctrl.form.ldapgroup.$invalid && ($ctrl.form.ldapgroup.$touched || $ctrl.ngModel.active)"
+         class="tab-indicator zmdi zmdi-alert-triangle"
+         uib-tooltip="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.TABS.GROUP.INVALID' | translate}}"
+         tooltip-placement="top"
+         tooltip-append-to-body="true"></i>
+    </uib-tab-heading>
+  </uib-tab>
+  <uib-tab select="$ctrl.activeTab = 'sync'">
+    <uib-tab-heading>
+      <i class="zmdi zmdi-refresh-sync zmdi-wide"></i>
+      <span class="tab-text" translate="ADMIN.USER_DIRECTORIES.LDAP.TABS.SYNC.HEADING"></span>
+      <i ng-if="$ctrl.form.sync.$invalid && ($ctrl.form.sync.$touched || $ctrl.ngModel.active)"
+         class="tab-indicator zmdi zmdi-alert-triangle"
+         uib-tooltip="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.TABS.SYNC.INVALID' | translate}}"
+         tooltip-placement="top"
+         tooltip-append-to-body="true"></i>
+    </uib-tab-heading>
+  </uib-tab>
+  <uib-tab select="$ctrl.activeTab = 'scheduling'">
+    <uib-tab-heading>
+      <i class="zmdi zmdi-time zmdi-wide"></i>
+      <span class="tab-text" translate="ADMIN.USER_DIRECTORIES.LDAP.TABS.SCHEDULING.HEADING"></span>
+          <i ng-if="$ctrl.validationErrors.cronPattern || ($ctrl.form.scheduling.$invalid && ($ctrl.form.scheduling.$touched || $ctrl.ngModel.active))"
+             class="tab-indicator zmdi zmdi-alert-triangle"
+             uib-tooltip="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.TABS.SCHEDULING.INVALID' | translate}}"
+             tooltip-placement="top"
+             tooltip-append-to-body="true"></i>
+    </uib-tab-heading>
+  </uib-tab>
+</uib-tabset>
+
+<!-- TAB LDAP Connection -->
+<div ng-show="$ctrl.activeTab === 'connection'">
+
+  <ng-form name="connection">
+    <div class="form-group" ng-class="{'has-error': $ctrl.form.connection.host.$invalid && ($ctrl.form.connection.host.$touched || $ctrl.ngModel.active)}">
+      <label for="host" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.HOST.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="host"
+               name="host"
+               type="text"
+               class="form-control"
+               ng-model="$ctrl.ngModel.settings.host"
+               ng-required="$ctrl.ngModel.active"
+               maxlength="255">
+        <ng-messages for="$ctrl.form.connection.host.$error" class="help-block validation">
+          <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+        </ng-messages>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="port" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.PORT.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="port"
+               name="port"
+               type="number"
+               class="form-control"
+               placeholder="{{$ctrl.ngModel.settings.ssl ? 636 : 389}}"
+               ng-model="$ctrl.ngModel.settings.port">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ssl" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.SSL.LABEL"></label>
+      <div class="col-sm-8">
+        <div class="checkbox">
+          <label>
+            <coyo-checkbox id="ssl" ng-model="$ctrl.ngModel.settings.ssl"></coyo-checkbox>
+          </label>
+          <span class="text-muted" translate="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.SSL.HELP"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" ng-show="$ctrl.ngModel.type === 'ad'">
+      <label for="domain" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.DOMAIN.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="domain"
+               name="domain"
+               type="text"
+               class="form-control"
+               placeholder="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.DOMAIN.PLACEHOLDER' | translate}}"
+               ng-model="$ctrl.ngModel.settings.domain"
+               maxlength="255">
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': $ctrl.form.connection.baseDn.$invalid && ($ctrl.form.connection.baseDn.$touched || $ctrl.ngModel.active)}">
+      <label for="baseDn" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.BASE_DN.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="baseDn"
+               name="baseDn"
+               type="text"
+               class="form-control"
+               placeholder="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.BASE_DN.PLACEHOLDER' | translate}}"
+               ng-model="$ctrl.ngModel.settings.baseDn"
+               ng-required="$ctrl.ngModel.active"
+               maxlength="255">
+        <ng-messages for="$ctrl.form.connection.baseDn.$error" class="help-block validation">
+          <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+        </ng-messages>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.BASE_DN.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': $ctrl.form.connection.username.$invalid && ($ctrl.form.connection.username.$touched || $ctrl.ngModel.active)}">
+      <label for="username" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.USERNAME.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="username"
+               name="username"
+               type="text"
+               class="form-control"
+               placeholder="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.USERNAME.PLACEHOLDER' | translate}}"
+               ng-model="$ctrl.ngModel.settings.username"
+               ng-required="$ctrl.ngModel.active"
+               maxlength="255">
+        <ng-messages for="$ctrl.form.connection.username.$error" class="help-block validation">
+          <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+        </ng-messages>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.USERNAME.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': $ctrl.form.connection['dir-password'].$invalid && $ctrl.form.connection['dir-password'].$dirty && $ctrl.ngModel.active}">
+      <label for="dir-password" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.PASSWORD.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="dir-password"
+               name="dir-password"
+               type="password"
+               class="form-control"
+               ng-model="$ctrl.ngModel.settings.password"
+               ng-required="$ctrl.ngModel.active && $ctrl.form.connection['dir-password'].$dirty"
+               placeholder="{{::$ctrl.ngModel.id ? 'ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.PASSWORD.HINT' : '' | translate}}"
+               maxlength="255">
+        <ng-messages for="$ctrl.form.connection['dir-password'].$error" class="help-block validation">
+          <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+        </ng-messages>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-8 col-sm-push-3">
+        <coyo-check-user-directory-connection directory="$ctrl.ngModel" type="ldap" settings="$ctrl.ngModel.settings"></coyo-check-user-directory-connection>
+      </div>
+    </div>
+  </ng-form>
+</div>
+
+<!-- TAP LDAP User -->
+<div ng-show="$ctrl.activeTab === 'ldapuser'">
+  <ng-form name="ldapuser">
+    <div class="form-group">
+      <label for="userDn" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.USER_DN.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="userDn"
+               name="userDn"
+               type="text"
+               class="form-control"
+               ng-model="$ctrl.ngModel.settings.userDn"
+               maxlength="255">
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.USER.USER_DN.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': $ctrl.form.ldapuser['user-object-class'].$invalid && ($ctrl.form.ldapuser['user-object-class'].$touched || $ctrl.ngModel.active)}">
+      <label for="user-object-class" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.OBJECT_CLASS.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="user-object-class"
+               name="user-object-class"
+               type="text"
+               class="form-control"
+               placeholder="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.USER.OBJECT_CLASS.PLACEHOLDER' | translate}}"
+               ng-model="$ctrl.ngModel.settings.userObjectClass"
+               ng-required="$ctrl.ngModel.active"
+               maxlength="255">
+        <ng-messages for="$ctrl.form.ldapuser['user-object-class'].$error" class="help-block validation">
+          <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+        </ng-messages>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.USER.OBJECT_CLASS.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="user-object-filter" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.OBJECT_FILTER.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="user-object-filter" name="user-object-filter" type="text" class="form-control"
+               ng-model="$ctrl.ngModel.settings.userObjectFilter" maxlength="4095">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 form-subheadline" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.ATTRIBUTE_FOR.LABEL"></label>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': $ctrl.form.ldapuser['user-id'].$invalid && ($ctrl.form.ldapuser['user-id'].$touched || $ctrl.ngModel.active)}">
+      <label for="user-id" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.ID.LABEL"></label>
+      <div class="col-sm-8 ">
+        <input id="user-id"
+               name="user-id"
+               type="text"
+               class="form-control"
+               placeholder="{{$ctrl.ngModel.type === 'ad' ? 'ADMIN.USER_DIRECTORIES.LDAP.USER.ID.PLACEHOLDER.AD' : 'ADMIN.USER_DIRECTORIES.LDAP.USER.ID.PLACEHOLDER' | translate}}"
+               ng-model="$ctrl.ngModel.settings.userId"
+               ng-required="$ctrl.ngModel.active"
+               maxlength="255">
+        <ng-messages for="$ctrl.form.ldapuser['user-id'].$error" class="help-block validation">
+          <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+        </ng-messages>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.USER.ID.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': $ctrl.form.ldapuser.uusername.$invalid && ($ctrl.form.ldapuser.uusername.$touched || $ctrl.ngModel.active)}">
+      <label for="uusername" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.USERNAME.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="uusername"
+               name="uusername"
+               type="text"
+               class="form-control"
+               placeholder="{{$ctrl.ngModel.type === 'ad' ? 'ADMIN.USER_DIRECTORIES.LDAP.USER.USERNAME.PLACEHOLDER' : '' | translate}}"
+               ng-model="$ctrl.ngModel.settings.uusername"
+               ng-required="$ctrl.ngModel.active"
+               maxlength="255">
+        <ng-messages for="$ctrl.form.ldapuser.uusername.$error" class="help-block validation">
+          <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+        </ng-messages>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.USER.USERNAME.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': $ctrl.form.ldapuser['user-first-name'].$invalid && ($ctrl.form.ldapuser['user-first-name'].$touched || $ctrl.ngModel.active)}">
+      <label for="user-first-name" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.FIRST_NAME.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="user-first-name"
+               name="user-first-name"
+               type="text"
+               class="form-control"
+               placeholder="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.USER.FIRST_NAME.PLACEHOLDER' | translate}}"
+               ng-model="$ctrl.ngModel.settings.userFirstName"
+               ng-required="$ctrl.ngModel.active"
+               maxlength="255">
+        <ng-messages for="$ctrl.form.ldapuser['user-first-name'].$error" class="help-block validation">
+          <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+        </ng-messages>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.USER.FIRST_NAME.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': $ctrl.form.ldapuser['user-last-name'].$invalid && ($ctrl.form.ldapuser['user-last-name'].$touched || $ctrl.ngModel.active)}">
+      <label for="user-last-name" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.LAST_NAME.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="user-last-name"
+               name="user-last-name"
+               type="text"
+               class="form-control"
+               placeholder="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.USER.LAST_NAME.PLACEHOLDER' | translate}}"
+               ng-model="$ctrl.ngModel.settings.userLastName"
+               ng-required="$ctrl.ngModel.active"
+               maxlength="255">
+        <ng-messages for="$ctrl.form.ldapuser['user-last-name'].$error" class="help-block validation">
+          <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+        </ng-messages>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.USER.LAST_NAME.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="user-display-name" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.DISPLAY_NAME.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="user-display-name"
+               name="user-display-name"
+               type="text"
+               class="form-control"
+               ng-model="$ctrl.ngModel.settings.userDisplayName"
+               maxlength="255">
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.USER.DISPLAY_NAME.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="user-email" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.EMAIL.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="user-email"
+               name="user-email"
+               type="text"
+               class="form-control"
+               ng-model="$ctrl.ngModel.settings.userEmail"
+               maxlength="255">
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.USER.EMAIL.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="user-email" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.MANAGER.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="user-manager"
+               name="user-manager"
+               type="text"
+               class="form-control"
+               ng-model="$ctrl.ngModel.settings.userManager"
+               maxlength="255">
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.USER.MANAGER.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <hr ng-hide="$ctrl.loading" />
+
+    <div class="form-group" ng-hide="$ctrl.loading">
+      <label class="col-sm-3 form-subheadline" translate="ADMIN.USER_DIRECTORIES.LDAP.USER.PROFILE_FIELDS.LABEL"></label>
+      <div class="col-sm-1 col-sm-push-8 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.USER.PROFILE_FIELDS.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div ng-repeat="field in $ctrl.profileFieldsOrdered" class="form-group">
+      <div class="form-group profile-field-configuration"
+           ng-class="{'has-error': $ctrl.form.ldapuser['value_' + $index].$invalid && ($ctrl.form.ldapuser['value_' + $index].$touched || $ctrl.ngModel.active)}">
+        <div class="col-sm-3 col-xs-5">
+          <ui-select ui-select-mobile="{{:: field.name }}"
+                     ng-model="$ctrl.selectedProfileFields[field.name]"
+                     on-select="$ctrl.onProfileFieldSelect(field.name, $item)">
+            <ui-select-match placeholder="{{:: field.name }}" allow-clear="false">
+              {{:: field.name }}
+            </ui-select-match>
+            <ui-select-choices repeat="availableField.name as availableField in $ctrl.availableProfileFields | filter: $select.search">
+              <div ng-bind-html="availableField.name | highlight: $select.search"></div>
+              <div class="small text-muted" ng-bind-html="'ADMIN.USER_DIRECTORIES.LDAP.USER.PROFILE_FIELDS.FIELD_TYPE.' + availableField.type | translate"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <div class="col-sm-8 col-xs-6">
+          <input id="{{field.name}}"
+                  class="form-control"
+                  type="text"
+                  name="value_{{$index}}"
+                  ng-model="$ctrl.ngModel.settings.profileFields[field.name]"
+                  ng-required="$ctrl.ngModel.active">
+          <ng-messages for="$ctrl.form.ldapuser['value_' + $index].$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+          </ng-messages>
+        </div>
+        <div class="col-sm-1 col-xs-1">
+          <span ng-click="$ctrl.removeProfileField(field.name, true)">
+            <i class="zmdi zmdi-close-circle mt-xxs text-muted pointer"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" ng-hide="$ctrl.loading">
+      <div class="col-sm-9 col-sm-push-3 col-xs-12">
+        <button class="btn btn-default"
+                ng-click="$ctrl.addProfileFieldConfiguration($event)"
+                ng-hide="$ctrl.availableProfileFields.length <= 0">
+          <i class="zmdi zmdi-hc-fw zmdi-plus"></i>&nbsp;{{::'ADMIN.USER_DIRECTORIES.LDAP.USER.PROFILE_FIELDS.ADD' | translate}}
+        </button>
+      </div>
+    </div>
+  </ng-form>
+</div>
+
+<!-- TAP LDAP Group -->
+<div ng-show="$ctrl.activeTab === 'ldapgroup'">
+
+  <ng-form name="ldapgroup">
+    <div class="form-group" ng-class="{'has-warning': $ctrl.hasGroupSyncStatusChanged}">
+      <label for="group-sync-enabled" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.GROUP.ENABLE.LABEL"></label>
+      <div class="col-sm-8">
+        <div class="checkbox">
+          <label>
+            <coyo-checkbox id="group-sync-enabled" ng-model="$ctrl.ngModel.settings.groupSyncEnabled" ng-click="$ctrl.setGroupSyncStatusChanged()"></coyo-checkbox>
+          </label>
+          <span class="text-muted" translate="ADMIN.USER_DIRECTORIES.LDAP.GROUP.ENABLE.HELP"></span>
+          <p class="help-block"
+             ng-show="$ctrl.hasGroupSyncStatusChanged">
+            <i class="zmdi zmdi-alert-triangle"></i>&nbsp;{{:: 'ADMIN.USER_DIRECTORIES.LDAP.GROUP.ENABLE.WARNING' | translate }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="$ctrl.ngModel.settings.groupSyncEnabled">
+
+      <div class="form-group">
+        <label for="group-dn" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.GROUP.DN.LABEL"></label>
+        <div class="col-sm-8">
+          <input id="group-dn" name="group-dn" type="text" class="form-control" ng-model="$ctrl.ngModel.settings.groupDn" maxlength="255">
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.GROUP.DN.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': $ctrl.form.ldapgroup['group-object-class'].$invalid && ($ctrl.form.ldapgroup['group-object-class'].$touched || $ctrl.ngModel.active)}">
+        <label for="user-object-class" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.GROUP.OBJECT_CLASS.LABEL"></label>
+        <div class="col-sm-8">
+          <input id="group-object-class"
+                 name="group-object-class"
+                 type="text"
+                 class="form-control"
+                 placeholder="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.GROUP.OBJECT_CLASS.PLACEHOLDER' | translate}}"
+                 ng-model="$ctrl.ngModel.settings.groupObjectClass"
+                 ng-required="$ctrl.ngModel.settings.groupSyncEnabled && $ctrl.ngModel.active"
+                 maxlength="255">
+          <ng-messages for="$ctrl.form.ldapgroup['group-object-class'].$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+          </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.GROUP.OBJECT_CLASS.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="group-object-filter" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.GROUP.OBJECT_FILTER.LABEL"></label>
+        <div class="col-sm-8">
+          <input id="group-object-filter" name="group-object-filter" type="text" class="form-control"
+                 ng-model="$ctrl.ngModel.settings.groupObjectFilter" maxlength="4095">
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': $ctrl.form.ldapgroup['group-id'].$invalid && ($ctrl.form.ldapgroup['group-id'].$touched || $ctrl.ngModel.active)}">
+        <label for="group-id" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.GROUP.ID.LABEL"></label>
+        <div class="col-sm-8">
+          <input id="group-id"
+             name="group-id"
+             type="text"
+             class="form-control"
+             placeholder="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.GROUP.ID.PLACEHOLDER' | translate}}"
+             ng-model="$ctrl.ngModel.settings.groupId"
+             ng-required="$ctrl.ngModel.settings.groupSyncEnabled && $ctrl.ngModel.active"
+             maxlength="255">
+            <ng-messages for="$ctrl.form.ldapgroup['group-id'].$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.GROUP.ID.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': $ctrl.form.ldapgroup['group-name'].$invalid && ($ctrl.form.ldapgroup['group-name'].$touched || $ctrl.ngModel.active)}">
+        <label for="group-name" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.GROUP.NAME.LABEL"></label>
+        <div class="col-sm-8">
+          <input id="group-name"
+                 name="group-name"
+                 type="text"
+                 class="form-control"
+                 placeholder="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.GROUP.NAME.PLACEHOLDER' | translate}}"
+                 ng-model="$ctrl.ngModel.settings.groupName"
+                 ng-required="$ctrl.ngModel.settings.groupSyncEnabled && $ctrl.ngModel.active"
+                 maxlength="255">
+            <ng-messages for="$ctrl.form.ldapgroup['group-name'].$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.GROUP.NAME.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': $ctrl.form.ldapgroup['user-memberof-group'].$invalid && ($ctrl.form.ldapgroup['user-memberof-group'].$touched || $ctrl.ngModel.active)}">
+        <label for="user-memberof-group" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.GROUP.USER.MEMBEROF.LABEL"></label>
+        <div class="col-sm-8">
+          <input id="user-memberof-group"
+                 name="user-memberof-group"
+                 type="text"
+                 class="form-control"
+                 placeholder="{{:: 'ADMIN.USER_DIRECTORIES.LDAP.GROUP.USER.MEMBEROF.PLACEHOLDER' | translate}}"
+                 ng-model="$ctrl.ngModel.settings.userMemberOfGroups"
+                 ng-required="$ctrl.ngModel.settings.groupSyncEnabled && $ctrl.ngModel.active"
+                 maxlength="255">
+            <ng-messages for="$ctrl.form.ldapgroup['user-memberof-group'].$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.GROUP.USER.MEMBEROF.HELP"></coyo-help>
+        </div>
+      </div>
+    </div>
+  </ng-form>
+
+</div>
+
+<!-- TAP LDAP Synchronisation -->
+<div ng-show="$ctrl.activeTab === 'sync'">
+
+  <ng-form name="sync">
+
+    <div class="form-group" ng-class="{'has-error': $ctrl.form.sync.pageSize.$invalid && ($ctrl.form.sync.pageSize.$touched || $ctrl.ngModel.active)}">
+      <label for="pageSize" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.SYNC.PAGE_SIZE.LABEL"></label>
+      <div class="col-sm-8">
+        <input id="pageSize"
+               name="pageSize"
+               type="number"
+               class="form-control"
+               ng-required="$ctrl.ngModel.active"
+               ng-min="1"
+               ng-model="$ctrl.ngModel.settings.pageSize">
+        <ng-messages for="$ctrl.form.sync.pageSize.$error" class="help-block validation">
+          <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+        </ng-messages>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.SYNC.PAGE_SIZE.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="referals" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.REFERRALS.LABEL"></label>
+      <div class="col-sm-8">
+        <div class="checkbox">
+          <label>
+            <coyo-checkbox id="referals" ng-model="$ctrl.ngModel.settings.referals"></coyo-checkbox>
+          </label>
+          <span class="text-muted" translate="ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.REFERRALS.HELP"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="sync-activation" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.SYNC.ACTIVATION.LABEL"></label>
+      <div class="col-sm-8">
+        <div class="checkbox">
+          <label>
+            <coyo-checkbox id="sync-activation" ng-model="$ctrl.ngModel.settings.activation"></coyo-checkbox>
+            <span class="text-muted" translate="ADMIN.USER_DIRECTORIES.LDAP.SYNC.ACTIVATION.HELP"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="sync-just-in-time" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.SYNC.JUST_IN_TIME.LABEL"></label>
+      <div class="col-sm-8">
+        <div class="checkbox">
+          <label>
+            <coyo-checkbox id="sync-just-in-time" ng-model="$ctrl.ngModel.settings.justInTime"></coyo-checkbox>
+          </label>
+          <span class="text-muted" translate="ADMIN.USER_DIRECTORIES.LDAP.SYNC.JUST_IN_TIME.HELP"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="sync-deactivate-orphans" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.SYNC.DEACTIVATE_ORPHANS.LABEL"></label>
+      <div class="col-sm-8">
+        <div class="checkbox">
+          <label>
+            <coyo-checkbox id="sync-deactivate-orphans" ng-model="$ctrl.ngModel.settings.deactivateOrphans"></coyo-checkbox>
+          </label>
+          <span class="text-muted" translate="ADMIN.USER_DIRECTORIES.LDAP.SYNC.DEACTIVATE_ORPHANS.HELP"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="sync-delete-orphans" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.SYNC.DELETE_ORPHANS.LABEL"></label>
+      <div class="col-sm-8">
+        <div class="checkbox">
+          <label>
+            <coyo-checkbox id="sync-delete-orphans" ng-model="$ctrl.ngModel.settings.deleteOrphans"></coyo-checkbox>
+          </label>
+          <span class="text-muted" translate="ADMIN.USER_DIRECTORIES.LDAP.SYNC.DELETE_ORPHANS.HELP"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" ng-if="$ctrl.ngModel.syncJob">
+      <label for="sync-status" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.SYNC_JOB.LABEL.STATUS"></label>
+      <div class="col-sm-8 mt-xxs">
+        <coyo-job-status id="sync-status"
+                         job-status="$ctrl.ngModel.syncJob.jobStatus"
+                         job-name="$ctrl.ngModel.syncJob.name"
+                         link-to-jobs="false"
+                         label-no-status="{{:: 'ADMIN.JOBS.DETAILS.STATUS.NEVER_STARTED_YET' | translate }}"
+                         label-unknown-progress="{{:: 'ADMIN.USER_DIRECTORIES.SYNC_JOB.RUNNING' | translate }}">
+        </coyo-job-status>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-8 col-sm-push-3">
+        <a ng-if="$ctrl.ngModel.syncJob"
+           ng-click="$ctrl.openSyncJob()"
+           class="btn btn-default">
+          <i class="zmdi zmdi-hc-fw zmdi-arrow-right"></i>&nbsp;{{:: 'ADMIN.USER_DIRECTORIES.LDAP.SYNC.LABEL.JUMP_TO_JOB' | translate }}
+        </a>
+      </div>
+    </div>
+
+  </ng-form>
+</div>
+
+<!-- TAP LDAP Scheduling -->
+<div ng-show="$ctrl.activeTab === 'scheduling'">
+
+  <ng-form name="scheduling">
+
+    <div class="form-group">
+      <label for="scheduling-enabled" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.SCHEDULING.ENABLE.LABEL"></label>
+      <div class="col-sm-8">
+        <div class="checkbox">
+          <label>
+            <coyo-checkbox id="scheduling-enabled" ng-model="$ctrl.ngModel.settings.schedulingEnabled"></coyo-checkbox>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': $ctrl.validationErrors.cronPattern || $ctrl.form.scheduling['sync-cron-pattern'].$invalid}">
+      <label for="sync-cron-pattern" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.LDAP.SCHEDULING.LABEL.CRON_PATTERN"></label>
+      <div class="col-sm-8">
+        <input id="sync-cron-pattern"
+               name="sync-cron-pattern"
+               type="text"
+               class="form-control"
+               ng-model="$ctrl.ngModel.settings.cronPattern"
+               ng-required="$ctrl.ngModel.settings.schedulingEnabled && $ctrl.ngModel.active">
+        <ng-messages for="$ctrl.validationErrors.cronPattern" class="help-block validation">
+          <p ng-message="cronPattern">{{:: 'ADMIN.USER_DIRECTORIES.LDAP.SCHEDULING.INVALID_CRON_PATTERN' | translate }}</p>
+        </ng-messages>
+        <ng-messages for="$ctrl.form.scheduling['sync-cron-pattern'].$error" class="help-block validation">
+          <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+        </ng-messages>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="ADMIN.USER_DIRECTORIES.LDAP.SCHEDULING.LABEL.CRON_PATTERN.HELP"></coyo-help>
+      </div>
+    </div>
+
+    <div class="form-group" ng-if="$ctrl.ngModel.syncJob">
+      <label for="sync-status" class="col-sm-3 control-label" translate="ADMIN.USER_DIRECTORIES.SYNC_JOB.LABEL.STATUS"></label>
+      <div class="col-sm-9 mt-xxs">
+        <coyo-job-status id="sync-status"
+                         job-status="$ctrl.ngModel.syncJob.jobStatus"
+                         job-name="$ctrl.ngModel.syncJob.name"
+                         link-to-jobs="false"
+                         label-no-status="{{:: 'ADMIN.JOBS.DETAILS.STATUS.NEVER_STARTED_YET' | translate }}"
+                         label-unknown-progress="{{:: 'ADMIN.USER_DIRECTORIES.SYNC_JOB.RUNNING' | translate }}">
+        </coyo-job-status>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-9 col-sm-push-2">
+        <a ng-if="$ctrl.ngModel.syncJob"
+           ng-click="$ctrl.openSyncJob()"
+           class="btn btn-default">
+          <i class="zmdi zmdi-hc-fw zmdi-arrow-right"></i>&nbsp;{{:: 'ADMIN.USER_DIRECTORIES.LDAP.SYNC.LABEL.JUMP_TO_JOB' | translate }}
+        </a>
+      </div>
+    </div>
+
+  </ng-form>
+</div>

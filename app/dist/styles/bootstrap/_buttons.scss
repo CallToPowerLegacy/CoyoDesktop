@@ -1,0 +1,145 @@
+// Animations
+.btn {
+  @include animate-all-easing(0.15s);
+  transition-property: border-color, background-color, color, box-shadow;
+}
+
+// Size
+.btn {
+  i {
+    margin-right: 4px;
+  }
+  .badge {
+    margin-top: -1px;
+  }
+}
+
+.btn-lg {
+  i {
+    margin-right: 6px;
+  }
+}
+
+.btn-sm {
+  line-height: 18px;
+
+  i {
+    margin-right: 3px;
+  }
+  .badge {
+    margin-top: -6px;
+    top: 2px;
+  }
+}
+
+.btn-xs {
+  line-height: 18px;
+
+  i {
+    margin-right: 2px;
+  }
+  .badge {
+    margin-top: -6px;
+    top: 2px;
+  }
+}
+
+// Icons
+.btn-zmdi i {
+  margin: 0;
+}
+
+// Alternate buttons
+// --------------------------------------------------
+
+.btn-default {
+  @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
+
+  &:hover {
+    background-color: $btn-default-bg;
+  }
+}
+.btn-primary {
+  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+}
+// Success appears as green
+.btn-success {
+  @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
+}
+// Info appears as blue-green
+.btn-info {
+  @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
+}
+// Warning appears as orange
+.btn-warning {
+  @include button-variant($btn-warning-color, $btn-warning-bg, $btn-warning-border);
+}
+// Danger and error appear as red
+.btn-danger {
+  @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+}
+
+.btn-default, .btn-primary, .btn-success, .btn-warning, .btn-danger, .btn-info, .btn-dark {
+  @include box-shadow(0, -3px, 0, 0, rgba(0, 0, 0, 0.1), true);
+  &.btn-sm, &.btn-xs {
+    @include box-shadow(0, -2px, 0, 0, rgba(0, 0, 0, 0.1), true);
+  }
+
+  &:hover {
+    @include box-shadow(0, -3px, 0, 0, rgba(0, 0, 0, 0.2), true);
+    &.btn-sm, &.btn-xs {
+      @include box-shadow(0, -2px, 0, 0, rgba(0, 0, 0, 0.2), true);
+    }
+  }
+}
+
+.btn-dark {
+  color: $color-white;
+  background-color: #555;
+
+  &:hover {
+    color: $color-white;
+    background-color: #333;
+  }
+
+  &:focus {
+    color: $color-white;
+  }
+}
+
+.btn.btn-inverse {
+  background-color: transparent;
+  box-shadow: none;
+
+  &.btn-default {
+    @include button-inverse($color-white);
+  }
+
+  &.btn-primary {
+    @include button-inverse($btn-primary-bg);
+  }
+
+  &.btn-success {
+    @include button-inverse($btn-success-bg);
+  }
+
+  &.btn-warning {
+    @include button-inverse($btn-warning-bg);
+  }
+
+  &.btn-danger {
+    @include button-inverse($btn-danger-bg);
+  }
+
+  &.btn-info {
+    @include button-inverse($btn-info-bg);
+  }
+
+  &.btn-dark {
+    @include button-inverse(#555);
+  }
+
+  &:hover {
+    color: $color-white;
+  }
+}

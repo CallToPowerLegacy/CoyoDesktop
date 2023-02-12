@@ -1,0 +1,158 @@
+$link-preview-image-width: 80px;
+$link-preview-image-height: 80px;
+$link-preview-border-radius: 5px;
+$icon-size: 32px;
+
+@mixin round-left-border($radius) {
+  border-radius: $radius 0 0 $radius;
+}
+
+/* these classes are conditionally applied to web previews to determine the right margins,
+   as saved posts have slightly different margins than posts in draft/edit mode */
+.link-preview-edit,
+.video-preview-edit,
+.link-preview-loading,
+.video-preview-loading {
+  margin: 15px 0;
+  @media screen and (min-width: $screen-sm-min) {
+    margin: 0 20px 15px 20px;
+  }
+}
+
+.link-preview-post,
+.video-preview-post {
+  margin: 0 0 15px 0;
+}
+
+.link-preview-loading {
+  padding: 10px 45%;
+}
+
+.link-preview {
+  background-color: $color-gray-lighter;
+  height: $link-preview-image-height;
+  border-radius: $link-preview-border-radius;
+
+  .link-preview-delete {
+    padding: 0 8px 0 0;
+
+    .link-preview-delete-button {
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .link-preview-image-wrapper:before {
+    content: ' ';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+
+  .link-preview-image-wrapper {
+    float: left;
+    width: $link-preview-image-width;
+    height: $link-preview-image-height;
+    margin-right: 12px;
+    text-align: center;
+    font: 0/0 a; /* hide the characters like spaces */
+    @include round-left-border($link-preview-border-radius);
+    background-color: $color-gray-light;
+    color: $color-gray-dark;
+
+    .link-preview-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: $link-preview-image-width;
+      height: $link-preview-image-height;
+      font-size: $icon-size;
+      @include round-left-border($link-preview-border-radius);
+    }
+
+    .link-preview-image {
+      display: inline-block;
+      width: $link-preview-image-width;
+      height: $link-preview-image-height;
+      object-fit: cover;
+      overflow: hidden;
+      @include round-left-border($link-preview-border-radius);
+    }
+
+    .link-preview-image-ico {
+      width: $icon-size;
+      height: $icon-size;
+      margin: (($link-preview-image-height - $icon-size) / 2) auto;
+      @include round-left-border($link-preview-border-radius);
+    }
+  }
+
+  .link-preview-text-wrapper {
+    padding: 10px 0;
+
+    .link-preview-line {
+      line-height: 1.2;
+    }
+
+    .link-preview-title {
+      font-weight: bold;
+      @include truncate-floating-text(85%, $link-preview-image-width);
+    }
+
+    .link-preview-description {
+      font-size: 13px;
+      color: $color-gray-dark;
+      @include truncate-floating-text(90%, $link-preview-image-width);
+    }
+
+    .link-preview-url {
+      font-size: 12px;
+      line-height: 2;
+      color: $text-color;
+    }
+  }
+}
+
+.video-preview {
+  .iframe-wrapper {
+    position: relative;
+    padding-top: 56%;
+
+    .video-wrapper {
+      width: 100%;
+      height: 100%;
+      border: none;
+      position: absolute;
+      top: 0;
+      background-color: #000;
+
+      iframe {
+        height: 100% !important;
+        width: 100% !important;
+      }
+    }
+  }
+
+  .video-preview-delete {
+    position: relative;
+    margin-top: -7px;
+    left: 7px;
+    width: 32px;
+    height: 32px;
+    background-color: $color-black;
+    border-radius: 50%;
+    text-align: center;
+    z-index: 1;
+
+    .video-preview-delete-button {
+      font-size: 20px;
+      cursor: pointer;
+      color: $color-white;
+    }
+  }
+}

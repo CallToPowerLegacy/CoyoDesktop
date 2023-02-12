@@ -1,0 +1,111 @@
+<div class="admin-groups" ng-cloak>
+  <coyo-filterbox filter-active="!!vm.page._queryParams.status">
+    <fb-search>
+      <coyo-search-filter change="vm.nameChanged"
+                          placeholder="ADMIN.USER_MGMT.GROUPS.SEARCH"
+                          search-term="{{vm.page._queryParams.displayName}}"></coyo-search-filter>
+    </fb-search>
+    <fb-count>
+      <coyo-counter value="vm.page.totalElements"
+                    key-none="ADMIN.USER_MGMT.GROUPS.GROUPS_NONE"
+                    key-singular="ADMIN.USER_MGMT.GROUPS.GROUPS_SINGULAR"
+                    key-plural="ADMIN.USER_MGMT.GROUPS.GROUPS_PLURAL"></coyo-counter>
+    </fb-count>
+    <fb-actions>
+      <li>
+        <a ui-sref="admin.user-management.groups.create">
+          <i class="zmdi zmdi-plus-circle"></i>&nbsp;{{:: 'ADMIN.USER_MGMT.GROUPS.OPTIONS.CREATE' | translate}}
+        </a>
+      </li>
+    </fb-actions>
+  </coyo-filterbox>
+
+  <div class="panel panel-default panel-groups panel-list" ng-hide="vm.firstLoad">
+    <div class="panel-body">
+
+      <!-- mobile view -->
+      <ul ng-if="vm.mobile"
+          coyo-infinite-scroll="vm.nextPage()"
+          coyo-infinite-scroll-element="$window"
+          class="list-group">
+        <li ng-if="!vm.page.content.length > 0 && !vm.firstLoad"
+            class="text-center text-muted pv-s"
+            translate="ADMIN.USER_MGMT.GROUPS.EMPTY"></li>
+        <li class="list-group-item"
+            ng-repeat="row in vm.page.content track by row.id"
+            ng-class="{'animate-removal': vm.userAction }"
+            id="group-row-{{$index}}">
+          <div class="row">
+            <div class="col-xs-8">
+              {{row.displayName}}
+              <span ng-if="::row.remoteUserDirectory">
+                &nbsp;<i class="zmdi zmdi-folder-person"></i>
+              </span>
+            </div>
+            <div class="col-xs-4 text-right">
+              <coyo-counter-label value="row.userCount" icon="zmdi-account"></coyo-counter-label>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <coyo-context-menu ng-if="vm.mobile"
+                         ng-repeat="row in vm.page.content track by row.id"
+                         toggle-element="#group-row-{{$index}}"
+                         title="{{row.name}}">
+        <oyoc-group-options actions="vm.actions" group="row"></oyoc-group-options>
+      </coyo-context-menu>
+
+      <!-- desktop view -->
+      <table ng-if="!vm.mobile" class="table table-striped table-hover">
+        <colgroup>
+          <col>
+          <col>
+          <col width="15%">
+          <col width="15%">
+          <col>
+        </colgroup>
+        <thead>
+          <tr>
+            <th coyo-table-sorting
+                page="vm.page"
+                property="displayName"
+                title="{{:: 'ADMIN.USER_MGMT.GROUPS.HEADINGS.DISPLAY_NAME' | translate }}"></th>
+            <th>{{:: 'ADMIN.USER_MGMT.USERS.HEADINGS.DIRECTORY' | translate }}</th>
+            <th translate="ADMIN.USER_MGMT.GROUPS.HEADINGS.ROLE_COUNT"></th>
+            <th translate="ADMIN.USER_MGMT.GROUPS.HEADINGS.USER_COUNT"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr ng-hide="vm.page.content.length > 0 || vm.firstLoad">
+          <td colspan="7" class="text-center text-muted" translate="ADMIN.USER_MGMT.GROUPS.EMPTY"></td>
+        </tr>
+        <tr ng-repeat="row in vm.page.content track by row.id" ng-class="{'animate-removal': vm.userAction }">
+          <td>
+            {{row.displayName}}
+          </td>
+          <td class="break-all">
+            <span ng-if="row.remoteUserDirectory" uib-tooltip="{{row.remoteGroupId}}">{{row.remoteUserDirectory.name}}</span>
+            <span ng-if="!row.remoteUserDirectory">{{:: 'ADMIN.USER_MGMT.USERS.LOCAL' | translate}}</span>
+          </td>
+          <td>
+            <coyo-counter-label value="row.roleCount" icon="zmdi-lock"></coyo-counter-label>
+          </td>
+          <td>
+            <coyo-counter-label value="row.userCount" icon="zmdi-account"></coyo-counter-label>
+          </td>
+          <td class="column-options">
+            <coyo-context-menu align-right="true">
+              <oyoc-group-options actions="vm.actions" group="row"></oyoc-group-options>
+            </coyo-context-menu>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <coyo-table-pagination page="vm.page" class="hidden-xs hidden-sm"></coyo-table-pagination>
+
+  <div class="text-center m-m" ng-show="vm.page.loading">
+    <coyo-spinner></coyo-spinner>
+  </div>
+</div>

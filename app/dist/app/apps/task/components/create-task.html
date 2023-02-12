@@ -1,0 +1,43 @@
+<form name="taskForm" coyo-form-submit="$ctrl.createTask($ctrl.task)" novalidate>
+  <div class="form-group">
+    <div class="input-group">
+      <input type="text" ng-model="$ctrl.task.title" class="form-control"
+             ng-change="$ctrl.titleChanged($ctrl.task.title)" maxlength="255"
+             required placeholder="{{ 'APP.TASK.FORM.TITLE.PLACEHOLDER' | translate}}"
+             focus-if="$ctrl.focusTaskTitle"/>
+      <span class="input-group-btn">
+        <coyo-form-submit-button label="APP.TASK.CREATE.BUTTON" icon="false" form-ctrl="taskForm"></coyo-form-submit-button>
+      </span>
+    </div>
+  </div>
+
+  <div ng-if="$ctrl.showAdvanced" class="create-task-additional form-horizontal">
+    <div class="form-group">
+      <label for="dueDate" class="col-sm-4 control-label" translate="APP.TASK.FORM.DUEDATE.LABEL"></label>
+      <div class="col-sm-8">
+        <p class="input-group">
+          <span class="input-group-addon pointer" ng-click="dueDateIsOpen = true"><i class="zmdi zmdi-calendar"></i></span>
+          <input type="text" class="form-control" id="dueDate" name="due-date"
+                 datetime-picker="{{$ctrl.dateFormat}}"
+                 ng-model="$ctrl.task.dueDate"
+                 is-open="dueDateIsOpen"
+                 ng-focus="dueDateIsOpen = true"
+                 enable-time="false">
+        </p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="taskDescription" class="col-sm-4 control-label" translate="APP.TASK.FORM.DESCRIPTION.LABEL"></label>
+      <div id="taskDescription" class="col-sm-8">
+        <textarea class="form-control" ng-model="$ctrl.task.description" msd-elastic rows="3"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="taskAssignee" class="col-sm-4 control-label" translate="APP.TASK.FORM.ASSIGNEE.LABEL"></label>
+      <div id="taskAssignee" class="col-sm-8">
+        <p ng-if="$ctrl.task.assignee" ng-bind="$ctrl.task.assignee.displayName"></p>
+        <coyo-user-chooser ng-model="$ctrl" users-only="true" users-field="assignee" single="true"></coyo-user-chooser>
+      </div>
+    </div>
+  </div>
+</form>

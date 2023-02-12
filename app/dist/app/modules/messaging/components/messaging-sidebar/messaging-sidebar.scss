@@ -1,0 +1,147 @@
+// Shadows the sidebar to move the content area while the sidebar remains fixed
+.messaging-sidebar-spacer {
+  display: none;
+
+  @media screen and (min-width: $screen-lg-min) {
+    display: block;
+    width: $size-sidebar-messaging-static;
+
+    &.compact {
+      width: $size-sidebar-messaging-compact;
+    }
+  }
+}
+
+// The actual sidebar
+.sidebar.messaging {
+  background-color: $color-messaging-sidebar-bg;
+  height: 100%;
+  left: auto;
+  right: -100%;
+  width: $size-sidebar-messaging;
+  overflow: visible;
+
+  &.slide-in {
+    right: 0;
+  }
+
+  @media screen and (max-width: $screen-xs-max) {
+    width: $size-sidebar-messaging-xs;
+  }
+
+  @media screen and (min-width: $screen-lg-min) {
+    display: block;
+    width: $size-sidebar-messaging-static;
+    flex: 0 0 $size-sidebar-messaging-static;
+    height: 100%;
+    right: auto;
+    overflow-x: visible;
+    z-index: $zindex-messaging;
+
+    &.compact {
+      flex: 0 0 $size-sidebar-messaging-compact;
+      width: $size-sidebar-messaging-compact;
+
+      .messaging-title {
+        display: none;
+      }
+
+      .messaging-header-icon-bar {
+        flex: 1;
+      }
+    }
+  }
+
+  .messaging-header {
+    align-items: center;
+    background-color: $color-black;
+    display: flex;
+    height: $navbar-height;
+    padding: 0 18px;
+    line-height: 1;
+
+    .messaging-title {
+      color: $color-gray-light;
+      flex: 1;
+      text-transform: uppercase;
+    }
+
+    .messaging-header-icon-bar {
+      text-align: right;
+
+      > a {
+        position: relative;
+        color: $color-gray-light;
+        display: inline-block;
+        font-size: 22px;
+        margin-left: 3px;
+        text-align: center;
+        width: 22px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:hover {
+          color: $color-gray;
+        }
+      }
+    }
+  }
+
+  .messaging-content {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .btn.btn-block {
+      border-left: 0;
+      border-right: 0;
+      border-radius: 0;
+      margin-top: 12px;
+      padding-top: 11px;
+      padding-bottom: 10px;
+
+      &.btn-link,
+      &.btn-dark {
+        background-color: $color-black;
+        color: $color-gray-light;
+
+        &:hover {
+          color: $color-white;
+        }
+      }
+    }
+
+    .coyo-divider:before,
+    .coyo-divider:after {
+      background-color: $color-gray-darker;
+    }
+
+    code {
+      color: $color-gray-lighter;
+    }
+  }
+
+  .messaging-footer {
+    background-color: $color-black;
+    line-height: 1;
+
+    a {
+      color: $color-gray-light;
+      display: block;
+      font-size: 20px;
+      line-height: 26px;
+      padding: 4px 5px;
+      text-align: center;
+
+      &:hover {
+        color: $color-gray;
+      }
+    }
+  }
+}
+
+.compact .messaging-footer {
+  text-align: center;
+}

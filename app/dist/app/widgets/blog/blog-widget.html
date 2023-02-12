@@ -1,0 +1,20 @@
+<div class="blog-widget">
+  <h4 class="widget-title">
+    {{$ctrl.widget.settings._titles[0] || ("WIDGETS.BLOG.NAME" | translate)}}
+  </h4>
+  <coyo-widget-status load-data="$ctrl.loadArticles()" empty-message="WIDGETS.BLOG.NO_ARTICLES"></coyo-widget-status>
+  <coyo-refresh watch="$ctrl.lastUpdate">
+    <div class="blog-widget-article" ng-repeat="article in ::$ctrl.articles">
+      <div class="blog-widget-icon">
+        <i class="zmdi zmdi-file-text"></i>
+      </div>
+      <div class="blog-widget-info">
+        <a class="blog-widget-info-title" href ng-click="$ctrl.go(article.articleTarget)">{{::article.title}}</a>
+        <div class="small text-muted">
+          <coyo-time-ago date="article.publishDate"></coyo-time-ago>&nbsp;in&nbsp;<a class="blog-widget-info-sender"
+                                                                                     href ng-click="$ctrl.go(article.senderTarget)">{{::article.senderName}}</a>
+        </div>
+      </div>
+    </div>
+  </coyo-refresh>
+</div>

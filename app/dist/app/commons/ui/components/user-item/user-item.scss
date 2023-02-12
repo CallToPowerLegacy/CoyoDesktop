@@ -1,0 +1,36 @@
+.user-item {
+  padding: 0 24px;
+
+  @media screen and (min-width: $screen-md-min) {
+    &:hover {
+      background-color: $gray-lighter;
+    }
+  }
+
+  &-link {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $color-gray-lighter;
+    padding: 16px 0;
+  }
+
+  &-container {
+    margin-left: 8px;
+    line-height: 16px;
+  }
+
+  &-headline {
+    color: $text-color;
+  }
+
+  &-subline {
+    color: $color-gray;
+    font-size: 12px;
+    overflow: hidden;
+  }
+
+}
+
+coyo-user-item:last-of-type .user-item-link {
+  border-bottom: 0;
+}

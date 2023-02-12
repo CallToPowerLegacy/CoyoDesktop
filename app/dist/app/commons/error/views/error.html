@@ -1,0 +1,10 @@
+<div class="error-state">
+  <div class="error-icon" ng-bind-html="$ctrl.emoji"></div>
+  <div class="error-title" translate="ERRORS.TITLE"></div>
+  <div class="error-message">{{::$ctrl.message}}</div>
+  <div class="error-buttons mt-l">
+    <a ng-repeat="button in $ctrl.buttons"
+       class="btn btn-default"
+       ng-click="$ctrl.buttonAction(button)">{{::button.title | translate}}</a>
+  </div>
+</div>

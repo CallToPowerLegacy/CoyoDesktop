@@ -1,0 +1,30 @@
+<div class="modal-content-wrapper image-upload-modal">
+  <div class="modal-header">
+    <h3 class="modal-title" translate="IMAGE_CROP_MODAL.TITLE"></h3>
+    <span class="modal-close" ng-click="$dismiss()">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+
+  <div class="modal-body image-crop">
+    <div ng-if="vm.image | ngfDataUrl" class="crop-area">
+      <ui-cropper image="vm.image | ngfDataUrl"
+                  result-image="vm.croppedImage"
+                  area-type="{{vm.areaType}}"
+                  aspect-ratio="vm.cropAspectRatio"
+                  result-image-size="vm.imageSize"
+                  init-max-area="true"
+                  result-image-quality="0.8"
+                  result-image-format="vm.contentType"
+                  live-view="vm.liveView"
+                  chargement="'PROCESSING' | translate">
+      </ui-cropper>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-disabled="vm.busy || !vm.image" ng-click="vm.saveAndClose()">
+      <i ng-if="vm.busy" class="zmdi zmdi-hc-fw zmdi-hc-spin zmdi-spinner"></i>&nbsp;{{::'SAVE' | translate}}
+    </button>
+  </div>
+</div>

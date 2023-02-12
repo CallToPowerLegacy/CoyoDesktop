@@ -1,0 +1,12 @@
+<div ng-if="::tlItem.selectSenderDisplayed" class="select-sender">
+  <coyo-select-sender ng-model="::tlItem.author"
+                      required="true"
+                      parameters="::{ 'staticOptions' : tlItem.staticSenderOptions,
+                                    'selectSenderOptionGroups':  tlItem.selectSenderOptionGroups,
+                                    'allowedTypeNames': ['page', 'workspace', 'event'],
+                                    'findOnlyManagedSenders': true,
+                                    'onlyShowAvatarForMatches' : true,
+                                    'searchDisabled': true,
+                                    'class': 'select-sender-inline'}">
+  </coyo-select-sender>
+</div>

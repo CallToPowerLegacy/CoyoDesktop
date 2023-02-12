@@ -1,0 +1,247 @@
+// Setup
+// --------------------------------------------------
+
+.setup-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 12px;
+  width: 100%;
+
+  @media screen and (min-width: $screen-md-min) {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    width: 800px;
+  }
+
+  .setting-up {
+    color: $color-white;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  h1.logo {
+    background-image: url($image-coyo-front);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 160px auto;
+    @include media-retina() {
+      background-image: url($image-coyo-front-hd);
+    }
+    color: $color-white;
+    font-size: 60px;
+    height: 80px;
+    margin: 10px 0 30px;
+    text-indent: -9999px;
+
+    @media screen and (min-width: $screen-md-min) {
+      background-size: 220px auto;
+      height: 100px;
+    }
+  }
+
+  .panel {
+    border-radius: 5px;
+
+    input {
+      @include placeholder-color($color-gray);
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 300;
+      margin: 24px 0;
+      text-align: center;
+    }
+
+    form {
+      margin: 0 0 15px;
+    }
+
+    .panel-body {
+      margin: 0 18px;
+      padding: 5px 5px 18px 0;
+    }
+
+    @media screen and (min-width: $screen-sm-min) {
+      .panel-body {
+        padding: 5px 5px 18px;
+      }
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      h2 {
+        margin: 30px 25px;
+      }
+
+      form {
+        margin: 0 0 25px;
+      }
+
+      .panel-body {
+        margin: 0 25px;
+        padding: 5px 5px 18px;
+      }
+    }
+
+    div.input-wrapper {
+      position: relative;
+
+      > .zmdi {
+        display: none;
+      }
+
+      @media screen and (min-width: $screen-md-min) {
+        > .zmdi {
+          border-right: 1px solid $color-gray-light;
+          color: $color-gray;
+          display: inline-block;
+          font-size: 20px;
+          height: 30px;
+          left: 0;
+          padding: 6px 0 6px 4px;
+          position: absolute;
+          text-align: center;
+          top: 6px;
+          width: 60px;
+        }
+      }
+    }
+
+    .panel-footer {
+      background-color: $color-white;
+      padding: 18px 0;
+
+      a, a:visited, a:active {
+        color: $color-gray-dark;
+
+        &:hover {
+          color: $color-gray-darker;
+        }
+      }
+
+      .footer-buttons-welcome {
+        margin-left: 25px;
+        margin-right: 25px;
+      }
+
+      .footer-buttons {
+        margin-left: 18px;
+        margin-right: 18px;
+      }
+
+      @media screen and (min-width: $screen-sm-min) {
+        .footer-buttons-welcome {
+          margin-left: 38px;
+          margin-right: 38px;
+        }
+
+        .footer-buttons {
+          margin-left: 23px;
+          margin-right: 23px;
+        }
+      }
+
+      @media screen and (min-width: $screen-md-min) {
+        .footer-buttons {
+          margin-left: 30px;
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+
+  .coyo-wizard {
+    margin: 20px 38px;
+  }
+
+  .setup {
+    // scss-lint:disable QualifyingElement
+    input[type='email'],
+    input[type='password'],
+    input[type='text'],
+    input[type='url'] {
+      -webkit-appearance: none;
+      width: 100%;
+
+      @media screen and (min-width: $screen-md-min) {
+        padding-left: 73px;
+      }
+
+      &:focus {
+        border: 1px solid $color-gray;
+        box-shadow: none;
+
+        + .zmdi {
+          color: $color-primary;
+        }
+      }
+
+      &.ng-valid {
+        border-color: $color-valid;
+      }
+
+      &:disabled {
+        color: $color-gray-dark;
+      }
+    }
+    // scss-lint:enable QualifyingElement
+
+    .welcome {
+
+      .col-sm-12 {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .panel-body {
+        margin: 0px 18px 10px 18px;
+        padding: 0;
+      }
+
+      @media screen and (min-width: $screen-sm-min) {
+        .panel-body {
+          margin: 0px 30px 10px 30px;
+        }
+      }
+
+      @media screen and (min-width: $screen-md-min) {
+        padding: 5px 5px 0;
+
+        .panel-body {
+          margin: 0px 25px 10px 25px;
+        }
+      }
+
+      .welcome-section {
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+
+      .backend-url {
+        margin-top: 10px;
+
+        .backend-url-reset {
+          position: absolute;
+          right: 12px;
+          top: 11px;
+
+          .zmdi {
+            color: $color-gray-darker;
+            font-size: 20px;
+
+            &:hover {
+              color: $color-red;
+            }
+          }
+        }
+
+        @media screen and (min-width: $screen-sm-min) {
+          margin-bottom: 60px;
+        }
+      }
+    }
+  }
+}

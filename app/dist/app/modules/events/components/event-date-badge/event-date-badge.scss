@@ -1,0 +1,58 @@
+.event-date-badge {
+  background-color: $color-white;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 4px 8px;
+  text-align: center;
+  @include box-shadow(0, 0, 7px, 1px, rgba(0,0,0,0.2), false);
+
+  @media screen and (min-width: $screen-sm-min) {
+    padding: 5px 8px;
+  }
+
+  .event-day {
+    font-size: 18px;
+    line-height: 1em;
+    font-weight: 600;
+    color: $color-green;
+
+    @media screen and (min-width: $screen-sm-min) {
+      font-size: 20px;
+    }
+
+    @media screen and (min-width: $screen-lg-min) {
+      font-size: 30px;
+    }
+  }
+
+  .event-month {
+    text-transform: uppercase;
+    font-size: 10px;
+    line-height: 1em;
+
+    @media screen and (min-width: $screen-sm-min) {
+      font-size: 12px;
+    }
+
+    @media screen and (min-width: $screen-lg-min) {
+      font-size: 14px;
+    }
+  }
+
+  .event-year {
+    color: $color-gray;
+    border-top: 1px solid $color-gray;
+    font-size: 10px;
+    line-height: 1em;
+    margin-top: 2px;
+    padding-top: 2px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      font-size: 12px;
+    }
+
+    @media screen and (min-width: $screen-lg-min) {
+      font-size: 14px;
+    }
+  }
+}

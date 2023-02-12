@@ -1,0 +1,37 @@
+<div class="panel panel-default panel-list-app">
+  <div class="panel-heading panel-heading-configure">
+    <a class="btn-back panel-heading-item" ui-sref="^.list"><i class="zmdi zmdi-hc-fw zmdi-arrow-left"></i><span translate="BACK"></span></a>
+    <a ng-click="$ctrl.createField()" class="pull-right heading-button panel-heading-item">
+      <i class="zmdi zmdi-hc-fw zmdi-plus-circle"></i>
+      <span class="hidden-xs" translate="APP.LIST.FIELD.ADD"></span>
+    </a>
+  </div>
+  <div class="panel-body">
+    <h3 class="list-element-name" translate="APP.LIST.CONFIGURE"></h3>
+
+    <section class="list-app-fields"
+             ng-if="$ctrl.fields.length > 0"
+             ui-tree="::$ctrl.treeOptions"
+             ui-tree-nodes ng-model="$ctrl.fields"
+             data-empty-placeholder-enabled="false">
+
+      <div class="list-app-field-header">
+        <span class="field-header field-header-type" translate="APP.LIST.CONFIGURE.TYPE"></span>
+        <span class="field-header field-header-name" translate="APP.LIST.CONFIGURE.LABEL"></span>
+      </div>
+      <div class="list-app-field" ng-repeat="field in $ctrl.fields" ui-tree-node>
+        <i class="field-icon zmdi zmdi-hc-2x" ng-class="::$ctrl.getIcon(field.key)"></i>
+        <span class="field-type">{{::$ctrl.getFieldType(field.key) | translate}}</span>
+        <span class="field-name" title="{{field.name}}">{{field.name}}</span>
+        <span class="field-handle btn btn-zmdi btn-link btn-move" ui-tree-handle><i class="zmdi zmdi-swap-vertical"></i></span>
+        <coyo-context-menu class="field-options" align-right="true">
+          <li><a ng-click="$ctrl.editField(field)"><i class="zmdi zmdi-hc-fw zmdi-edit"></i><span translate="EDIT"></span></a></li>
+          <li><a ng-click="$ctrl.deleteField(field)"><i class="zmdi zmdi-hc-fw zmdi-delete"></i><span translate="DELETE"></span></a></li>
+        </coyo-context-menu>
+      </div>
+
+    </section>
+
+    <oyoc-no-fields-message ng-if="$ctrl.fields.length <= 0" create-fn="$ctrl.createField()"></oyoc-no-fields-message>
+  </div>
+</div>

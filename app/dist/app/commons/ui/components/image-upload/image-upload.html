@@ -1,0 +1,47 @@
+<div class="image-upload">
+
+  <!-- drag'n'drop area -->
+  <div class="drop-box"
+       ng-if="!($ctrl.image | ngfDataUrl)"
+       ngf-select
+       ngf-drop
+       ngf-before-model-change="$ctrl.beforeChange()"
+       ngf-change="$ctrl.onChange()"
+       ngf-capture="'camera'"
+       ngf-fix-orientation="true"
+       ng-model="$ctrl.image"
+       ngf-drag-over-class="'drag-over'"
+       ngf-multiple="false"
+       ngf-allow-dir="false"
+       ngf-max-size="'10MB'"
+       accept="image/*"
+       ngf-pattern="'image/*'"
+       ng-class="{'content-error' : $ctrl.contentError}">
+    <h3 class="drop-text hidden-xs">
+      <span ng-hide="$ctrl.selecting" ng-if="!$ctrl.contentError">{{:: $ctrl.keyDragNDrop | translate }}</span>
+      <span ng-hide="$ctrl.selecting" ng-if="$ctrl.contentError">{{:: $ctrl.keyContentError | translate }}</span>
+      <i ng-show="$ctrl.selecting" class="zmdi" ng-class="{'zmdi-spinner zmdi-hc-spin': $ctrl.selecting}"></i>
+    </h3>
+    <span class="drop-text visible-xs">
+      <i class="zmdi" ng-class="{'zmdi-image-o': !$ctrl.selecting, 'zmdi-spinner zmdi-hc-spin': $ctrl.selecting}"></i>
+    </span>
+  </div>
+
+  <!-- crop area -->
+  <div ng-if="$ctrl.image | ngfDataUrl" class="crop-area">
+    <ui-cropper image="$ctrl.image | ngfDataUrl"
+                result-image="$ctrl.ngModel"
+                area-type="{{$ctrl.areaType}}"
+                area-min-size="16"
+                aspect-ratio="$ctrl.cropAspectRatio"
+                result-image-size="$ctrl.imageSize"
+                init-max-area="false"
+                result-image-quality="0.8"
+                result-image-format="$ctrl.contentType"
+                on-load-begin="$ctrl.beforeChange()"
+                on-load-done="$ctrl.onChange()"
+                chargement="'PROCESSING' | translate">
+    </ui-cropper>
+  </div>
+  <span class="text-muted pull-right small mt-xxs" translate="MODULE.PROFILE.MODALS.IMAGE_UPLOAD.MAX_FILSIZE"></span>
+</div>

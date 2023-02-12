@@ -1,0 +1,31 @@
+<form name="createAppForm" coyo-form-submit="vm.save()" class="create-app-form">
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title">
+        <span ng-if="!vm.selectedApp" translate="APPS.CHOOSER.TITLE"></span>
+        <span ng-if="vm.selectedApp" translate="APPS.SETTINGS.TITLE"></span>
+        <coyo-help tip="APPS.HELP" guide="apps" placement="right"
+                   class="visible-md-inline visible-lg-inline"></coyo-help>
+      </h3>
+
+      <span class="modal-close" ng-click="$dismiss()">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+    </div>
+    <div class="modal-body">
+      <oyoc-app-chooser ng-hide="vm.selectedApp" ng-model="vm.selectedApp" sender-type="{{::vm.senderType}}" required></oyoc-app-chooser>
+      <oyoc-app-settings ng-if="vm.selectedApp && vm.canCreateApp(vm.selectedApp)" app="vm.selectedApp" form-ctrl="createAppForm" save-callbacks="vm.saveCallbacks"></oyoc-app-settings>
+      <div class="alert alert-danger" role="alert" ng-if="vm.selectedApp && !vm.canCreateApp(vm.selectedApp)">
+        {{ vm.getAppTypeInformation(vm.selectedApp).allowedInstancesErrorMessage | translate:{instances: vm.getAppTypeInformation(vm.selectedApp).allowedInstances} }}
+      </div>
+      <!-- Hidden field to disable the submit button when cannot create app -->
+      <input type="hidden" value="" ng-model="vm.hidden" ng-required="vm.selectedApp && !vm.canCreateApp(vm.selectedApp)" />
+    </div>
+    <div class="modal-footer" ng-if="vm.selectedApp">
+      <coyo-form-submit-button label="SAVE" form-ctrl="createAppForm"></coyo-form-submit-button><!--
+   --><button class="btn btn-default" ng-click="vm.goBack()">
+        <i class="zmdi zmdi-hc-fw zmdi-arrow-left"></i>&nbsp;{{::'BACK' | translate}}
+      </button>
+    </div>
+  </div>
+</form>

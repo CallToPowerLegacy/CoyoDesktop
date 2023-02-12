@@ -1,0 +1,12 @@
+<div class="btn-shares-modal">
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="MODULE.TIMELINE.SHARE_MODAL.TITLE"></h3>
+      <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+    </div>
+    <div class="modal-body">
+      <coyo-timeline-share ng-model="share" ng-repeat="share in ::vm.shares | orderBy: '-created'"
+                           access-original-author="share._permissions.accessoriginalauthor"></coyo-timeline-share>
+    </div>
+  </div>
+</div>

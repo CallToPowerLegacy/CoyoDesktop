@@ -1,0 +1,40 @@
+.coyo-mobile-menu-item {
+  align-items: center;
+  background-color: $color-white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  color: $text-color;
+  display: flex;
+  height: $mobile-menu-item-height;
+  margin: 0 0 12px 0;
+
+  .left-icon {
+    font-size: 20px;
+    text-align: center;
+    width: 50px;
+    flex: none;
+  }
+
+  .zmdi-chevron-right {
+    font-size: 16px;
+    font-weight: bolder;
+    text-align: center;
+    width: 40px;
+  }
+
+  .preview-value {
+    color: $color-gray-dark;
+    overflow: hidden;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 0.75;
+  }
+
+  .menu-label {
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+  }
+}

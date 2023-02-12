@@ -1,0 +1,22 @@
+body {
+  &.custom-theme-pending {
+    opacity: 0 !important;
+  }
+  &[class*=state-front] .front-container {
+    @include animate(fadein .4s);
+  }
+}
+
+.container-wrapper {
+  align-items: stretch;
+  display: flex;
+  flex-flow: row;
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}

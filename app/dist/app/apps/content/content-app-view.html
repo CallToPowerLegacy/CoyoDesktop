@@ -1,0 +1,15 @@
+<div class="panel">
+  <div class="panel-heading panel-heading-configure" id="panel-content-app" ng-if="$ctrl.app._permissions.manage">
+    <a ui-sref=".edit" class="heading-button panel-heading-single-item">
+      <i class="zmdi zmdi-hc-fw zmdi-edit"></i>
+      <span translate="APP.CONTENT.EDIT_CONTENT"></span>
+    </a>
+  </div>
+  <div class="panel-body-content-app panel-body">
+    <coyo-widget-layout name="{{$ctrl.buildLayoutName()}}"
+                        parent="$ctrl.app"
+                        global-events="false"
+                        can-manage="$ctrl.app._permissions.manage"
+                        render-style="plain"></coyo-widget-layout>
+  </div>
+</div>

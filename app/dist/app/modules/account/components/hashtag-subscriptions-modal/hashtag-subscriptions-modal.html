@@ -1,0 +1,17 @@
+<div class="modal-content-wrapper account-notification-settings">
+  <div class="modal-header">
+    <h3 class="modal-title" translate="MODULE.ACCOUNT.HASHTAG_SUBSCRIPTION_ADMINISTRATION.NAME"></h3>
+    <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss('cancel')">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <div class="text-muted" translate="MODULE.ACCOUNT.HASHTAG_SUBSCRIPTION_ADMINISTRATION.DESCRIPTION"></div>
+      <oyoc-hashtag-subscriptions-select></oyoc-hashtag-subscriptions-select>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="vm.save()"><i class="zmdi zmdi-hc-fw zmdi-check"></i>&nbsp;{{::'SAVE' | translate}}</button>
+  </div>
+</div>

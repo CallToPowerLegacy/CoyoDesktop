@@ -1,0 +1,33 @@
+<div class="panel-footer panel-footer-status timeline-item-footer">
+  <!-- Post Footer (left) -->
+  <div class="status-options status-options-left">
+    <coyo-btn-likes class="status-option" target="::tlItem.ngModel" init="::tlItem.ngModel.likes" author-id="tlItem.author.id"></coyo-btn-likes>
+    <!--<coyo-btn-shares class="status-option" target="tlItem.ngModel"></coyo-btn-shares>-->
+  </div>
+
+  <!-- Post Footer (right) -->
+  <div class="status-options status-options-right">
+    <span ng-include="'app/modules/timeline/components/timeline-item/types/select-sender.html'"></span>
+    <coyo-btn-shares target="::tlItem.ngModel"></coyo-btn-shares>
+    <coyo-btn-subscribe class="status-option" target="::tlItem.ngModel"></coyo-btn-subscribe>
+    <!--<coyo-btn-flag class="status-option" target="::tlItem.ngModel"></coyo-btn-flag>-->
+    <coyo-context-menu class="status-option" align-right="true" ng-if="::tlItem.canCreateReports || tlItem.canDeletePost">
+      <li ng-if="::tlItem.ngModel.author.id !== tlItem.currentUser.id && tlItem.ngModel._permissions.accessoriginalauthor">
+        <a href ng-click="tlItem.toggleOriginalAuthor()">
+          <i class="zmdi zmdi-hc-fw"
+             ng-class="{'zmdi-account': !tlItem.showOriginalAuthor, 'zmdi-account-o': tlItem.showOriginalAuthor}"></i>&nbsp;
+          {{ 'MODULE.TIMELINE.ORIGINAL_AUTHOR.' + (!tlItem.showOriginalAuthor ? '' : 'UN') + 'REVEAL' | translate}}
+        </a>
+      </li>
+      <li ng-if="::tlItem.ngModel._permissions.manage">
+        <a ng-click="tlItem.edit()"><i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;{{:: 'EDIT' | translate}}</a>
+      </li>
+      <li ng-if="::tlItem.canCreateReports">
+        <a ng-click="tlItem.report()"><i class="zmdi zmdi-hc-fw zmdi-alert-circle"></i>&nbsp;{{:: 'MODULE.TIMELINE.REPORT' | translate}}</a>
+      </li>
+      <li ng-if="::tlItem.canDeletePost">
+        <a ng-click="tlItem.remove()"><i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'DELETE' | translate}}</a>
+      </li>
+    </coyo-context-menu>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+/**
+* Use with bootstrap's .navbar
+*/
+.navbar.coyo-navbar {
+  background-color: $coyo-navbar;
+  border: 0;
+  border-radius: 0;
+  color: $coyo-navbar-text;
+  height: $navbar-height;
+  margin-bottom: 0;
+
+  .navbar-brand {
+    color: $coyo-navbar-text;
+    font-size: 20px;
+    height: 100%;
+    padding: 14px 20px;
+  }
+
+  .navbar-toggle {
+    .icon-bar {
+      background-color: $color-white;
+    }
+  }
+
+  .nav {
+    > li > a {
+      color: $coyo-navbar-text;
+      height: 100%;
+      padding: 13px 18px;
+      transition: background-color linear 0.1s;
+      background-color: $coyo-navbar;
+
+      @media screen and (min-width: $screen-md-min) {
+        &:hover,
+        &:focus {
+          background-color: $coyo-navbar-hover;
+          color: $coyo-navbar-text;
+          outline: none;
+        }
+      }
+    }
+
+    > .active > a, > .active > a:focus, > .active > a:hover,
+    > .dropdown.open > a {
+      background-color: $coyo-navbar-active;
+      color: $coyo-navbar-text;
+    }
+
+    .disabled > a,
+    .disabled > a:hover {
+      color: $coyo-navbar-text-disabled;
+
+      &:hover,
+      &:focus {
+        background-color: inherit;
+      }
+    }
+  }
+
+  .navbar-form {
+    margin: 0;
+    padding: 9px 18px;
+
+    .form-control {
+      background-color: $coyo-navbar-input;
+      border-radius: 36px;
+      border: 0;
+      box-shadow: none;
+      color: $coyo-navbar-input-text;
+      height: 33px;
+      transition: background-color linear 0.25s;
+
+      &:focus {
+        background-color: $coyo-navbar-input-active
+      }
+
+      @include placeholder-color($coyo-navbar-placeholder);
+    }
+  }
+}

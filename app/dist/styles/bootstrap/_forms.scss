@@ -1,0 +1,82 @@
+.control-label {
+  font-weight: normal;
+  color: $text-color;
+}
+
+.form-control {
+  box-shadow: none;
+
+  &:focus {
+    border-color: $input-border-focus;
+    box-shadow: 0 0 0 1px $input-border-focus;
+  }
+}
+
+.form-group {
+  clear: both;
+
+  .help-block {
+    font-size: 14px;
+  }
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-horizontal .form-group {
+  @include sm-and-down {
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+}
+
+.input-group-addon {
+  color: $color-gray-dark;
+
+  .zmdi {
+    color: $color-gray-darker;
+    width: 32px;
+    margin: -11px;
+  }
+}
+
+.input-group-addon.input-sm, .input-group-sm > .input-group-addon,
+.input-group-sm > .input-group-btn > .input-group-addon.btn {
+  .zmdi {
+    width: 32px;
+    margin: -12px;
+  }
+}
+
+.input-group-addon.input-lg, .input-group-lg > .input-group-addon,
+.input-group-lg > .input-group-btn > .input-group-addon.btn {
+  .zmdi {
+    width: 32px;
+    margin: -16px;
+  }
+}
+
+.form-group .radio {
+  label {
+    padding-left: 30px;
+
+    input[type="radio"] {
+      margin-left: -24px;
+    }
+  }
+}
+
+select.form-control {
+  text-indent: 8px;
+}
+
+.color-inplace-edit {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  padding-right: 5px;
+  border-bottom: 1px dashed $color-gray-light;
+}

@@ -1,0 +1,15 @@
+<div class="text-center" ng-if="loading">
+  <coyo-spinner size="lg"></coyo-spinner>
+</div>
+<p ng-if="!loading && !appConfigs.length" translate="APPS.CHOOSER.EMPTY"></p>
+<div class="container-fluid">
+  <div class="app-chooser row">
+    <div class="app-entry col-xs-6 col-sm-12 col-md-6" ng-repeat="config in appConfigs" ng-click="selectConfig(config)">
+      <i class="zmdi zmdi-hc-fw img-thumbnail" ng-class="config.icon"></i>
+      <div class="app-entry-description">
+        <h5 translate="{{::config.name}}"></h5>
+        <small class="hidden-xs" translate="{{::config.description}}"></small>
+      </div>
+    </div>
+  </div>
+</div>

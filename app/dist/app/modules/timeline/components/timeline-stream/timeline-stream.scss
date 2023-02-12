@@ -1,0 +1,16 @@
+.timeline-stream {
+  line-height: $widget-line-height;
+
+  .load-new-items {
+    margin-bottom: 8px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      margin-bottom: 12px;
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      margin-bottom: 16px;
+      margin-top: -8px;
+    }
+  }
+}

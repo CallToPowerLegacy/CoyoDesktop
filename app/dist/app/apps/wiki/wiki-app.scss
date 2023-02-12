@@ -1,0 +1,416 @@
+/* This class is defined outside of .wiki-app because of the drag'n'drop feature of wiki articles. */
+.wiki-article {
+  margin-top: 0;
+
+  &.article-view {
+    .panel-article {
+      margin-bottom: 0;
+    }
+  }
+
+  .clickable {
+    cursor: pointer;
+    color: $color-link;
+  }
+
+  .article-title {;
+    margin-right: 5px;
+  }
+
+  .article-badge {
+    line-height: 0.8;
+    padding: 3px 5px;
+  }
+
+  .article-header-top {
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: row;
+    align-items: flex-start;
+    margin-bottom: 0;
+    padding-bottom: 5px;
+    padding-top: 5px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      margin-bottom: 6px;
+      padding-bottom: 6px;
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      margin-bottom: 7px;
+      padding-bottom: 7px;
+    }
+
+    .left-options {
+      cursor: default;
+      min-width: 18px;
+    }
+
+    .panel-title-main {
+      width: 100%;
+      text-overflow: inherit;
+      white-space: inherit;
+      margin-right: 20px;
+    }
+
+    .editable {
+      border: 2px dashed $color-white;
+      width: 100%;
+      padding: 0 10px;
+
+      &:not(:focus) {
+        border-color: $color-gray-light;
+      }
+
+      &.error {
+        background-color: lighten($color-red, 55%);
+        border-color: lighten($color-red, 55%);
+
+        &:not(:focus) {
+          border-color: $color-red;
+        }
+      }
+    }
+  }
+
+  .article-header-bottom {
+    align-items: flex-start;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+
+    .zmdi {
+      margin-top: 4px;
+    }
+
+    .author, .time {
+      margin-right: 10px;
+
+      @media screen and (min-width: $screen-sm-min) {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  &.article-edit .article-header {
+    display: flex;
+
+    .article-title {
+      flex: 1;
+      margin-right: 20px;
+      overflow: inherit;
+      text-overflow: inherit;
+      white-space: inherit;
+      display: inline;
+      word-break: break-all;
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      display: flex;
+      flex-flow: row;
+      align-items: flex-start;
+    }
+  }
+
+  .article-status-options {
+    color: $color-gray;
+    margin-left: auto;
+
+    :hover {
+      color: $color-black;
+    }
+  }
+
+  .last-form-group {
+    margin-bottom: 0;
+  }
+
+  form  {
+    fieldset {
+      display: block;
+
+      // Firefox targeting hack
+      @-moz-document url-prefix() {
+        // hack for fieldset overflow in firefox
+        // Attention: display: table-column hides the fieldset in IE
+        display: table-column;
+      }
+    }
+  }
+}
+
+.wiki-article-delete-alert {
+  margin-top: 20px;
+}
+
+.wiki-article-history-revision {
+  display: flex;
+  padding: 8px;
+  &:not(:last-child) {
+    border-bottom: 1px solid $color-gray-light;
+  }
+  &:first-child {
+    padding-top: 0;
+  }
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  a i.zmdi {
+    color: $color-black;
+
+    &.zmdi-star {
+      color: $color-yellow;
+    }
+  }
+
+  .wiki-article-history-time {
+    flex: 1;
+  }
+  .wiki-article-history-author {
+    flex: 1;
+  }
+}
+
+/* This is defined outside of wiki-app to hide when dragging. */
+.angular-ui-tree-drag .article-status-options {
+  display: none;
+}
+
+.wiki-app {
+  .article-locked {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .btn {
+      margin-left: 5px;
+    }
+
+    &.alert {
+      margin-bottom: 12px;
+    }
+  }
+
+  .angular-ui-tree-handle {
+    font-weight: normal;
+  }
+
+  .angular-ui-tree-placeholder {
+    background-color: $color-gray-lighter;
+    border: 1px dashed $color-gray;
+    /* Fix bug that placeholder height is broken when context menü is open on d&d */
+    height: auto !important;
+  }
+
+  .ui-tree-is-parent {
+    >.wiki-article {
+      >.article-header-top {
+        border-bottom: 1px dashed $color-gray !important;
+      }
+    }
+  }
+
+  .wiki-article-parent-edit-mode {
+    margin-bottom: 50px;
+  }
+
+  .fl-header {
+    background-color: $breadcrumb-bg;
+    display: flex;
+    padding: 8px 22px;
+    align-items: center;
+
+    .breadcrumb-list-bulleted {
+      display: table;
+      max-height:22px;
+    }
+
+    .wdv-col {
+      &.wdv-col-breadcrump,
+      &.wdv-col-action {
+          flex: 0 0 auto;
+      }
+      &.wdv-col-breadcrump {
+        max-width: 77%;
+
+        @media screen and (max-width: $screen-lg-max) {
+          max-width: 70%;
+        }
+      }
+
+
+      &:last-of-type {
+        padding-right: 0;
+      }
+
+      &.wdv-col-breadcrump {
+        ul {
+          direction: rtl;
+          white-space: nowrap;
+          overflow: hidden;
+          text-align: left;
+        }
+
+        ul > li {
+          direction: ltr;
+        }
+      }
+
+      &.wdv-col-action {
+        .btn {
+          margin-right: 0 !important;
+          margin-left: 24px;
+          padding: 0;
+
+          @media screen and (max-width: $screen-md-max) {
+            margin-left: 0px;
+          }
+
+          i {
+            margin-right: 0;
+          }
+
+          &:last-of-type {
+            padding-right: 0;
+          }
+
+          span {
+            display: none;
+          }
+
+          @media screen and (min-width: $screen-sm-min) {
+            margin-right: 15px;
+
+            span {
+              display: inline;
+            }
+          }
+        }
+      }
+
+      &.wdv-col-placeholder {
+        flex: 1;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .breadcrumb {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  .wiki-article-text {
+    margin-bottom: 14px;
+    margin-top: 9px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      margin-bottom: 0;
+      margin-top: 24px;
+    }
+  }
+
+  /* This is defined inside of wiki-app to not have the bottom-border when dragging. */
+  .wiki-article-li {
+    .wiki-article {
+      .article-header-top {
+        border-bottom: 1px solid $color-gray-lighter;
+      }
+
+      .article-header-top-main {
+        border-bottom: none;
+      }
+
+      .panel-body {
+        .row {
+          margin-bottom: 10px;
+        }
+      }
+
+      .article-status-options {
+        display: block;
+      }
+
+      @media screen and (min-width: $screen-md-min) {
+        .article-status-options {
+          display: none;
+        }
+
+        &:hover {
+          .article-status-options {
+            display: block;
+          }
+        }
+      }
+    }
+
+    .angular-ui-tree-nodes {
+      padding-left: 25px;
+    }
+  }
+
+  .wiki-article-node {
+    .panel {
+      margin-bottom: 5px;
+    }
+
+    .panel-heading-list {
+      margin: 0 18px;
+      padding: 8px 0 1px;
+    }
+  }
+
+  .panel-title {
+    text-overflow: inherit;
+    white-space: inherit;
+    
+    .zmdi {
+      margin: 0;
+    }
+  }
+
+  .wiki-subarticles {
+    border-top: 1px solid $color-gray-light;
+
+    @media screen and (min-width: $screen-md-min) {
+      margin-top: 12px;
+    }
+
+    .wiki-subarticles-header {
+      color: $color-gray;
+      text-transform: uppercase;
+      margin: 12px 0 6px;
+    }
+
+    ul {
+      margin-left: 6px;
+      margin-bottom: 6px;
+
+      @media screen and (min-width: $screen-md-min) {
+        margin-bottom: 0;
+      }
+
+      .wiki-subarticle {
+        display: flex;
+        margin-bottom: 4px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .wiki-subarticle-icon {
+          margin-right: 8px;
+          color: $color-gray-darker;
+        }
+
+      }
+
+    }
+
+  }
+
+}

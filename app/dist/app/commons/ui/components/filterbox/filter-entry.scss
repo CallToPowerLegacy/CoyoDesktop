@@ -1,0 +1,147 @@
+/* This is defined outside of app to use when dragging. */
+li.filter-entry {
+  > a {
+    padding: 6px 58px 6px 46px !important;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    > i {
+      float: left;
+      margin-left: -28px;
+      text-align: center;
+      line-height: 24px;
+      width: 20px;
+    }
+
+    .badge {
+      position: absolute;
+      right: 16px;
+      top: 8px;
+      margin: 0;
+    }
+
+    > span:not(.badge) {
+      @include ellipsis;
+    }
+
+    .btn {
+      border: 0;
+      color: $color-gray;
+      line-height: 24px;
+      padding: 6px 4px;
+      position: absolute;
+      top: 0;
+      width: 24px;
+      z-index: 1;
+
+      &:hover {
+        color: $color-gray-darker;
+      }
+
+      &.disabled,
+      &.disabled:hover {
+        color: $color-gray-light;
+      }
+
+      &.btn-save,
+      &.btn-move {
+        display: none;
+      }
+
+      &:not(.btn-save) {
+        margin-right: 45px;
+      }
+
+      @media screen and (min-width: $screen-md-min) {
+        display: none;
+        &:not(.btn-save) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  &.active {
+    a, a:hover {
+      color: $color-black;
+      background-color: $color-gray-lighter;
+      border-left: 3px solid $color-blue;
+    }
+
+    span.badge {
+      background-color: $color-link;
+    }
+  }
+
+
+  &.filter-entry-editing {
+    a {
+      padding: 6px 34px 6px 46px !important;
+    }
+
+    .btn.btn-save {
+      display: block;
+    }
+
+    span:not(.btn-save) {
+      display: none;
+    }
+
+    input {
+      background-color: transparent;
+      border: 0;
+      border-bottom: 1px solid $color-gray-light;
+      display: block;
+      margin-bottom: -1px;
+      outline: 0;
+      padding: 0;
+      width: calc(100% - 16px);
+    }
+
+  }
+
+  &.filter-entry-expand a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 0;
+    background-color: initial;
+    color: $color-gray;
+
+    &:hover, &:focus {
+      color: $color-gray-darker;
+    }
+  }
+
+  &:not(.filter-entry-editing) {
+    &:hover {
+      > a .btn {
+        display: block;
+
+        &.btn-move,
+        &.btn-save {
+          display: none;
+        }
+
+        @media screen and (min-width: $screen-md-min) {
+          &.btn-move {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .btn-save { font-size: 14px; right: 8px; }
+  .btn-move { font-size: 18px; right: 56px; }
+  .btn-edit { font-size: 14px; right: 32px; }
+  .btn-delete { font-size: 14px; right: 8px; }
+  .btn-sort-handle { font-size: 18px; right: 32px; }
+  .btn-settings { font-size: 14px; right: 8px; }
+}

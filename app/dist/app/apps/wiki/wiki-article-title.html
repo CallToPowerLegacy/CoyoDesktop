@@ -1,0 +1,7 @@
+<span class="article-title">{{:: $ctrl.article.title }}</span>
+<span class="label label-primary article-badge"
+      ng-if="$ctrl.article.isNew"
+      translate="APP.WIKI.ARTICLE.NEW"></span>
+<span class="label label-warning article-badge"
+      ng-if="$ctrl.article.isUpdated"
+      translate="APP.WIKI.ARTICLE.UPDATED"></span>

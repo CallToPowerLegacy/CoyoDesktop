@@ -1,0 +1,20 @@
+<div id="attachment-trigger-{{::$ctrl.uuid}}">
+    <i class="zmdi zmdi-attachment-alt btn-attachments" ng-class="{'item-active': $ctrl.active}"
+       uib-tooltip="{{::'ATTACH_FILES' | translate}}" tooltip-popup-delay="500"></i>
+</div>
+<coyo-context-menu toggle-element="#attachment-trigger-{{::$ctrl.uuid}}">
+    <li class="btn-attachments-context-header hidden-xs">{{::'ATTACH_FILES' | translate}}</li>
+    <li class="divider"></li>
+    <li>
+        <a ng-click="$ctrl.openFileLibrary()">
+            <i class="zmdi zmdi-file zmdi-hc-fw"></i>&nbsp;{{'MODULE.TIMELINE.ATTACHMENT.FILE_LIBRARY' | translate}}
+        </a>
+    </li>
+    <li>
+        <a ngf-select="$ctrl.onSelectAttachments({files : $files})"
+           ngf-multiple="true"
+           ng-disabled="$ctrl.saving">
+            <i class="zmdi zmdi-cloud-upload zmdi-hc-fw"></i>&nbsp;{{'MODULE.TIMELINE.ATTACHMENT.UPLOAD' | translate}}
+        </a>
+    </li>
+</coyo-context-menu>

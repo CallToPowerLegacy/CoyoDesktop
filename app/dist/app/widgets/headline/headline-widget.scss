@@ -1,0 +1,44 @@
+.headline-widget {
+  margin-bottom: 0;
+
+  .headline-widget-headline {
+    display: block;
+    width: 100%;
+    margin: 0;
+    word-wrap: break-word;
+  }
+
+  textarea.headline-widget-headline {
+    resize: vertical;
+    clip: none;
+    border: 0 none;
+    outline: 0 none;
+    background: transparent;
+    padding: 0;
+
+    &:-ms-input-placeholder { /* IE 10+ */
+      color: $color-gray-dark;
+    }
+  }
+}
+
+.headline-widget-settings {
+  // adjust margin to make the visible distance for the bottom and top of the prieview field identical
+  hr {
+    margin: 36px 0px 16px;
+  }
+
+  .preview-field {
+    line-height: 48px;
+    height: 54px;
+
+    label {
+      padding-top: 0px;
+      line-height: 48px;
+    }
+
+    span {
+      word-wrap: break-word;
+    }
+  }
+}

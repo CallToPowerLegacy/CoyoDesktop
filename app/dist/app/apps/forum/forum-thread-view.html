@@ -1,0 +1,66 @@
+<div class="forum-thread thread-view">
+  <section class="panel panel-default panel-forum-thread">
+    <div class="fl-header">
+      <div class="bdv-col bdv-col-home pointer forum-thread-to-overview" ui-sref="^">
+        <i class="zmdi zmdi-arrow-left"></i>&nbsp;
+        <span translate="APP.FORUM.THREAD.OVERVIEW"></span>
+      </div>
+    </div>
+
+    <div class="panel-heading panel-heading-main thread-header">
+      <div class="thread-title-wrapper">
+        <div class="panel-title thread-title">{{::$ctrl.thread.title}}&nbsp;
+          <oyoc-forum-thread-status thread="$ctrl.thread"></oyoc-forum-thread-status>
+        </div>
+        <div class="thread-context-menu pointer">
+          <span class="thread-status-options" ng-include="$ctrl.contextMenuTemplate"></span>
+        </div>
+      </div>
+      <div class="thread-info">
+        <span class="thread-author-avatar">
+          <coyo-user-avatar user="::$ctrl.thread.author" avatar-size="sm" show-online-status="false"
+                            class="mr-xxs" no-link="false"></coyo-user-avatar>
+        </span>
+        <div class="thread-info-details">
+          <a class="thread-author" href coyo-sender-link="::$ctrl.thread.author">{{::$ctrl.thread.author.displayName}}</a>
+          <span class="thread-time text-muted">
+          <i class="zmdi zmdi-time zmdi-wide"></i>
+          <coyo-time-ago date="::$ctrl.thread.created"></coyo-time-ago>
+        </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <div class="panel-body thread-body thread-text-body">
+        <div class="thread-content rte-wrapper">
+          <div class="rte-html-container" ng-bind-html="$ctrl.thread.text | hashtag | trusthtml"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="thread-attachments" data-ng-if="::($ctrl.thread.attachments && $ctrl.thread.attachments.length > 0)">
+      <coyo-preview-list attachments="::$ctrl.thread.attachments"
+                         group-id="::$ctrl.thread.id"
+                         backend-url="::$ctrl.backendUrl"
+                         author="::$ctrl.thread.author"
+                         preview-url="::$ctrl.thread.previewUrl()"
+                         same-size="true"
+                         size="xl"></coyo-preview-list>
+    </div>
+
+  </section>
+
+  <oyoc-forum-thread-answers app="$ctrl.app" thread="$ctrl.thread"></oyoc-forum-thread-answers>
+
+  <div class="thread-closed-status" data-ng-if="$ctrl.thread.closed">
+    <span data-ng-bind="::'APP.FORUM.THREAD.CLOSED.MESSAGE' | translate"></span>
+  </div>
+
+  <oyoc-forum-thread-add-answer
+    ng-if="($ctrl.thread._permissions.close || $ctrl.thread._permissions.pin || $ctrl.thread._permissions.delete) || !$ctrl.thread.closed"
+    app="$ctrl.app"
+    thread="$ctrl.thread">
+  </oyoc-forum-thread-add-answer>
+
+</div>

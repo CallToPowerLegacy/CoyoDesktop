@@ -1,0 +1,193 @@
+.timeline-form-inline {
+  position: relative;
+
+  form.expanded {
+    .timeline-form-actions {
+      display: block;
+    }
+  }
+
+  .help-markdown .help {
+    float: right;
+    display: inline-block;
+    margin: 10px 18px 0 0;
+    font-size: 20px;
+  }
+
+  textarea[name=message].form-control {
+    resize: none;
+    padding: 18px 75px 18px 24px;
+
+    border: 0;
+    box-shadow: none;
+
+    &:focus {
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    &.disabled, &:disabled {
+      background-color: transparent;
+      color: $color-gray;
+    }
+  }
+
+  .timeline-form-attachments {
+    padding: 8px 24px;
+    font-size: 14px;
+    border-top: 1px solid $color-gray-light;
+
+    .timeline-form-attachment {
+      display: flex;
+      padding: 4px 0;
+
+      .timeline-form-attachment-icon {
+        flex: none;
+        padding-right: 4px;
+      }
+
+      .timeline-form-attachment-name {
+        flex: 1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      .timeline-form-attachment-opt {
+        flex: none;
+      }
+    }
+  }
+
+  .timeline-form-actions {
+    display: none;
+    background-color: lighten($color-gray-lighter, 2%);
+    border-radius: 0 0 5px 5px;
+    padding-left: 24px;
+
+    .zmdi.item-active {
+      color: $color-blue;
+    }
+
+    .emoji-picker a, .timeline-form-attachment-trigger, .timeline-form-sticky-trigger, .timeline-form-restriction-trigger {
+      display: inline-block;
+      margin: 5px 18px 5px 0;
+      font-size: 20px;
+      color: $color-gray;
+
+      &:active, &:hover {
+        color: $color-link !important;
+      }
+    }
+
+    .timeline-form-sticky-trigger, .timeline-form-restriction-trigger {
+      > a {
+        display: inline;
+        color: inherit;
+      }
+      .timeline-form-settings-header {
+        padding: 8px 16px;
+        color: $color-gray-darker;
+        white-space: nowrap;
+        .help {
+          position: inherit;
+          display: inline;
+          padding: 0 0 0 8px;
+          vertical-align: text-bottom;
+        }
+      }
+    }
+
+
+    button {
+      float: right;
+      border-radius: 0 0 5px 0;
+    }
+
+    @media screen and (max-width: $screen-sm-max) {
+      button {
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+.select-sender-inline {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  left: auto;
+  width: 64px;
+
+  @media screen and (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
+    right: 24px;
+  }
+
+  &.open {
+    width: 250px !important;
+  }
+
+  .ui-select-toggle {
+    padding: 5px 20px 5px 12px;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    width: auto;
+    float: right;
+
+    & > .caret {
+      right: 0;
+      pointer-events: none; // would repeat the button's click event
+    }
+  }
+
+  .ui-select-match-text {
+    padding-right: 0;
+    text-align: right;
+  }
+
+  .ui-select-match coyo-avatar-image {
+    & > img {
+      width: 30px;
+      height: auto;
+    }
+    .sender-avatar-empty {
+      padding: 4px;
+    }
+  }
+
+  .ui-select-choices {
+    margin-left: 16px;
+  }
+
+  .ui-select-choices-group {
+    .divider {
+      background-color: $color-gray-light;
+    }
+    .ui-select-choices-group-label {
+      color: $color-gray;
+      font-size: 16px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+      border-bottom: 1px solid $color-gray-light;
+    }
+    & + .ui-select-choices-group .ui-select-choices-group-label {
+      display: none;
+    }
+  }
+
+  .ui-select-dropdown {
+    max-height: 270px;
+  }
+
+  .ui-select-match-text span.user-avatar-empty,
+  .ui-select-match-text span.sender-avatar-empty {
+    display: table-cell;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    text-align: center;
+  }
+}

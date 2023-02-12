@@ -1,0 +1,24 @@
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="WIDGET.USERPROFILE.USER"></label>
+  <div class="col-sm-9">
+    <coyo-user-chooser ng-model="model.settings" users-only="true" users-field="_selectedUser" min="1"></coyo-user-chooser>
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGET.USERPROFILE.SETTINGS.HELP"></coyo-help>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="WIDGET.USERPROFILE.SHOW.INFO"></label>
+  <div class="col-sm-9">
+    <div class="checkbox">
+      <label>
+        <coyo-checkbox ng-model="model.settings._showInfo"></coyo-checkbox>
+        {{:: 'WIDGET.USERPROFILE.SHOW.INFO.LABEL' | translate }}
+      </label>
+    </div>
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGET.USERPROFILE.SHOW.INFO.DESC"></coyo-help>
+  </div>
+</div>

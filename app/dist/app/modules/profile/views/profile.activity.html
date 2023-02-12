@@ -1,0 +1,34 @@
+<section class="profile-tab profile-overview content-with-sidebar">
+
+    <!-- SIDEBAR -->
+    <div class="content-sidebar hidden-xs hidden-sm">
+
+        <!-- Widget Slot -->
+        <coyo-widget-slot class="widget-slot-sidebar"
+                          name="profile-activity-sidebar-top"
+                          hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+        <div class="panel panel-sm">
+            <div class="contact-heading" translate="MODULE.PROFILE.HEADING.CONTACT"></div>
+            <div class="panel-body pb-xxs">
+                <oyoc-important-profile-fields user="profileCtrl.user" profile-groups="profileCtrl.profileGroups"></oyoc-important-profile-fields>
+            </div>
+        </div>
+
+        <!-- Widget Slot -->
+        <coyo-widget-slot class="widget-slot-sidebar"
+                          name="profile-activity-sidebar-bottom"
+                          hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="content-main">
+        <!-- Widget Slot -->
+        <coyo-widget-slot class="widget-slot-content"
+                     name="profile-activity-content"
+                     hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+        <coyo-timeline-stream type="sender" context-id="{{profileCtrl.user.id}}"></coyo-timeline-stream>
+    </div>
+
+</section>

@@ -1,0 +1,108 @@
+<section class="colleagues content-with-sidebar">
+
+  <coyo-tour-step-mobile topic="colleagues" order="105"
+                         image-url="assets/images/tour/tour-mobile-colleagues-1.jpg"
+                         title="{{:: 'TOUR.COLLEAGUES.LIST.TITLE' | translate }}"
+                         content="{{:: 'TOUR.COLLEAGUES.LIST' | translate }}"></coyo-tour-step-mobile>
+
+  <coyo-tour-step-mobile topic="colleagues" order="110"
+                         image-url="assets/images/tour/tour-mobile-colleagues-3.jpg"
+                         title="{{:: 'TOUR.COLLEAGUES.FILTER.TITLE' | translate }}"
+                         content="{{:: 'TOUR.COLLEAGUES.FILTER' | translate }}"></coyo-tour-step-mobile>
+
+  <coyo-tour-step-mobile topic="colleagues" order="115"
+                         image-url="assets/images/tour/tour-mobile-colleagues-2.jpg"
+                         title="{{:: 'TOUR.COLLEAGUES.FOLLOW.TITLE' | translate }}"
+                         content="{{:: 'TOUR.COLLEAGUES.FOLLOW' | translate }}"></coyo-tour-step-mobile>
+
+  <div class="content-sidebar">
+    <!-- Widget Slot -->
+    <coyo-widget-slot class="widget-slot-sidebar hidden-xs hidden-sm"
+                 name="colleagues-list-top"
+                 hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+    <coyo-filterbox vertical="true">
+      <fb-filter>
+        <coyo-filter title-key="MODULE.COLLEAGUES.FILTER.DEPARTMENT" ng-if="ctrl.departments.length">
+          <coyo-filter-entry text-key="MODULE.COLLEAGUES.FILTER.DEPARTMENT.ALL"
+                             icon="zmdi-check-all"
+                             active="ctrl.departmentsFilterAllActive"
+                             on-click="ctrl.clearDepartments()"
+                             badge="ctrl.departmentsCount"></coyo-filter-entry>
+          <coyo-filter-entry ng-repeat="department in ctrl.departments | limitTo:ctrl.maxDepartments"
+                             text="{{::department.key}}"
+                             icon="zmdi-folder-person"
+                             active="department.active"
+                             on-click="ctrl.toggleDepartment(department.key)"
+                             badge="::department.count"></coyo-filter-entry>
+          <coyo-filter-expand on-click="ctrl.moreDepartments()"
+                              ng-show="ctrl.departments.length > ctrl.maxDepartments"></coyo-filter-expand>
+        </coyo-filter>
+
+        <coyo-filter title-key="MODULE.COLLEAGUES.FILTER.SUBSCRIPTIONS">
+          <coyo-filter-entry text-key="MODULE.COLLEAGUES.FILTER.SUBSCRIPTIONS.TO"
+                             icon="zmdi-accounts-alt"
+                             active="ctrl.subscribedTo.active"
+                             on-click="ctrl.toggleSubscribedTo()"
+                             badge="ctrl.subscribedTo.count"></coyo-filter-entry>
+          <coyo-filter-entry text-key="MODULE.COLLEAGUES.FILTER.SUBSCRIPTIONS.BY"
+                             icon="zmdi-accounts-alt"
+                             active="ctrl.subscribedBy.active"
+                             on-click="ctrl.toggleSubscribedBy()"
+                             badge="ctrl.subscribedBy.count"></coyo-filter-entry>
+        </coyo-filter>
+      </fb-filter>
+      <fb-search>
+        <coyo-search-filter change="ctrl.search" placeholder="MODULE.COLLEAGUES.FILTER.SEARCH" search-term="{{ctrl.params.searchTerm}}"></coyo-search-filter>
+      </fb-search>
+    </coyo-filterbox>
+
+    <coyo-tour-step topic="colleagues" order="115" placement="bottom" no-highlight="true"
+                    step-id="colleagues.filter"
+                    title="{{:: 'TOUR.COLLEAGUES.FILTER.TITLE' | translate }}"
+                    content="{{:: 'TOUR.COLLEAGUES.FILTER' | translate }}"></coyo-tour-step>
+
+    <!-- Widget Slot -->
+    <coyo-widget-slot class="widget-slot-sidebar hidden-xs hidden-sm"
+                 name="colleagues-list-bottom"
+                 hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+  </div>
+
+  <div class="colleagues-list content-main">
+    <div class="row">
+
+      <!-- Widget Slot -->
+      <coyo-widget-slot class="widget-slot-content"
+                   name="colleagues-list-content"
+                   hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+      <coyo-tour-step topic="colleagues" order="105" placement="bottom" no-highlight="true" popup-class="mt-l"
+                      step-id="colleagues.list"
+                      title="{{:: 'TOUR.COLLEAGUES.LIST.TITLE' | translate }}"
+                      content="{{:: 'TOUR.COLLEAGUES.LIST' | translate }}"></coyo-tour-step>
+
+      <div class="col-sm-6 col-md-12 col-xl-6" ng-repeat="user in ctrl.currentPage.content">
+        <coyo-user-card user="::user" current-user="::ctrl.currentUser" subtitle="{{:: user.properties.jobTitle }}" show-follow-button="true" show-messaging-button="true">
+          <card-body>
+            <oyoc-profile-field-preview user="user" profile-groups="ctrl.profileGroups"></oyoc-profile-field-preview>
+          </card-body>
+        </coyo-user-card>
+        <coyo-tour-step ng-if="ctrl.currentUser.id !== user.id"
+                        topic="colleagues" order="115" placement="bottom" step-id="colleagues.follow"
+                        title="{{:: 'TOUR.COLLEAGUES.FOLLOW.TITLE' | translate }}"
+                        content="{{:: 'TOUR.COLLEAGUES.FOLLOW' | translate }}"></coyo-tour-step>
+      </div>
+
+      <div class="col-xs-12" ng-if="ctrl.currentPage">
+        <coyo-table-pagination page="ctrl.currentPage"></coyo-table-pagination>
+      </div>
+
+    </div>
+
+    <!-- empty text -->
+    <div class="text-center text-muted ph-l pv-s"
+         ng-show="!ctrl.loading && !ctrl.currentPage.totalElements" translate="MODULE.COLLEAGUES.EMPTY">
+    </div>
+
+  </div>
+</section>

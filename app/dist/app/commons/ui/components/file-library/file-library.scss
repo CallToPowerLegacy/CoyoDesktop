@@ -1,0 +1,395 @@
+.file-library {
+  &.file-library-standalone {
+    min-height: inherit;
+
+    .fl-header {
+      padding: 2px 0 12px;
+
+      @media screen and (min-width: $screen-sm-min) {
+        padding: 0;
+      }
+    }
+  }
+
+  .alert {
+    font-size: $font-size-small;
+    margin: 12px;
+    padding: 8px 16px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      font-size: $font-size-base;
+      margin: -12px 0 24px;
+    }
+  }
+
+  .dragover {
+    border-radius: $border-radius-base;
+    box-shadow: 0 0 0 5px $color-blue;
+    overflow: hidden;
+
+    @media screen and (max-width: $screen-sm-max) {
+      box-shadow: inset 0 0 0 5px $color-blue;
+
+      div {
+        background-color: transparent !important;
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 0;
+    display: flex;
+
+    @media screen and (min-width: $screen-sm-min) {
+      min-height: 500px;
+      padding: 16px 24px;
+    }
+
+    coyo-file-library {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 auto;
+
+        .drop-area {
+          flex: 1 0 auto;
+        }
+      }
+    }
+  }
+
+  .upload-failed {
+    color: $color-red !important;
+  }
+
+  .fl-table {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    background-color: $color-gray-lighter;
+
+    .fl-table-head {
+      color: $color-gray;
+      background-color: $color-white;
+      text-transform: uppercase;
+
+      display: none;
+
+      @media screen and (min-width: $screen-md-min) {
+        display: table-row;
+      }
+
+      > .fl-table-cell {
+        border-color: $color-gray-light;
+        padding: 4px 0;
+      }
+    }
+
+    .fl-table-row {
+      background-color: $color-white;
+      display: table-row;
+      cursor: pointer;
+
+      &:hover, &.selected {
+        background-color: $color-gray-lighter;
+
+        .options * {
+          @media screen and (min-width: $screen-md-min) {
+            opacity: 1;
+          }
+        }
+      }
+
+      &.muted:hover {
+        background: none;
+      }
+
+      &.selected {
+
+        .name i.zmdi:not(.zmdi-link)::after {
+          position: absolute;
+          display: inline-block;
+          background-color: $color-green;
+          border: 1px solid $color-white;
+          border-radius: 100%;
+          font-size: 10px;
+          font-family: 'Material-Design-Iconic-Font';
+          content: '\f26b';
+          color: $color-white;
+          text-align: center;
+          bottom: -3px;
+          right: -3px;
+          z-index: 100;
+          width: 16px;
+          height: 16px;
+          line-height: 14px;
+        }
+
+      }
+
+      &.muted {
+        color: $color-gray-light;
+        cursor: not-allowed;
+
+        .size,
+        .name .name-inner .text {
+          color: $color-gray-light;
+        }
+
+      }
+
+      &.highlighted {
+        background-color: $color-text-highlight-bg;
+      }
+
+      &:last-child .fl-table-cell {
+        border-bottom: none;
+      }
+
+      .name {
+        .name-inner {
+          display: flex;
+
+          .fl-shared-icon {
+            background-color: $color-green;
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            line-height: 15px;
+            border-radius: 1em;
+            text-align: center;
+            font-size: 13px;
+            color: $color-white;
+            margin: 12px 0 0 29px;
+            border: 1px solid $color-white;
+            z-index: 10;
+          }
+
+          .text {
+            flex: 1;
+            align-self: center;
+            color: $text-color;
+            overflow: hidden;
+            word-break: break-all;
+            padding-right: 10px;
+
+            @media screen and (min-width: $screen-xs-min) {
+              @include ellipsis();
+            }
+          }
+        }
+      }
+
+      .size {
+        text-align: right;
+        padding-right: 12px;
+        color: $color-gray;
+
+        @media screen and (min-width: $screen-md-min) {
+          text-align: left;
+          font-size: 16px;
+          color: $text-color;
+        }
+      }
+
+      .options * {
+        @media screen and (min-width: $screen-md-min) {
+          opacity: 0;
+        }
+      }
+
+      &.edit-mode {
+        .filename-form {
+          width: 100%;
+          margin-right: 12px;
+          margin-top: -2px;
+          margin-bottom: -2px;
+
+          input {
+            width: 100%;
+            outline: none;
+          }
+        }
+      }
+    }
+
+    .fl-table-cell {
+      display: table-cell;
+      border-bottom: 1px solid $color-gray-light;
+      padding: 10px 0;
+      vertical-align: middle;
+
+      &.name {
+        .zmdi-hc-fw {
+          width: auto;
+          height: 100%;
+          line-height: 100%;
+          margin: 0 8px;
+        }
+
+        .zmdi-hc-stack {
+          width: auto;
+          .zmdi + .zmdi {
+            position: absolute;
+            font-size: .9em;
+            top: 40%;
+            right: 0;
+            margin: 0 6px;
+            text-shadow: 2px -1px 0px white, 0px -2px 0px white, -2px 1px 0px white;
+          }
+        }
+
+        .file-icon {
+          margin: 0 8px;
+          font-size: 1.7em;
+          position: relative;
+        }
+      }
+
+      .sender-icon,
+      .sender-type-icon {
+        margin: 0 16px;
+
+        i {
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .changed {
+      display: none;
+      width: 200px;
+
+      @media screen and (min-width: $screen-md-min) {
+        display: table-cell;
+      }
+    }
+
+    .size {
+      display: table-cell;
+      width: 100px;
+    }
+
+    .author {
+      display: table-cell;
+      width: 100px;
+
+      @media screen and (max-width: $screen-xs-min){
+        display: none;
+      }
+    }
+
+    .options {
+      display: table-cell;
+      padding-right: 12px;
+      width: 55px;
+      text-align: right;
+      position: relative;
+
+      .coyo-spinner.small {
+        font-size: 1px;
+        opacity: 1;
+        position: absolute;
+        top: 50%;
+        margin-top: -5px;
+        right: 20px;
+      }
+    }
+  }
+
+  .fl-header {
+    border-bottom: 1px solid $color-gray-light;
+    display: flex;
+    padding: 12px;
+    margin: 0;
+
+    @media screen and (min-width: $screen-sm-min) {
+      margin-bottom: 24px;
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+    }
+  }
+
+  .fl-breadcrumbs {
+    flex: 1;
+    background: $color-gray-lighter;
+    margin: 0;
+    border-radius: 5px 0 0 5px;
+
+    &:last-child {
+      border-radius: 5px;
+    }
+
+    .zmdi-caret-right {
+      font-size: 22px;
+      vertical-align: bottom;
+      margin: 0 6px;
+    }
+  }
+
+  .fl-actions {
+    margin-left: 1px;
+    background: $color-gray-lighter;
+    padding: 8px 16px;
+    border-radius: 0 5px 5px 0;
+
+    a {
+      border: 0;
+    }
+  }
+
+  .fl-empty {
+    margin: 32px auto 0;
+    max-width: 320px;
+    min-width: 240px;
+    text-align: center;
+    width: 50%;
+
+    a {
+      display: block;
+    }
+
+    i {
+      display: block;
+      font-size: 5em;
+      margin-bottom: 8px;
+    }
+  }
+
+  // Drag & Drop
+
+  .drag-enter.folder {
+    background: $state-info-bg;
+
+    &.dragging {
+      background: $color-gray-lighter;
+    }
+  }
+
+  .dragging .fl-table-cell {
+    border-bottom: 0;
+  }
+
+  .dragging + .fl-table-row .fl-table-cell {
+    border-top: 1px solid $color-gray-light;
+    border-bottom: 1px solid $color-gray-light;
+  }
+
+  .drop-zone ul {
+    color: $color-gray-darker;
+    padding-left: 17px;
+
+    &.drag-enter {
+      background: $state-info-bg;
+    }
+
+    i {
+      width: 35px;
+    }
+  }
+}

@@ -1,0 +1,166 @@
+.user-avatar {
+  display: inline-block;
+  height: 60px;
+  min-height: 60px;
+  min-width: 60px;
+  position: relative;
+  width: 60px;
+
+  img {
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  .user-avatar-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: $color-gray-light;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: rgba($color-white, 0.8);
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+
+  .online-status {
+    border-radius: 100%;
+    border: 2px solid #FFF;
+    position: absolute;
+    height: 16px;
+    right: 0px;
+    top: 0px;
+    width: 16px;
+    z-index: 1;
+    transition: background-color linear 0.25s;
+
+    @include presence-status-bgcolor();
+
+    &.ONLINE {
+      @include animate(pulse 1s);
+    }
+  }
+
+
+  .user-follow {
+    position: absolute;
+    bottom: 2px;
+    right: -8px;
+  }
+
+  .user-messaging {
+    position: absolute;
+    bottom: -8px;
+    right: 8px;
+  }
+
+  .user-follow .btn,
+  .user-messaging .btn {
+    border-radius: 100%;
+    height: 24px;
+    width: 24px;
+    outline: 0;
+    font-size: 11px;
+    line-height: 16px;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+    border: 2px solid #FFF;
+  }
+
+  &.xs {
+    height: 30px;
+    min-height: 30px;
+    min-width: 30px;
+    width: 30px;
+
+    .online-status {
+      height: 12px;
+      right: -2px;
+      top: -2px;
+      width: 12px;
+    }
+
+    .user-avatar-empty {
+      font-size: 13px;
+    }
+  }
+
+  &.sm {
+    height: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    width: 40px;
+
+    .online-status {
+      height: 14px;
+      right: -1px;
+      top: -1px;
+      width: 14px;
+    }
+
+    .user-avatar-empty {
+      font-size: 16px;
+    }
+  }
+
+  &.md {
+    height: 80px;
+    min-height: 80px;
+    min-width: 80px;
+    width: 80px;
+
+    .online-status {
+      height: 16px;
+      right: 5px;
+      top: 5px;
+      width: 16px;
+    }
+
+    .user-avatar-empty {
+      font-size: 16px;
+    }
+  }
+
+  &.lg {
+    height: 120px;
+    min-height: 120px;
+    min-width: 120px;
+    width: 120px;
+
+    .online-status {
+      height: 22px;
+      right: 8px;
+      top: 8px;
+      width: 22px;
+      border-width: 3px;
+    }
+
+    .user-avatar-empty {
+      font-size: 28px;
+    }
+  }
+
+  &.xl {
+    height: 160px;
+    min-height: 160px;
+    min-width: 160px;
+    width: 160px;
+
+    .online-status {
+      height: 22px;
+      right: 7px;
+      top: 20px;
+      width: 22px;
+      border-width: 3px;
+    }
+
+    .user-avatar-empty {
+      font-size: 36px;
+    }
+  }
+
+}

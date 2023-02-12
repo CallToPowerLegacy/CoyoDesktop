@@ -1,0 +1,184 @@
+<div class="wiki-article article-view">
+
+  <div class="alert alert-warning" ng-if="!vm.editMode && !ctrl.article.latestRevision">
+    <span translate="APP.WIKI.ARTICLE.LATEST.BEFORE_LINK"></span>
+    <a href ng-click="ctrl.openRevision()" translate="APP.WIKI.ARTICLE.LATEST.LINK"></a>
+    <span translate="APP.WIKI.ARTICLE.LATEST.AFTER_LINK"></span>
+  </div>
+
+  <div class="article-locked alert alert-warning" ng-if="ctrl.article._permissions.edit && (ctrl.article.locked && !ctrl.editMode && ctrl.article.latestRevision)">
+    <span translate="APP.WIKI.ARTICLE.EDITING_OPTIONS.LOCKED.INFO"
+          translate-values="{lockHolder: ctrl.article.lockHolder.displayName, formattedLockDate: ctrl.moment(ctrl.article.lockDate).utc().from(moment().utc(), false)}"></span>
+    <span>
+      <button ng-if="ctrl.article._permissions.delete"
+              class="btn btn-sm btn-primary"
+              ng-click="ctrl.removeLock(ctrl.article)"
+              translate="APP.WIKI.ARTICLE.EDITING_OPTIONS.UNLOCK"></button>
+    </span>
+  </div>
+
+  <form name="form" coyo-form-submit="ctrl.save()">
+    <section class="panel panel-default panel-article panel">
+      <div class="fl-header">
+        <div class="breadcrumb-list-bulleted">
+          <a ui-sref="^">
+            <i class="zmdi zmdi-hc-fw zmdi-format-list-bulleted"></i>&nbsp;
+            <span ng-if="ctrl.parentArticles.length <= 0" translate="APP.WIKI.ARTICLE.OVERVIEW"></span>
+          </a>
+        </div>
+        <div class="wdv-col wdv-col-breadcrump">
+          <ul class="fl-breadcrumbs breadcrumb">
+            <li>
+            </li>
+            <li ng-if="ctrl.parentArticles.length > 0" ng-repeat="article in ctrl.parentArticles.slice().reverse()">
+              <span ui-sref="^.view({id: article.id})" class="clickable">{{ article.title }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="wdv-col wdv-col-placeholder"></div>
+        <div class="wdv-col wdv-col-action" ng-if="ctrl.app._permissions.createArticle">
+          <button ui-sref="^.create({parentId: ctrl.article.id})" class="btn btn-link mr-s">
+            <i class="zmdi zmdi-hc-fw zmdi-plus-circle"></i><span>&nbsp;{{:: 'APP.WIKI.CREATE' | translate }}</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="panel-heading panel-heading-main article-header">
+        <div class="article-header-top article-header-top-main">
+          <h1 class="panel-title panel-title-main">
+            <span ng-if="!ctrl.editMode">{{ ctrl.languages[ctrl.currentLanguage].translations.title }}</span>
+            <div class="form-group last-form-group"
+                 ng-class="{'has-error': form['title-' + key].$invalid && form['title-' + key].$touched}"
+                 ng-repeat="(key, value) in ctrl.languages"
+                 ng-if="ctrl.editMode && ctrl.isTranslationRequired(key)"
+                 ng-show="value.active && (key === ctrl.currentLanguage || key === 'NONE')">
+              <input class="editable"
+                     name="title-{{key}}"
+                     type="text"
+                     maxlength="255"
+                     ng-model="ctrl.languages[key].translations.title"
+                     ng-class="{'error': form.title.$invalid}"
+                     ng-change="ctrl.updateValidity(key, form['title-' + key].$valid)"
+                     ng-required="true"/>
+            </div>
+          </h1>
+          <coyo-manage-translations ng-if="ctrl.editMode && ctrl.isSenderTranslated" current="ctrl.currentLanguage"
+                                    default="ctrl.defaultLanguage" disable-config="true"
+                                    on-change="ctrl.onLanguageChange" on-delete="ctrl.onLanguageDeleted"
+                                    languages="ctrl.languages"></coyo-manage-translations>
+          <div class="article-status-options" ng-show="!ctrl.loading && !ctrl.editMode">
+            <coyo-context-menu class="wiki-article"
+                          title="{{::'APP.WIKI.ARTICLE_OPTIONS' | translate}}"
+                          align-right="true">
+              <li ng-if="ctrl.article._permissions.edit">
+                <a ng-click="ctrl.edit()">
+                  <i class="zmdi zmdi-hc-fw zmdi-edit" ng-class="{'zmdi-edit': ctrl.article.latestRevision, 'zmdi-time-restore': !ctrl.article.latestRevision}"></i>
+                  <span ng-if="ctrl.article.latestRevision" translate="EDIT"></span>
+                  <span ng-if="!ctrl.article.latestRevision" translate="APP.WIKI.ARTICLE.EDITING_OPTIONS.REVERT"></span>
+                </a>
+              </li>
+              <li ng-if="ctrl.app._permissions.manage && ctrl.app.settings.home !== ctrl.article.id">
+                <a ng-click="ctrl.setAsHomeArticle()">
+                  <i class="zmdi zmdi-home zmdi-hc-fw zmdi-edit"></i>
+                  <span translate="APP.WIKI.ARTICLE.EDITING_OPTIONS.SET_AS_HOME_ARTICLE"></span>
+                </a>
+              </li>
+              <li>
+                <a ng-click="ctrl.showRevisions()"><i class="zmdi zmdi-time zmdi-hc-fw"></i>{{::'APP.WIKI.HISTORY' | translate}}</a>
+              </li>
+              <li ng-if="ctrl.article.latestRevision && ctrl.article._permissions.delete">
+                <a ng-click="ctrl.deleteArticle(ctrl.article)">
+                  <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'DELETE' | translate }}
+                </a>
+              </li>
+            </coyo-context-menu>
+          </div>
+        </div>
+        <div class="text-muted article-header-bottom">
+          <div class="author" ng-if="ctrl.article.author">
+            <i class="zmdi zmdi-hc-fw zmdi-account-circle"></i>
+            <a coyo-sender-link="ctrl.article.author" ng-bind="ctrl.article.author.displayName"></a>
+          </div>
+          <div class="time">
+            <i class="zmdi zmdi-hc-fw zmdi-time"></i>
+            {{ ctrl.article.modified | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short }}
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item" ng-show="!ctrl.loading">
+        <div class="panel-body">
+
+          <div class="inner-tab wiki-article-parent-edit-mode" ng-if="ctrl.editMode">
+            <div class="row">
+              <div class="col-sm-12 wiki-article-parent">
+                <div class="form-group">
+                  <label class="control-label" translate="APP.WIKI.SELECT.PARENT.LABEL"></label>
+                  <coyo-select-wiki-article ng-model="ctrl.article.parentId"
+                                            placeholder="APP.WIKI.SELECT.PARENT.NO_ARTICLES_FOUND"
+                                            parameters="{excludeId: ctrl.article.id}">
+                  </coyo-select-wiki-article>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div ng-repeat="(key, value) in ctrl.languages"
+               ng-if="ctrl.isTranslationRequired(key)"
+               ng-show="value.active && (key === ctrl.currentLanguage || key === 'NONE')">
+            <coyo-widget-layout name="{{ctrl.article.buildLayoutName(ctrl.app.id, key)}}"
+                                parent="ctrl.article"
+                                create-mode="!ctrl.languageInitialised[ctrl.currentLanguage]"
+                                copy-mode="true"
+                                global-events="false"
+                                can-manage="ctrl.app._permissions.createArticle"
+                                render-style="plain"
+                                simple-mode="ctrl.simpleMode"
+                                add-initial-widget="ctrl.simpleMode && !ctrl.languageInitialised[ctrl.currentLanguage]">
+            </coyo-widget-layout>
+          </div>
+
+          <div class="wiki-subarticles" ng-if="::ctrl.article.wikiArticles > 0">
+            <div class="wiki-subarticles-header"
+                 translate="APP.WIKI.HEADER.SUBARTICLES"
+                 translate-values="{ noOfArticles: ctrl.article.wikiArticles }"></div>
+              <ul class="list-unstyled">
+                <li ng-if="ctrl.subArticles.length < 1">
+                  <div class="text-center m-m">
+                    <coyo-spinner></coyo-spinner>
+                  </div>
+                </li>
+                <li class="wiki-subarticle" ng-repeat="subArticle in ctrl.subArticles">
+                  <span class="wiki-subarticle-icon">
+                    <i class="zmdi zmdi-library"></i>
+                  </span>
+                  <a ui-sref="^.view({id: subArticle.id})">
+                    <coyo-wiki-article-title article="subArticle"></coyo-wiki-article-title>
+                  </a>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-body text-center m-m" ng-show="ctrl.loading">
+        <coyo-spinner></coyo-spinner>
+      </div>
+
+      <div class="panel-footer panel-actions" ng-if="ctrl.editMode && ctrl.article._permissions.edit">
+        <coyo-form-submit-button form-ctrl="form" label="SAVE"></coyo-form-submit-button><!--
+     --><a class="btn btn-default" ng-click="ctrl.cancel()">
+          <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{:: 'CANCEL' | translate }}
+        </a>
+        <a href class="btn btn-link btn-right" ng-click="ctrl.simpleMode = !ctrl.simpleMode">
+          <span ng-if="!ctrl.simpleMode">{{::'WIDGETS.LAYOUT.EDIT_MODE.SIMPLE' | translate}}</span>
+          <span ng-if="ctrl.simpleMode">{{::'WIDGETS.LAYOUT.EDIT_MODE.ADVANCED' | translate}}</span>
+        </a>
+      </div>
+
+    </section>
+  </form>
+
+  <coyo-comments ng-if="ctrl.app.settings.commentsAllowed && !ctrl.editMode && !ctrl.loading" target="ctrl.article"></coyo-comments>
+
+</div>

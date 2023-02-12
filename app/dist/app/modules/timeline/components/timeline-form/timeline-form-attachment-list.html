@@ -1,0 +1,28 @@
+<div class="timeline-form-attachments" ng-if="$ctrl.attachments.length || $ctrl.fileLibraryAttachments.length">
+    <div class="timeline-form-attachment"
+         ng-repeat="attachment in $ctrl.attachments | limitTo:20"
+         ng-class="{ uploading : attachment.uploading, done : (attachment.progress === 100) }">
+        <div class="timeline-form-attachment-icon">
+            <coyo-file-icon file="::attachment" class="zmdi-hc-lg"></coyo-file-icon>
+        </div>
+        <div class="timeline-form-attachment-name">{{attachment.name}}</div>
+        <div class="timeline-form-attachment-opt">
+            <span class="text-muted" ng-if="attachment.uploading">{{attachment.progress}}%</span>
+            <a ng-if="!attachment.uploading" ng-click="$ctrl.removeAttachment(attachment)">
+                <i class="zmdi zmdi-close-circle-o red"></i>
+            </a>
+        </div>
+    </div>
+    <div class="timeline-form-attachment"
+         ng-repeat="attachment in $ctrl.fileLibraryAttachments | limitTo:20">
+        <div class="timeline-form-attachment-icon">
+            <coyo-file-icon file="::attachment" class="zmdi-hc-lg"></coyo-file-icon>
+        </div>
+        <div class="timeline-form-attachment-name">{{attachment.displayName}}</div>
+        <div class="timeline-form-attachment-opt">
+            <a ng-click="$ctrl.removeFileLibraryAttachment(attachment)">
+                <i class="zmdi zmdi-close-circle-o red"></i>
+            </a>
+        </div>
+    </div>
+</div>

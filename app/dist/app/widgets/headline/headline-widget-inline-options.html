@@ -1,0 +1,14 @@
+<span class="btn btn-dark btn-xs btn-zmdi">
+  <a id="{{::$ctrl.menuToggleId}}">
+    <i class="zmdi zmdi-format-size zmdi-hc-fw"></i>
+  </a>
+  <coyo-context-menu toggle-element="#{{::$ctrl.menuToggleId}}">
+    <li>
+      <a ng-repeat="option in $ctrl.options"
+         ng-class="{'active': $ctrl.model.settings._headline.size === option.size}"
+         ng-click="$ctrl.selectOption(option)">
+        {{::option.size}}
+      </a>
+    </li>
+  </coyo-context-menu>
+</span>

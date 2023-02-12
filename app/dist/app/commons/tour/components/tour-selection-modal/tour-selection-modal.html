@@ -1,0 +1,19 @@
+<div class="modal-content-wrapper">
+  <div class="modal-header">
+    <h3 class="modal-title" translate="TOUR.SELECT.MODAL.TITLE"></h3>
+    <span class="modal-close" ng-click="$dismiss()">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+  <div class="modal-body p-s">
+    <p translate="TOUR.SELECT.MODAL.DESCRIPTION"></p>
+    <ul class="list-unstyled">
+      <li class="ml-xs" ng-repeat="topic in vm.topics">
+        <i class="zmdi zmdi-hc-fw zmdi-pin-help"></i>
+        <a ng-click="vm.startTour(topic)">
+          {{:: 'TOUR.TOPIC.' + topic | uppercase | translate}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

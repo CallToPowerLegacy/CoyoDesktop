@@ -1,0 +1,64 @@
+.btn-shares {
+  display: inline-block;
+
+  a {
+    color: $color-gray;
+    transition: color linear 0.2s;
+    line-height: 26px;
+
+    &:hover {
+      color: $color-gray-darker;
+    }
+
+    &.handle {
+      font-size: 128.571428571%;
+    }
+
+    &.count {
+      margin-left: 4px;
+    }
+  }
+
+  span.disabled {
+    color: $color-gray;
+    line-height: 26px;
+    font-size: 128.571428571%;
+  }
+
+
+  &.loading a {
+    color: $color-gray-light;
+  }
+
+  &.active a.handle {
+    color: $color-blue;
+  }
+
+  &.active a.count {
+    color: inherit;
+  }
+}
+
+.btn-shares-modal {
+
+  .modal-body {
+    @media screen and (min-width: $screen-sm-min) {
+      padding-top: 0;
+    }
+  }
+
+  .timeline-share {
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    .panel-body {
+      padding: 16px 0;
+
+      @media screen and (min-width: $screen-sm-min) {
+        padding: 16px;
+      }
+    }
+  }
+}

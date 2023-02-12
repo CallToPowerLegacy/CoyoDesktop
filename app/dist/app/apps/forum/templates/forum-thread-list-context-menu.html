@@ -1,0 +1,34 @@
+<coyo-context-menu class="thread-context-menu"
+                   title="{{::'APP.FORUM.THREAD_OPTIONS' | translate}}"
+                   ng-if="::(thread._permissions.close || thread._permissions.pin || thread._permissions.delete)"
+                   align-right="true">
+  <li ng-if="thread._permissions.pin && !thread.pinned">
+    <a ng-click="$ctrl.pin(thread)">
+      <i class="zmdi zmdi-hc-fw zmdi-star"></i>&nbsp;{{:: 'APP.FORUM.THREAD.PIN' | translate }}
+    </a>
+  </li>
+  <li ng-if="thread._permissions.pin && thread.pinned">
+    <a ng-click="$ctrl.unpin(thread)">
+      <i class="zmdi zmdi-hc-fw zmdi-star-outline"></i>&nbsp;{{:: 'APP.FORUM.THREAD.UNPIN' | translate }}
+    </a>
+  </li>
+  <li ng-if="thread._permissions.close && !thread.closed">
+    <a ng-click="$ctrl.close(thread)">
+      <i class="zmdi zmdi-hc-fw zmdi-lock"></i>&nbsp;{{:: 'APP.FORUM.THREAD.CLOSE' | translate }}
+    </a>
+  </li>
+  <li ng-if="thread._permissions.close && thread.closed">
+    <a ng-click="$ctrl.reopen(thread)">
+      <i class="zmdi zmdi-hc-fw zmdi-lock-open"></i>&nbsp;{{:: 'APP.FORUM.THREAD.REOPEN' | translate }}
+    </a>
+  </li>
+  </li>
+  <li ng-if="thread._permissions.delete" class="hidden-xs hidden-sm">
+    <hr />
+  </li>
+  <li ng-if="thread._permissions.delete">
+    <a ng-click="$ctrl.delete(thread)">
+      <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'APP.FORUM.THREAD.DELETE' | translate }}
+    </a>
+  </li>
+</coyo-context-menu>

@@ -1,0 +1,45 @@
+<section class="reports-list">
+  <div class="panel panel-default">
+    <div class="panel-heading panel-heading-main">
+      <h1 class="panel-title" translate="MODULE.REPORT.REPORTS"></h1>
+    </div>
+    <div class="panel-body">
+      <table class="table">
+        <tbody coyo-infinite-scroll="$ctrl.loadMore()" coyo-infinite-scroll-element="$window">
+          <tr ng-repeat="report in $ctrl.reports">
+            <td>
+              <h4 class="mt-0"><a ng-click="$ctrl.open(report.target)">{{:: report.target.displayName }}</a></h4>
+              <blockquote>
+                <p ng-bind-html=":: report.message | nl2br"></p>
+                <footer ng-if="!report.anonymous">
+                  {{:: 'MODULE.REPORT.REPORTED_BY' | translate }}
+                  <a coyo-sender-link="report.author">{{report.author.displayName}}</a>
+                  {{:: 'MODULE.REPORT.REPORTED_AT' | translate }}
+                  {{:: report.created | amTimezone: $root.timezone | amDateFormat: $root.dateFormat.long + ', ' + $root.timeFormat.short }}
+                </footer>
+                <footer ng-if="report.anonymous">
+                  {{:: 'MODULE.REPORT.REPORTED_BY_ANONYMOUS' | translate }}
+                  {{:: 'MODULE.REPORT.REPORTED_AT' | translate }}
+                  {{:: report.created | amTimezone: $root.timezone | amDateFormat: $root.dateFormat.long + ', ' + $root.timeFormat.short }}
+                </footer>
+              </blockquote>
+            </td>
+            <td class="text-right">
+              <a class="btn btn-sm btn-success" ng-click="$ctrl.resolve(report)" ng-disabled="$ctrl.loading || $ctrl.loadingResolve">
+                <i class="zmdi zmdi-check"></i>&nbsp;{{ 'MODULE.REPORT.RESOLVE' | translate }}
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- spinner / loading -->
+      <div class="text-center m-m" ng-show="$ctrl.loading">
+        <coyo-spinner></coyo-spinner>
+      </div>
+
+      <!-- empty -->
+      <p class="p-m m-0 text-center text-muted" ng-hide="$ctrl.loading || $ctrl.reports.length" translate="MODULE.REPORT.EMPTY"></p>
+    </div>
+  </div>
+</section>

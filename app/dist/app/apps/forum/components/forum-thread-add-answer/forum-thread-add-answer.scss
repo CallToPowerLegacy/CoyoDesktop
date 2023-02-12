@@ -1,0 +1,33 @@
+.forum-app {
+
+  .panel {
+
+    .thread-add-answer-text {
+      min-width: 0;
+    }
+
+  }
+
+  .forum-thread {
+
+    .thread-add-answer-panel-body {
+      display: flex;
+      flex-direction: row;
+
+      .thread-add-answer-user-avatar {
+        margin-right: 15px;
+      }
+
+      .panel-actions {
+        padding-bottom: 0;
+      }
+
+      .panel-footer {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+  }
+
+}

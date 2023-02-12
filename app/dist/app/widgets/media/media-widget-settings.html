@@ -1,0 +1,184 @@
+<div class="tabs">
+  <ul class="nav nav-tabs nav-justified">
+    <li class="media-tab" data-ng-class="{ 'active': $ctrl.isMediaTab() }">
+      <a ng-click="$ctrl.switchTab($ctrl.tabs.MEDIA)">
+        <i class="zmdi zmdi-collection-image-o mr-xxxs"></i> {{ ::'WIDGET.MEDIA.SETTINGS.MEDIA.TITLE' | translate }}
+      </a>
+    </li>
+    <li class="information-tab" data-ng-class="{ 'active': $ctrl.isInformationTab() }">
+      <a ng-click="$ctrl.switchTab($ctrl.tabs.INFORMATION)">
+        <i class="zmdi zmdi-info-outline mr-xxxs"></i> {{ ::'WIDGET.MEDIA.SETTINGS.INFORMATION.TITLE' | translate }}
+      </a>
+    </li>
+  </ul>
+</div>
+<form name="mediaSettingsForm" class="form-horizontal" coyo-form-submit="$ctrl.saveMediaSettings()">
+  <!-- media tab -->
+  <div ng-show="$ctrl.isMediaTab()" class="media-widget-settings"
+       ui-tree="::$ctrl.treeOptions"
+       ui-tree-nodes ng-model="$ctrl.model.media"
+       data-empty-placeholder-enabled="false">
+
+    <!-- file library button -->
+    <div class="file-library-button">
+      <a class="btn btn-primary" data-ng-click="$ctrl.openFileLibrary()">
+        <i class="zmdi"
+           ng-class="{'zmdi-cloud-upload': !$ctrl.selecting, 'zmdi-spinner zmdi-hc-spin': $ctrl.selecting}"></i>
+        <span class="hidden-xs" ng-hide="$ctrl.selecting" ng-if="!$ctrl.contentError"
+              translate="WIDGET.MEDIA.SETTINGS.MEDIA.UPLOAD_BOX"></span>
+        <span class="visible-xs" ng-hide="$ctrl.selecting" ng-if="!$ctrl.contentError"
+              translate="WIDGET.MEDIA.SETTINGS.MEDIA.UPLOAD_BOX_MOBILE"></span>
+        <span ng-hide="$ctrl.selecting" ng-if="$ctrl.contentError"
+              translate="WIDGET.MEDIA.SETTINGS.MEDIA.UPLOAD_BOX_ERROR"></span>
+      </a>
+    </div>
+
+    <!-- header -->
+    <div class="col-sm-12 media-widget-settings-header" ng-if="$ctrl.model.media.length > 0">
+          <span class="col-sm-1 col-xs-2 media-header media-preview"
+                translate="WIDGET.MEDIA.SETTINGS.MEDIA.PREVIEW"></span>
+      <span class="col-sm-2 col-xs-4 media-header media-media"></span>
+      <span class="col-sm-9 col-xs-6 media-header media-description"
+            translate="WIDGET.MEDIA.SETTINGS.MEDIA.DESCRIPTION"></span>
+    </div>
+
+    <div class="media-widget-preview-media" ng-repeat="media in $ctrl.model.media" ui-tree-node>
+
+      <!-- checkbox -->
+      <div class="col-sm-1 media-preview">
+        <label>
+          <coyo-checkbox id="media-{{::media.name}}"
+                         name="media-{{::media.name}}"
+                         ng-model="media.preview"></coyo-checkbox>
+        </label>
+      </div>
+
+      <!-- media preview -->
+      <div class="col-sm-2 col-xs-4 media-media">
+        <coyo-cover-image-reference ng-if="$ctrl.isImage(media.contentType)"
+                              file-id="media.id"
+                              sender-id="media.senderId"
+                              size-definitions="{'default': 'S', 'screen-xs': 'S', 'screen-sm': 'S', 'screen-md': 'S', 'screen-lg': 'S'}">
+        </coyo-cover-image-reference>
+
+        <coyo-video-reference ng-if="$ctrl.isVideo(media.contentType)"
+                              file="media"
+                              url="$ctrl.previewUrl"
+                              group-id="media.senderId"
+                              show-controls="false"
+                              show-preview="false">
+        </coyo-video-reference>
+      </div>
+
+      <!-- description -->
+      <div class="col-sm-8 col-xs-6 media-description">
+        <input id="media-description" title="media-description" type="text" ng-model="media.description"
+               placeholder="{{media.name}}"
+               class="form-control hidden-xs"
+               maxlength="255">
+        <span class="description-mobile" ng-if="media.description">{{media.description}}</span>
+        <span class="description-mobile gray-out" ng-if="!media.description">{{media.name}}</span>
+        <span class="preview-mobile" ng-if="media.preview">
+          <i class="zmdi zmdi-check"></i>&nbsp;&nbsp;{{::'WIDGET.MEDIA.SETTINGS.MEDIA.PREVIEW' | translate}}
+        </span>
+      </div>
+
+      <!-- options -->
+      <div class="col-sm-1 col-xs-2 media-options">
+        <span class="media-handle btn-zmdi btn-link btn-move" ui-tree-handle>
+          <i class="zmdi zmdi-swap-vertical"></i>
+        </span>
+        <span class="media-delete" data-ng-click="$ctrl.deleteMedia(media)">
+          <i class="zmdi zmdi-delete"></i>
+        </span>
+        <div class="media-options-mobile">
+          <coyo-context-menu>
+            <li class="modal-options-option" data-ng-click="$ctrl.togglePreview(media)">
+              <a ng-if="media.preview">
+                <i class="zmdi zmdi-eye-off zmdi-hc-fw"></i>
+                &nbsp;&nbsp;{{::'WIDGET.MEDIA.OPTIONS.BUTTON.PREVIEW' | translate}}
+                {{::'WIDGET.MEDIA.OPTIONS.BUTTON.PREVIEW.DEACTIVATE' | translate}}
+              </a>
+              <a ng-if="!media.preview">
+                <i class="zmdi zmdi-eye zmdi-hc-fw"></i>
+                &nbsp;&nbsp;{{::'WIDGET.MEDIA.OPTIONS.BUTTON.PREVIEW' | translate}}
+                {{::'WIDGET.MEDIA.OPTIONS.BUTTON.PREVIEW.ACTIVATE' | translate}}
+              </a>
+            </li>
+            <li class="modal-options-option" data-ng-click="$ctrl.openEditDescriptionModal(media)">
+              <a>
+                <i class="zmdi zmdi-edit zmdi-hc-fw"></i>&nbsp;&nbsp;{{::'WIDGET.MEDIA.OPTIONS.BUTTON.DESCRIPTION'
+                | translate}}
+              </a>
+            </li>
+            <li class="modal-options-option" data-ng-click="$ctrl.deleteMedia(media)">
+              <a>
+                <i class="zmdi zmdi-delete zmdi-hc-fw"></i>&nbsp;&nbsp;{{::'WIDGET.MEDIA.OPTIONS.BUTTON.DELETE'
+                | translate}}
+              </a>
+            </li>
+          </coyo-context-menu>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="empty-media" ng-if="$ctrl.model.media.length === 0">
+      {{::'WIDGET.MEDIA.SETTINGS.MEDIA.EMPTY' | translate}}
+    </h4>
+  </div>
+
+  <!-- information tab-->
+  <div class="media-widget-settings-information" ng-show="$ctrl.isInformationTab()">
+    <!-- album title -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label"
+             translate="WIDGET.MEDIA.SETTINGS.INFORMATION.ALBUM_TITLE.LABEL"></label>
+      <div class="col-sm-9">
+        <input id="album-title" title="album-title" type="text" ng-model="$ctrl.model.album.title"
+               placeholder="{{::'WIDGET.MEDIA.SETTINGS.INFORMATION.PLACEHOLDER' | translate}}"
+               class="form-control"
+               maxlength="255">
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="WIDGET.MEDIA.SETTINGS.INFORMATION.ALBUM_TITLE.HELP"></coyo-help>
+      </div>
+    </div>
+    <!-- description -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label"
+             translate="WIDGET.MEDIA.SETTINGS.INFORMATION.ALBUM_DESCRIPTION.LABEL"></label>
+      <div class="col-sm-9">
+        <textarea id="album-description"
+                  title="album-description"
+                  name="description"
+                  class="form-control"
+                  msd-elastic rows="3"
+                  placeholder="{{::'WIDGET.MEDIA.SETTINGS.INFORMATION.PLACEHOLDER' | translate}}"
+                  ng-model="$ctrl.model.album.description"></textarea>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="WIDGET.MEDIA.SETTINGS.INFORMATION.ALBUM_DESCRIPTION.HELP"></coyo-help>
+      </div>
+    </div>
+    <!-- location -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label"
+             translate="WIDGET.MEDIA.SETTINGS.INFORMATION.ALBUM_LOCATION.LABEL"></label>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <input id="album-location" title="album-location" type="text"
+                 ng-model="$ctrl.model.album.location"
+                 placeholder="{{::'WIDGET.MEDIA.SETTINGS.INFORMATION.PLACEHOLDER' | translate}}"
+                 class="form-control"
+                 maxlength="255">
+          <span class="input-group-addon">
+                <i class="zmdi zmdi-pin"></i>
+              </span>
+        </div>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="WIDGET.MEDIA.SETTINGS.INFORMATION.ALBUM_LOCATION.HELP"></coyo-help>
+      </div>
+    </div>
+  </div>
+</form>

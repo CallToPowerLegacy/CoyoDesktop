@@ -1,0 +1,92 @@
+<!-- Author settings -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="APP.BLOG.AUTHORS"></label>
+  <div class="col-sm-10">
+    <div class="radio">
+      <label>
+        <input name="authors" type="radio" ng-model="ctrl.app.settings.authorType" value="ADMIN"
+               ng-change="ctrl.setAppFolderPermissions()">
+        <i class="zmdi zmdi-lock-outline zmdi-wide"></i>&nbsp;{{:: 'APP.BLOG.AUTHORTYPE.ADMIN.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.BLOG.AUTHORTYPE.ADMIN.DESCRIPTION' | translate }}</span>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="authors" type="radio" ng-model="ctrl.app.settings.authorType" value="VIEWER"
+               ng-change="ctrl.setAppFolderPermissions()">
+        <i class="zmdi zmdi-globe zmdi-wide"></i>&nbsp;{{:: 'APP.BLOG.AUTHORTYPE.VIEWER.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.BLOG.AUTHORTYPE.VIEWER.DESCRIPTION' | translate }}</span>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="visibility" type="radio" ng-model="ctrl.app.settings.authorType" value="BLOGAPP_LIST_OF_USERS"
+               ng-change="ctrl.setAppFolderPermissions()">
+        <i class="zmdi zmdi-accounts-alt zmdi-wide"></i>&nbsp;{{:: 'APP.BLOG.AUTHORTYPE.BLOGAPP_LIST_OF_USERS.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.BLOG.AUTHORTYPE.BLOGAPP_LIST_OF_USERS.DESCRIPTION' | translate }}</span>
+        <div class="mt-xs" ng-show="ctrl.app.settings.authorType === 'BLOGAPP_LIST_OF_USERS'">
+          <coyo-user-chooser ng-model="ctrl.app.settings" users-only="true" users-field="authorIds"
+                             ng-change="ctrl.setAppFolderPermissions()" ng-model-options="{ allowInvalid: true }"
+                             ng-attr-min="ctrl.app.settings.authorType === 'BLOGAPP_LIST_OF_USERS' ? 1 : 0"></coyo-user-chooser>
+        </div>
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- Publisher settings -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="APP.BLOG.PUBLISHERS"></label>
+  <div class="col-sm-10">
+    <div class="radio">
+      <label>
+        <input name="publishers" type="radio" ng-model="ctrl.app.settings.publisherType" value="ADMIN">
+        <i class="zmdi zmdi-lock-outline zmdi-wide"></i>&nbsp;{{:: 'APP.BLOG.PUBLISHERTYPE.ADMIN.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.BLOG.PUBLISHERTYPE.ADMIN.DESCRIPTION' | translate }}</span>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="publishers" type="radio" ng-model="ctrl.app.settings.publisherType" value="VIEWER">
+        <i class="zmdi zmdi-globe zmdi-wide"></i>&nbsp;{{:: 'APP.BLOG.PUBLISHERTYPE.VIEWER.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.BLOG.PUBLISHERTYPE.VIEWER.DESCRIPTION' | translate }}</span>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="publishers" type="radio" ng-model="ctrl.app.settings.publisherType" value="BLOGAPP_LIST_OF_USERS">
+        <i class="zmdi zmdi-accounts-alt zmdi-wide"></i>&nbsp;{{:: 'APP.BLOG.PUBLISHERTYPE.BLOGAPP_LIST_OF_USERS.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.BLOG.PUBLISHERTYPE.BLOGAPP_LIST_OF_USERS.DESCRIPTION' | translate }}</span>
+        <div class="mt-xs" ng-show="ctrl.app.settings.publisherType === 'BLOGAPP_LIST_OF_USERS'">
+          <coyo-user-chooser ng-model="ctrl.app.settings" users-only="true" users-field="publisherIds"></coyo-user-chooser>
+        </div>
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- Comment settings -->
+<div class="form-group blog-settings-comment">
+  <label class="col-sm-2 control-label" translate="APP.BLOG.COMMENTS.TITLE"></label>
+  <div class="col-sm-10">
+    <div class="checkbox">
+      <label>
+        <coyo-checkbox id="default" ng-model="ctrl.app.settings.commentsAllowed"></coyo-checkbox>
+        {{:: 'APP.BLOG.COMMENTS.DESCRIPTION' | translate }}
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- Share settings -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="APP.BLOG.SHARE.TITLE"></label>
+  <div class="col-sm-10">
+    <div class="checkbox">
+      <label>
+        <coyo-checkbox id="default" ng-model="ctrl.app.settings.shareAutomatically"></coyo-checkbox>
+        {{:: 'APP.BLOG.SHARE.DESCRIPTION' | translate }}
+      </label>
+    </div>
+  </div>
+</div>

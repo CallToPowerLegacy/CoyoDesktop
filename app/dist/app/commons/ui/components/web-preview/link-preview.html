@@ -1,0 +1,39 @@
+<div>
+  <div class="link-preview" ng-class="::$ctrl.isEdit() ? 'link-preview-edit' : 'link-preview-post'"
+       ng-repeat="linkPreview in $ctrl.ngModel | orderBy: 'position' track by linkPreview.url"
+       ng-if="linkPreview.title || linkPreview.description">
+    <div class="link-preview-delete pull-right" ng-if="::$ctrl.isEdit()">
+      <span class="link-preview-delete-button" ng-click="$ctrl.deletePreview(linkPreview.url)">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+    </div>
+    <a ng-href="{{ ::linkPreview.url }}" target="_blank">
+      <div class="link-preview-image-wrapper">
+        <div class="link-preview-image">
+          <img ng-class="::linkPreview.contentType.includes('ico') ? 'link-preview-image-ico' : 'link-preview-image'"
+               ng-src="{{ ::$ctrl.getAbsoluteUrl(linkPreview.downloadUrl) }}"
+               ng-if="::linkPreview.downloadUrl && linkPreview.contentType && linkPreview.imageBlobUid">
+          <div class="link-preview-icon"
+               ng-if="::!linkPreview.downloadUrl || !linkPreview.contentType || !linkPreview.imageBlobUid">
+            <i class="zmdi zmdi-globe"></i>
+          </div>
+        </div>
+      </div>
+      <div class="link-preview-text-wrapper">
+        <div class="link-preview-line" ng-if="::linkPreview.title">
+          <span class="link-preview-title" ng-bind="::linkPreview.title"></span>
+        </div>
+        <div class="link-preview-line" ng-if="::linkPreview.description">
+          <span class="link-preview-description" ng-bind="::linkPreview.description"></span>
+        </div>
+        <div class="link-preview-line" ng-if="::linkPreview.tld">
+          <span class="link-preview-url" ng-bind="::linkPreview.tld"></span>
+        </div>
+      </div>
+    </a>
+  </div>
+  <!-- display some sort of loading animation -->
+  <div class="link-preview link-preview-loading" ng-if="$ctrl.isLoadingLinkPreview() && $ctrl.isEdit()">
+    <coyo-spinner></coyo-spinner>
+  </div>
+</div>

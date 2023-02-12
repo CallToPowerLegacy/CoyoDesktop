@@ -1,0 +1,130 @@
+<section class="workspaces-create">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title" translate="MODULE.WORKSPACES.CREATE.TITLE"></h3>
+    </div>
+
+    <!-- Wizard -->
+    <div class="panel-body hidden-xs">
+      <coyo-wizard states="$ctrl.wizard.states" active="$ctrl.wizard.active"></coyo-wizard>
+    </div>
+
+    <!-- Step 1 -->
+    <form name="workspaceForm1" class="form-horizontal" coyo-form-submit="$ctrl.next(workspaceForm1)" ng-show="$ctrl.wizard.active == 0">
+      <div class="panel-body">
+        <div class="form-group" ng-class="{'has-error': workspaceForm1.name.$touched && workspaceForm1.name.$invalid}">
+          <label for="name" class="col-sm-2 control-label" translate="WORKSPACE.NAME.LABEL"></label>
+          <div class="col-sm-9">
+            <div class="input-group">
+              <input id="name" name="name" type="text" class="form-control" ng-model="$ctrl.workspace.name" maxlength="255"
+                     ng-required="true" coyo-check-workspace-name ng-model-options="{ updateOn: 'default blur', debounce: {'default': $root.debounce.sm, 'blur': 0} }">
+              <div class="input-group-addon">
+                <coyo-validation-status-icon form-field="workspaceForm1.name"></coyo-validation-status-icon>
+              </div>
+            </div>
+            <ng-messages for="workspaceForm1.name.$error" class="help-block validation">
+              <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+              <p ng-message="workspaceName" translate="ERRORS.VALIDATION.ALREADY_TAKEN"></p>
+            </ng-messages>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="WORKSPACE.NAME.HELP"></coyo-help>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" translate="WORKSPACE.DESCRIPTION.LABEL"></label>
+          <div class="col-sm-9">
+            <textarea class="description form-control resize-v" ng-model="$ctrl.workspace.description" rows="3"></textarea>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="WORKSPACE.DESCRIPTION.HELP"></coyo-help>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" translate="WORKSPACE.CATEGORY.LABEL"></label>
+          <div class="col-sm-9">
+            <coyo-select-workspace-category ng-model="$ctrl.workspace.categories" placeholder="WORKSPACE.CATEGORY.NONE"></coyo-select-workspace-category>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="WORKSPACE.CATEGORY.HELP"></coyo-help>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer panel-actions">
+        <div class="row">
+          <div class="col-sm-10 col-sm-push-2">
+            <a ui-sref="main.workspace" class="btn btn-default">
+              <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{:: 'CANCEL' | translate }}
+            </a><!--
+         --><coyo-form-submit-button label="CONTINUE" form-ctrl="workspaceForm1" icon="zmdi-arrow-right"></coyo-form-submit-button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Step 2 -->
+    <form name="workspaceForm2" class="form-horizontal" coyo-form-submit="$ctrl.next(workspaceForm2)" ng-show="$ctrl.wizard.active == 1">
+      <div class="panel-body">
+        <div class="form-group" ng-class="{'has-error': workspaceForm2.admins.$invalid}">
+          <label class="col-sm-2 control-label" translate="WORKSPACE.ADMINS.LABEL"></label>
+          <div class="col-sm-9">
+            <coyo-user-chooser name="admins" ng-model="$ctrl.workspace" users-field="adminIds" groups-field="adminGroupIds"
+                               btn-title="USER_CHOOSER.BUTTON_TITLE.INVITE_ADMIN" users-only="::!$ctrl.canInviteGroups"></coyo-user-chooser>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="WORKSPACE.ADMINS.HELP"></coyo-help>
+          </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': workspaceForm2.members.$invalid}">
+          <label class="col-sm-2 control-label" translate="WORKSPACE.MEMBERS.LABEL"></label>
+          <div class="col-sm-9">
+            <coyo-user-chooser name="members" ng-model="$ctrl.workspace" users-field="memberIds" groups-field="memberGroupIds"
+                               btn-title="USER_CHOOSER.BUTTON_TITLE.INVITE_USER" users-only="::!$ctrl.canInviteGroups"></coyo-user-chooser>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="WORKSPACE.MEMBERS.HELP"></coyo-help>
+          </div>
+        </div>
+
+        <hr class="lighter">
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label" translate="WORKSPACE.VISIBILITY.LABEL"></label>
+          <div class="col-sm-10">
+            <div class="radio">
+              <label>
+                <input name="visibility" type="radio" ng-model="$ctrl.workspace.visibility" value="PUBLIC">
+                <coyo-workspace-visibility visibility="PUBLIC"></coyo-workspace-visibility> {{:: 'WORKSPACE.VISIBILITY.PUBLIC.LABEL' | translate }}
+                <p class="help-block" translate="WORKSPACE.VISIBILITY.PUBLIC.HELP"></p>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input name="visibility" type="radio" ng-model="$ctrl.workspace.visibility" value="PROTECTED">
+                <coyo-workspace-visibility visibility="PROTECTED"></coyo-workspace-visibility> {{:: 'WORKSPACE.VISIBILITY.PROTECTED.LABEL' | translate }}
+                <p class="help-block" translate="WORKSPACE.VISIBILITY.PROTECTED.HELP"></p>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input name="visibility" type="radio" ng-model="$ctrl.workspace.visibility" value="PRIVATE">
+                <coyo-workspace-visibility visibility="PRIVATE"></coyo-workspace-visibility> {{:: 'WORKSPACE.VISIBILITY.PRIVATE.LABEL' | translate }}
+                <p class="help-block" translate="WORKSPACE.VISIBILITY.PRIVATE.HELP"></p>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer panel-actions">
+        <div class="row">
+          <div class="col-sm-10 col-sm-push-2">
+            <a ng-click="$ctrl.back()" class="btn btn-default">
+              <i class="zmdi zmdi-hc-fw zmdi-arrow-left"></i>&nbsp;{{:: 'BACK' | translate }}
+            </a><!--
+         --><coyo-form-submit-button label="CREATE" form-ctrl="workspaceForm2"></coyo-form-submit-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

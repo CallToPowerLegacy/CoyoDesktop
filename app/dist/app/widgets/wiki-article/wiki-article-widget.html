@@ -1,0 +1,14 @@
+<div class="single-wiki-article-widget">
+  <coyo-widget-status load-data="$ctrl.loadArticle()" empty-message="WIDGETS.WIKIARTICLE.NO_ARTICLES"></coyo-widget-status>
+
+  <coyo-refresh watch="$ctrl.lastUpdate">
+    <div class="article-meta">
+      <a class="article-sender"
+         ng-click="$ctrl.go($ctrl.widget.article.senderTarget)" title="{{::$ctrl.widget.article.senderName}}">{{::$ctrl.widget.article.senderName}}</a>
+      <span class="article-time" ng-if="::$ctrl.widget.article.created">{{::$ctrl.widget.article.created  | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.medium}}</span>
+    </div>
+    <h3 ng-click="$ctrl.go($ctrl.widget.article.articleTarget)" class="article-title pointer">
+      {{::$ctrl.widget.article.title}}
+    </h3>
+  </coyo-refresh>
+</div>

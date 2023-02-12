@@ -1,0 +1,99 @@
+<div ng-cloak>
+  <coyo-filterbox filter-active="!!$ctrl.page._queryParams.type">
+    <fb-filter>
+      <coyo-filter title-key="ADMIN.TERMS.LOG.ENTRIES.FILTER">
+        <coyo-filter-entry ng-repeat="option in $ctrl.filter.type.options"
+                           icon="{{option.icon}}"
+                           active="$ctrl.page._queryParams.type === option.value"
+                           on-click="$ctrl.filter.type.changed(option.value)"
+                           text-key="{{option.labelKey}}"></coyo-filter-entry>
+      </coyo-filter>
+    </fb-filter>
+    <fb-search>
+      <coyo-search-filter change="$ctrl.filter.userDisplayName.changed"
+                  placeholder="ADMIN.TERMS.LOG.ENTRIES.SEARCH"
+                  search-term="{{$ctrl.page._queryParams.userDisplayName}}"></coyo-search-filter>
+    </fb-search>
+    <fb-count>
+      <coyo-counter value="$ctrl.page.totalElements"
+             key-none="ADMIN.TERMS.LOG.ENTRIES.NONE"
+             key-singular="ADMIN.TERMS.LOG.ENTRIES.SINGULAR"
+             key-plural="ADMIN.TERMS.LOG.ENTRIES.PLURAL"></coyo-counter>
+    </fb-count>
+  </coyo-filterbox>
+
+  <div class="panel panel-default panel-list">
+    <div class="panel-body">
+
+      <!-- mobile view -->
+      <ul ng-if="$ctrl.mobile" class="list-group"
+          coyo-infinite-scroll="$ctrl.nextPage()"
+          coyo-infinite-scroll-element="$window">
+        <li ng-if="!$ctrl.page.content.length > 0 && !$ctrl.firstLoad"
+            class="text-center text-muted pv-s"
+            translate="ADMIN.TERMS.LOG.EMPTY"></li>
+        <li class="list-group-item"
+            ng-repeat="row in $ctrl.page.content track by row.id"
+            id="log-row-{{$index}}">
+          <div class="row">
+            <div class="col-xs-8">
+              <div>
+                {{:: row.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short }}
+              </div>
+            </div>
+            <div class="col-xs-4 text-right">
+              <span class="label" ng-class="{'label-success' : row.type=='ACCEPT', 
+                                               'label-danger'  : row.type=='DECLINE', 
+                                               'label-default' : row.type=='ACTIVATED' || row.type=='DEACTIVATED', 
+                                               'label-primary' : row.type=='NEW_VERSION', 
+                                               'label-warning' : row.type=='RESET'}">
+                {{:: 'TERMS.LOG.TYPE.' + row.type | uppercase | translate }}
+              </span>
+            </div>
+          </div>
+          <div class="text-muted">
+          	{{:: row.userDisplayName }}
+          </div>
+        </li>
+      </ul>
+
+      <!-- desktop view -->
+      <table ng-if="!$ctrl.mobile" class="table table-striped table-hover">
+        <colgroup>
+          <col style="width: 25%"/>
+          <col style="width: 15%"/>
+          <col/>
+          <col style="width: 15%"/>
+        </colgroup>
+        <thead>
+          <tr>
+            <th translate="ADMIN.TERMS.LOG.HEADING.TIMESTAMP"></th>
+            <th translate="ADMIN.TERMS.LOG.HEADING.TYPE"></th>
+            <th translate="ADMIN.TERMS.LOG.HEADING.USER"></th>
+            <th translate="ADMIN.TERMS.LOG.HEADING.LANGUAGE"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-hide="$ctrl.page.content.length > 0 || $ctrl.firstLoad">
+            <td colspan="4" class="text-center text-muted" translate="ADMIN.TERMS.LOG.EMPTY"></td>
+          </tr>
+          <tr ng-repeat="row in $ctrl.page.content track by row.id">
+            <td>{{:: row.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short }}</td>
+            <td>
+            	<span class="label" ng-class="{'label-success' : row.type=='ACCEPT', 
+                                               'label-danger'  : row.type=='DECLINE', 
+                                               'label-default' : row.type=='ACTIVATED' || row.type=='DEACTIVATED', 
+                                               'label-primary' : row.type=='NEW_VERSION', 
+                                               'label-warning' : row.type=='RESET'}">
+            		{{:: 'TERMS.LOG.TYPE.' + row.type | uppercase | translate }}
+            	</span>
+            </td>
+            <td>{{:: row.userDisplayName }}</td>
+            <td>{{:: row.language ? ('LANGUAGE.LANGUAGES.' + row.language | uppercase | translate) : '' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <coyo-table-pagination page="$ctrl.page" class="hidden-xs hidden-sm"></coyo-table-pagination>
+</div>

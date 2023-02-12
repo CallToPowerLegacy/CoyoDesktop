@@ -1,0 +1,230 @@
+@import "media-widget";
+
+.tabs {
+  margin-top: -15px;
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.media-widget-settings {
+  overflow-x: hidden;
+
+  .media-widget-settings-header {
+    display: none;
+    padding: 0;
+
+    @media screen and (min-width: $screen-sm-min) {
+      display: flex;
+      border-bottom: 1px solid $color-gray-light;
+
+      .media-header {
+        padding: 8px;
+        text-transform: uppercase;
+        color: $color-gray;
+
+        &.media-preview {
+          margin-right: 12px;
+        }
+
+        &.media-media {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .file-library-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50px;
+    width: 70%;
+    margin: 25px auto;
+    text-align: center;
+
+    &.content-error {
+      border: 2px dashed $color-red;
+    }
+
+    @media screen and (max-width: $screen-sm-min) {
+      margin: 20px auto 10px auto;
+    }
+
+    i.zmdi {
+      margin-right: 8px;
+    }
+  }
+
+  .media-widget-preview-media {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid $color-gray-light;
+
+    &:hover {
+      background-color: $color-gray-lighter;
+
+      .media-handle, .media-options {
+        visibility: visible;
+      }
+    }
+
+    &:last-child {
+      border: 0;
+    }
+
+    .file-preview {
+      margin: auto;
+    }
+
+    .media-preview {
+      display: none;
+
+      @media screen and (min-width: $screen-sm-min) {
+        display: inline;
+      }
+    }
+
+    .media-media {
+      display: flex;
+      height: $media-image-size;
+      line-height: $media-image-size;
+
+      .coyo-spinner {
+        margin: 50%;
+      }
+
+      .video-cover {
+        width: $media-image-size;
+        height: $media-image-size;
+      }
+
+      video {
+        width: $media-image-size;
+        height: $media-image-size;
+        object-fit: contain;
+        overflow: hidden;
+        margin-right: 10px;
+      }
+
+      .cover-image-reference-container {
+        width: $media-image-size;
+        height: $media-image-size;
+      }
+
+      .broken-image-placeholder {
+        i.zmdi-broken-image {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: $media-image-size;
+          height: $media-image-size;
+          font-size: $media-image-size * 0.75;
+          text-align: center;
+        }
+
+        .no-preview-text {
+          display: none;
+        }
+      }
+    }
+
+    .media-description {
+      .description-mobile {
+        display: block;
+        word-wrap: break-word;
+
+        @media screen and (min-width: $screen-sm-min) {
+          display: none;
+        }
+
+        &.gray-out {
+          color: $color-gray;
+        }
+      }
+
+      .preview-mobile {
+        float: left;
+        display: inline;
+        font-size: 90%;
+        color: $color-green;
+        margin-top: 5px;
+
+        @media screen and (min-width: $screen-sm-min) {
+          display: none;
+        }
+      }
+    }
+
+    .media-options {
+      padding-right: 0;
+      padding-left: 8px;
+      float: right;
+
+      .media-delete {
+        display: none;
+        font-size: 20px;
+        cursor: pointer;
+
+        @media screen and (min-width: $screen-sm-min) {
+          display: inline;
+        }
+
+        @media screen and (min-width: $screen-sm-min) and (max-width: $screen-md-min) {
+          font-size: 18px;
+        }
+      }
+
+      i.zmdi {
+        margin-right: 4px;
+
+        @media screen and (min-width: $screen-sm-min) {
+          margin-right: 6px;
+        }
+      }
+    }
+
+    .media-options-mobile {
+      display: inline;
+      cursor: pointer;
+
+      i.zmdi {
+        font-size: 20px;
+      }
+
+      span.context-menu {
+        i.zmdi-hc-fw {
+          width: 0.5em;
+        }
+      }
+
+      @media screen and (min-width: $screen-sm-min) {
+        display: none;
+      }
+    }
+
+    .media-handle {
+      font-size: 20px;
+      color: $color-gray-darker;
+    }
+
+    .alert {
+      display: none;
+    }
+  }
+
+  .empty-media {
+    text-align: center;
+
+    @media screen and (max-width: $screen-sm-min) {
+      line-height: 50vh;
+    }
+  }
+}
+
+.media-widget-settings-information {
+  margin: 25px auto;
+}

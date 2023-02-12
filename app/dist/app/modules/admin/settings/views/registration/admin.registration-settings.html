@@ -1,0 +1,40 @@
+<form name="settingsForm" class="form-horizontal" coyo-form-submit="$ctrl.save()">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title" translate="ADMIN.SETTINGS.REGISTRATION"></h3>
+    </div>
+    <div class="panel-body">
+
+      <!-- Default language -->
+      <div class="form-group">
+        <label for="defaultLanguage" class="col-sm-3 control-label"
+               translate="ADMIN.SETTINGS.DEFAULT_LANGUAGE.LABEL"></label>
+        <div class="col-sm-8">
+          <coyo-select-language ng-model="$ctrl.settings.defaultLanguage" name="defaultLanguage" id="defaultLanguage"></coyo-select-language>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.SETTINGS.DEFAULT_LANGUAGE.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <!-- Default time zone -->
+      <div class="form-group">
+        <label for="defaultTimeZone" class="col-sm-3 control-label"
+               translate="ADMIN.SETTINGS.DEFAULT_TIMEZONE.LABEL"></label>
+        <div class="col-sm-8">
+          <coyo-select-time-zone ng-model="$ctrl.settings.defaultTimeZone" name="defaultTimeZone" id="defaultTimeZone"></coyo-select-time-zone>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.SETTINGS.DEFAULT_TIMEZONE.HELP"></coyo-help>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer panel-actions">
+      <div class="row">
+        <div class="col-sm-9 col-sm-push-3">
+          <coyo-form-submit-button label="SAVE" form-ctrl="settingsForm"></coyo-form-submit-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

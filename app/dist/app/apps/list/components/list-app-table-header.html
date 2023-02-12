@@ -1,0 +1,7 @@
+<div class="list-app-table-row-item" ng-repeat="field in $ctrl.fields" ng-if="!field.hidden" ng-click="$ctrl.sort(field)">
+    <span class="cell-content">{{::field.name}}
+        <i class="hidden-xs zmdi"
+           ng-class="{'zmdi-caret-down-circle': $ctrl.sortConfig.dir === 'DESC', 'zmdi-caret-up-circle': $ctrl.sortConfig.dir === 'ASC'}"
+           ng-if="$ctrl.sortConfig.field.id === field.id"></i>
+    </span>
+</div>

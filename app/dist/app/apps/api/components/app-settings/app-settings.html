@@ -1,0 +1,56 @@
+<div class="form-horizontal">
+  <div class="form-group">
+    <label for="app-name" class="col-sm-2 control-label" translate="APPS.SETTINGS.NAME.LABEL"></label>
+    <div class="col-sm-9">
+      <input id="app-name" name="app-name" class="form-control" type="text" ng-model="$ctrl.app.name" maxlength="255" required>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="APPS.SETTINGS.NAME.HELP"></coyo-help>
+    </div>
+  </div>
+  <div ng-if="::!$ctrl.app.isNew()" class="form-group" ng-class="{'has-error': $ctrl.formCtrl.app_slug.$invalid, 'has-warning': ($ctrl.oldSlug != $ctrl.app.slug)}">
+    <label for="app_slug" class="col-sm-2 control-label" translate="APPS.SETTINGS.SLUG.LABEL"></label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <div class="input-group-addon">/{{::$ctrl.app.key}}/</div>
+        <input id="app_slug" name="app_slug" class="form-control" type="text" ng-model="$ctrl.app.slug" maxlength="255"
+               coyo-check-app-slug="{{$ctrl.app.id}}" coyo-check-app-slug-context="{{$ctrl.app.senderId}}"
+               ng-required="true" ng-pattern="'^[a-z0-9-]+$'"
+               ng-model-options="{ updateOn: 'default blur', debounce: {'default': $root.debounce.sm, 'blur': 0} }">
+        <div class="input-group-addon">
+          <coyo-validation-status-icon form-field="$ctrl.formCtrl.app_slug"></coyo-validation-status-icon>
+        </div>
+      </div>
+      <p class="help-block" ng-show="$ctrl.oldSlug != $ctrl.app.slug && !$ctrl.formCtrl.app_slug.$invalid">
+        <i class="zmdi zmdi-alert-triangle"></i>&nbsp;{{:: 'APPS.SETTINGS.SLUG.WARNING' | translate }}
+      </p>
+      <ng-messages for="$ctrl.formCtrl.app_slug.$error" class="help-block validation">
+        <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+        <p ng-message="pattern" translate="ERRORS.VALIDATION.PATTERN"></p>
+        <p ng-message="appSlug" translate="ERRORS.VALIDATION.ALREADY_TAKEN"></p>
+      </ng-messages>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="APPS.SETTINGS.SLUG.HELP"></coyo-help>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="app-default" class="col-sm-2 control-label" translate="APPS.SETTINGS.ACTIVE.LABEL.SHORT"></label>
+    <div class="col-sm-9">
+      <div class="checkbox">
+        <label>
+          <coyo-checkbox id="app-default" name="app-default" ng-model="$ctrl.app.active"></coyo-checkbox>
+          {{:: 'APPS.SETTINGS.ACTIVE.LABEL' | translate }}
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="APPS.SETTINGS.ACTIVE.HELP"></coyo-help>
+    </div>
+  </div>
+  <oyoc-settings-view model="$ctrl.app"
+                      config="$ctrl.appConfig"
+                      form-ctrl="$ctrl.formCtrl"
+                      save-callbacks="$ctrl.saveCallbacks">
+  </oyoc-settings-view>
+</div>

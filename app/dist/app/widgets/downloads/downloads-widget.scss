@@ -1,0 +1,40 @@
+.downloads-widget {
+
+  .downloads-widget-file {
+    display: flex;
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .downloads-widget-icon {
+      color: $color-gray-darker;
+      padding-top: 1px;
+      margin-left: 3px;
+      margin-right: 11px;
+    }
+  }
+
+  .downloads-widget-link {
+    max-width: 100%;
+    display: block;
+    overflow: hidden;
+
+    .file-name {
+      max-height: 20px;
+      width: 100%;
+      padding-right: 15px;
+      display: block;
+      @include ellipsis();
+    }
+  }
+}
+
+.edit-mode .downloads-widget-link {
+  width: 100%;
+}
+
+.downloads-widget-settings .fl-file-picker ul.fl-file-picker-list {
+    margin-top: 0;
+}

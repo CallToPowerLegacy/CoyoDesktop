@@ -1,0 +1,15 @@
+<label class="small control-label" translate="MODULE.ACCOUNT.NOTIFICATION_SETTINGS.FORM.INTERVAL.LABEL"></label>
+
+<ui-select ui-select-mobile="{{:: 'MODULE.ACCOUNT.NOTIFICATION_SETTINGS.CHANNEL.EMAIL.NAME' | translate }}"
+           ng-model="$ctrl.setting.interval"
+           search-enabled="true"
+           ng-disabled="!$ctrl.setting.active"
+           append-to-body="false"
+           on-select="$ctrl.onChange({setting: $ctrl.setting})">
+    <ui-select-match allow-clear="false">
+        {{$select.selected.name | translate}}
+    </ui-select-match>
+    <ui-select-choices repeat="item.value as item in $ctrl.items">
+        <div ng-bind="item.name | translate"></div>
+    </ui-select-choices>
+</ui-select>

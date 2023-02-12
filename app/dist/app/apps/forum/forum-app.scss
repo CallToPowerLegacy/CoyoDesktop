@@ -1,0 +1,396 @@
+.forum-app {
+
+  .panel {
+    .panel-heading {
+      &.create-panel-heading {
+        @media screen and (min-width: $screen-sm-min) {
+          margin: 0;
+          padding-left: 30px;
+          padding-right: 30px;
+        }
+      }
+    }
+
+    .panel-title {
+      &.forum-answers-add-title {
+        font-size: 20px;
+        font-weight: normal;
+      }
+    }
+
+    &.forum-panel-list {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+
+      .panel-body {
+        padding-top: 12px;
+      }
+    }
+    
+    .thread-status-options {
+      width: 20px;
+    }
+
+    .forum-threads {
+      &.table {
+        margin-bottom: 0;
+      }
+
+      .custom-hidden-xl {
+        /* avoid display issues with the table on a specific screen size */
+        @media only screen and (min-width:1200px) and (max-width:1400px) {
+          display: none;
+        }
+      }
+
+      .thread-title {
+        font-weight: bold;
+        word-wrap: break-word;
+      }
+    }
+
+    .thread-icon-shrink {
+      width: 1%; // shrink column width to minimum size
+    }
+
+    .thread-icon-mobile {
+      width: 40px;
+    }
+
+    .thread-icon {
+      text-align: center;
+      vertical-align: middle;
+
+      .thread-icon-background {
+        &.zmdi-circle {
+          color: $color-green;
+
+          &.closed {
+            color: $color-gray;
+          }
+
+          &.pinned {
+            color: $text-color;
+          }
+        }
+      }
+
+      .thread-icon-foreground {
+        font-size: 15px;
+      }
+    }
+
+    td {
+      max-width: 150px;
+      vertical-align: middle;
+
+      .thread-context-menu-container {
+        text-align: right;
+      }
+
+      &:last-child {
+        overflow: visible;
+        min-width: 15px;
+        max-width: 15px;
+      }
+
+      &:nth-child(2n) &:not(:last-child) {
+        min-width: 150px;
+      }
+    }
+
+    .thread-comment-count,
+    .thread-comment-count-mobile {
+      color: $color-gray;
+
+      .comment-count {
+        margin-left: 4px;
+      }
+    }
+
+    .thread-created,
+    .thread-last-answer,
+    .no-answer {
+      color: $color-gray;
+    }
+
+    .thread-created, .thread-answer {
+      .zmdi-account-circle {
+        color: $color-blue;
+        margin-right: 2px;
+      }
+    }
+
+    .thread-answer-author-mobile {
+      margin: 0 2px 0 2px;
+    }
+
+    .thread-wrapper {
+      display: flex;
+      flex-direction: row;
+      padding-top: 10px;
+
+      .thread-context-menu {
+        flex: 0;
+        margin-left: 5px;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $color-gray-light;
+      }
+
+      .thread-info-mobile {
+        overflow: hidden;
+        margin: 3px 0 5px 8px;
+        padding-bottom: 10px;
+        flex: 1;
+
+        .thread-title-mobile {
+          font-size: 16px;
+          font-weight: bold;
+          margin: 1px 0 0;
+          word-wrap: break-word;
+        }
+
+        .thread-data-mobile {
+          margin: 10px 0 0;
+
+          .thread-lastanswer-mobile {
+            color: $color-gray;
+          }
+
+          .thread-author-mobile {
+            margin: 0 2px 5px 0;
+
+            .thread-author {
+              margin-right: 5px;
+            }
+
+            .zmdi-account-circle {
+              color: $color-blue;
+              margin-right: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .no-threads-found {
+    @media screen and (min-width: $screen-sm-min) {
+      margin-top: 14px;
+    }
+  }
+
+  .forum-thread-text {
+    margin-bottom: 14px;
+    margin-top: 9px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      margin-bottom: 0;
+      margin-top: 24px;
+    }
+  }
+
+  .panel-footer.panel-actions {
+    .forum-thread-attachment-trigger {
+      margin-bottom: 12px;
+    }
+  }
+
+  .forum-thread-attachments {
+    border-top: 1px solid $color-gray-light;
+    font-size: 14px;
+    padding: 8px 0;
+
+    .forum-thread-attachment {
+      display: flex;
+      padding: 4px 0;
+
+      .forum-thread-attachment-icon {
+        flex: none;
+        padding-right: 4px;
+      }
+
+      .forum-thread-attachment-name {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .forum-thread-attachment-opt {
+        flex: none;
+      }
+    }
+  }
+
+  .zmdi.item-active {
+    color: $color-blue;
+  }
+
+  .forum-thread {
+    margin-top: 0;
+
+    &.thread-view {
+      .panel-forum-thread {
+        margin-bottom: 24px;
+
+        .fl-header {
+          align-items: center;
+          background-color: $breadcrumb-bg;
+          display: flex;
+          padding: 8px 22px;
+
+          .bdv-col-home {
+            flex: 0 0 auto;
+          }
+
+          .active {
+            &:hover {
+              color: $color-link;
+            }
+          }
+
+          .bdv-col-home,
+          .bdv-col-left,
+          .bdv-col-right {
+            color: $link-color;
+
+            &:hover {
+              color: $link-hover-color;
+              text-decoration: $link-hover-decoration;
+            }
+          }
+
+          .inactive {
+            color: $color-gray;
+
+            &:hover {
+              color: $color-gray;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+
+      .thread-header {
+        display: flex;
+        flex-wrap: wrap;
+
+        .thread-title-wrapper {
+          width: 100%;
+          display: flex;
+          align-items: flex-start;
+        }
+
+        .thread-title {
+          flex: 1;
+          display: inline;
+          overflow: inherit;
+          text-overflow: inherit;
+          white-space: inherit;
+          word-break: break-word;
+
+          .thread-status {
+            .label {
+              display: inline-block;
+              font-size: 12px;
+              font-weight: normal;
+              line-height: 1em;
+              vertical-align: 4px;
+            }
+          }
+        }
+
+        .thread-context-menu {
+          flex: 0;
+          margin-left: 5px;
+        }
+
+        .thread-info {
+          flex: 1 100%;
+          margin-top: 14px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          .thread-author-avatar {
+            order: 1;
+          }
+
+          .thread-info-details {
+            order: 2;
+
+            .thread-author {
+
+              color: $link-color;
+              cursor: pointer;
+              margin-right: 24px;
+            }
+
+            .thread-time {
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+
+      .thread-attachments {
+        border-top: 1px solid $color-gray-light;
+        margin: 0 30px;
+        padding-top: 20px;
+
+        @media screen and (max-width: $screen-xs-max) {
+          margin: 0 15px;
+        }
+
+        .attachment-list {
+          padding-bottom: 14px;
+        }
+      }
+
+      .widget-layout .widget-layout-row .widget-slot {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .thread-closed-status {
+    background-color: $gray;
+    border-radius: 5px;
+    color: $color-white;
+    text-align: center;
+    font-weight: bold;
+    margin: 22px 0;
+    padding: 12px 30px;
+  }
+
+  @media screen and (min-width: $screen-md-min) {
+    .thread {
+      .thread-context-menu {
+        display: none;
+      }
+
+      &:hover {
+        .thread-context-menu {
+          display: inline;
+        }
+      }
+    }
+
+    .context-menu-list {
+      hr {
+        margin: 0;
+      }
+    }
+    
+    .thread-status-options-list, .thread-status-options {
+      color: $color-gray;
+
+      &:hover {
+        color: $text-color;
+      }
+    }
+  }
+}

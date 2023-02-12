@@ -1,0 +1,75 @@
+<div class="admin-api-clients" ng-cloak>
+
+    <div class="text-center mv-m" ng-if="$ctrl.loading">
+        <coyo-spinner></coyo-spinner>
+    </div>
+
+    <div ng-if="!$ctrl.loading">
+        <coyo-filterbox>
+            <fb-actions>
+                <li>
+                    <a ui-sref="admin.api-clients.create">
+                    <i class="zmdi zmdi-plus-circle"></i>&nbsp;{{:: 'ADMIN.API_CLIENTS.CREATE' | translate }}
+                    </a>
+                </li>
+            </fb-actions>
+        </coyo-filterbox>
+
+        <div class="panel panel-default panel-list">
+            <div class="panel-body">
+
+                <!-- mobile view -->
+                <ul ng-if="$ctrl.isMobile" class="list-group">
+                    <li ng-hide="$ctrl.currentPage.content.length"
+                        class="text-center text-muted pv-s"
+                        translate="ADMIN.API_CLIENTS.EMPTY"></li>
+                    <li ng-repeat="apiClient in $ctrl.currentPage.content"
+                        ng-class="{'animate-removal': $ctrl.userAction }"
+                        id="api-client-{{$index}}"
+                        class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <div>{{apiClient.clientId}}</div>
+                                <div>{{apiClient.clientSecret}}</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <coyo-context-menu ng-if="$ctrl.isMobile"
+                                   ng-repeat="apiClient in $ctrl.currentPage.content"
+                                   toggle-element="#api-client-{{$index}}"
+                                   title="{{apiClient.clientId}}">
+                    <oyoc-api-client-options actions="$ctrl.actions" api-client="apiClient"></oyoc-api-client-options>
+                </coyo-context-menu>
+
+                <!-- desktop view -->
+                <table ng-if="!$ctrl.isMobile" class="table table-striped table-hover m-0">
+                    <thead>
+                    <tr>
+                        <th translate="ADMIN.API_CLIENTS.HEADINGS.ID"></th>
+                        <th translate="ADMIN.API_CLIENTS.HEADINGS.SECRET"></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-hide="$ctrl.currentPage.content.length">
+                        <td colspan="6" class="text-center text-muted" translate="ADMIN.API_CLIENTS.EMPTY"></td>
+                    </tr>
+                    <tr ng-repeat="apiClient in $ctrl.currentPage.content">
+                        <td>{{::apiClient.clientId}}</td>
+                        <td>{{::apiClient.clientSecret}}</td>
+                        <td class="column-options">
+                            <coyo-context-menu align-right="true">
+                                <oyoc-api-client-options actions="$ctrl.actions" api-client="apiClient"></oyoc-api-client-options>
+                            </coyo-context-menu>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div ng-if="$ctrl.currentPage">
+                    <coyo-table-pagination page="$ctrl.currentPage"></coyo-table-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

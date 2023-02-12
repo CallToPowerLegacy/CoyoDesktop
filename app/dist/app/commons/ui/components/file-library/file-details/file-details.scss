@@ -1,0 +1,30 @@
+.coyo-file-details {
+  margin-bottom: 0;
+
+  dt {
+    text-align: center;
+
+    @media screen and (min-width: $screen-sm-min) {
+      text-align: right;
+    }
+  }
+
+  dd {
+    text-align: center;
+    white-space: normal;
+
+    @media screen and (min-width: $screen-sm-min) {
+      text-align: left;
+    }
+  }
+
+  form {
+    margin-top: -4px;
+
+    textarea {
+      margin-bottom: 8px;
+      margin-top: 4px;
+      resize: none;
+    }
+  }
+}

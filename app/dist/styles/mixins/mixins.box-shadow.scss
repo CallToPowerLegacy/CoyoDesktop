@@ -1,0 +1,40 @@
+// Mixins - Set the box shadow
+// --------------------------------------------------
+
+// example usage:
+// @include box-shadow-none()
+@mixin box-shadow-none() {
+  // scss-lint:disable VendorPrefix
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  // scss-lint:enable VendorPrefix
+}
+
+// example usage:
+// @include box-shadow(h-shadow, v-shadow, blur, spread, #c1, true)
+@mixin box-shadow($h-shadow, $v-shadow, $blur, $spread, $color, $inset: false, $important: false) {
+  // scss-lint:disable VendorPrefix
+  @if $inset {
+    @if $important {
+      -moz-box-shadow: inset $h-shadow $v-shadow $blur $spread $color !important;
+      -webkit-box-shadow: inset $h-shadow $v-shadow $blur $spread $color !important;
+      box-shadow: inset $h-shadow $v-shadow $blur $spread $color !important;
+    } @else {
+      -moz-box-shadow: inset $h-shadow $v-shadow $blur $spread $color;
+      -webkit-box-shadow: inset $h-shadow $v-shadow $blur $spread $color;
+      box-shadow: inset $h-shadow $v-shadow $blur $spread $color;
+    }
+  } @else {
+    @if $important {
+      -moz-box-shadow: $h-shadow $v-shadow $blur $spread $color !important;
+      -webkit-box-shadow: $h-shadow $v-shadow $blur $spread $color !important;
+      box-shadow: $h-shadow $v-shadow $blur $spread $color !important;
+    } @else {
+      -moz-box-shadow: $h-shadow $v-shadow $blur $spread $color;
+      -webkit-box-shadow: $h-shadow $v-shadow $blur $spread $color;
+      box-shadow: $h-shadow $v-shadow $blur $spread $color;
+    }
+  }
+  // scss-lint:enable VendorPrefix
+}

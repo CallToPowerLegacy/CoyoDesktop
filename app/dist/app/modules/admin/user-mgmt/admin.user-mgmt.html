@@ -1,0 +1,22 @@
+<div class="admin-user" ng-cloak>
+  <div class="panel panel-default panel-tabs">
+    <uib-tabset justified="true" active="-1">
+      <uib-tab ui-sref="admin.user-management.user" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-account zmdi-wide"></i> <span class="tab-text" translate="ADMIN.USER_MGMT.USERS"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.user-management.groups" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-accounts zmdi-wide"></i> <span class="tab-text" translate="ADMIN.USER_MGMT.GROUPS"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.user-management.roles" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-lock zmdi-wide"></i> <span class="tab-text" translate="ADMIN.USER_MGMT.ROLES"></span>
+        </uib-tab-heading>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+  <div ui-view></div>
+</div>

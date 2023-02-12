@@ -1,0 +1,10 @@
+<div class="input-group">
+    <span class="input-group-addon">
+        <i class="zmdi zmdi-globe"></i>
+    </span>
+    <input name="{{settingsForm.getFieldName(config)}}" id="{{settingsForm.getFieldName(config)}}" class="form-control"
+           ng-model="model.value" ng-required="config.required" type="text" ng-pattern='/^((ftp|http|https):\/\/|(\/))[^ "]+$/'>
+</div>
+<div ng-if="settingsForm.getField(config).$dirty">
+    <p class="help-block" ng-if="settingsForm.getField(config).$error.pattern" translate="APP.LIST.FIELDS.LINK.ERRORS.PATTERN"></p>
+</div>

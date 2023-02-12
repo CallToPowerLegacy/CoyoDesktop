@@ -1,0 +1,44 @@
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="MODULE.PAGES.AUTO_SUBSCRIBE.LABEL"></label>
+  <div class="col-sm-10">
+    <div class="radio">
+      <label>
+        <input name="autoSubscribeType"
+               type="radio"
+               ng-model="$ctrl.page.autoSubscribeType"
+               ng-change="$ctrl.onSelectionChange()"
+               value="NONE">
+        {{::'MODULE.PAGES.AUTO_SUBSCRIBE.OPTIONS.NONE.LABEL' | translate}}<br>
+        <span class="text-muted" translate="MODULE.PAGES.AUTO_SUBSCRIBE.OPTIONS.NONE.DESCRIPTION"></span>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="autoSubscribeType"
+               type="radio"
+               ng-model="$ctrl.page.autoSubscribeType"
+               ng-change="$ctrl.onSelectionChange()"
+               value="ALL">
+        {{::'MODULE.PAGES.AUTO_SUBSCRIBE.OPTIONS.ALL.LABEL' | translate}}<br>
+        <span class="text-muted" translate="MODULE.PAGES.AUTO_SUBSCRIBE.OPTIONS.ALL.DESCRIPTION"></span>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="autoSubscribeType"
+               type="radio"
+               ng-model="$ctrl.page.autoSubscribeType"
+               ng-change="$ctrl.onSelectionChange()"
+               value="SELECTED">
+        {{::'MODULE.PAGES.AUTO_SUBSCRIBE.OPTIONS.SELECTED.LABEL' | translate}}<br>
+        <span class="text-muted" translate="MODULE.PAGES.AUTO_SUBSCRIBE.OPTIONS.SELECTED.DESCRIPTION"></span>
+        <div class="mt-xs" ng-if="$ctrl.page.autoSubscribeType === 'SELECTED'">
+          <coyo-user-chooser ng-model="$ctrl.page"
+                             min="1"
+                             users-field="autoSubscribeUserIds"
+                             groups-field="autoSubscribeGroupIds"></coyo-user-chooser>
+        </div>
+      </label>
+    </div>
+  </div>
+</div>

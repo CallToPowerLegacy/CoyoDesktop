@@ -1,0 +1,108 @@
+<div class="admin-landing-pages" ng-cloak>
+
+  <div class="text-center mv-m" ng-if="$ctrl.loading">
+    <coyo-spinner></coyo-spinner>
+  </div>
+
+  <div ng-if="!$ctrl.loading">
+    <coyo-filterbox>
+      <fb-search>
+        <coyo-search-filter change="$ctrl.onChangeName"
+                      placeholder="ADMIN.LANDING_PAGES.SEARCH"
+                      search-term="{{$ctrl.queryParams.displayName}}"></coyo-search-filter>
+      </fb-search>
+      <fb-count>
+        <coyo-counter value="$ctrl.landingPages.length"
+               key-none="ADMIN.LANDING_PAGES.PAGES_NONE"
+               key-singular="ADMIN.LANDING_PAGES.PAGES_SINGULAR"
+               key-plural="ADMIN.LANDING_PAGES.PAGES_PLURAL"></coyo-counter>
+      </fb-count>
+      <fb-actions>
+        <li>
+          <a ui-sref="admin.landing-pages.create">
+            <i class="zmdi zmdi-plus-circle"></i>&nbsp;{{:: 'ADMIN.LANDING_PAGES.OPTIONS.CREATE' | translate }}
+          </a>
+        </li>
+      </fb-actions>
+    </coyo-filterbox>
+
+    <div class="panel panel-default panel-list">
+      <div class="panel-body">
+
+        <!-- mobile view -->
+        <ul ng-if="$ctrl.isMobile" class="list-group">
+          <li ng-hide="$ctrl.landingPages.length"
+              class="text-center text-muted pv-s"
+              translate="ADMIN.LANDING_PAGES.EMPTY"></li>
+          <li ng-repeat="landingPage in $ctrl.landingPages track by landingPage.id"
+              ng-class="{'animate-removal': $ctrl.userAction }"
+              id="page-landingPage-{{$index}}"
+              class="list-group-item">
+            <div class="row">
+              <div class="col-xs-8">
+                <div>{{landingPage.displayName}}</div>
+                <div ng-show="!landingPage.configuredUrl"><a ui-sref="main.landing-page.show({'idOrSlug': landingPage.slug || landingPage.id})">{{::$ctrl.baseUrl}}{{landingPage.slug}}</a></div>
+                <div ng-show="landingPage.configuredUrl"><a ng-href="{{landingPage.configuredUrl}}" target="_blank">{{landingPage.configuredUrl}}</a></div>
+              </div>
+              <div class="col-xs-4 text-right">
+                <coyo-active-label ng-model="landingPage.active"></coyo-active-label>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <coyo-context-menu ng-if="$ctrl.isMobile"
+                      ng-repeat="landingPage in $ctrl.landingPages track by landingPage.id"
+                      toggle-element="#page-landingPage-{{$index}}"
+                      title="{{landingPage.displayName}}">
+          <oyoc-landing-page-options actions="$ctrl.actions" page="landingPage"></oyoc-landing-page-options>
+        </coyo-context-menu>
+
+        <!-- desktop view -->
+        <table ng-if="!$ctrl.isMobile" class="table table-striped table-hover m-0"
+               ui-tree="$ctrl.treeOptions" empty-placeholder-enabled="false" max-depth="1"
+               drag-enabled="$ctrl.landingPages.length > 1 && !$ctrl.isFiltered">
+          <thead>
+            <tr>
+              <th></th>
+              <th translate="ADMIN.LANDING_PAGES.HEADINGS.NAME"></th>
+              <th translate="ADMIN.LANDING_PAGES.HEADINGS.SLUG"></th>
+              <th translate="ADMIN.LANDING_PAGES.HEADINGS.ACTIVE"></th>
+              <th translate="ADMIN.LANDING_PAGES.HEADINGS.VISIBILITY"></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody ui-tree-nodes max-depth="1" ng-model="$ctrl.landingPages">
+            <tr ng-hide="$ctrl.landingPages.length">
+              <td colspan="6" class="text-center text-muted" translate="ADMIN.LANDING_PAGES.EMPTY"></td>
+            </tr>
+            <tr ng-repeat="landingPage in $ctrl.landingPages" ui-tree-node ng-class="{'animate-removal': $ctrl.userAction }">
+              <td class="column-options">
+                <i class="zmdi zmdi-hc-fw zmdi-swap-vertical"
+                   ng-class="{'forbidden gray-light': $ctrl.landingPages.length < 2 || $ctrl.isFiltered}"
+                   ui-tree-handle></i>
+              </td>
+              <td>{{::landingPage.displayName}}</td>
+              <td>
+                <div ng-show="!landingPage.configuredUrl"><a ui-sref="main.landing-page.show({'idOrSlug': landingPage.slug || landingPage.id})">{{::$ctrl.baseUrl}}{{landingPage.slug}}</a></div>
+                <div ng-show="landingPage.configuredUrl"><a ng-href="{{landingPage.configuredUrl}}" target="_blank">{{landingPage.configuredUrl}}</a></div>
+              </td>
+              <td>
+                <coyo-active-label ng-model="landingPage.active"></coyo-active-label>
+              </td>
+              <td>
+                <i class="zmdi zmdi-hc-fw"
+                   ng-class="{'zmdi-globe': landingPage.visibility === 'PUBLIC', 'zmdi-eye-off': landingPage.visibility === 'PRIVATE'}">
+                </i>&nbsp;{{::('ADMIN.LANDING_PAGES.VISIBILITY.' + landingPage.visibility) | translate}}
+              </td>
+              <td class="column-options">
+                <coyo-context-menu align-right="true">
+                  <oyoc-landing-page-options actions="$ctrl.actions" page="landingPage"></oyoc-landing-page-options>
+                </coyo-context-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

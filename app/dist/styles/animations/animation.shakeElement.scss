@@ -1,0 +1,32 @@
+// Animations - Shake element
+// --------------------------------------------------
+
+@include keyframes(shake) {
+  0% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-6px) rotateY(0deg);
+  }
+
+  40% {
+    transform: translateX(6px) rotateY(0deg);
+  }
+
+  60% {
+    transform: translateX(-6px) rotateY(0deg);
+  }
+
+  80% {
+    transform: translateX(6px) rotateY(0deg);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  @include animate(shake $shake-ms ease-in-out);
+}

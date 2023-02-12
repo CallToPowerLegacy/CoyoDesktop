@@ -1,0 +1,51 @@
+// Forms
+// --------------------------------------------------
+
+form {
+  .validation-correct {
+    color: $color-form-correct !important;
+  }
+
+  .validation-incorrect {
+    color: $color-form-error !important;
+  }
+
+  .custom-error {
+    color: $color-form-error;
+  }
+
+  .form-group {
+    .help-block.validation {
+      display: none;
+    }
+
+    &.has-error .help-block {
+      display: block;
+    }
+
+    .label-required {
+      color: $color-gray;
+      font-size: 13px;
+    }
+
+    &.has-error .label-required {
+      color: inherit;
+    }
+  }
+
+  textarea.resize-max {
+    min-height: 88px;
+    max-height: 208px;
+    overflow-y: scroll !important;
+  }
+}
+
+.inplace-edit {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  padding-right: 5px;
+  border-bottom: 1px dashed $color-gray-light;
+}

@@ -1,0 +1,8 @@
+<div class="checkbox" ng-init="model.value = (model.value === undefined) ? config.settings.preselect || false : model.value">
+    <label>
+        <coyo-checkbox id="field-{{:: config.id}}"
+                       name="field-{{:: config.id}}"
+                       ng-model="model.value"
+                       ng-required="config.required"></coyo-checkbox>
+    </label>
+</div>

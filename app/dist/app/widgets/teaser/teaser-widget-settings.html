@@ -1,0 +1,123 @@
+<div class="teaser-widget-settings" ng-if="!$ctrl.configSlide">
+  <div class="text-center m-m" ng-if="$ctrl.loading">
+    <coyo-spinner size="sm"></coyo-spinner>
+  </div>
+
+  <div class="form-container">
+    <div class="form-headline">
+      <h3 translate="WIDGETS.TEASER.SETTINGS.CONFIG.HEADLINE.SLIDES"></h3>
+      <a class="btn btn-default pull-right btn-add-slide" ng-click="$ctrl.openConfig()">
+        <i class="zmdi zmdi-plus-circle"></i> {{:: 'WIDGETS.TEASER.SETTINGS.CONFIG.BUTTON.NEW' | translate}}
+      </a>
+    </div>
+    <div class="form-group" ng-if="!$ctrl.loading">
+      <div ui-tree="$ctrl.treeOptions"
+        data-drag-delay="100"
+        class="teaser-slides-tree"
+        data-drag-enabled="!$ctrl.loading && $ctrl.model.settings.slides.length > 1"
+        ng-if="$ctrl.model.settings.slides.length > 0">
+        <ol ui-tree-nodes ng-model="$ctrl.model.settings.slides" class="teaser-slide-list">
+          <li ng-repeat="slide in $ctrl.model.settings.slides"
+              ui-tree-node
+              class="teaser-slide-li"
+              ng-include="'app/widgets/teaser/teaser-widget-settings-slide-node.html'">
+          </li>
+        </ol>
+      </div>
+      <div class="clear"></div>
+      <div class="form-headline">
+        <h3 translate="WIDGETS.TEASER.SETTINGS.CONFIG.HEADLINE.SIZE"></h3>
+      </div>
+      <div class="teaser-sizes">
+        <div class="teaser-size teaser-size-xs">
+          <div class="teaser-size-placeholder"
+          ng-class="{'active' : $ctrl.model.settings._size === 'xs' }"
+          ng-click="$ctrl.setTeaserSize('xs')"></div>
+        </div>
+        <div class="teaser-size teaser-size-sm">
+          <div class="teaser-size-placeholder"
+          ng-class="{'active' : $ctrl.model.settings._size === 'sm' }"
+          ng-click="$ctrl.setTeaserSize('sm')"></div>
+        </div>
+        <div class="teaser-size teaser-size-md">
+          <div class="teaser-size-placeholder"
+          ng-class="{'active' : $ctrl.model.settings._size === 'md'}"
+          ng-click="$ctrl.setTeaserSize('md')"></div>
+        </div>
+        <div class="teaser-size teaser-size-lg">
+          <div class="teaser-size-placeholder"
+          ng-class="{'active' : $ctrl.model.settings._size === 'lg'}"
+          ng-click="$ctrl.setTeaserSize('lg')"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="teaser-widget-settings-config-slide" ng-if="$ctrl.configSlide">
+  <div class="form-container">
+    <div class="form-headline">
+      <h3>{{ $ctrl.model.editing ? ('WIDGETS.TEASER.SETTINGS.CONFIG.HEADLINE.SLIDE.EDIT' | translate) : ('WIDGETS.TEASER.SETTINGS.CONFIG.HEADLINE.SLIDE.NEW' | translate) }}</h3>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label" translate="WIDGETS.TEASER.SETTINGS.CONFIG.HEADLINE.LABEL"></label>
+      <div class="col-sm-9">
+        <input name="headline" class="form-control" type="text" maxlength="40" ng-model="$ctrl.model.config.headline">
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="WIDGETS.TEASER.SETTINGS.CONFIG.HEADLINE.HELP"></coyo-help>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label" translate="WIDGETS.TEASER.SETTINGS.CONFIG.SUBHEADLINE.LABEL"></label>
+      <div class="col-sm-9">
+        <input name="subheadline" class="form-control" type="text" maxlength="255" ng-model="$ctrl.model.config.subheadline">
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="WIDGETS.TEASER.SETTINGS.CONFIG.SUBHEADLINE.HELP"></coyo-help>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label" translate="WIDGETS.TEASER.SETTINGS.CONFIG.URL.LABEL"></label>
+      <div class="col-sm-9">
+        <input name="url" ng-attr-placeholder="{{::'WIDGETS.TEASER.SETTINGS.CONFIG.URL.PLACEHOLDER' | translate}}"
+               class="form-control" type="text" maxlength="255" ng-pattern="/^((ftp|http|https):\/\/|(\/)).*$/"
+               ng-model="$ctrl.model.config._url">
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="WIDGETS.TEASER.SETTINGS.CONFIG.URL.HELP"></coyo-help>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label" translate="WIDGETS.TEASER.SETTINGS.CONFIG.TAB.LABEL"></label>
+      <div class="col-sm-9">
+        <coyo-checkbox name="tab" ng-model="$ctrl.model.config._newTab"></coyo-checkbox>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="WIDGETS.TEASER.SETTINGS.CONFIG.TAB.HELP"></coyo-help>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label" translate="WIDGETS.TEASER.SETTINGS.CONFIG.IMAGE.LABEL"></label>
+      <coyo-file-picker ng-if="!$ctrl.loading" sender="$ctrl.model.sender" class="col-sm-9"
+                        ng-required="true"
+                        ng-model="$ctrl.file"
+                        options="{uploadMultiple: false,
+                                  selectMode: 'single',
+                                  filterContentType: 'image'}">
+      </coyo-file-picker>
+      <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="WIDGETS.TEASER.SETTINGS.CONFIG.IMAGE.HELP"></coyo-help>
+      </div>
+    </div>
+    <div class="col-sm-10 col-sm-push-2 btns-config-slide">
+      <button type="submit" class="btn btn-primary" ng-click="$ctrl.saveConfig()" data-ng-disabled="!($ctrl.model.config || $ctrl.file)">
+        <i class="zmdi zmdi-hc-fw zmdi-check"></i>&nbsp;
+        {{ $ctrl.model.editing ? ('WIDGETS.TEASER.SETTINGS.CONFIG.BUTTON.EDIT' | translate) : ('WIDGETS.TEASER.SETTINGS.CONFIG.BUTTON.CREATE' | translate) }}
+      </button>
+      <a class="btn btn-default" ng-click="$ctrl.closeConfig()"><i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{:: 'CANCEL' | translate }}</a>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>

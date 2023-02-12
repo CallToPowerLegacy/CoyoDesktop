@@ -1,0 +1,44 @@
+.user-profile-widget {
+
+  .user-profile-widget-header {
+    text-align: center;
+    word-break: break-word;
+
+    h4 {
+      margin: 12px 0 0;
+
+      a {
+        color: $text-color;
+      }
+    }
+  }
+  .user-profile-widget-infos{
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+  }
+
+  dl,
+  dd:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Special styling in case this widget is not rendered in a panel slot
+.widget-slot-plain .user-profile-widget {
+  .user-profile-widget-header {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .user-avatar {
+      flex: none;
+    }
+
+    .name {
+      flex: 1;
+      margin-left: 12px;
+    }
+  }
+}

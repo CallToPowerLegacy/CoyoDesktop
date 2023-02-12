@@ -1,0 +1,84 @@
+{
+    "APPLICATION": {
+        "ABOUT": "Crafted in Hamburg.",
+        "COPYRIGHT": "© 2017 Denis Meyer. All rights reserved.",
+        "NAME": "COYO Desktop"
+    },
+    "CLIENT": {
+        "ABOUTPOST": ".",
+        "ABOUTPRE": "Based on COYO version"
+    },
+    "CONTEXTMENU": {
+        "COPY": "Copy",
+        "COPYLINK": "Copy link",
+        "INSPECT": "Inspect element",
+        "CUT": "Cut",
+        "PASTE": "Paste",
+        "SAVE": "Save"
+    },
+    "COYO": {
+        "BUGWEBSITE": "http://service.coyoapp.com",
+        "NAME": "COYO",
+        "WEBSITE": "https://coyoapp.com"
+    },
+    "STR": {
+        "ABOUT": "About",
+        "ACTIONS": "Actions",
+        "CONNECTEDTO": "Connected to",
+        "CONNECTION": "Connection",
+        "CURRENTUSER": "Current user",
+        "COYOMORE": "Application website",
+        "EDIT": "Edit",
+        "INFORMATION": "Information",
+        "LOGIN": "Log in",
+        "LOGINNAME": "Login name",
+        "LOGOUT": "Log out",
+        "LOGOUTMSG": "Log out of COYO?",
+        "LOGOUTDETAIL": "Are you sure you want to be logged out?",
+        "MORE": "More",
+        "NO": "No",
+        "NOTIFICATION": {
+            "NEWNOTIFICATION": "You have 1 unread notification.",
+            "NEWNOTIFICATIONS": "You have {{nr}} unread notifications.",
+            "NEWPOST": "You have 1 unread post.",
+            "NEWPOSTS": "You have {{nr}} unread posts.",
+            "NEWMESSAGE": "You have 1 unread message.",
+            "NEWMESSAGES": "You have {{nr}} unread messages.",
+            "SUMMARIZED": {
+                "NEWNOTIFICATIONANDPOST": "You have 1 unread notification und 1 unread post.",
+                "NEWNOTIFICATIONSANDPOST": "You have {{nr}} unread notifications und 1 unread post.",
+                "NEWNOTIFICATIONANDPOSTS": "You have 1 unread notification und {{nr}} unread posts.",
+                "NEWNOTIFICATIONSANDPOSTS": "You have {{nr1}} unread notifications und {{nr2}} unread posts.",
+                "NEWNOTIFICATIONANDMESSAGE": "You have 1 unread notification und 1 unread message.",
+                "NEWNOTIFICATIONSANDMESSAGE": "You have {{nr}} unread notifications und 1 unread message.",
+                "NEWNOTIFICATIONANDMESSAGES": "You have 1 unread notification und {{nr}} unread messages.",
+                "NEWNOTIFICATIONSANDMESSAGES": "You have {{nr1}} unread notifications und {{nr2}} unread messages.",
+                "NEWPOSTANDMESSAGE": "You have 1 unread post und 1 unread message.",
+                "NEWPOSTSANDMESSAGE": "You have {{nr}} unread posts und 1 unread message.",
+                "NEWPOSTANDMESSAGES": "You have 1 unread post und {{nr}} unread messages.",
+                "NEWPOSTSANDMESSAGES": "You have {{nr1}} unread posts und {{nr2}} unread messages.",
+                "NEWNOTIFICATIONANDPOSTANDMESSAGE": "You have 1 unread notification, 1 unread post und 1 unread message.",
+                "NEWNOTIFICATIONANDPOSTANDMESSAGES": "You have 1 unread notification, 1 unread post und {{nr}} unread messages.",
+                "NEWNOTIFICATIONANDPOSTSANDMESSAGE": "You have 1 unread notification, {{nr}} unread posts und 1 unread message.",
+                "NEWNOTIFICATIONSANDPOSTANDMESSAGE": "You have {{nr}} unread notifications, 1 unread post und 1 unread message.",
+                "NEWNOTIFICATIONANDPOSTSANDMESSAGES": "You have 1 unread notification, {{nr1}} unread posts und {{nr2}} unread messages.",
+                "NEWNOTIFICATIONSANDPOSTANDMESSAGES": "You have {{nr1}} unread notifications, 1 unread post und {{nr2}} unread messages.",
+                "NEWNOTIFICATIONSANDPOSTSANDMESSAGE": "You have {{nr1}} unread notifications, {{nr2}} unread posts und 1 unread message.",
+                "NEWNOTIFICATIONSANDPOSTSANDMESSAGES": "You have {{nr1}} unread notifications, {{nr2}} unread posts und {{nr3}} unread messages."
+            }
+        },
+        "NOTIFICATIONS": "Notifications",
+        "OK": "OK",
+        "OPENINBROWSER": "Open in browser",
+        "PLAYSOUNDS": "Acoustic notifications",
+        "RELOAD": "Reload",
+        "SERVERVERSION": "Server version",
+        "SETTINGS": "Settings",
+        "THISAPP": "This application",
+        "USERNAME": "Username",
+        "VISUALNOTIFICATIONS": "Visual notifications",
+        "VERSION": "Version",
+        "QUIT": "Quit",
+        "YES": "Yes"
+    }
+}

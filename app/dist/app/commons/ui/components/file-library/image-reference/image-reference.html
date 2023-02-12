@@ -1,0 +1,15 @@
+<picture picturefill ng-if="$ctrl.imageUrls && !$ctrl.isProcessing && $ctrl.previewAvailable">
+  <source ng-repeat="imageUrl in $ctrl.imageUrls" ng-srcset="{{imageUrl.value}}" pf-media="{{imageUrl.key}}" />
+  <source ng-srcset="{{$ctrl.defaultUrl}}" />
+  <img ng-srcset="{{$ctrl.imageUrl}}" />
+</picture>
+<div class="loading text-center" ng-if="$ctrl.isProcessing && $ctrl.previewAvailable">
+  <coyo-spinner size="sm"></coyo-spinner>
+</div>
+
+<div class="broken-image-placeholder text-muted" ng-if="!$ctrl.previewAvailable && !$ctrl.placeholderUrl">
+  <i class="zmdi zmdi-broken-image"></i>
+  <span class="no-preview-text" translate="PREVIEW_NOT_AVAILABLE"></span>
+</div>
+
+<img ng-src="{{$ctrl.placeholderUrl}}" ng-if="!$ctrl.previewAvailable && $ctrl.placeholderUrl" />

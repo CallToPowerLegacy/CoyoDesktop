@@ -1,0 +1,280 @@
+<uib-tabset justified="true" type="tabs">
+    <uib-tab select="$ctrl.activeTab = 'general'">
+        <uib-tab-heading>
+            <span class="tab-text" translate="ADMIN.AUTHENTICATION.SAML.TABS.HEADINGS.GENERAL"></span>
+        </uib-tab-heading>
+    </uib-tab>
+    <uib-tab select="$ctrl.activeTab = 'signRequest'">
+        <uib-tab-heading>
+            <span class="tab-text" translate="ADMIN.AUTHENTICATION.SAML.TABS.HEADINGS.SIGN_REQUEST"></span>
+        </uib-tab-heading>
+    </uib-tab>
+    <uib-tab select="$ctrl.activeTab = 'validateResponse'">
+        <uib-tab-heading>
+            <span class="tab-text" translate="ADMIN.AUTHENTICATION.SAML.TABS.HEADINGS.VALIDATE_RESPONSE"></span>
+        </uib-tab-heading>
+    </uib-tab>
+</uib-tabset>
+
+<div ng-show="$ctrl.activeTab === 'general'">
+    <div class="form-group">
+        <label class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.SAML.IS_ADFS"></label>
+        <div class="col-sm-9">
+            <div class="checkbox">
+                <label>
+                    <coyo-checkbox id="adfs" name="adfs" ng-model="$ctrl.ngModel.properties.adfs"></coyo-checkbox>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.IS_ADFS.HELP"></coyo-help>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.form.entityId.$invalid && $ctrl.form.entityId.$touched}">
+        <label for="entityId" class="col-sm-2 control-label"
+               translate="ADMIN.AUTHENTICATION.SAML.ENTITY_ID"></label>
+        <div class="col-sm-9">
+            <input id="entityId" name="entityId" type="text" class="form-control"
+                   ng-model="$ctrl.ngModel.properties.entityId"
+                   ng-required="true">
+            <ng-messages for="$ctrl.form.entityId.$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.ENTITY_ID.HELP"></coyo-help>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.form.authenticationEndpoint.$invalid && $ctrl.form.authenticationEndpoint.$touched}">
+        <label for="authenticationEndpoint" class="col-sm-2 control-label"
+               translate="ADMIN.AUTHENTICATION.SAML.AUTH_ENDPOINT"></label>
+        <div class="col-sm-9">
+            <input id="authenticationEndpoint" name="authenticationEndpoint" type="url" class="form-control"
+                   ng-model="$ctrl.ngModel.properties.authenticationEndpoint"
+                   ng-required="true">
+            <ng-messages for="$ctrl.form.authenticationEndpoint.$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.AUTH_ENDPOINT.HELP"></coyo-help>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.form.logoutEndpoint.$invalid && $ctrl.form.logoutEndpoint.$touched}">
+        <label for="logoutEndpoint" class="col-sm-2 control-label"
+               translate="ADMIN.AUTHENTICATION.SAML.LOGOUT_ENDPOINT"></label>
+        <div class="col-sm-9">
+            <input id="logoutEndpoint" name="logoutEndpoint" type="url" class="form-control"
+                   ng-model="$ctrl.ngModel.properties.logoutEndpoint"
+                   ng-required="true">
+            <ng-messages for="$ctrl.form.logoutEndpoint.$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.LOGOUT_ENDPOINT.HELP"></coyo-help>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.SAML.LOGOUT_METHOD"></label>
+        <div class="col-sm-9">
+            <ui-select ui-select-mobile="{{ 'ADMIN.AUTHENTICATION.SAML.LOGOUT_METHOD' | translate }}"
+                       ng-model="$ctrl.ngModel.properties.logoutMethod"
+                       ng-required="true">
+                <ui-select-match allow-clear="false">
+                    {{ 'ADMIN.AUTHENTICATION.SAML.LOGOUT_METHOD.' + $select.selected | translate }}
+                </ui-select-match>
+                <ui-select-choices repeat="availableLogoutMethod in $ctrl.availableLogoutMethods" class="ui-select-choices">
+                    <div ng-bind-html="'ADMIN.AUTHENTICATION.SAML.LOGOUT_METHOD.' + availableLogoutMethod | translate"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.LOGOUT_METHOD.HELP"></coyo-help>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.form.authenticationExpiryInSeconds.$invalid && $ctrl.form.authenticationExpiryInSeconds.$touched}">
+        <label for="authenticationExpiryInSeconds" class="col-sm-2 control-label"
+               translate="ADMIN.AUTHENTICATION.SAML.AUTHENTICATION_EXPIRY_IN_SECONDS"></label>
+        <div class="col-sm-9">
+            <input id="authenticationExpiryInSeconds" name="authenticationExpiryInSeconds" type="number"
+                   class="form-control"
+                   min="1" max="86400"
+                   ng-model="$ctrl.ngModel.properties.authenticationExpiryInSeconds"
+                   ng-required="true"
+                   placeholder="300">
+            <ng-messages for="$ctrl.form.authenticationExpiryInSeconds.$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.AUTHENTICATION_EXPIRY_IN_SECONDS.HELP"></coyo-help>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.form.userDirectory.$invalid && $ctrl.form.userDirectory.$touched}">
+        <label for="userDirectory" class="col-sm-2 control-label" translate="ADMIN.USER_DIRECTORIES.SELECT"></label>
+        <div class="col-sm-9" id="userDirectory" name="userDirectory">
+            <coyo-select-user-directory ng-required="true" ng-model="$ctrl.ngModel.properties.userDirectory">
+            </coyo-select-user-directory>
+            <ng-messages for="$ctrl.form.userDirectory.$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.USER_DIRECTORY.HELP"></coyo-help>
+        </div>
+    </div>
+
+    <div class="form-group" ng-if="$ctrl.ngModel.extendedInfo.localMetadataUrl && $ctrl.ngModel.slug === $ctrl.oldSlug">
+        <label class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.SAML.LOCAL_METADATA_LINK"></label>
+        <div class="col-sm-9">
+            <p class="form-control-static">
+                <a ng-href="{{$ctrl.ngModel.extendedInfo.localMetadataUrl}}" target="_blank">
+                    {{$ctrl.ngModel.extendedInfo.localMetadataUrl}}
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-if="$ctrl.ngModel.extendedInfo.localAuthenticationEndpointUrl && $ctrl.ngModel.slug === $ctrl.oldSlug">
+        <label class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.SAML.LOCAL_AUTH_ENDPOINT_LINK"></label>
+        <div class="col-sm-9">
+            <p class="form-control-static">
+                {{$ctrl.ngModel.extendedInfo.localAuthenticationEndpointUrl}}
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-if="$ctrl.ngModel.extendedInfo.localLogoutEndpointUrl && $ctrl.ngModel.slug === $ctrl.oldSlug">
+        <label class="col-sm-2 control-label" translate="ADMIN.AUTHENTICATION.SAML.LOCAL_LOGOUT_ENDPOINT_LINK"></label>
+        <div class="col-sm-9">
+            <p class="form-control-static">
+                {{$ctrl.ngModel.extendedInfo.localLogoutEndpointUrl}}
+            </p>
+        </div>
+    </div>
+</div>
+
+<div ng-show="$ctrl.activeTab === 'signRequest'">
+    <div class="form-group">
+        <label for="sign-request" class="col-sm-2 control-label"
+               translate="ADMIN.AUTHENTICATION.SAML.SIGN_REQUEST"></label>
+        <div class="col-sm-9">
+            <div class="checkbox">
+                <label>
+                    <coyo-checkbox id="sign-request" ng-model="$ctrl.ngModel.properties.signRequests"></coyo-checkbox>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.SIGN_REQUEST.HELP"></coyo-help>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.signingCertificateError || ($ctrl.form.signingCertificate.$invalid && $ctrl.form.signingCertificate.$touched)}"
+         ng-if="$ctrl.ngModel.properties.signRequests">
+        <label for="signingCertificate" class="col-sm-2 control-label"
+               translate="ADMIN.AUTHENTICATION.SAML.SIGNING_CERTIFICATE"></label>
+        <div class="col-sm-9">
+              <textarea id="signingCertificate" rows="10" name="signingCertificate" class="form-control"
+                        ng-model="$ctrl.ngModel.properties.signingCertificate"
+                        ng-required="true">
+              </textarea>
+            <ng-messages for="$ctrl.form.signingCertificate.$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.SIGNING_CERTIFICATE.HELP"></coyo-help>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.signingPrivateKeyError || ($ctrl.form.signingPrivateKey.$invalid && $ctrl.form.signingPrivateKey.$touched)}"
+         ng-if="$ctrl.ngModel.properties.signRequests">
+        <label for="signingPrivateKey" class="col-sm-2 control-label"
+               translate="ADMIN.AUTHENTICATION.SAML.SIGNING_PRIVATE_KEY"></label>
+        <div class="col-sm-9">
+           <textarea id="signingPrivateKey" name="signingPrivateKey" rows="10" class="form-control"
+                     ng-model="$ctrl.ngModel.properties.signingPrivateKey"
+                     placeholder="{{$ctrl.form.signingPrivateKey.$pristine ? 'ADMIN.AUTHENTICATION.SAML.SIGNING_PRIVATE_KEY.HINT' : '' | translate}}">
+            </textarea>
+            <ng-messages for="$ctrl.form.private-key.$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.SIGNING_PRIVATE_KEY.HELP"></coyo-help>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.form.signingPrivateKeyPassword.$invalid && $ctrl.form.signingPrivateKeyPassword.$touched}"
+         ng-if="$ctrl.ngModel.properties.signRequests">
+        <label for="signingPrivateKeyPassword" class="col-sm-2 control-label"
+               translate="ADMIN.AUTHENTICATION.SAML.SIGNING_PRIVATE_KEY_PASSWORD"></label>
+        <div class="col-sm-9">
+            <input id="signingPrivateKeyPassword" name="signingPrivateKeyPassword" type="password" class="form-control"
+                   ng-model="$ctrl.ngModel.properties.signingPrivateKeyPassword"
+                   placeholder="{{$ctrl.form.signingPrivateKeyPassword.$pristine ? 'ADMIN.AUTHENTICATION.SAML.SIGNING_PRIVATE_KEY_PASSWORD.HINT' : '' | translate}}">
+            </input>
+            <ng-messages for="$ctrl.form.SIGNING_PRIVATE_KEY_PASSWORD.$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.SIGNING_PRIVATE_KEY_PASSWORD.HELP"></coyo-help>
+        </div>
+    </div>
+</div>
+
+<div ng-show="$ctrl.activeTab === 'validateResponse'">
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.idpTrustAnchorError || ($ctrl.form.idpTrustAnchor.$invalid && $ctrl.form.idpTrustAnchor.$touched)}"
+         ng-if="!$ctrl.ngModel.properties.disableTrustCheck">
+        <label for="signingCertificate" class="col-sm-2 control-label"
+               translate="ADMIN.AUTHENTICATION.SAML.IDP_TRUST_ANCHOR"></label>
+        <div class="col-sm-9">
+              <textarea id="idpTrustAnchor" rows="10" name="idpTrustAnchor" class="form-control"
+                        ng-model="$ctrl.ngModel.properties.idpTrustAnchor"
+                        ng-required="true">
+              </textarea>
+            <ng-messages for="$ctrl.form.idpTrustAnchor.$error" class="help-block validation">
+                <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.IDP_TRUST_ANCHOR.HELP"></coyo-help>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="disable-trust-check" class="col-sm-2 control-label"
+               translate="ADMIN.AUTHENTICATION.SAML.DISABLE_TRUST_CHECK"></label>
+        <div class="col-sm-9">
+            <div class="checkbox">
+                <label>
+                    <coyo-checkbox id="disable-trust-check"
+                                   ng-model="$ctrl.ngModel.properties.disableTrustCheck"></coyo-checkbox>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="ADMIN.AUTHENTICATION.SAML.DISABLE_TRUST_CHECK.HELP"></coyo-help>
+        </div>
+    </div>
+</div>

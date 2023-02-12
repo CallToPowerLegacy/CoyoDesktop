@@ -1,0 +1,146 @@
+body[class*="state-front-"], body[class*="setup"] {
+  position: absolute;
+  height: 100%;
+
+  .body {
+    @include background-gradient-top-left-to-bottom-right($color-primary, $color-secondary);
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .front-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 0 12px;
+
+    h1.logo {
+      color: white;
+      font-size: 60px;
+
+      background-image: url($image-coyo-front);
+      @include media-retina() {
+        background-image: url($image-coyo-front-hd);
+      }
+
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      height: $height-image-front * 0.8;
+      margin: 12px 0 30px;
+      text-indent: -9999px;
+
+      @media screen and (min-width: $screen-sm-min) {
+        height: $height-image-front;
+      }
+    }
+
+    .panel {
+      border-radius: 5px;
+
+      .panel-body {
+        > h2 {
+          font-size: 24px;
+          margin: 8px 0 24px;
+          text-align: center;
+          font-weight: 300;
+        }
+      }
+
+
+      div.input-wrapper {
+        position: relative;
+
+        > .zmdi {
+          display: none;
+        }
+
+        @media screen and (min-width: $screen-sm-min) {
+          > .zmdi {
+            display: inline-block;
+            position: absolute;
+            top: 6px;
+            left: 0;
+            font-size: 20px;
+            padding: 6px 0 6px 4px;
+            border-right: 1px solid $color-gray-light;
+            color: $color-gray;
+            height: 30px;
+            width: 60px;
+            text-align: center;
+          }
+        }
+      }
+
+      // scss-lint:disable QualifyingElement
+      input[type='text'],
+      input[type='email'],
+      input[type='url'],
+      input[type='password'] {
+
+        @media screen and (min-width: $screen-sm-min) {
+          padding-left: 73px;
+        }
+
+        &:focus {
+          border: 1px solid $color-gray;
+
+          + .zmdi {
+            color: $color-primary;
+          }
+        }
+
+        &:disabled {
+          color: $color-gray-dark;
+        }
+
+        &.ng-valid {
+          border-color: $color-valid;
+        }
+      }
+      // scss-lint:enable QualifyingElement
+
+      .error-message {
+        border: 2px solid $color-error-border;
+        background-color: $color-error-bg;
+        color: $color-error;
+        text-align: center;
+        padding: 12px 0;
+        margin: 0;
+        border-radius: 5px 5px 0 0;
+      }
+
+      .panel-footer {
+        background-color: $color-gray-lighter;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+
+        a, a:visited, a:active {
+          color: $color-gray-dark;
+
+          &:hover {
+            color: $color-gray-darker;
+          }
+        }
+      }
+
+      .copyright {
+        background: url($image-coyo-black) no-repeat center;
+        background-size: 90px;
+
+        height: 24px;
+        opacity: .25;
+        width: 90px;
+
+        top: -2px;
+        position: relative;
+        @include media-retina() {
+          background-image: url($image-coyo-black-hd);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+.coyo-wizard {
+  display: flex;
+  padding: 24px 0 0;
+  margin: 0;
+
+  li {
+    position: relative;
+    display: block;
+  }
+
+  .coyo-wizard-state {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    border: 2px solid $coyo-wizard-color;
+    color: $color-white;
+  }
+
+  .coyo-wizard-divider {
+    border-top: 2px solid $coyo-wizard-color;
+    flex: 1;
+    top: 11px;
+  }
+
+  .coyo-wizard-icon {
+    background: $coyo-wizard-color;
+    border-radius: 100%;
+    height: 24px;
+    display: none;
+    width: 24px;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    position: relative;
+    top: -2px;
+    left: -2px;
+  }
+
+  .coyo-wizard-label {
+    position: absolute;
+    top: -30px;
+    left: -88px;
+    width: 200px;
+    text-align: center;
+    color: $text-color;
+    font-size: 14px;
+  }
+
+  .passed .coyo-wizard-icon {
+    display: block;
+  }
+
+  .active {
+    .coyo-wizard-icon {
+      display: block;
+      width: 16px;
+      height: 16px;
+      top: 2px;
+      left: 2px;
+
+      &:before {
+        content: none;
+      }
+    }
+
+    .coyo-wizard-label {
+      font-weight: bold;
+    }
+  }
+
+  &.inverse {
+    .coyo-wizard-state {
+      border-color: $color-white;
+      color: $coyo-wizard-color;
+    }
+
+    .coyo-wizard-divider {
+      border-color: $color-white;
+    }
+
+    .coyo-wizard-icon {
+      background: $color-white;
+    }
+
+    .coyo-wizard-label {
+      color: $color-white;
+    }
+  }
+}

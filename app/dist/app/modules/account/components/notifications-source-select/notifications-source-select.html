@@ -1,0 +1,12 @@
+<div class="checkbox">
+    <div class="sub-settings">
+        <div ng-repeat="source in $ctrl.notificationSources track by $index">
+            <label class="no-user-select">
+                <coyo-checkbox id="discussion" ng-model="$ctrl.setting.properties.notifications[source]"
+                               ng-change="$ctrl.onChange(setting)" ng-disabled="!$ctrl.setting.active"
+                               disabled="!$ctrl.setting.active"></coyo-checkbox>
+                {{:: 'MODULE.ACCOUNT.NOTIFICATION_SETTINGS.FORM.SOURCES.' + source + '.CHECKBOXLABEL' | uppercase | translate}}
+            </label>
+        </div>
+    </div>
+</div>

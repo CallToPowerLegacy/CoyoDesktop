@@ -1,0 +1,40 @@
+// Mixins - Set up ellipsis
+// --------------------------------------------------
+
+// example usage:
+// @include ellipsis()
+@mixin ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// @include ellipsis-multiline(2, 48px)
+@mixin ellipsis-multiline($lines, $max-height) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  max-height: $max-height;
+}
+
+// truncate text by appending ... example usage:
+// @include truncate-text(85%);
+@mixin truncate-text($text-width) {
+  max-width: calc(#{$text-width});
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// floating next to an element, truncate text by appending ... - example usage:
+// @include truncate-floating-text(85%, 80px);
+@mixin truncate-floating-text($text-width, $element-width) {
+  max-width: calc(#{$text-width} - #{$element-width});
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

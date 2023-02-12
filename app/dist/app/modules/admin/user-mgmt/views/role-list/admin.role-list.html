@@ -1,0 +1,99 @@
+<div class="admin-roles" ng-cloak>
+  <coyo-filterbox filter-active="!!vm.page._queryParams.status">
+    <fb-search>
+      <coyo-search-filter change="vm.nameChanged"
+                    placeholder="ADMIN.USER_MGMT.ROLES.SEARCH"
+                    search-term="{{vm.page._queryParams.displayName}}"></coyo-search-filter>
+    </fb-search>
+    <fb-count>
+      <coyo-counter value="vm.page.totalElements"
+             key-none="ADMIN.USER_MGMT.ROLES.ROLES_NONE"
+             key-singular="ADMIN.USER_MGMT.ROLES.ROLES_SINGULAR"
+             key-plural="ADMIN.USER_MGMT.ROLES.ROLES_PLURAL"></coyo-counter>
+    </fb-count>
+    <fb-actions>
+      <li>
+        <a ui-sref="admin.user-management.roles.create">
+          <i class="zmdi zmdi-plus-circle"></i>&nbsp;{{:: 'ADMIN.USER_MGMT.ROLES.OPTIONS.CREATE' | translate}}
+        </a>
+      </li>
+    </fb-actions>
+  </coyo-filterbox>
+
+  <div class="panel panel-default panel-roles panel-list" ng-hide="vm.firstLoad">
+    <div class="panel-body">
+
+      <!-- mobile view -->
+      <ul ng-if="vm.mobile"
+          coyo-infinite-scroll="vm.nextPage()"
+          coyo-infinite-scroll-element="$window"
+          class="list-group">
+        <li ng-if="!vm.page.content.length > 0 && !vm.firstLoad"
+            class="text-center text-muted pv-s"
+            translate="ADMIN.USER_MGMT.ROLES.EMPTY"></li>
+        <li class="list-group-item"
+            ng-repeat="row in vm.page.content track by row.id"
+            ng-class="{'animate-removal': vm.userAction }"
+            id="role-row-{{$index}}">
+          <div class="row">
+            <div class="col-xs-8">
+              {{row.displayName}}
+              <span class="label label-muted ml-xxs" ng-if="row.defaultRole" translate="ADMIN.USER_MGMT.ROLES.DEFAULT_ROLE.LABEL.SHORT"></span>
+            </div>
+            <div class="col-xs-4 text-right">
+              <coyo-counter-label value="row.userCount" icon="zmdi-account" ng-if="!row.defaultRole"></coyo-counter-label>
+              <span class="label label-success" ng-if="row.defaultRole"><i class="zmdi zmdi-account zmdi-wide"></i>&nbsp;{{:: 'ALL' | translate}}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <coyo-context-menu ng-if="vm.mobile" ng-repeat="row in vm.page.content track by row.id" toggle-element="#role-row-{{$index}}" title="{{row.name}}">
+        <oyoc-role-options actions="vm.actions" role="row"></oyoc-role-options>
+      </coyo-context-menu>
+
+      <!-- desktop view -->
+      <table ng-if="!vm.mobile"
+             class="table table-striped table-hover">
+        <colgroup>
+          <col>
+          <col width="15%">
+          <col width="15%">
+          <col>
+        </colgroup>
+        <thead>
+          <tr>
+            <th coyo-table-sorting page="vm.page" property="displayName" title="{{:: 'ADMIN.USER_MGMT.ROLES.HEADINGS.DISPLAY_NAME' | translate }}"></th>
+            <th translate="ADMIN.USER_MGMT.ROLES.HEADINGS.GROUP_COUNT"></th>
+            <th translate="ADMIN.USER_MGMT.ROLES.HEADINGS.USER_COUNT"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr ng-hide="vm.page.content.length > 0 || vm.firstLoad">
+          <td colspan="7" class="text-center text-muted" translate="ADMIN.USER_MGMT.ROLES.EMPTY"></td>
+        </tr>
+        <tr ng-repeat="row in vm.page.content track by row.id" ng-class="{'animate-removal': vm.userAction }">
+          <td>
+            {{row.displayName}}
+            <span class="label label-muted ml-xxs" ng-if="row.defaultRole" translate="ADMIN.USER_MGMT.ROLES.DEFAULT_ROLE.LABEL.SHORT"></span>
+          </td>
+          <td><coyo-counter-label value="row.groupCount" icon="zmdi-accounts"></coyo-counter-label></td>
+          <td>
+            <coyo-counter-label value="row.userCount" icon="zmdi-account" ng-if="!row.defaultRole"></coyo-counter-label>
+            <span class="label label-success" ng-if="row.defaultRole"><i class="zmdi zmdi-account zmdi-wide"></i>&nbsp;{{:: 'ALL' | translate}}</span>
+          </td>
+          <td class="column-options">
+            <coyo-context-menu align-right="true">
+              <oyoc-role-options actions="vm.actions" role="row"></oyoc-role-options>
+            </coyo-context-menu>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <coyo-table-pagination page="vm.page" class="hidden-xs hidden-sm"></coyo-table-pagination>
+
+  <div class="text-center m-m" ng-show="vm.page.loading">
+    <coyo-spinner></coyo-spinner>
+  </div>
+</div>

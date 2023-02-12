@@ -1,0 +1,210 @@
+// Variables
+// --------------------------------------------------
+
+// animations
+// --------------------------------------------------
+$shake-ms: 500ms !default;
+
+// breakpoints
+// --------------------------------------------------
+$layout-max-width: 1280px !default;
+
+// colors
+// --------------------------------------------------
+$color-original: #374555 !default;
+$color-primary: $color-original !default;
+$color-secondary: #242f39 !default;
+$color-navbar-border: #9bbf29 !default;
+$color-background-main: #e8e8e8 !default;
+$color-text-highlight-bg: rgba(255, 201, 0, 0.2) !default;
+
+$color-white: #FDFDFD !default;
+$color-black: #333 !default;
+$color-blue: #317DC1 !default;
+$color-green: #9BBF29 !default;
+$color-yellow: #f0ad4e !default;
+$color-red: #D0021B !default;
+$color-orange: #DD8926 !default;
+
+$color-gray: #AAA !default;
+$color-gray-lighter: #F3F3F3 !default;
+$color-gray-light: #DADADA !default;
+$color-gray-dark: #999 !default;
+$color-gray-darker: #666 !default;
+
+// borders
+// --------------------------------------------------
+$color-border: transparentize($color-black, .85) !default;
+$color-border-dark: transparentize($color-black, .70) !default;
+$color-border-light: transparentize($color-black, .95) !default;
+
+// error
+// --------------------------------------------------
+$color-valid: $color-green !default;
+$color-error-border: #fff !default;
+$color-error-bg: #c50b0b !default;
+$color-error: #fff !default;
+
+// links
+// --------------------------------------------------
+$color-link: $color-blue !default;
+
+// navbar
+// --------------------------------------------------
+$coyo-navbar:               $color-primary !default;
+$coyo-navbar-active:        rgba(0, 0, 0, 0.3) !default;
+$coyo-navbar-hover:         mix($coyo-navbar-active, $coyo-navbar) !default;
+$coyo-navbar-text:          $color-white !default;
+$coyo-navbar-text-active:   $color-white !default;
+$coyo-navbar-text-disabled: $color-gray-light !default;
+$coyo-navbar-input:         $coyo-navbar-active !default;
+$coyo-navbar-input-active:  rgba(0, 0, 0, 0.4) !default;
+$coyo-navbar-input-text:    $color-white !default;
+$coyo-navbar-placeholder:   rgba($color-white, 0.5) !default;
+
+// buttons
+// --------------------------------------------------
+$btn-primary-bg: $color-primary !default;
+
+// forms
+// --------------------------------------------------
+$color-input-group-addon-bg: #fff !default;
+$color-placeholder: #d6d6d6 !default;
+$color-form-error: #a94442 !default;
+$color-form-correct: $color-green !default;
+$input-border-focus: $color-primary !default;
+$input-inplace-edit-border: #dadada !default;
+
+// admin
+// --------------------------------------------------
+$color-primary-admin: $color-original !default;
+$color-background-admin-nav: $color-primary-admin !default;
+$color-background-admin-sidebar: $color-primary-admin !default;
+$color-link-admin-sidebar: rgba($color-white, 0.5) !default;
+$color-link-admin-sidebar-active: $color-white !default;
+
+// images
+// --------------------------------------------------
+$image-coyo-nav: '../assets/images/logos/coyo/logo-coyo-inversed-nav.png' !default;
+$image-coyo-nav-hd: '../assets/images/logos/coyo/logo-coyo-inversed-nav-hd.png' !default;
+$image-coyo-front: '../assets/images/logos/coyo/logo-coyo-inversed-front.png' !default;
+$image-coyo-front-hd: '../assets/images/logos/coyo/logo-coyo-inversed-front-hd.png' !default;
+$image-coyo-black: '../assets/images/logos/coyo/logo-coyo-black-front.png' !default;
+$image-coyo-black-hd: '../assets/images/logos/coyo/logo-coyo-black-front-hd.png' !default;
+$image-coyo-heart: '../assets/images/logos/coyo/coyo-heart.svg' !default;
+$image-coyo-c: '../assets/images/logos/coyo/coyo-c.svg' !default;
+
+// sizes
+// --------------------------------------------------
+$size-content-max: $layout-max-width !default;
+$size-sidebar-main: 275px !default;
+$size-sidebar-messaging: 375px !default;
+$size-sidebar-messaging-xs: 275px !default;
+$size-sidebar-messaging-static: 275px !default;
+$size-sidebar-messaging-compact: 85px !default;
+$width-navbar-brand: 125px !default;
+$height-image-front: 80px !default;
+
+// zindex
+// --------------------------------------------------
+$zindex-sidebar:               1045 !default;
+$zindex-messaging:             1030 !default;
+$zindex-subnav:                990 !default;
+
+// comments
+// --------------------------------------------------
+$color-comments-bg: #F8F8F8 !default;
+
+// Avatar backgrounds
+// --------------------------------------------------
+$color-page-avatar-bg: #DADADA !default;
+$color-workspace-avatar-bg: #DADADA !default;
+$color-event-avatar-bg: #DADADA !default;
+
+// widgets
+// --------------------------------------------------
+$color-widget-hover-bg: #FFF5DD !default;
+$widget-line-height: 1.5;
+
+// panels
+// --------------------------------------------------
+$panel-body-padding-negate-sm: -10px -18px !default;
+$panel-body-padding-negate-md: -24px -30px !default;
+
+// wizard
+// --------------------------------------------------
+$coyo-wizard-color: $color-primary !default;
+
+// messaging sidebar
+// --------------------------------------------------
+$color-messaging-sidebar-bg: #444 !default;
+
+// modals
+// --------------------------------------------------
+$coyo-modal-header-bg:         $color-primary !default;
+$coyo-modal-header-text:       $color-white !default;
+
+// ribbons
+// --------------------------------------------------
+$coyo-ribbon-new-bg:           $color-blue !default;
+$coyo-ribbon-new-bg-shadow:    darken($color-blue, 15%) !default;
+$coyo-ribbon-sticky-bg:        $color-red !default;
+$coyo-ribbon-sticky-bg-shadow: darken($color-red, 15%) !default;
+$coyo-ribbon-read-bg:          $color-green !default;
+$coyo-ribbon-read-bg-shadow:   darken($color-green, 15%) !default;
+$coyo-ribbon-archived-bg:        $color-gray !default;
+$coyo-ribbon-archived-bg-shadow: darken($color-gray, 15%) !default;
+
+// border
+// --------------------------------------------------
+$color-border:                 $color-gray-light !default;
+
+// measures
+// --------------------------------------------------
+$mobile-menu-item-height:      48px !default;
+
+$panel-nav-padding-v:          10px !default;
+$panel-xs-nav-padding:         $panel-nav-padding-v 18px !default;
+$panel-sm-nav-padding:         $panel-nav-padding-v 24px !default;
+$panel-nav-padding:            $panel-nav-padding-v 30px !default;
+
+$panel-body-padding:           24px 30px !default;
+
+$panel-sm-heading-margin:      0 24px 0 !default;
+$panel-sm-heading-padding:     18px 0 12px !default;
+$panel-sm-body-padding:        16px 24px !default;
+$panel-sm-footer-padding:      14px 24px 16px !default;
+
+$panel-xs-heading-margin:      0 18px 0 !default;
+$panel-xs-heading-padding:     12px 0 8px !default;
+$panel-xs-body-padding:        10px 18px !default;
+$panel-xs-footer-padding:      14px 18px 16px !default;
+
+// coyo-colors
+// --------------------------------------------------
+$coyo-colors: (
+  "white":                     $color-white,
+  "black":                     $color-black,
+  "blue":                      $color-blue,
+  "green":                     $color-green,
+  "yellow":                    $color-yellow,
+  "red":                       $color-red,
+
+  "gray-lighter":              $color-gray-lighter,
+  "gray-light":                $color-gray-light,
+  "gray":                      $color-gray,
+  "gray-dark":                 $color-gray-dark,
+  "gray-darker":               $color-gray-darker
+);
+
+@each $name, $value in $coyo-colors {
+  %bg-#{$name},
+  .bg-#{$name} {
+    background-color: $value !important;
+  }
+
+  %#{$name},
+  .#{$name} {
+    color: $value !important;
+  }
+}

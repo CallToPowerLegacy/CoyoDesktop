@@ -1,0 +1,91 @@
+<div class="messaging-channels">
+
+  <coyo-tour-step ng-if="$root.screenSize.isLg" topic="messaging" step-id="messaging.main" order="40" placement="left" fixed="true"
+                  title="{{:: 'TOUR.MAIN.MESSAGING.TITLE' | translate }}"
+                  content="{{:: 'TOUR.MAIN.MESSAGING' | translate }}"></coyo-tour-step>
+
+  <div class="messaging-header">
+
+    <!-- Messaging Header -->
+    <span class="messaging-title" translate="MODULE.MESSAGING.SIDEBAR.TITLE"></span>
+
+    <!-- Messaging Navbar -->
+    <span class="messaging-header-icon-bar"><!--
+      Channel Create Form
+    --><a ng-click="$ctrl.msgSidebar.switchView('channelForm')"><coyo-tour-step
+        ng-if="$root.screenSize.isLg" topic="messaging" step-id="messaging.channel" order="45" fixed="true"
+        title="{{:: 'TOUR.MAIN.MESSAGING.CHANNEL.TITLE' | translate }}"
+        content="{{:: 'TOUR.MAIN.MESSAGING.CHANNEL' | translate }}"></coyo-tour-step><i
+          class="zmdi zmdi-plus-circle-o"
+          uib-tooltip="{{ ::'MODULE.MESSAGING.CREATE_CHANNEL.TIP' | translate}}"
+          tooltip-placement="left"
+          tooltip-popup-delay="500"></i>
+    </a><!--
+      Presence Status
+    --><a ng-click="$ctrl.msgSidebar.switchView('presenceStatus')" class="presence-status"><coyo-tour-step
+        ng-if="$root.screenSize.isLg" topic="messaging" step-id="messaging.presence" order="50" fixed="true"
+        title="{{:: 'TOUR.MAIN.MESSAGING.PRESENCE.TITLE' | translate }}"
+        content="{{:: 'TOUR.MAIN.MESSAGING.PRESENCE' | translate }}"></coyo-tour-step><i
+          class="zmdi zmdi-circle {{$ctrl.msgSidebar.presenceStatus.state}}"
+          uib-tooltip-template="'app/modules/messaging/components/messaging-sidebar/messaging-presence-status-tooltip.html'"
+          tooltip-placement="left-top"
+          tooltip-popup-delay="500"></i></a>
+    </span>
+  </div>
+
+  <!-- Channel List -->
+  <div class="messaging-content"
+       coyo-infinite-scroll="$ctrl.loadMore()"
+       coyo-infinite-scroll-element=".sidebar.messaging"
+       coyo-infinite-scroll-no-initial-load="false">
+
+    <div ng-repeat="channel in $ctrl.channels | orderBy:'-updated'"
+         title="{{::channel.getDisplayName($ctrl.currentUser)}}" ng-click="$ctrl.msgSidebar.openChannel(channel)">
+      <coyo-refresh class="messaging-channels-ch" on-root-scope-event="'messaging-channel:' + channel.id + ':updated'">
+        <oyoc-messaging-channel-avatar channel="::channel"
+                                       current-user="::$ctrl.currentUser"
+                                       size="sm"></oyoc-messaging-channel-avatar>
+
+        <div class="messaging-channels-ch-name">
+          <div class="line">{{::channel.getDisplayName($ctrl.currentUser)}}</div>
+          <div class="line time">
+            <coyo-time-ago date="::channel.updated" tooltip-placement="auto top"></coyo-time-ago>
+          </div>
+
+        </div>
+
+        <div class="messaging-channels-ch-unread" ng-if="::channel.unreadCount > 0">
+          <span ng-if="::channel.unreadCount > 99">+</span>
+          <span ng-if="::channel.unreadCount <= 99">{{::channel.unreadCount}}</span>
+        </div>
+      </coyo-refresh>
+    </div>
+
+    <!-- Empty -->
+    <p class="text-muted text-center m-xs" ng-if="!$ctrl.channels.length && !$ctrl.msgSidebar.compact">
+      <strong translate="MODULE.MESSAGING.CHANNELS.EMPTY.TITLE"></strong><br>
+      <span translate="MODULE.MESSAGING.CHANNELS.EMPTY.TEXT"></span>
+    </p>
+
+    <!-- Spinner -->
+    <div class="text-center mt-xxs" ng-if="$ctrl.loading">
+      <coyo-spinner inverted="true" size="sm"></coyo-spinner>
+    </div>
+
+  </div>
+
+  <div class="messaging-footer hidden-xs hidden-sm hidden-md">
+
+    <!-- Collapse -->
+    <a ng-click="$ctrl.msgSidebar.toggleCompact(true)"
+       ng-show="!$ctrl.msgSidebar.compact"><i
+        class="zmdi zmdi-chevron-right"></i><i
+        class="zmdi zmdi-chevron-right"></i></a>
+
+    <!-- Expand -->
+    <a ng-click="$ctrl.msgSidebar.toggleCompact(false)"
+       ng-show="$ctrl.msgSidebar.compact"><i
+        class="zmdi zmdi-chevron-left"></i><i
+        class="zmdi zmdi-chevron-left"></i></a>
+  </div>
+</div>

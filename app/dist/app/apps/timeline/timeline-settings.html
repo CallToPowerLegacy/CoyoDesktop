@@ -1,0 +1,20 @@
+<!-- Author settings -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="APP.TIMELINE.AUTHORS"></label>
+  <div class="col-sm-10">
+    <div class="radio">
+      <label>
+        <input name="authors" type="radio" ng-model="ctrl.app.settings.authorType" value="VIEWER">
+        <i class="zmdi zmdi-globe zmdi-wide"></i>&nbsp;{{:: 'APP.TIMELINE.AUTHORTYPE.VIEWER.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.TIMELINE.AUTHORTYPE.VIEWER.DESCRIPTION' | translate }}</span>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="authors" type="radio" ng-model="ctrl.app.settings.authorType" value="ADMIN">
+        <i class="zmdi zmdi-lock-outline zmdi-wide"></i>&nbsp;{{:: 'APP.TIMELINE.AUTHORTYPE.ADMIN.NAME' | translate }}<br>
+        <span class="text-muted">&nbsp;{{:: 'APP.TIMELINE.AUTHORTYPE.ADMIN.DESCRIPTION' | translate }}</span>
+      </label>
+    </div>
+  </div>
+</div>

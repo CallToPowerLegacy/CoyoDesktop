@@ -1,0 +1,46 @@
+<div class="messaging-presence-status">
+
+  <!-- Header -->
+  <div class="messaging-header">
+
+      <!-- Messaging Header -->
+      <span class="messaging-title" translate="MODULE.MESSAGING.PRESENCE_STATUS.TITLE"></span>
+
+      <!-- Messaging Navbar -->
+      <span class="messaging-header-icon-bar"><!--
+        Exit
+      --><a ng-click="$ctrl.msgSidebar.home()"><i class="zmdi zmdi-close-circle-o"></i></a>
+      </span>
+  </div>
+
+  <!-- Presence Status Form -->
+  <div ng-if="$ctrl.currentUser">
+    <ul class="nav nav-default nav-icons presence-status-state mb-xs">
+      <li ng-repeat="state in $ctrl.availableStates" class="{{state}}" ng-class="{ active : state === $ctrl.presenceStatus.state }">
+        <a ng-click="$ctrl.updateState(state)">
+          <i class="zmdi zmdi-circle {{state}}"></i> {{'PRESENCE_STATUS.' + state | translate}}
+        </a>
+      </li>
+    </ul>
+    <textarea class="form-control presence-status-label"
+              rows="3" maxlength="50"
+              ng-model="$ctrl.labelText"
+              ng-attr-placeholder="{{::'MODULE.MESSAGING.PRESENCE_STATUS.LABEL.PLACEHOLDER' | translate}}"
+              ng-disabled="$ctrl.loading"></textarea>
+    <div class="btn-group" role="group">
+      <button type="button"
+              class="btn"
+              ng-click="$ctrl.resetLabel()"
+              translate="CANCEL"></button>
+      <button type="button"
+              class="btn"
+              ng-click="$ctrl.updateLabel($ctrl.labelText)"
+              translate="SAVE"></button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="text-center" ng-if="!$ctrl.currentUser">
+    <coyo-spinner inverted="true"></coyo-spinner>
+  </div>
+</div>

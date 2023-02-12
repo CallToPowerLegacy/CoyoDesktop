@@ -1,0 +1,16 @@
+<form name="form" role="form" coyo-form-submit="vm.submit(vm.timeZone)" novalidate>
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="MODULE.ACCOUNT.MODALS.SELECT_TIMEZONE.TITLE"></h3>
+      <span class="modal-close" ng-click="$dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+    </div>
+    <div class="modal-body">
+      <div class="form-group mv-xxs">
+        <coyo-select-time-zone ng-model="vm.timeZone" placeholder="{{::'MODULE.ACCOUNT.MODALS.SELECT_TIMEZONE.PLACEHOLDER' | translate}}" required></coyo-select-time-zone>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <coyo-form-submit-button label="MODULE.ACCOUNT.MODALS.SELECT_TIMEZONE.SUBMIT" form-ctrl="form"></coyo-form-submit-button>
+    </div>
+  </div>
+</form>

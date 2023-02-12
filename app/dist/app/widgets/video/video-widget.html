@@ -1,0 +1,15 @@
+<div class="video-widget">
+  <div class="iframe-wrapper" ng-if="!$ctrl.error && !$ctrl.widget._loading" ng-init="$ctrl.onInit()" ng-style="{'padding-top': $ctrl.ratio + '%'}">
+    <iframe class="video-wrapper" ng-if="$ctrl.fromBackend" ng-src="{{$ctrl.videoUrl | trustUrl}}"
+            allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
+    <div class="video-wrapper" ng-if="!$ctrl.fromBackend" ng-bind-html="$ctrl.videoHtml"></div>
+  </div>
+  <div class="video-error" ng-if="$ctrl.error">
+    <i class="zmdi zmdi-hc-2x zmdi-alert-triangle"></i>
+    <p class="m-0"><em translate="WIDGETS.VIDEO.ERROR"></em></p>
+  </div>
+  <div class="video-info" ng-if="$ctrl.widget.settings.title || $ctrl.widget.settings.description">
+    <h3>{{$ctrl.widget.settings.title}}</h3>
+    <div class="text-muted">{{$ctrl.widget.settings.description}}</div>
+  </div>
+</div>

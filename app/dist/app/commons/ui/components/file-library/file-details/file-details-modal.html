@@ -1,0 +1,136 @@
+<div class="modal-content-wrapper">
+  <div class="modal-header">
+    <h3 class="modal-title">
+      <small class="text-muted">{{:: $ctrl.fileType | translate }}</small>
+      {{ $ctrl.file.name }}
+    </h3>
+    <span class="modal-close" ng-click="$close()">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+  <div class="modal-file-preview">
+    <div class="fd-preview">
+      <coyo-refresh watch="$ctrl.preview.url">
+        <coyo-file-preview ng-class="{'pdf-available': $ctrl.pdfPreview}"
+                           file="$ctrl.previewFile"
+                           url="$ctrl.preview.url"
+                           group-id="$ctrl.file.senderId"
+                           size="{{$ctrl.previewFile.contentType === 'image/gif' ? 'original' : 'xl'}}"
+                           options="$ctrl.previewOptions"></coyo-file-preview>
+      </coyo-refresh>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="file-details-action-bar pr-xxs">
+      <a href ngf-select="$ctrl.uploadVersion($ctrl.file, $files)"
+         ngf-multiple="false"
+         ng-if="::$ctrl.file._permissions.manage"
+         class="btn btn-link btn-zmdi"
+         uib-tooltip="{{:: 'NEW_VERSION' | translate }}"
+         tooltip-append-to-body="true"
+         tooltip-placement="bottom"
+         tooltip-popup-delay="500"
+         tooltip-enable="!$root.screenSize.isXs">
+        <i class="zmdi zmdi-hc-fw zmdi-cloud-upload"></i>
+      </a>
+      <a href coyo-download="::$ctrl.fileLink"
+         class="btn btn-link btn-zmdi"
+         uib-tooltip="{{:: 'DOWNLOAD' | translate }}"
+         tooltip-append-to-body="true"
+         tooltip-placement="bottom"
+         tooltip-popup-delay="500"
+         tooltip-enable="!$root.screenSize.isXs">
+        <i class="zmdi zmdi-hc-lg zmdi-download"></i>
+      </a>
+      <a href ng-if="::$ctrl.linkToFileLibrary"
+         ng-click="$ctrl.openFileLibrary()"
+         class="btn btn-link btn-zmdi"
+         uib-tooltip="{{:: 'FILE_LIBRARY.PREVIEW.FILE_LIBRARY.TOOLTIP' | translate }}"
+         tooltip-append-to-body="true"
+         tooltip-placement="bottom"
+         tooltip-popup-delay="500"
+         tooltip-enable="!$root.screenSize.isXs">
+        <i class="zmdi zmdi-hc-fw zmdi-file"></i>
+      </a>
+    </div>
+
+    <div class="tab-bar">
+      <ul class="nav nav-tabs no-user-select" id="tabs-poll-config">
+        <li data-ng-class="{'active': $ctrl.tabs.active === $ctrl.tabs.INFORMATION, 'col-xs-4': $ctrl.model.id, 'col-xs-6': !$ctrl.model.id}">
+          <a ng-click="$ctrl.switchTab($ctrl.tabs.INFORMATION)">
+            <i class="zmdi zmdi-info-outline mr-xxxs"></i> {{ 'FILE_LIBRARY.INFORMATION' | translate }}
+          </a>
+        </li>
+        <li data-ng-class="{'active': $ctrl.tabs.active === $ctrl.tabs.HISTORY, 'col-xs-4': $ctrl.model.id, 'col-xs-6': !$ctrl.model.id}">
+          <a ng-click="$ctrl.switchTab($ctrl.tabs.HISTORY)">
+            <i class="zmdi zmdi-time mr-xxxs"></i> {{ 'FILE_LIBRARY.HISTORY' | translate }}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div ng-show="$ctrl.tabs.active === $ctrl.tabs.INFORMATION">
+      <coyo-file-details sender="$ctrl.sender" file="$ctrl.file"></coyo-file-details>
+      <div class="fd-file-options">
+        <coyo-btn-likes target="::$ctrl.file"></coyo-btn-likes>
+      </div>
+      <coyo-comments target="::$ctrl.file"></coyo-comments>
+    </div>
+
+    <div ng-show="$ctrl.tabs.active === $ctrl.tabs.HISTORY">
+      <div class="text-center"
+           ng-if="::$ctrl.file._permissions.manage">
+        <button class="btn btn-primary mb-s mt-xxs" translate="FILE_LIBRARY.UPLOAD_NEW_VERSION"
+                ngf-select="$ctrl.uploadVersion($ctrl.file, $files)"
+                ngf-multiple="false">
+        </button>
+      </div>
+      <div class="text-center m-m" ng-show="$ctrl.versions.loading">
+        <coyo-spinner></coyo-spinner>
+      </div>
+      <table class="file-versions" ng-hide="$ctrl.versions.loading">
+        <tbody>
+        <tr ng-repeat="version in $ctrl.versions.content"
+            ng-class="{active: $ctrl.currentVersionNumber === version.versionNumber}">
+          <td>
+            <div class="version-number" ng-click="$ctrl.selectVersion(version)">
+              {{version.versionNumber}}
+            </div>
+          </td>
+          <td>
+            <span class="bold">
+              {{version.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' +
+              $root.timeFormat.short}}
+            </span>
+            <br>
+              <span ng-if="version.author">
+                  <span class="text-muted" translate="FILE_DETAILS.CREATED_BY"></span>
+                  <a coyo-sender-link="version.author">{{version.author.displayName}}</a>
+              </span>
+          </td>
+          <td class="text-right bold">{{version.length | fileSize}}</td>
+          <td>
+            <coyo-context-menu align-right="true">
+              <li>
+                <a href coyo-download="$ctrl.getDownloadUrlForVersion(version.id)">
+                  <i class="zmdi zmdi-hc-fw zmdi-download"></i>
+                  <span class="tab-text"
+                        translate="FILE_LIBRARY.VERSION.DOWNLOAD"></span>
+                </a>
+              </li>
+              <li ng-if="::$ctrl.file._permissions.manage">
+                <a ng-click="$ctrl.restoreVersion(version)" >
+                  <i class="zmdi zmdi-hc-fw zmdi-time-restore"></i>
+                  <span class="tab-text"
+                        translate="FILE_LIBRARY.VERSION.RESTORE_VERSION"></span>
+                </a>
+              </li>
+            </coyo-context-menu>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <coyo-table-pagination page="$ctrl.versions"></coyo-table-pagination>
+    </div>
+  </div>
+</div>

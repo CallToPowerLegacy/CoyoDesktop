@@ -1,0 +1,54 @@
+.timeline-share {
+  border-bottom: 1px solid $color-gray-light;
+
+  .panel-body {
+    display: flex;
+
+    padding-top: 18px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      padding-bottom: 10px;
+    }
+
+    .timeline-share-author-avatar {
+      margin-top: -2px;
+      margin-right: 12px;
+
+      a::after {
+        display: inline-block;
+        background-color: $color-blue;
+        border: 2px solid white;
+        border-radius: 100%;
+
+        font-family: 'Material-Design-Iconic-Font';
+        font-size: 10px;
+        content: '\f193';
+        color: $color-white;
+        text-align: center;
+
+        position: absolute;
+        bottom: -7px;
+        right: -5px;
+
+        width: 20px;
+        height: 20px;
+        line-height: 16px;
+        transform: scale(-1,1);
+      }
+    }
+
+    .timeline-share-body {
+      flex: 1;
+      margin-left: 12px;
+      margin-right: 24px;
+    }
+
+    .timeline-share-time {
+      text-align: right;
+    }
+
+    .timeline-share-message :last-child {
+      margin-bottom: 0;
+    }
+  }
+}

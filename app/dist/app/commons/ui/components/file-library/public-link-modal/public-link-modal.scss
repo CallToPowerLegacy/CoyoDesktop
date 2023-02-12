@@ -1,0 +1,16 @@
+.public-link-modal {
+
+  .link-url {
+    max-width: calc(100% - 44px);
+    display: inline-block;
+    line-height: 1.4em;
+  }
+
+  @media screen and (max-width: $screen-xs-max) {
+    .link-actions .btn {
+      display: block;
+      margin-top: 16px;
+      width: 100%;
+    }
+  }
+}

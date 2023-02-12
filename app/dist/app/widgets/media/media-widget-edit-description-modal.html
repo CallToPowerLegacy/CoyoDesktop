@@ -1,0 +1,22 @@
+<form name="form" role="form" novalidate>
+  <div class="modal-content-wrapper modal-options">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="WIDGET.MEDIA.OPTIONS.MODAL.TITLE"></h3>
+      <span class="modal-close" ng-click="$dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+    </div>
+    <div class="modal-body">
+      <textarea name="description"
+                class="media-edit-name form-control"
+                msd-elastic rows="1"
+                autofocus
+                ng-model="$modal.media.description"></textarea>
+    </div>
+    <div class="modal-footer modal-actions">
+      <coyo-form-submit-button label="SAVE" form-ctrl="mediaSettingsForm"
+                               ng-click="$close($modal.media.description)"></coyo-form-submit-button>
+      <a ng-click="$close()" class="btn btn-default">
+        {{:: 'CANCEL' | translate }}
+      </a>
+    </div>
+  </div>
+</form>

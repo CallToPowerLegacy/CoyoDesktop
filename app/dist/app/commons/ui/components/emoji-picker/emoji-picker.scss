@@ -1,0 +1,29 @@
+.emoji-picker {
+  .emoji-picker-toggle {
+    color: $color-gray;
+
+    &:hover {
+      color: $color-gray-dark;
+    }
+  }
+}
+
+.emoji-picker-popover {
+  height: 254px;
+  overflow: auto;
+
+  .emoji {
+    text-align: center;
+    display: inline-block;
+    float: left;
+    font-size: 22px;
+    width: 30.5px;
+    height: 32px;
+    line-height: 32px;
+    cursor: pointer;
+
+    &:hover {
+      line-height: 31px;
+    }
+  }
+}

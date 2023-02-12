@@ -1,0 +1,116 @@
+.layout-header {
+  display: none;
+  background-color: $color-white;
+  height: 76px;
+
+  @media screen and (min-width: $screen-lg-min) {
+    //display: block;
+  }
+
+  .layout-header-inner {
+    margin: 0 auto;
+    max-width: 1280px;
+    position: relative;
+    padding: 0 48px;
+  }
+
+  .layout-header-brand {
+    display: block;
+    float: left;
+    width: 160px;
+    height: 76px;
+
+    transition: none;
+    text-indent: -99999px;
+    background-image: url('../assets/images/logos/coyo/logo-coyo.png');
+
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: auto 28px;
+  }
+
+  .layout-header-search {
+    float: right;
+    width: 300px;
+    margin-top: 22px;
+    background-color: transparent;
+    border-radius: 32px;
+    height: 32px;
+    border: 1px solid #DDD;
+
+    @include placeholder-color(rgba(0,0,0,0.25));
+  }
+}
+
+.navbar.navbar-main {
+  @media screen and (min-width: $screen-lg-min) {
+    position: static;
+  }
+
+  &.coyo-navbar .nav .disabled > a {
+    color: $color-gray-light;
+  }
+
+  .coyo-navbar-flex {
+    .nav > .nav-item {
+      .nav-item-brand {
+        width: $width-navbar-brand;
+        height: 100%;
+        display: inline-block;
+
+        transition: none;
+        text-indent: -99999px;
+        background-image: url($image-coyo-nav);
+        @include media-retina() {
+          background-image: url($image-coyo-nav-hd);
+        }
+
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+      }
+
+      .nav-item-profile {
+        .profile-thumb {
+          margin-top: -4px;
+          background: transparent;
+        }
+      }
+
+      .nav-item-combined {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 14px;
+        padding-top: 14px;
+
+        .zmdi {
+          font-weight: normal;
+        }
+      }
+      
+      &.nav-item-no-link {
+        cursor: default;
+      }
+    }
+
+    a.active {
+      color: $color-link;
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+
+    .coyo-c {
+      &:before {
+        height: 12px;
+        width: 10px;
+        content: url($image-coyo-c);
+        display: inline-block;
+        position: relative;
+        margin: 0 8px 0 1px;
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+textarea[name=description].media-edit-name {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  resize: none;
+  padding: 0;
+
+  &:focus {
+    box-shadow: none !important;
+  }
+}

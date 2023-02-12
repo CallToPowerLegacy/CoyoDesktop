@@ -1,0 +1,157 @@
+<form name="settingsForm" class="form-horizontal" coyo-form-submit="$ctrl.save()">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title" translate="ADMIN.SETTINGS.GENERAL"></h3>
+    </div>
+    <div class="panel-body">
+
+      <!-- Network name -->
+      <div class="form-group">
+        <label for="networkName" class="col-sm-3 control-label"
+               translate="ADMIN.SETTINGS.NETWORK_NAME.LABEL"></label>
+        <div class="col-sm-8">
+          <input id="networkName" name="networkName" type="text" class="form-control"
+                 ng-model="$ctrl.settings.networkName" placeholder="Coyo">
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.SETTINGS.NETWORK_NAME.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <!-- Tracking code -->
+      <div class="form-group">
+        <label for="trackingCode" class="col-sm-3 control-label"
+               translate="ADMIN.SETTINGS.TRACKING_CODE.LABEL"></label>
+        <div class="col-sm-8">
+          <textarea id="trackingCode" name="trackingCode" class="form-control" rows="5"
+                    ng-model="$ctrl.settings.trackingCode" placeholder="<script ...></script>"></textarea>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.SETTINGS.TRACKING_CODE.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <!-- Landing Page Subnavigation -->
+      <div class="form-group">
+        <label for="subNavigationActive"
+               class="col-sm-3 control-label"
+               translate="ADMIN.SETTINGS.SUB_NAVIGATION.ACTIVE.LABEL"></label>
+        <div class="col-sm-8">
+          <coyo-checkbox id="subNavigationActive" name="subNavigationActive"
+                        ng-model="$ctrl.settings.subNavigationActive"></coyo-checkbox>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.SETTINGS.SUB_NAVIGATION.ACTIVE.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <!-- Anonymize deleted users -->
+      <hr>
+      <div class="form-group">
+        <label for="anonymizeDeletedUsers"
+               class="col-sm-3 control-label"
+               translate="ADMIN.SETTINGS.ANONYMIZE_DELETEDUSERS.ACTIVE.LABEL"></label>
+        <div class="col-sm-8">
+          <div class="table-row">
+            <coyo-checkbox id="anonymizeDeletedUsers" name="anonymizeDeletedUsers" true-value="'true'" false-value="'false'"
+                          ng-model="$ctrl.settings.deletedUserAnonymizationActive" class="table-cell"></coyo-checkbox>
+            <span class="text-warning pl-xs table-cell" ng-if="$ctrl.settings.deletedUserAnonymizationActive === 'true'"
+                  translate="ADMIN.SETTINGS.ANONYMIZE_DELETEDUSERS.WARNING"></span>
+          </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.SETTINGS.ANONYMIZE_DELETEDUSERS.ACTIVE.HELP"></coyo-help>
+        </div>
+      </div>
+      <div class="form-group"
+           uib-collapse="!$ctrl.settings.deletedUserAnonymizationActive || $ctrl.settings.deletedUserAnonymizationActive === 'false'"
+           ng-class="{'has-error': $ctrl.settings.deletedUserAnonymizationActive === 'true' && settingsForm.deletedUserName.$error.required}">
+        <label for="deletedUserName" class="col-sm-3 control-label"
+               translate="ADMIN.SETTINGS.ANONYMIZE_DELETEDUSERS.DELETED_NAME.LABEL"></label>
+        <div class="col-sm-8">
+          <input id="deletedUserName" name="deletedUserName" type="text" class="form-control"
+                 ng-model="$ctrl.settings.deletedUserDisplayName" maxlength="63"
+                 ng-required="$ctrl.settings.deletedUserAnonymizationActive === 'true'"
+                 ng-disabled="$ctrl.settings.deletedUserAnonymizationActive === 'false'">
+          <ng-messages for="settingsForm.deletedUserName.$error" class="help-block validation">
+            <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+          </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.SETTINGS.ANONYMIZE_DELETEDUSERS.DELETED_NAME.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <!-- Default visibilities -->
+      <hr>
+
+      <div class="form-group">
+        <label for="defaultVisibilityPages" class="col-sm-3 control-label"
+               translate="ADMIN.SETTINGS.DEFAULT_VISIBLITY_PAGES.LABEL"></label>
+        <div class="col-sm-8">
+          <coyo-select-visibility ng-model="$ctrl.settings.defaultVisibilityPages" language-key-prefix="'PAGE.VISIBILITY'" no-protected="true" name="defaultVisibilityPages" id="defaultVisibilityPages"></coyo-select-visibility>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.SETTINGS.DEFAULT_VISIBLITY_PAGES.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="defaultVisibilityWorkspaces" class="col-sm-3 control-label"
+               translate="ADMIN.SETTINGS.DEFAULT_VISIBLITY_WORKSPACE.LABEL"></label>
+        <div class="col-sm-8">
+          <coyo-select-visibility ng-model="$ctrl.settings.defaultVisibilityWorkspaces" language-key-prefix="'WORKSPACE.VISIBILITY'" name="defaultVisibilityWorkspaces" id="defaultVisibilityWorkspaces"></coyo-select-visibility>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.SETTINGS.DEFAULT_VISIBLITY_WORKSPACE.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <!-- Make new users offline after the first login -->
+      <hr/>
+      <div class="form-group">
+        <label for="userOfflineAfterCreationActive"
+               class="col-sm-3 control-label"
+               translate="ADMIN.SETTINGS.USER_OFFLINE_AFTER_ACCOUNT_CREATION.ACTIVE.LABEL"></label>
+        <div class="col-sm-8">
+          <div class="table-row">
+            <coyo-checkbox id="userOfflineAfterFirstLogin" name="userOfflineAfterCreationActive" true-value="'true'" false-value="'false'"
+                           ng-model="$ctrl.settings.userOfflineAfterCreationActive" class="table-cell"></coyo-checkbox>
+          </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.SETTINGS.USER_OFFLINE_AFTER_ACCOUNT_CREATION.ACTIVE.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <!-- Multi-language activation -->
+      <hr/>
+      <div class="form-group">
+        <label for="multiLanguageActive"
+               class="col-sm-3 control-label"
+               translate="ADMIN.SETTINGS.MULTI_LANGUAGE.ACTIVE.LABEL"></label>
+        <div class="col-sm-8">
+          <div class="table-row">
+            <coyo-checkbox id="multiLanguageActive" name="multiLanguageActive" true-value="'true'" false-value="'false'"
+                           ng-model="$ctrl.settings.multiLanguageActive" class="table-cell"></coyo-checkbox>
+          </div>
+          <div class="table-row">
+            <a ui-sref="admin.multi-language" translate="ADMIN.SETTINGS.MULTI_LANGUAGE.ACTIVE.TEXT"></a>
+          </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.SETTINGS.MULTI_LANGUAGE.ACTIVE.HELP"></coyo-help>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="panel-footer panel-actions">
+      <div class="row">
+        <div class="col-sm-9 col-sm-push-3">
+          <coyo-form-submit-button label="SAVE" form-ctrl="settingsForm"></coyo-form-submit-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

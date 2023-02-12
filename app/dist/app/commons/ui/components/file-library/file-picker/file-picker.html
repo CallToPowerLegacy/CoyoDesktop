@@ -1,0 +1,14 @@
+<div class="fl-file-picker" coyo-global-permissions="ACCESS_FILES">
+  <ul ng-if="$ctrl.ngModel.$viewValue" class="fl-file-picker-list">
+    <li ng-repeat="file in $ctrl.getSelectedFiles() | orderBy:'name'">
+      {{file.name}}
+      <a href class="remove-file" ng-click="$ctrl.removeFile(file)"><i class="zmdi zmdi-close-circle"></i></a>
+    </li>
+  </ul>
+  <button type="button" class="btn btn-primary btn-block" ng-click="$ctrl.pickFile()">
+    <i class="zmdi zmdi-file"></i>&nbsp;
+    <span ng-if="$ctrl.options.selectMode === 'multiple'" translate="FILE_LIBRARY.SELECT_PLURAL"></span>
+    <span ng-if="$ctrl.options.selectMode === 'single'" translate="FILE_LIBRARY.SELECT"></span>
+    <span ng-if="$ctrl.options.selectMode === 'folder'" translate="FILE_LIBRARY.SELECT_FOLDER"></span>
+  </button>
+</div>

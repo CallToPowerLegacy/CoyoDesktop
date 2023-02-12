@@ -1,0 +1,16 @@
+<div class="text-center">
+  <ul uib-pagination
+      class="coyo-pagination"
+      ng-show="$ctrl.page.totalPages > 1"
+      ng-disabled="$ctrl.loading"
+      previous-text="‹"
+      next-text="›"
+      ng-model="$ctrl.currentPage"
+      items-per-page="$ctrl.page._queryParams._pageSize"
+      total-items="$ctrl.page.totalElements"
+      ng-change="$ctrl.change()"
+      max-size="10"
+      force-ellipses="true"
+      rotate="true">
+  </ul>
+</div>

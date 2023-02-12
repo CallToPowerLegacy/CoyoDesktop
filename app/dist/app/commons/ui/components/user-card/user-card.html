@@ -1,0 +1,29 @@
+<div class="panel panel-sm panel-hoverable user-card"
+     ng-click="$ctrl.open($ctrl.user)"
+     ng-class="::{'pointer': $ctrl.canOpen($ctrl.user)}">
+  <div class="user-card-heading panel-body">
+
+    <coyo-user-avatar no-link="true"
+                      ng-if="$root.screenSize.isMd || $root.screenSize.isLg"
+                      class="hidden-sm hidden-xs"
+                      user="::$ctrl.user"
+                      show-online-status="true"
+                      show-follow-button="::$ctrl.showFollowButton"
+                      show-messaging-button="$ctrl.showMessagingButton && $ctrl.currentUser.id !== $ctrl.user.id"></coyo-user-avatar>
+
+    <coyo-user-avatar no-link="true"
+                      ng-if="$root.screenSize.isXs || $root.screenSize.isSm"
+                      class="hidden-md hidden-lg"
+                      user="::$ctrl.user"
+                      avatar-size="sm"
+                      show-online-status="true"></coyo-user-avatar>
+
+    <div class="user-card-heading-text">
+      <h4 class="user-card-title" title="{{::$ctrl.user.displayName}}">{{::$ctrl.user.displayName}}</h4>
+      <div class="user-card-subtitle" ng-show="::$ctrl.subtitle">{{::$ctrl.subtitle}}</div>
+      <ng-transclude ng-transclude-slot="header"></ng-transclude>
+    </div>
+  </div>
+
+  <div ng-if="::$ctrl.bodySlotPresent" class="panel-body hidden-sm hidden-xs" ng-transclude ng-transclude-slot="body"></div>
+</div>

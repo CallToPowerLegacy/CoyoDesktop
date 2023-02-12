@@ -1,0 +1,26 @@
+<div class="panel-body timeline-item-body" ng-if="::tlItem.ngModel.data.message">
+  <div class="timeline-item-message" coyo-mention-encode="::tlItem.ngModel.data.message | markdown | hashtag"></div>
+  <small ng-if="::tlItem.ngModel.data.edited"
+         class="text-muted"
+         translate="MODULE.TIMELINE.EDIT.REMARK"
+         translate-value-modified="{{::tlItem.ngModel.modified | amTimeAgo}}"></small>
+</div>
+
+<div class="timeline-item-attachments-panel">
+  <div class="panel-body timeline-item-web-previews"
+       ng-if="::tlItem.ngModel.linkPreviews.length > 0 || tlItem.ngModel.videoPreviews.length > 0">
+    <coyo-link-preview ng-model="::tlItem.ngModel.linkPreviews" edit-mode="false" focus-var="$ctrl.focusMessageField">
+    </coyo-link-preview>
+    <coyo-video-preview ng-model="::tlItem.ngModel.videoPreviews" edit-mode="false" focus-var="$ctrl.focusMessageField">
+    </coyo-video-preview>
+  </div>
+
+  <div class="panel-body timeline-item-attachments" ng-if="::tlItem.ngModel.attachments.length">
+    <coyo-preview-list attachments="::tlItem.ngModel.attachments"
+                       group-id="::tlItem.ngModel.id"
+                       backend-url="::tlItem.backendUrl"
+                       author="::tlItem.ngModel.author"
+                       preview-url="::tlItem.preview"
+                       size="xl"></coyo-preview-list>
+  </div>
+</div>

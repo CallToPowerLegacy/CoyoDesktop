@@ -1,0 +1,122 @@
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="APP.LIST.ELEMENT"></label>
+  <div class="col-sm-9">
+    <input name="entityName" class="form-control" type="text" ng-model="$ctrl.app.settings.elementName" required>
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="APP.LIST.ELEMENT.HELP"></coyo-help>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="APP.LIST.ENABLE_MAXENTRIES"></label>
+  <div class="col-sm-9">
+    <div class="checkbox">
+      <label>
+        <coyo-checkbox id="default" ng-model="$ctrl.app.settings.enableMaxEntries"></coyo-checkbox>
+        {{'APP.LIST.ENABLE_MAXENTRIES.LABEL' | translate}}
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="form-group" ng-if="$ctrl.app.settings.enableMaxEntries">
+  <label class="col-sm-2 control-label" translate="APP.LIST.MAXENTRIES"></label>
+  <div class="col-sm-9">
+    <input name="maxEntries" class="form-control" min="0" step="1" type="number" ng-model="$ctrl.app.settings.maxEntries">
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="APP.LIST.NOTIFICATIONS.LABEL"></label>
+  <div class="col-sm-10">
+    <div class="radio">
+      <label>
+        <input name="notification" type="radio" ng-model="$ctrl.app.settings.notification" value="ALL">
+        {{:: 'APP.LIST.NOTIFICATIONS.ALL' | translate }}
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="notification" type="radio" ng-model="$ctrl.app.settings.notification" value="ADMIN">
+        {{:: 'APP.LIST.NOTIFICATIONS.ADMIN' | translate }}
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="notification" type="radio" ng-model="$ctrl.app.settings.notification" value="NONE">
+        {{:: 'APP.LIST.NOTIFICATIONS.NONE' | translate }}
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- Permission settings -->
+
+<coyo-divider ng-click="$ctrl.showAdvanced = !$ctrl.showAdvanced">
+  <span class="list-settings-show-advanced-handle">
+    <span translate="APP.LIST.PERMISSIONS"></span>
+    <i class="zmdi zmdi-hc-fw"
+       ng-class="{'zmdi-caret-down': !$ctrl.showAdvanced, 'zmdi-caret-up': $ctrl.showAdvanced}"></i>
+  </span>
+</coyo-divider>
+
+<div ng-if="$ctrl.showAdvanced" class="form-advanced">
+  <h4 translate="APP.LIST.PERMISSIONS.HEADLINE"></h4>
+  <div class="form-group">
+    <label class="col-sm-2 control-label" translate="APP.LIST.PERMISSION_CREATE"></label>
+    <div class="col-sm-10">
+      <div class="radio">
+        <label>
+          <input name="create" type="radio" ng-model="$ctrl.app.settings.permissionCreate" value="YES">
+          <i class="zmdi zmdi-check zmdi-wide"></i>&nbsp;{{:: 'YES' | translate }}
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input name="create" type="radio" ng-model="$ctrl.app.settings.permissionCreate" value="NO">
+          <i class="zmdi zmdi-block zmdi-wide"></i>&nbsp;{{:: 'NO' | translate }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" translate="APP.LIST.PERMISSION_READ"></label>
+    <div class="col-sm-10">
+      <div class="radio" ng-repeat="permission in $ctrl.permissions">
+        <label>
+          <input name="read" type="radio" ng-model="$ctrl.app.settings.permissionRead" value="{{permission}}"
+                 ng-change="$ctrl.handleReadPermissionChange()">
+          <i class="zmdi zmdi-wide" ng-class="$ctrl.permissionIcons[permission]"></i>&nbsp;{{:: 'APP.LIST.PERMISSIONS.' + permission | translate }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" translate="APP.LIST.PERMISSION_EDIT"></label>
+    <div class="col-sm-10">
+      <div class="radio" ng-repeat="permission in $ctrl.permissions">
+        <label ng-class="{'text-muted': !$ctrl.isEnabled(permission)}">
+          <input name="edit" type="radio" ng-model="$ctrl.app.settings.permissionEdit" value="{{permission}}"
+                 ng-disabled="!$ctrl.isEnabled(permission)" >
+          <i class="zmdi zmdi-wide" ng-class="$ctrl.permissionIcons[permission]"></i>&nbsp;{{:: 'APP.LIST.PERMISSIONS.' + permission | translate }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" translate="APP.LIST.PERMISSION_DELETE"></label>
+    <div class="col-sm-10">
+      <div class="radio" ng-repeat="permission in $ctrl.permissions">
+        <label ng-class="{'text-muted': !$ctrl.isEnabled(permission)}">
+          <input name="delete" type="radio" ng-model="$ctrl.app.settings.permissionDelete" value="{{permission}}"
+                 ng-disabled="!$ctrl.isEnabled(permission)" >
+          <i class="zmdi zmdi-wide" ng-class="$ctrl.permissionIcons[permission]"></i>&nbsp;{{:: 'APP.LIST.PERMISSIONS.' + permission | translate }}
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

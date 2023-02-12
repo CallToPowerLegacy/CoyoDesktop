@@ -1,0 +1,30 @@
+// Mixins - Animate something
+// --------------------------------------------------
+
+// example usage:
+// @include animate(fadein 2s)
+@mixin animate($term) {
+  animation: $term;
+
+  // scss-lint:disable VendorPrefix
+  // Safari, Chrome and Opera > 12.1
+  -webkit-animation: $term;
+
+  // Firefox < 16
+  -moz-animation: $term;
+
+  // Internet Explorer
+  -ms-animation: $term;
+
+  // Opera < 12.1
+  -o-animation: $term;
+  // scss-lint:enable VendorPrefix
+}
+
+@mixin animate-all-easing($period: 1s) {
+  transition:  all $period ease-in-out;
+}
+
+@mixin animate-easing($attr: all, $period: 1s) {
+  transition: $attr $period ease-in-out;
+}

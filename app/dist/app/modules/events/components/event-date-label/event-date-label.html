@@ -1,0 +1,6 @@
+<span class="label label-muted event-date-label" ng-if=":: $ctrl.startPattern || $ctrl.endPattern">
+  <i class="zmdi zmdi-wide zmdi-time"></i>
+  <span ng-if=":: $ctrl.startPattern">{{:: $ctrl.startDate | amDateFormat:$ctrl.startPattern }}</span>
+  <span ng-if=":: $ctrl.endPattern" translate="EVENT.TO">to</span>
+  <span ng-if=":: $ctrl.endPattern">{{:: $ctrl.endDate  | amDateFormat:$ctrl.endPattern }}</span>
+</span>

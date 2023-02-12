@@ -1,0 +1,28 @@
+.messaging-channel-avatar {
+
+  .user-avatar .online-status {
+    border-color: $color-black;
+  }
+
+  .zmdi {
+    text-align: center;
+    border-radius: 100%;
+    background-color: $color-gray-darker;
+    color: $color-white;
+    transition: background-color linear 0.1s;
+  }
+
+  &.xs .zmdi {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+  }
+
+  &.sm .zmdi {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+  }
+}

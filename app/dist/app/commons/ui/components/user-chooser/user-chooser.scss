@@ -1,0 +1,70 @@
+.user-chooser {
+  > .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 30px;
+    cursor: pointer;
+    font-size: 24px;
+    color: $color-gray;
+
+    &:hover {
+      color: $color-gray-darker;
+    }
+  }
+
+  &.modal-body {
+    height: 500px;
+
+    @media screen and (min-height: 1000px) {
+      height: 600px;
+    }
+    @media screen and (min-height: 1200px) {
+      height: 700px;
+    }
+
+    @media screen and (max-width: $screen-xs-max) {
+      padding: 0;
+
+      .nav-tabs > .uib-tab > a {
+        padding: 12px 16px;
+      }
+    }
+  }
+
+  .user-chooser-list-wrapper {
+    padding: 4px 8px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      padding: 12px 16px;
+    }
+  }
+
+  .user-chooser-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .btn-more {
+    margin: 24px auto;
+    display: block;
+  }
+
+  .filterbox {
+    > .panel.panel-default.panel-filterbox {
+
+      @media screen and (min-width: $screen-sm-min) {
+        border: 1px solid $color-gray-light;
+        margin: 16px 0 0;
+      }
+    }
+
+    @media screen and (min-width: $screen-sm-min) {
+      .fb-filter {
+        margin-top: 2px;
+      }
+    }
+  }
+}
+

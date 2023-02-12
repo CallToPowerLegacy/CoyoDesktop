@@ -1,0 +1,31 @@
+<div class="alert alert-warning" translate="WIDGETS.IFRAME.SETTINGS.MESSAGE"></div>
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="WIDGETS.IFRAME.SETTINGS.CONFIG.URL.LABEL"></label>
+  <div class="col-sm-9">
+    <input name="url" class="form-control" type="text" ng-model="$ctrl.model.settings.url" ng-attr-placeholder="{{::'WIDGETS.IFRAME.SETTINGS.CONFIG.URL.PLACEHOLDER' | translate}}" required>
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGETS.IFRAME.SETTINGS.CONFIG.URL.HELP"></coyo-help>
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="WIDGETS.IFRAME.SETTINGS.CONFIG.HEIGHT.LABEL"></label>
+  <div class="col-sm-9">
+    <div class="input-group">
+      <input name="number" class="form-control" type="number" min="0" max="4320" ng-model="$ctrl.model.settings.height" required>
+      <span class="input-group-addon">px</span>
+    </div>
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGETS.IFRAME.SETTINGS.CONFIG.HEIGHT.HELP"></coyo-help>
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="WIDGETS.IFRAME.SETTINGS.CONFIG.SCROLL.LABEL"></label>
+  <div class="col-sm-9">
+    <coyo-checkbox name="tab" ng-model="$ctrl.model.settings.scrolling" checked></coyo-checkbox>
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGETS.IFRAME.SETTINGS.CONFIG.SCROLL.HELP"></coyo-help>
+  </div>
+</div>

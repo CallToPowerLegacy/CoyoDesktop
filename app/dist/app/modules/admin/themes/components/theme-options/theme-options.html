@@ -1,0 +1,11 @@
+<li>
+  <a href ui-sref="admin.themes.edit({id: $ctrl.theme.id})">
+    <i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;<span translate="ADMIN.THEMES.OPTIONS.EDIT.MENU"></span>
+  </a>
+</li>
+<li class="divider" ng-if="!$ctrl.theme.default"></li>
+<li ng-if="!$ctrl.theme.default">
+  <a href ng-click="$ctrl.actions.deleteTheme($ctrl.theme);">
+    <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;<span translate="ADMIN.THEMES.OPTIONS.DELETE.MENU"></span>
+  </a>
+</li>

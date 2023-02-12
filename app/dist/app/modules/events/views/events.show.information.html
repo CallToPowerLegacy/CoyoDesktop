@@ -1,0 +1,52 @@
+<section class="event-tab event-information-tab">
+  <div class="col-md-6 pr-xxs pl-0">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="event-information-header col-xs-12">
+          <h4 translate="MODULE.EVENTS.TABS.INFORMATION"></h4>
+        </div>
+        <div class="event-information-content col-xs-12">
+          {{:: $ctrl.event.description }}
+          <span class="text-muted"
+                ng-if=":: !$ctrl.event.description ">{{'MODULE.EVENTS.NO_DESCRIPTION' | translate}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 pl-xxs pr-0">
+    <div class="panel">
+      <div class="panel-body">
+        <!--Location-->
+        <div ng-if=":: $ctrl.event.place" class="event-information-header col-xs-12">
+          <h4 translate="MODULE.EVENTS.HEADLINE.LOCATION"></h4>
+        </div>
+        <div ng-if=":: $ctrl.event.place" class="event-information-content col-xs-12">
+          <i class="zmdi zmdi-pin"></i>
+          <span>{{:: $ctrl.event.place}}</span>
+        </div>
+        <!--Date-->
+        <div class="event-information-header col-xs-12">
+          <h4 translate="MODULE.EVENTS.HEADLINE.DATE"></h4>
+        </div>
+        <div class="event-information-content col-xs-12">
+          <i class="zmdi zmdi-time"></i>
+          <coyo-event-date event="$ctrl.event"></coyo-event-date>
+        </div>
+        <!--Host-->
+        <div class="event-information-header col-xs-12">
+          <h4 translate="MODULE.EVENTS.HEADLINE.HOST"></h4>
+        </div>
+        <div class="event-information-content col-xs-12">
+          <div class="event-info-sender">
+            <coyo-sender-avatar sender="$ctrl.event.sender" avatar-size="xs"></coyo-sender-avatar>
+            <a coyo-sender-link="::$ctrl.event.sender" class="ml-xxs">{{$ctrl.event.sender.displayName}}</a>
+          </div>
+          <div class="event-info-sender" ng-repeat="host in $ctrl.hosts">
+              <coyo-user-avatar user="::host" avatar-size="xs"></coyo-user-avatar>
+              <a coyo-sender-link="::host" class="ml-xxs">{{host.displayName}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

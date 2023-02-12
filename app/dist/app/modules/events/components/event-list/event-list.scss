@@ -1,0 +1,280 @@
+.event-list-component {
+  .event-card {
+    height: 80px;
+    border-radius: 0;
+
+    @media screen and (min-width: $screen-md-min) {
+      border-radius: 5px;
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      &.event-card {
+        height: 160px;
+      }
+    }
+
+    .sender-avatar,
+    .event-date-overlay-container {
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+
+      img,
+      .sender-avatar-empty {
+        border-radius: 0;
+        background-color: $color-event-avatar-bg;
+
+        @media screen and (min-width: $screen-md-min) {
+          border-radius: 5px 0 0 5px;
+        }
+      }
+    }
+
+    .event-date-overlay {
+      @media screen and (min-width: $screen-md-min) {
+        border-radius: 5px 0 0 5px;
+      }
+    }
+
+    .panel-body {
+      height: 100%;
+      padding: 8px 8px 8px 96px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+
+      .page-card-heading {
+        display: flex;
+
+        h4 {
+          flex: 1;
+          margin: 1px 0 6px;
+          position: relative;
+          @include ellipsis();
+
+          @media screen and (min-width: $screen-md-min) {
+            font-size: 20px;
+            padding-right: 24px;
+          }
+        }
+      }
+
+      .page-card-heading,
+      .page-card-content {
+        padding-right: 68px;
+
+        @media screen and (min-width: $screen-md-min) {
+          padding-right: 0;
+        }
+      }
+
+      @media screen and (min-width: $screen-md-min) {
+        padding: 16px 16px 16px 184px;
+      }
+    }
+
+    .event-title {
+      margin: 0 0 8px;
+      @include ellipsis();
+
+      @media screen and (min-width: $screen-md-min) {
+        font-size: 24px;
+        line-height: 32px;
+      }
+
+      a, a:hover, a:focus {
+        color: $text-color;
+      }
+    }
+
+    .event-description {
+      color: $color-gray;
+      margin-bottom: 16px;
+      flex-grow: 1;
+      @include ellipsis-multiline(2, 48px);
+
+      @media screen and (max-width: $screen-sm-max) {
+        display: none;
+      }
+    }
+
+    .event-labels {
+      height: 25px;
+      overflow: hidden;
+
+      .label {
+        float: left;
+        margin-right: 8px;
+      }
+
+      .label-desktop {
+        @media screen and (max-width: $screen-sm-max) {
+          display: none;
+        }
+      }
+    }
+
+    .tour-placeholder-container {
+      @media screen and (max-width: $screen-sm-max) {
+        right: 0;
+        top: 0;
+        position: absolute;
+        bottom: 0;
+        height: auto;
+        width: 67px;
+
+        .coyo-event-participation {
+          border-left: 1px solid $color-gray-light;
+          text-align: center;
+
+          .event-participation {
+            line-height: 80px;
+          }
+
+          .participation-disabled {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: transparent !important;
+            line-height: 80px;
+          }
+
+          .participation-disabled,
+          .ui-select-toggle {
+            padding: 0 0 0 20px;
+            @include box-shadow(0, 0, 0, 0, transparent, true, true);
+            border: 0 none;
+            background-color: transparent !important;
+            height: auto;
+
+            &:hover {
+              @include box-shadow(0, 0, 0, 0, transparent, true, true);
+            }
+
+            &::before {
+              text-align: center;
+              font-size: 22px;
+              line-height: 80px;
+              position: static;
+            }
+
+            &::after {
+              color: $color-primary;
+              line-height: 80px;
+            }
+          }
+
+          &.event-participation-disabled {
+            display: none;
+          }
+
+          &.pending {
+            .participation-disabled,
+            .ui-select-toggle {
+              &::before {
+                color: $color-gray-light;
+              }
+            }
+          }
+
+          &.attending {
+            .participation-disabled,
+            .ui-select-toggle {
+              &::before {
+                color: $color-green;
+              }
+            }
+          }
+
+          &.maybe_attending {
+            .participation-disabled,
+            .ui-select-toggle {
+              &::before {
+                color: $color-orange;
+              }
+            }
+          }
+
+          &.not_attending {
+            .participation-disabled,
+            .ui-select-toggle {
+              &::before {
+                color: $btn-primary-bg;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// TODO: extract ribbon to a component
+
+.ribbon {
+  position: absolute;
+  right: -5px; top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 76px;
+  height: 76px;
+  text-align: right;
+
+  @media screen and (min-width: $screen-md-min) {
+    border-radius: $border-radius-base;
+  }
+
+  p {
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    color: $color-white;
+    background: $color-blue;
+    line-height: 20px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: 102px;
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: -21px;
+    margin: 0;
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 100%;
+      z-index: -1;
+      border: 3px solid darken($color-blue, 15%);
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 100%;
+      z-index: -1;
+      border: 3px solid darken($color-blue, 15%);
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+    }
+  }
+}
+
+p.ribbon-new {
+  background: $coyo-ribbon-new-bg;
+
+  &:before {
+    border-top-color: $coyo-ribbon-new-bg-shadow;
+    border-left-color: $coyo-ribbon-new-bg-shadow;
+  }
+  &:after {
+    border-top-color: $coyo-ribbon-new-bg-shadow;
+    border-right-color: $coyo-ribbon-new-bg-shadow;
+  }
+}

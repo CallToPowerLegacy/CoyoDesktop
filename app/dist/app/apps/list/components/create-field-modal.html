@@ -1,0 +1,26 @@
+<form name="createFieldForm" coyo-form-submit="$ctrl.save()">
+    <div class="modal-content-wrapper">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                <span ng-if="!$ctrl.selectedFieldType" translate="APP.LIST.FIELD.MODAL.SELECTION.TITLE"></span>
+                <span ng-if="$ctrl.selectedFieldType" translate="APP.LIST.FIELD.MODAL.SETTINGS.TITLE"></span>
+                <small ng-if="$ctrl.selectedFieldType">{{$ctrl.selectedFieldType.title | translate}}</small>
+            </h3>
+            <span class="modal-close" ng-click="$dismiss()">
+                <i class="zmdi zmdi-close img-close"></i>
+            </span>
+        </div>
+        <div ng-if="!$ctrl.selectedFieldType" class="modal-body modal-body-field-type">
+            <oyoc-field-type-list field-type="$ctrl.selectedFieldType"></oyoc-field-type-list>
+        </div>
+        <div ng-if="$ctrl.selectedFieldType" class="modal-body">
+            <oyoc-field-settings field="$ctrl.field" field-type="$ctrl.selectedFieldType" form-ctrl="createFieldForm"></oyoc-field-settings>
+        </div>
+        <div class="modal-footer" ng-if="$ctrl.selectedFieldType">
+            <coyo-form-submit-button label="SAVE" form-ctrl="createFieldForm"></coyo-form-submit-button>
+            <button class="btn btn-default" ng-click="$ctrl.goBack()">
+            <i class="zmdi zmdi-hc-fw zmdi-arrow-left"></i>&nbsp;{{::'BACK' | translate}}
+        </button>
+        </div>
+    </div>
+</form>

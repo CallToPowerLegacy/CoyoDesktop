@@ -1,0 +1,58 @@
+.profile-group {
+  margin-bottom: 36px;
+
+  .btn-edit {
+    position: absolute;
+    right: 16px;
+    top: 0;
+
+    @media screen and (max-width: $screen-xs-max) {
+      top: -38px;
+    }
+  }
+
+  .form-horizontal .form-group {
+    margin-left: 0;
+  }
+
+  .profile-group-header-group {
+    border-bottom: 1px solid $color-gray-lighter;
+    padding-bottom: 5px;
+
+    .control-label {
+      color: $text-color !important;
+    }
+  }
+
+  .is-editing {
+    .control-label {
+      &.control-label-content {
+        top: 7px;
+      }
+    }
+  }
+
+  .form-group {
+    margin-right: 0;
+
+    .control-label {
+      padding-top: 0;
+    }
+    .options-btn {
+      width: 100%;
+    }
+    button {
+      .options {
+        float: left;
+      }
+    }
+  }
+
+  .control-label-header {
+    font-weight: normal;
+  }
+
+  textarea {
+    resize: none;
+  }
+}

@@ -1,0 +1,8 @@
+<li class="moderator-navbar-item" coyo-global-permissions="ENABLE_MODERATOR_MODE">
+  <a ng-click="$ctrl.toggleModeratorMode()">
+    <i class="zmdi zmdi-hc-fw"
+       ng-class="::{'zmdi-eye': !$ctrl.user.moderatorMode, 'zmdi-eye-off': $ctrl.user.moderatorMode}"></i>
+    <span ng-if="::!$ctrl.user.moderatorMode" translate="USER.MODERATOR.NAV.ENABLE"></span>
+    <span ng-if="::$ctrl.user.moderatorMode" translate="USER.MODERATOR.NAV.DISABLE"></span>
+  </a>
+</li>

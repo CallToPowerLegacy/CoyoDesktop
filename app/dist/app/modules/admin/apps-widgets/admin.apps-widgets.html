@@ -1,0 +1,17 @@
+<div class="admin-apps-widgets" ng-cloak>
+  <div class="panel panel-default panel-tabs">
+    <uib-tabset justified="true" active="-1">
+      <uib-tab ui-sref="admin.apps-widgets.apps" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-puzzle-piece zmdi-wide"></i> <span class="tab-text" translate="ADMIN.APPS_WIDGETS.APPS.TITLE"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.apps-widgets.widgets" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-widgets zmdi-wide"></i> <span class="tab-text" translate="ADMIN.APPS_WIDGETS.WIDGETS.TITLE"></span>
+        </uib-tab-heading>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+  <div ui-view></div>
+</div>

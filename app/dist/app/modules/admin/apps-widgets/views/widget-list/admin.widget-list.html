@@ -1,0 +1,40 @@
+<div class="panel panel-default" ng-if="!$ctrl.isMobile">
+  <div class="panel-heading">
+    <h1 class="panel-title" translate="ADMIN.APPS_WIDGETS.WIDGETS.TITLE"></h1>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th translate="ADMIN.APPS_WIDGETS.WIDGETS.HEADERS.WIDGET"></th>
+          <th class="text-center" translate="ADMIN.APPS_WIDGETS.WIDGETS.HEADERS.ENABLED"></th>
+          <th class="text-center" translate="ADMIN.APPS_WIDGETS.WIDGETS.HEADERS.MODERATOR"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="widget in $ctrl.widgets">
+          <td>
+            {{:: widget.name | translate }}<br>
+            <small class="text-muted hidden-xs">{{:: widget.description | translate }}</small>
+          </td>
+          <td class="text-center">
+            <coyo-checkbox class="m-0" ng-model="widget.enabled" ng-click="$ctrl.toggle(widget)"></coyo-checkbox>
+          </td>
+          <td class="text-center">
+            <coyo-checkbox ng-disabled="!widget.enabled" class="m-0" ng-model="widget.moderatorsOnly" ng-click="$ctrl.toggleModerator(widget)"></coyo-checkbox>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="admin-widget-settings">
+  <div ng-if="$ctrl.isMobile">
+    <coyo-mobile-menu-item
+        ng-repeat="widget in $ctrl.widgets"
+        on-click="$ctrl.openSettings(widget)"
+        label-text="{{:: widget.name }}"
+        icon="'zmdi ' + widget.icon"></coyo-mobile-menu-item>
+  </div>
+</div>

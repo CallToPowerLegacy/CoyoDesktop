@@ -1,0 +1,11 @@
+<div class="headline-widget" ng-class="$ctrl.widget.settings._headline.previewClass">
+  <textarea class="headline-widget-headline"
+            ng-if="$ctrl.editMode && !$ctrl.widget.settings.changed"
+            ng-model="$ctrl.widget.settings.text"
+            ng-keydown="$ctrl.headlineKeyDown($event)"
+            ng-attr-placeholder="{{::'WIDGET.HEADLINE.PLACEHOLDER' | translate}}"
+            msd-elastic rows="1"></textarea>
+
+  <p class="headline-widget-headline"
+      ng-if="!$ctrl.editMode || $ctrl.widget.settings.changed">{{:: $ctrl.widget.settings.text}}</p>
+</div>

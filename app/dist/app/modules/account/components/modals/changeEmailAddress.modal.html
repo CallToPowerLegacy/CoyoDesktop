@@ -1,0 +1,46 @@
+<form name="form" role="form" coyo-form-submit="vm.submit(vm.newEmailAddress)" novalidate>
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="MODULE.ACCOUNT.MODALS.CHANGE_EMAIL_ADDRESS.TITLE"></h3>
+      <span class="modal-close" ng-click="$dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+    </div>
+    <div class="modal-body">
+      <div class="form-group mv-xxs"
+           ng-class="{ 'has-error' : (form.email.$touched && form.email.$dirty && form.email.$invalid) || vm.status.error.error }">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="zmdi zmdi-email"></i>
+          </span>
+          <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              ng-model="vm.newEmailAddress"
+              coyo-check-not-equals="vm.currentEmailAddress"
+              coyo-check-matches="vm.emailPattern"
+              placeholder="{{::'MODULE.ACCOUNT.MODALS.CHANGE_EMAIL_ADDRESS.PLACEHOLDER' | translate}}"
+              ng-disabled="vm.status.loading"
+              required />
+          <span class="input-group-addon">
+            <i class="zmdi"
+               ng-class="{'zmdi-check-circle validation-correct': form.email.$valid,
+                   'zmdi-close-circle-o validation-incorrect': form.email.$dirty && form.email.$invalid,
+                   'zmdi-circle-o': !form.email.$dirty}"></i>
+          </span>
+        </div>
+        <p class="help-block validation" ng-if="form.email.$error.required"
+           translate="ERRORS.VALIDATION.REQUIRED"></p>
+        <p class="help-block validation" ng-if="form.email.$error.email || form.email.$error.matches"
+           translate="ERRORS.VALIDATION.INVALID_EMAIL"></p>
+        <p class="help-block validation" ng-if="form.email.$error.notEquals"
+           translate="ERRORS.VALIDATION.SAME_EMAIL"></p></p>
+        <p class="help-block validation custom-error" ng-if="vm.status.error.error"
+           translate="{{:: vm.status.error.msg }}"></p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <coyo-form-submit-button label="MODULE.ACCOUNT.MODALS.CHANGE_EMAIL_ADDRESS.CLOSE" form-ctrl="form"></coyo-form-submit-button>
+    </div>
+  </div>
+</form>

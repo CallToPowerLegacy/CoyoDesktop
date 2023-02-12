@@ -1,0 +1,15 @@
+<form name="form" role="form" coyo-form-submit="$ctrl.selectRestriction()" novalidate>
+  <div class="modal-content-wrapper modal-options">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="MODULE.TIMELINE.RESTRICTION.LABEL"></h3>
+      <span class="modal-close" ng-click="$dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+    </div>
+    <div class="modal-body">
+      <ul class="modal-options-options">
+        <li ng-repeat="option in $ctrl.restrictionOptions" ng-click="$ctrl.setRestriction(option.restricted)" class="modal-options-option" ng-class="{'active': $ctrl.restricted === option.restricted}">
+          <div><i class="zmdi {{::option.icon}}"></i>&nbsp;{{::option.label | translate}}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</form>

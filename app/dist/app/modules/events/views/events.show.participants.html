@@ -1,0 +1,69 @@
+<section class="event-tab event-tab-participants content-with-sidebar">
+  <!-- Sidebar -->
+  <div class="content-sidebar">
+    <!-- Filter -->
+    <coyo-filterbox vertical="true" class="panel-navigation">
+      <fb-filter>
+        <coyo-filter title-key="MODULE.EVENTS.FILTER.PARTICIPATION_STATUS"
+                     ng-if="$ctrl.currentPage.aggregations.status">
+          <coyo-filter-entry text-key="MODULE.EVENTS.FILTER.PARTICIPATION_STATUS.ALL"
+                             icon="zmdi-check-all"
+                             active="$ctrl.participationStatusFilterAllActive"
+                             on-click="$ctrl.clearParticipationStatus()"
+                             badge="$ctrl.getTotalCount()"></coyo-filter-entry>
+          <coyo-filter-entry ng-repeat="status in $ctrl.status"
+                             text-key="{{:: 'EVENT.STATUS.' + status.key}}"
+                             icon="{{status.key | lowercase}}"
+                             active="status.active"
+                             on-click="$ctrl.toggleParticipationStatus('status', status.key)"
+                             badge="status.count"></coyo-filter-entry>
+        </coyo-filter>
+        <a ng-if="$ctrl.event._permissions.manage" class="fb-filter-action btn btn-link" ng-click="$ctrl.inviteMembers()">
+          <i class="zmdi zmdi-plus-circle-o"></i>{{:: 'EVENT.INVITE_MEMBER' | translate}}
+        </a>
+      </fb-filter>
+      <fb-search>
+        <coyo-search-filter change="$ctrl.search" placeholder="MODULE.EVENTS.FILTER.SEARCH"
+                            search-term="{{$ctrl.params.searchTerm}}"></coyo-search-filter>
+      </fb-search>
+    </coyo-filterbox>
+  </div>
+  <!-- Content Main -->
+  <div class="content-main event-timeline-app">
+    <div class="text-center m-m" ng-if="$ctrl.loading">
+      <coyo-spinner></coyo-spinner>
+    </div>
+    <div class="row" ng-if="!$ctrl.loading">
+      <div class="col-xl-6" ng-repeat="member in $ctrl.currentPage.content">
+        <coyo-user-card user="member"
+                        current-user="$ctrl.currentUser"
+                        subtitle="{{:: 'EVENT.ROLE.' + member.role | translate}}">
+          <card-header>
+            <span class="participant-status {{member.status | lowercase}}"></span>
+            <span ng-if="$ctrl.event._permissions.manage && ($ctrl.currentUser.id !== member.userId)"
+                  class="members-list-options"
+                  uib-dropdown dropdown-append-to-body>
+                  <!--ng-if="$ctrl.event._permissions.manage && member.user.id !== $ctrl.currentUser.id">-->
+                  <a class="btn btn-zmdi btn-link" uib-dropdown-toggle ng-click="$event.stopPropagation()"><i
+                      class="zmdi zmdi-hc-fw zmdi-more-vert"></i></a>
+                  <ul uib-dropdown-menu class="dropdown-menu-right">
+                    <li><a ng-click="$ctrl.removeMember(member.userId)"><i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'WORKSPACE.ACTION.REMOVE' | translate}}</a></li>
+                  </ul>
+            </span>
+          </card-header>
+        </coyo-user-card>
+      </div>
+    </div>
+
+    <!-- empty text -->
+    <div class="col-xs-12 text-center text-muted ph-l pv-s"
+         ng-show="!$ctrl.loading && !$ctrl.currentPage.totalElements" translate="EVENT.MEMBERS.EMPTY">
+    </div>
+
+    <!-- pagination -->
+    <div class="col-xs-12" ng-if="$ctrl.currentPage.content">
+      <coyo-table-pagination page="$ctrl.currentPage"></coyo-table-pagination>
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,47 @@
+<div class="messaging-header messaging-channel-header">
+  <span class="messaging-header-icon-bar right" ng-class="{pulse: $ctrl.msgSidebar.hasNewMessages}">
+    <a ng-click="$ctrl.back()"><i class="zmdi zmdi-hc-fw zmdi-chevron-left"></i></a>
+  </span>
+
+  <span class="messaging-title"
+        title="{{:: $ctrl.channel.getDisplayName($ctrl.currentUser) }}"
+        ng-click="$ctrl.channel.type === 'GROUP' ? $ctrl.msgSidebar.switchView('channelInfo')
+                      : $ctrl.msgSidebar.openProfile($ctrl.channel, $ctrl.currentUser)">
+
+    <!-- Spinner -->
+    <coyo-spinner inverted="true" size="sm" ng-show="$ctrl.loading"></coyo-spinner>
+
+    <!-- Avatar -->
+    <span ng-hide="$ctrl.loading"><oyoc-messaging-channel-avatar
+        channel="$ctrl.channel"
+        current-user="$ctrl.currentUser"
+        size="xs"></oyoc-messaging-channel-avatar></span>
+
+    <!-- Channel name -->
+    <span class="messaging-channel-name">{{:: $ctrl.channel.getDisplayName($ctrl.currentUser) }}</span>
+  </span>
+
+  <!-- Channel Options -->
+  <span class="messaging-header-icon-bar left">
+    <coyo-context-menu title="{{::$ctrl.channel.getDisplayName($ctrl.currentUser)}}" align-right="true">
+      <li>
+        <a ng-click="$ctrl.msgSidebar.switchView('channelInfo')">
+          <i class="zmdi zmdi-hc-fw zmdi-info"></i> <span translate="MODULE.MESSAGING.CHANNEL.INFO"></span>
+        </a>
+      </li>
+      <li ng-if="$ctrl.channel.type === 'GROUP' && $ctrl.channel.isAdmin($ctrl.currentUser.id)">
+        <a ng-click="$ctrl.msgSidebar.switchView('channelForm')">
+          <i class="zmdi zmdi-hc-fw zmdi-settings"></i> <span translate="MODULE.MESSAGING.CHANNEL.EDIT"></span>
+        </a>
+      </li>
+      <li class="divider"></li>
+      <li>
+        <a ng-click="$ctrl.leaveChannel()">
+          <span ng-if="$ctrl.channel.type === 'GROUP'"><i
+              class="zmdi zmdi-hc-fw zmdi-square-down zmdi-hc-rotate-270"></i>&nbsp;{{:: 'LEAVE' | translate}}</span>
+          <span ng-if="$ctrl.channel.type === 'SINGLE'"><i class="zmdi zmdi-hc-fw zmdi-archive"></i>&nbsp;{{:: 'ARCHIVE' | translate}}</span>
+        </a>
+      </li>
+    </coyo-context-menu>
+  </span>
+</div>

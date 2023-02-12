@@ -1,0 +1,12 @@
+<div class="sub-navigation" ng-if="$ctrl.subNavigationActive && $ctrl.landingPages.length > 1">
+  <nav class="navbar coyo-navbar navbar-fixed-top">
+    <div class="coyo-navbar-flex">
+      <ul class="nav nav-left">
+        <li class="nav-item" ui-sref-active="active" ng-repeat="landingPage in $ctrl.landingPages">
+          <a ng-if="!landingPage.configuredUrl" class="nav-item" ui-sref="main.landing-page.show({idOrSlug: landingPage.slug})">{{:: landingPage.displayName }}</a>
+          <a ng-if="landingPage.configuredUrl" class="nav-item" ng-href="{{:: landingPage.configuredUrl}}" target="{{:: landingPage.newTab ? '_blank' : '_self'}}">{{:: landingPage.displayName }}</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

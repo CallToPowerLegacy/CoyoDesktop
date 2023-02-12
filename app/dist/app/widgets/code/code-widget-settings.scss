@@ -1,0 +1,44 @@
+.code-widget-warning {
+  .alert {
+    margin: 0 12px 30px 0;
+
+    @media screen and (min-width: $screen-md-min) {
+      margin: 0 0 30px 0;
+    }
+  }
+}
+
+.code-widget-settings {
+
+  .col-header {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: normal;
+    align-items: center;
+
+    label {
+      margin-bottom: 0;
+    }
+  }
+
+  .code-textarea {
+    margin: 8px 20px 8px 8px;
+
+    @media screen and (min-width: $screen-md-min) {
+      margin: 15px;
+    }
+
+    textarea {
+      min-height: 38px;
+      resize: vertical;
+    }
+  }
+
+  .code-tip {
+    margin: 5px 0 0 5px;
+  }
+
+  .form-group .help {
+    margin-top: 0;
+  }
+}

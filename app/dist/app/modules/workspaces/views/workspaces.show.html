@@ -1,0 +1,162 @@
+<section class="workspace" ng-cloak>
+
+  <div class="panel panel-default">
+
+    <!-- The foreground containing the display name, the job title and the menu -->
+    <div class="panel-foreground">
+
+      <!-- The avatar image -->
+      <div class="workspace-avatar-container">
+        <span ng-if="$ctrl.workspace._permissions.manage">
+          <oyoc-user-avatar-overlay class="md visible-xs" click-fn="$ctrl.changeAvatar($ctrl.workspace)" icon-class="zmdi-camera"></oyoc-user-avatar-overlay>
+          <oyoc-user-avatar-overlay class="lg hidden-xs" click-fn="$ctrl.changeAvatar($ctrl.workspace)" icon-class="zmdi-camera"></oyoc-user-avatar-overlay>
+        </span>
+        <coyo-refresh on-scope-event="workspaceAvatar:changed">
+          <coyo-workspace-avatar ng-if="$root.screenSize.isXs" workspace="$ctrl.workspace" avatar-size="md" no-link="true"></coyo-workspace-avatar>
+          <coyo-workspace-avatar ng-if="!$root.screenSize.isXs" class="hidden-xs" workspace="$ctrl.workspace" avatar-size="lg" no-link="true"></coyo-workspace-avatar>
+        </coyo-refresh>
+      </div>
+
+      <!-- The workspace name + member count -->
+      <div class="titles-container">
+        <div class="title">{{ $ctrl.workspace.displayName }} <span class="label label-info status" ng-if="$ctrl.workspace.archived === true" translate="WORKSPACE.ARCHIVED"></span></div>
+        <div class="subtitle visible-xs" translate="WORKSPACE.MEMBERS.COUNT" translate-values="{count : $ctrl.workspace.memberCount}"></div>
+        <div class="subtitle hidden-xs">{{$ctrl.workspace.description}}</div>
+      </div>
+
+      <coyo-workspace-member-avatars ng-if="!$root.screenSize.isXs" workspace="$ctrl.workspace"></coyo-workspace-member-avatars>
+    </div>
+
+    <coyo-sender-navigation-mobile sender="$ctrl.workspace" apps="$ctrl.apps" current-app="$ctrl.currentApp">
+      <nav-middle>
+        <li>
+          <a ui-sref="main.workspace.show.members">
+            <i class="zmdi zmdi-hc-fw zmdi-accounts"></i> <span translate="WORKSPACE.MEMBERS"></span>
+            <span ng-if="$ctrl.workspace.requestedCount" class="badge badge-red pull-right">{{$ctrl.workspace.requestedCount}}</span>
+          </a>
+        </li>
+        <li ng-if="$ctrl.workspace._permissions.canSubscribe">
+          <coyo-workspace-subscribe workspace="$ctrl.workspace" user="$ctrl.currentUser"></coyo-workspace-subscribe>
+        </li>
+        <li ng-if="$ctrl.workspace._permissions.manage || $ctrl.workspace._permissions.manageApps" class="divider"></li>
+      </nav-middle>
+      <nav-bottom>
+        <li ng-if="$ctrl.workspace._permissions.manage">
+          <a ui-sref="main.workspace.show.files">
+            <i class="zmdi zmdi-hc-fw zmdi-file"></i> <span translate="MODULE.SENDER.FILES.NAVIGATION"></span>
+          </a>
+        </li>
+        <li ng-if="$ctrl.workspace._permissions.manage">
+          <a ui-sref="main.workspace.show.settings">
+            <i class="zmdi zmdi-hc-fw zmdi-settings"></i> <span translate="SETTINGS"></span>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li ng-if="$ctrl.workspace.membershipStatus === 'APPROVED' || $ctrl.workspace.membershipStatus === 'INVITED' || $ctrl.workspace.membershipStatus === 'REQUESTED'">
+          <a ng-click="$ctrl.leave()">
+            <i class="zmdi zmdi-hc-fw  zmdi-hc-rotate-270 zmdi-square-down"></i> <span translate="WORKSPACE.LEAVE"></span>
+          </a>
+        </li>
+        <li ng-if="$ctrl.workspace.membershipStatus === 'NONE' || $ctrl.workspace.membershipStatus === 'INVITED'">
+          <a ng-click="$ctrl.join()">
+            <i class="zmdi zmdi-hc-fw zmdi-plus"></i> <span translate="WORKSPACE.JOIN"></span>
+          </a>
+        </li>
+      </nav-bottom>
+    </coyo-sender-navigation-mobile>
+  </div>
+
+  <div class="content-with-sidebar">
+    <div class="content-sidebar hidden-xs hidden-sm">
+
+      <coyo-widget-slot class="widget-slot-sidebar"
+                   name="workspace-sidebar-top"
+                   parent="$ctrl.workspace"
+                   can-manage="$ctrl.workspace._permissions.manageSlots"
+                   hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+      <!-- Navigation -->
+      <coyo-sender-navigation sender="$ctrl.workspace" apps="$ctrl.apps" apps-status="$ctrl.appsStatus"></coyo-sender-navigation>
+
+      <!-- Options -->
+      <div class="panel panel-sm">
+        <div class="panel-body pb-xxs">
+          <div class="text-muted text-uppercase" translate="WORKSPACE.OPTIONS"></div>
+        </div>
+        <ul class="nav nav-default nav-icons nav-sender-options pb-xs">
+          <li ui-sref-active="active">
+            <a ui-sref="main.workspace.show.members">
+              <i class="zmdi zmdi-accounts"></i> <span translate="WORKSPACE.MEMBERS"></span>
+              <span ng-if="$ctrl.workspace.requestedCount" class="badge badge-red pull-right">{{$ctrl.workspace.requestedCount}}</span>
+            </a>
+          </li>
+          <li ng-if="$ctrl.workspace._permissions.canSubscribe">
+            <coyo-workspace-subscribe workspace="$ctrl.workspace" user="$ctrl.currentUser"></coyo-workspace-subscribe>
+          </li>
+          <li ng-if="$ctrl.workspace._permissions.manage || $ctrl.workspace._permissions.manageApps" class="divider"></li>
+          <li ng-if="$ctrl.workspace._permissions.manageApps" ng-class="{disabled: $ctrl.appsStatus.busy}">
+            <a ng-click="$ctrl.addApp($ctrl.workspace, $ctrl.apps)">
+              <i class="zmdi zmdi-plus-circle-o"></i> <span translate="APPS.ADD"></span>
+            </a>
+          </li>
+          <li ng-if="$ctrl.workspace._permissions.manageApps" ng-class="{disabled: $ctrl.appsStatus.busy}">
+            <a ng-click="$ctrl.addGroup()">
+              <i class="zmdi zmdi-plus-circle-o-duplicate"></i><span translate="APPS.ADD_GROUP"></span>
+            </a>
+          </li>
+          <li ui-sref-active="active" ng-if="$ctrl.workspace._permissions.manage">
+            <a ui-sref="main.workspace.show.files">
+              <i class="zmdi zmdi-file"></i> <span translate="MODULE.SENDER.FILES.NAVIGATION"></span>
+            </a>
+          </li>
+          <li ng-if="$ctrl.workspace._permissions.manage">
+            <a ui-sref="main.workspace.show.settings">
+              <i class="zmdi zmdi-settings"></i> <span translate="SETTINGS"></span>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li ng-if="$ctrl.workspace.membershipStatus === 'APPROVED' || $ctrl.workspace.membershipStatus === 'INVITED' || $ctrl.workspace.membershipStatus === 'REQUESTED'">
+            <a ng-click="$ctrl.leave()">
+              <i class="zmdi zmdi-hc-rotate-270 zmdi-square-down"></i> <span translate="WORKSPACE.LEAVE"></span>
+            </a>
+          </li>
+          <li ng-if="$ctrl.workspace.membershipStatus === 'NONE' || $ctrl.workspace.membershipStatus === 'INVITED'">
+            <a ng-click="$ctrl.join()">
+              <i class="zmdi zmdi-plus"></i> <span translate="WORKSPACE.JOIN"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <coyo-widget-slot class="widget-slot-sidebar"
+                   name="workspace-sidebar-bottom"
+                   parent="$ctrl.workspace"
+                   can-manage="$ctrl.workspace._permissions.manageSlots"
+                   hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+      <div ui-view="app-sidebar"></div>
+    </div>
+    <div class="content-main">
+      <div class="alert alert-warning" role="alert" ng-if="$ctrl.currentApp && !$ctrl.currentApp.active">
+        <i class="zmdi zmdi-alert-triangle"></i> <span translate="APPS.INACTIVE"></span>
+      </div>
+
+      <coyo-widget-slot class="widget-slot-content"
+                   name="workspace-content"
+                   parent="$ctrl.workspace"
+                   can-manage="$ctrl.workspace._permissions.manageSlots"
+                   hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+      <ui-view></ui-view>
+      <div class="panel" ng-if="!$ctrl.apps.length && ('main.workspace.show' | isState)">
+        <div class="panel-body">
+          <p class="text-muted text-center m-0">
+            <span translate="MODULE.WORKSPACES.APPS.EMPTY"></span><br>
+            <a ng-if="$ctrl.workspace._permissions.manageApps" ng-click="$ctrl.addApp($ctrl.workspace, $ctrl.apps)" translate="MODULE.WORKSPACES.APPS.EMPTY_LINK"></a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

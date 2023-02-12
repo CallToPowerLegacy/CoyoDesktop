@@ -1,0 +1,13 @@
+<user-field-user-list ng-model="model"></user-field-user-list>
+<coyo-user-chooser name="{{:: settingsForm.getFieldName(config)}}"
+                   ng-model="model"
+                   users-field="value"
+                   users-only="true"
+                   single="!config.settings.multiple"
+                   ng-required="config.required"
+                   ng-model-options="{allowInvalid: true}"
+                   user-field-model
+></coyo-user-chooser>
+<p class="help-block" ng-if="settingsForm.getField(config).$error.single">
+  <span class="text-danger" translate="APP.LIST.FIELDS.USER.ERROR.SINGLE"></span>
+</p>

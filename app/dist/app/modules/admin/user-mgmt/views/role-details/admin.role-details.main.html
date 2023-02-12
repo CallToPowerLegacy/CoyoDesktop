@@ -1,0 +1,108 @@
+<form name="form" coyo-form-submit="vm.save()" novalidate>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h1 class="panel-title" ng-if="!vm.role.isNew()">{{:: 'ADMIN.USER_MGMT.ROLES.OPTIONS.EDIT' | translate}} <small>{{:: vm.role.displayName }}</small></h1>
+      <h1 class="panel-title" ng-if="vm.role.isNew()">{{:: 'ADMIN.USER_MGMT.ROLES.OPTIONS.CREATE' | translate }}</h1>
+    </div>
+    <div class="panel-body form-horizontal">
+
+      <div class="form-group" ng-class="{'has-error': form.name.$invalid && form.name.$touched}">
+        <label for="displayName" class="col-sm-2 control-label" translate="ADMIN.USER_MGMT.ROLES.DISPLAY_NAME.LABEL"></label>
+        <div class="col-sm-9">
+          <input id="displayName" name="displayName" type="text" class="form-control" ng-model="vm.role.displayName" ng-required="true">
+          <ng-messages for="form.displayName.$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+          </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_MGMT.ROLES.DISPLAY_NAME.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="default" class="col-sm-2 control-label" translate="ADMIN.USER_MGMT.ROLES.DEFAULT_ROLE.LABEL.SHORT"></label>
+        <div class="col-sm-9">
+          <div class="checkbox">
+            <label>
+              <coyo-checkbox id="default" ng-model="vm.role.defaultRole"></coyo-checkbox>
+              {{:: 'ADMIN.USER_MGMT.ROLES.DEFAULT_ROLE.LABEL' | translate}}
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_MGMT.ROLES.DEFAULT_ROLE.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="groups" class="col-sm-2 control-label" translate="USER.GROUPS"></label>
+        <div class="col-sm-9">
+          <coyo-select-groups id="groups" ng-model="vm.groups" placeholder="ADMIN.USER_MGMT.ROLES.DETAILS.SELECT_GROUPS"></coyo-select-groups>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_MGMT.ROLES.GROUPS.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="users" class="col-sm-2 control-label" translate="ADMIN.USER_MGMT.ROLES.USERS.LABEL"></label>
+        <div class="col-sm-9">
+          <coyo-user-chooser name="users" id="users" ng-model="vm.role" users-only="true"></coyo-user-chooser>
+          <p class="help-block" ng-show="vm.role.defaultRole && vm.role.userIds.length" translate="ADMIN.USER_MGMT.ROLES.USERS.NOTE_DEFAULT_ROLE"></p>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.USER_MGMT.ROLES.USERS.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 permissions-column" ng-repeat="column in [0,1]">
+          <div class="permission-group" ng-repeat="group in vm.permissionConfiguration | filter:{column: column} | orderBy:'sortOrder'">
+            <div class="row">
+              <div class="col-xs-10 permission-group-title">
+                <span class="pointer" data-toggle="collapse" data-target="#permissions_{{::group.key}}">
+                  {{::'ADMIN.USER_MGMT.ROLES.PERMISSIONS.' + group.key | translate}}
+                </span>
+              </div>
+              <div class="col-xs-2 permission-group-toggle">
+                <i class="zmdi zmdi-chevron-down pointer" data-toggle="collapse" data-target="#permissions_{{::group.key}}"></i>
+              </div>
+            </div>
+            <div class="collapse" id="permissions_{{::group.key}}">
+              <div ng-repeat="permission in group.permissions | orderBy:'sortOrder'" class="permission-row">
+                <div class="row" ng-class="{'checked': vm.permissions[permission.key]}">
+                  <div class="col-xs-10 permission-label">
+                    <div class="checkbox">
+                      <span class="hidden-xs">
+                        <coyo-help tip="{{::'ADMIN.USER_MGMT.ROLES.PERMISSIONS.' + group.key + '.' + permission.key + '.HELP'}}" placement="top"></coyo-help>&nbsp;
+                      </span>
+                      <label for="p_{{::permission.key}}" class="pointer" translate="{{::'ADMIN.USER_MGMT.ROLES.PERMISSIONS.' + group.key + '.' + permission.key}}"></label>
+                    </div>
+                  </div>
+                  <div class="col-xs-2 permission-checkbox">
+                    <div class="checkbox">
+                      <coyo-checkbox id="p_{{::permission.key}}" ng-model="vm.permissions[permission.key]"></coyo-checkbox>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer panel-actions">
+      <div class="row">
+        <div class="col-sm-10 col-sm-push-2">
+          <coyo-form-submit-button form-ctrl="form" label="SAVE"></coyo-form-submit-button><!--
+       --><a ui-sref="^" class="btn btn-default">
+            <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{::'CANCEL' | translate}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

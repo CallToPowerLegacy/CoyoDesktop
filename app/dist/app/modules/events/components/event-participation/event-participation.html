@@ -1,0 +1,17 @@
+<div class="coyo-event-participation {{$ctrl.event.status | lowercase}}"
+     ng-class="{'event-participation-disabled': $ctrl.disableChange}">
+  <ui-select ui-select-mobile="{{ 'EVENT.STATUS.LABEL' | translate }}" ng-model="$ctrl.event.status"
+             class="event-participation" search-enabled="false" ng-if="!$ctrl.disableChange"
+             on-select="$ctrl.onStatusChanged()">
+    <ui-select-match allow-clear="false">
+      {{ 'EVENT.STATUS.' + $select.selected | translate }}
+    </ui-select-match>
+    <ui-select-choices repeat="status in $ctrl.statuses" class="ui-select-choices"
+                       ui-disable-choice="$ctrl.isChoiceDisabled(status)">
+      <div ng-bind-html="'EVENT.STATUS.' + status | translate"></div>
+    </ui-select-choices>
+  </ui-select>
+  <a class="btn btn-sm btn-default participation-disabled" disabled="true" ng-if="$ctrl.disableChange">
+    <span class="ui-select-match-text">{{:: 'EVENT.STATUS.' + $ctrl.event.status | translate }}</span>
+  </a>
+</div>

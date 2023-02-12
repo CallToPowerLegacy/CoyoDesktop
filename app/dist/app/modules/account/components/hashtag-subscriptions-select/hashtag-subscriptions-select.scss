@@ -1,0 +1,59 @@
+/**
+ * The links below are useful for individual styling of ngTagsInput.
+ *
+ * @see http://mbenford.github.io/ngTagsInput/demos
+ * @see http://mbenford.github.io/ngTagsInput/documentation/guides/bootstrap
+ */
+.hashtag-input tags-input .tags .input {
+  border: 0;
+  outline: none;
+  margin: 2px;
+  padding: 7px 14px;
+  float: left;
+  height: 26px;
+  font: 15px "Source Sans Pro", sans-serif;
+}
+
+.hashtag-input tags-input .tags .input.invalid-tag {
+  color: #b70218;
+}
+
+.hashtag-input .tags,
+.hashtag-input .tags.focused {
+  @extend .form-control;
+  height: auto;
+  padding: 3px 3px 0px;
+
+}
+
+.hashtag-input .tags .tag-item {
+  border-color: rgb(199, 199, 199);
+  color: rgb(51, 51, 51);
+  border-radius: 3px;
+  outline: 0px;
+  margin: 0px 3px 3px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px -2px 0px 0px inset;
+  font-size: 14px;
+  line-height: 24px;
+  padding: 4px 8px;
+  height: auto;
+  background: $color-white;
+
+  .remove-button {
+    color: rgba(0, 0, 0, 0.2);
+  }
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.2) 0px -2px 0px 0px inset;
+  }
+}
+
+.hashtag-input .tags .tag-item button {
+  background: transparent;
+  color: #000;
+  opacity: .4;
+}
+
+.hashtag-form {
+  padding-top: 10px;
+}

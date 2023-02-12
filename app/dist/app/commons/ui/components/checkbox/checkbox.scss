@@ -1,0 +1,85 @@
+.coyo-checkbox.btn {
+  box-shadow: none;
+  height: 28px;
+  line-height: 1;
+  margin: 6px 0;
+  padding: 1px;
+
+  &:active, &:hover, &:focus {
+    background: $input-bg;
+    border-color: $input-border;
+    box-shadow: none;
+    outline: none;
+  }
+
+  &:focus {
+    border-color: $input-border-focus;
+    box-shadow: 0 0 0 1px $input-border-focus;
+  }
+
+  &:active:focus {
+    outline: none;
+  }
+
+  i {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0;
+    width: 24px;
+  }
+}
+
+.coyo-checkbox-sm.btn,
+.form-group-sm .coyo-checkbox {
+  border-radius: $btn-border-radius-small;
+  height: 24px;
+  margin: 5px 0;
+
+  i {
+    font-size: 14px;
+    line-height: 20px;
+    width: 20px;
+  }
+}
+
+.coyo-checkbox-lg.btn,
+.form-group-lg .coyo-checkbox.btn {
+  border-radius: $btn-border-radius-large;
+  height: 30px;
+  margin: 7px 0;
+
+  i {
+    font-size: 20px;
+    line-height: 26px;
+    width: 26px;
+  }
+}
+
+.coyo-checkbox.btn[disabled] {
+  background-color: $input-bg-disabled;
+  opacity: 1;
+}
+
+.form-group-checkbox {
+  margin-bottom: 6px;
+}
+
+.form-group + .form-group-checkbox,
+.form-group-sm + .form-group-checkbox,
+.form-group-lg + .form-group-checkbox {
+  margin-top: -6px;
+}
+
+.form-group .checkbox {
+  padding-left: 40px;
+  padding-top: 0;
+
+  .coyo-checkbox {
+    margin-left: -40px;
+    margin-right: 12px;
+  }
+}
+
+.checkbox label {
+  padding-left: 0;
+}

@@ -1,0 +1,54 @@
+// Mixins - Presence status
+// --------------------------------------------------
+
+// example usage:
+// @include presence-status-color()
+@mixin presence-status-color() {
+  color: $color-gray;
+
+  &.ONLINE {
+    color: $color-green;
+  }
+
+  &.AWAY {
+    color: #FFAA00;
+  }
+
+  &.BUSY {
+    color: #00b3ee;
+  }
+
+  &.GONE {
+    color: #bc2bee;
+  }
+
+  &.OFFLINE {
+    color: $color-gray;
+  }
+}
+
+// example usage:
+// @include presence-status-bgcolor()
+@mixin presence-status-bgcolor() {
+  background-color: $color-gray;
+
+  &.ONLINE {
+    background-color: $color-green;
+  }
+
+  &.AWAY {
+    background-color: #FFAA00;
+  }
+
+  &.BUSY {
+    background-color: #00b3ee;
+  }
+
+  &.GONE {
+    background-color: #bc2bee;
+  }
+
+  &.OFFLINE {
+    background-color: $color-gray;
+  }
+}

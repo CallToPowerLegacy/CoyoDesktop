@@ -1,0 +1,22 @@
+<!-- Permission settings -->
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="APP.FILE_LIBRARY.SETTINGS.EDITORS.LABEL"></label>
+  <div class="col-sm-9">
+    <div class="radio">
+      <label>
+        <input name="edit" type="radio" ng-model="$ctrl.app.settings.modifyRole" value="NONE"
+               ng-change="$ctrl.setAppFolderPermissions()">
+        <i class="zmdi zmdi-globe zmdi-wide"></i>{{::'APP.FILE_LIBRARY.SETTINGS.EDITORS.EVERYONE.LABEL' | translate}}<br>
+        <span class="text-muted" translate="APP.FILE_LIBRARY.SETTINGS.EDITORS.EVERYONE.DESCRIPTION"></span>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input name="edit" type="radio" ng-model="$ctrl.app.settings.modifyRole" value="ADMIN"
+               ng-change="$ctrl.setAppFolderPermissions()">
+        <i class="zmdi zmdi-lock-outline zmdi-wide"></i>{{::'APP.FILE_LIBRARY.SETTINGS.EDITORS.ADMINS.LABEL' | translate}}<br>
+        <span class="text-muted" translate="APP.FILE_LIBRARY.SETTINGS.EDITORS.ADMINS.DESCRIPTION"></span>
+      </label>
+    </div>
+  </div>
+</div>

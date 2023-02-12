@@ -1,0 +1,15 @@
+<div class="fl-image-picker" coyo-global-permissions="ACCESS_FILES">
+  <ul class="fl-image-picker-list">
+    <li ng-repeat="image in $ctrl.getSelectedImages()">
+      <div class="image-preview">
+        <coyo-image-reference file-id="image.fileId"
+                              sender-id="image.senderId"
+                              size-definitions="{'default': 'M'}"></coyo-image-reference>
+      </div>
+      <a href class="remove-file" ng-click="$ctrl.removeFile(image)"><i class="zmdi zmdi-close-circle"></i></a>
+    </li>
+  </ul>
+  <a class="btn btn-default" ng-click="$ctrl.openFileLibrary()">
+    <i class="zmdi zmdi-hc-fw zmdi-image"></i>&nbsp;{{::'FILE_LIBRARY.IMAGES.SELECT' | translate}}
+  </a>
+</div>

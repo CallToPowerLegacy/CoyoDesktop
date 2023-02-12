@@ -1,0 +1,35 @@
+// Image Crop
+// --------------------------------------------------
+
+.image-crop {
+
+  .crop-area {
+    height: 100%;
+    min-height: 250px;
+    text-align: center;
+    width: 100%;
+
+    ui-cropper {
+      height: 100%;
+      min-height: 330px;
+      min-width: 250px;
+    }
+
+    @media screen and (min-width: $screen-sm-min) {
+      min-height: 300px;
+
+      ui-cropper {
+        min-height: 300px;
+      }
+    }
+
+    @media screen and (min-width: $screen-md-min) {
+      min-height: 400px;
+
+      ui-cropper {
+        min-height: 400px;
+      }
+    }
+  }
+
+}

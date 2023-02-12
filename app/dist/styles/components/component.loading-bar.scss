@@ -1,0 +1,9 @@
+#loading-bar .bar {
+  background-color: rgba($color-black, .25);
+  height: 3px;
+  z-index: 995;
+}
+
+body.curtain #loading-bar {
+  display: none !important;
+}

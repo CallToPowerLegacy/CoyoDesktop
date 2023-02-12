@@ -1,0 +1,51 @@
+<coyo-filterbox hide-actions="!ctrl.app._permissions.createArticle">
+  <fb-count>
+    <coyo-counter value="ctrl.articleCount"
+             key-none="APP.WIKI.ARTICLE_NONE"
+             key-singular="APP.WIKI.ARTICLE_SINGULAR"
+             key-plural="APP.WIKI.ARTICLE_PLURAL"></coyo-counter>
+  </fb-count>
+  <fb-actions>
+    <li>
+      <a ui-sref=".create">
+        <i class="zmdi zmdi-plus-circle"></i>&nbsp;{{:: 'APP.WIKI.CREATE' | translate }}
+      </a>
+    </li>
+  </fb-actions>
+</coyo-filterbox>
+
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      {{ ctrl.app.name }}
+    </h3>
+  </div>
+  <div class="panel-body" ng-if="ctrl.wikiArticles.length > 0">
+    <div ui-tree="ctrl.treeOptions"
+         data-drag-delay="100"
+         class="article-tree"
+         id="tree-root"
+         data-drag-enabled="!ctrl.loading && ctrl.articleCount > 1 && ctrl.app._permissions.manage"
+         ng-if="ctrl.wikiArticles.length > 0">
+      <ol ui-tree-nodes ng-model="ctrl.wikiArticles">
+        <li ng-repeat="node in ctrl.wikiArticles"
+            ui-tree-node
+            ng-include="'app/apps/wiki/wiki-article-node.html'"
+            class="wiki-article-li"></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="panel-body" ng-if="ctrl.wikiArticles.length <= 0 && !ctrl.loading">
+    <p class="text-muted text-center m-0">
+      <span translate="APP.WIKI.EMPTY"></span><br>
+      <a ui-sref=".create" translate="APP.WIKI.EMPTY_LINK"></a>
+    </p>
+  </div>
+
+  <div class="panel-body" ng-if="ctrl.initialLoading">
+    <p class="text-center m-m" ng-show="ctrl.initialLoading">
+      <coyo-spinner></coyo-spinner>
+    </p>
+  </div>
+</div>

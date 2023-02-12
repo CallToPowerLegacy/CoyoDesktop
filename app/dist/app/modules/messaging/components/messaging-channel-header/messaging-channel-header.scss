@@ -1,0 +1,64 @@
+.sidebar.messaging {
+  .messaging-header.messaging-channel-header {
+    flex: none;
+    display: flex;
+
+    .messaging-header-icon-bar {
+      flex: none;
+      
+      &.pulse > a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-right: 1px;
+        background-color: $color-red;
+        color: $color-white;
+        border-radius: 50%;
+        transition: color linear 0.5s;
+        animation: pulse 1s infinite linear;
+      }
+
+      .context-menu {
+        .context-menu-toggle {
+          display: inline-block;
+          font-size: 18px;
+          color: $color-gray-light;
+          &:hover {
+            color: $color-gray;
+          }
+        }
+      }
+    }
+
+    .messaging-title {
+      flex: 1;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+      padding: 0 12px;
+
+      cursor: pointer;
+
+
+      .coyo-spinner {
+        flex: none;
+        margin: 0;
+      }
+
+      .messaging-channel-avatar {
+        flex: none;
+      }
+
+      .messaging-channel-name {
+        text-transform: none;
+        padding-left: 8px;
+        line-height: 1.5;
+
+        @include ellipsis();
+      }
+    }
+  }
+}

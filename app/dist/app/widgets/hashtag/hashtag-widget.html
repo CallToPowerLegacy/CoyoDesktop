@@ -1,0 +1,8 @@
+<div class="widget-hashtag">
+  <h4 class="widget-title">{{$ctrl.widget.settings._titles[0] || ("WIDGET.HASHTAG.TITLE" | translate)}}</h4>
+  <coyo-hashtag-cloud ng-if="$ctrl.hashtags.length" words="$ctrl.hashtags" max-height="240" on-click="$ctrl.onClick"></coyo-hashtag-cloud>
+  <div class="text-center" ng-if="$ctrl.loading">
+    <coyo-spinner size="sm"></coyo-spinner>
+  </div>
+  <p ng-if="!$ctrl.hashtags.length && !$ctrl.loading" class="text-center text-muted ph-l pv-s" translate="WIDGET.HASHTAG.EMPTY"></p>
+</div>

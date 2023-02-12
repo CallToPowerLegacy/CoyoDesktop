@@ -1,0 +1,62 @@
+// Util
+// --------------------------------------------------
+//
+// TODO: Clean up and sort correctly
+
+.table-row {
+  display: table-row;
+  & > .table-cell {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.scroll-x {
+  overflow-x: scroll;
+}
+
+.zmdi-wide {
+  padding-right: 4px;
+}
+
+.zmdi.active {
+  color: $color-blue;
+}
+
+.text-warning {
+  color: #ffb859;
+}
+
+hr.lighter {
+  border-color: $color-gray-lighter;
+}
+
+.forbidden {
+  cursor: not-allowed;
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+.resize-none {
+  resize: none;
+}
+.resize-h {
+  resize: horizontal;
+}
+.resize-v {
+  resize: vertical;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+.no-user-select {
+  @include user-select(none);
+}
+
+.pointer, .clickable {
+  cursor: pointer;
+}

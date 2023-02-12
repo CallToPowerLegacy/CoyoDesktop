@@ -1,0 +1,8 @@
+.table {
+  > thead > tr > th {
+    border-width: 1px;
+    color: $color-gray;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+}

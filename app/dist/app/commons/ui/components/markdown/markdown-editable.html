@@ -1,0 +1,12 @@
+<div>
+  <div class="markdown-editable-display" ng-if="!$ctrl.editable" ng-bind-html="$ctrl.ngModel | markdown | hashtag"></div>
+  <div ng-if="$ctrl.editable">
+    <div class="markdown-editable-display" ng-show="!$ctrl.editing" ng-bind-html="$ctrl.ngModel | markdown | hashtag"></div>
+    <textarea ng-attr-placeholder="{{$ctrl.placeholder}}"
+              msd-elastic
+              rows="1"
+              class="markdown-editable-textarea"
+              ng-show="$ctrl.editing || !$ctrl.ngModel"
+              ng-model="$ctrl.ngModel"></textarea>
+  </div>
+</div>

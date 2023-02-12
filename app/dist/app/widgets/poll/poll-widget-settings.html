@@ -1,0 +1,115 @@
+<div class="poll-widget-settings">
+    <div class="tab-bar">
+        <ul class="nav nav-tabs" id="tabs-poll-config">
+            <li data-ng-class="{active: $ctrl.tab == 1, 'col-xs-4': $ctrl.model.id, 'col-xs-6': !$ctrl.model.id}">
+                <a data-toggle="tab" translate="WIDGET.POLL.CONFIG" ng-click="$ctrl.tab = 1"></a>
+            </li>
+            <li data-ng-class="{active: $ctrl.tab == 2, 'col-xs-4': $ctrl.model.id, 'col-xs-6': !$ctrl.model.id}">
+                <a data-toggle="tab" translate="WIDGET.POLL.EXTENDEDOPTIONS" ng-click="$ctrl.tab = 2"></a>
+            </li>
+            <li data-ng-class="{active: $ctrl.tab == 3}" ng-if="$ctrl.model.id" class="col-xs-4">
+                <a data-toggle="tab" translate="WIDGET.POLL.RESULTS" ng-click="$ctrl.tab = 3"></a>
+            </li>
+        </ul>
+    </div>
+    <div ng-show="$ctrl.tab == 1">
+        <div class="form-group" ng-class="{'has-error': settingsForm.question.$dirty && settingsForm.question.$invalid}">
+            <label class="col-sm-3 control-label" translate="WIDGET.POLL.SETTINGS.CONFIG.QUESTION"></label>
+            <div class="col-sm-8">
+                <input name="question" class="form-control" type="text" maxlength="255" ng-model="$ctrl.model.settings.question" required ng-disabled="!$ctrl.editable">
+            </div>
+            <div class="col-sm-1 hidden-xs">
+                <coyo-help tip="WIDGET.POLL.SETTINGS.CONFIG.QUESTION.HELP"></coyo-help>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="WIDGET.POLL.SETTINGS.CONFIG.DESCRIPTION"></label>
+            <div class="col-sm-8">
+                <textarea name="description" rows="4" class="form-control" ng-model="$ctrl.model.settings.description"></textarea>
+            </div>
+            <div class="col-sm-1 hidden-xs">
+                <coyo-help tip="WIDGET.POLL.SETTINGS.CONFIG.DESCRIPTION.HELP"></coyo-help>
+            </div>
+        </div>
+        <div class="form-group" ng-repeat="option in $ctrl.model.settings.options" ng-class="{'has-error': settingsForm['poll-settings-option-' + $index].$dirty && settingsForm['poll-settings-option-' + $index].$invalid}">
+            <label class="col-sm-3 control-label"><span translate="WIDGET.POLL.SETTINGS.CONFIG.OPTION"></span> {{$index + 1}}</label>
+            <div class="col-sm-8">
+                <div ng-class="{'input-group': ($ctrl.editable || option.newAnswer) && $index}">
+                    <input id="{{'poll-settings-option-' + $index}}"
+                           name="{{'poll-settings-option-' + $index}}"
+                           class="form-control"
+                           type="text"
+                           maxlength="255"
+                           ng-model="option.answer"
+                           ng-required="$ctrl.optionsCount === 0"
+                           ng-disabled="!$ctrl.editable && !option.newAnswer"
+                           ng-keypress="$ctrl.optionKeyPressed($event)"
+                           focus-if="$ctrl.focusedAnswer === option.id">
+                    <span class="input-group-addon delete-option" ng-click="$ctrl.deleteOption($index)" ng-if="($ctrl.editable || option.newAnswer) && $index">
+              <i class="zmdi zmdi-delete" ></i>
+          </span>
+                </div>
+            </div>
+            <div class="col-sm-1 hidden-xs">
+                <coyo-help tip="WIDGET.POLL.SETTINGS.CONFIG.OPTION.HELP"  ng-if="$index == 0"></coyo-help>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-8">
+                <button name="addOption" class="form-control add-button blue" type="button" ng-click="$ctrl.addOption()">
+                    <i class="zmdi zmdi-plus-circle-o add-answer-icon"></i>
+                    <span translate="WIDGET.POLL.SETTINGS.CONFIG.ADDOPTION"></span>
+                </button>
+            </div>
+            <div class="col-sm-1 hidden-xs">
+                <coyo-help tip="WIDGET.POLL.SETTINGS.CONFIG.ADDOPTION.HELP"></coyo-help>
+            </div>
+        </div>
+    </div>
+    <div ng-show="$ctrl.tab == 2">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="WIDGET.POLL.SETTINGS.CONFIG.ANONYMOUS"></label>
+            <div class="col-sm-8">
+                <coyo-checkbox name="annonymous" ng-model="$ctrl.model.settings.anonymous" ng-disabled="!$ctrl.editable"></coyo-checkbox>
+            </div>
+            <div class="col-sm-1 hidden-xs">
+                <coyo-help tip="WIDGET.POLL.SETTINGS.CONFIG.ANONYMOUS.HELP"></coyo-help>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': settingsForm.maxAnswers.$invalid}">
+            <label class="col-sm-3 control-label" translate="WIDGET.POLL.SETTINGS.CONFIG.MAXANSWERS"></label>
+            <div class="col-sm-8">
+                <input name="maxAnswers" class="form-control" type="number" min="1" max="{{$ctrl.optionsCount}}" ng-model="$ctrl.model.settings.maxAnswers" required>
+            </div>
+            <div class="col-sm-1 hidden-xs">
+                <coyo-help tip="WIDGET.POLL.SETTINGS.CONFIG.MAXANSWERS.HELP"></coyo-help>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="WIDGET.POLL.SETTINGS.CONFIG.SHOWRESULTS"></label>
+            <div class="col-sm-8">
+                <coyo-checkbox name="show-results" ng-model="$ctrl.model.settings.showResults"></coyo-checkbox>
+            </div>
+            <div class="col-sm-1 hidden-xs">
+                <coyo-help tip="WIDGET.POLL.SETTINGS.CONFIG.SHOWRESULTS.HELP"></coyo-help>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="WIDGET.POLL.SETTINGS.CONFIG.FROZEN"></label>
+            <div class="col-sm-8">
+                <coyo-checkbox name="frozen" ng-model="$ctrl.model.settings.frozen"></coyo-checkbox>
+            </div>
+            <div class="col-sm-1 hidden-xs">
+                <coyo-help tip="WIDGET.POLL.SETTINGS.CONFIG.FROZEN.HELP"></coyo-help>
+            </div>
+        </div>
+    </div>
+    <div ng-show="$ctrl.tab == 3" ng-if="$ctrl.model.id">
+        <div class="poll-widget-container">
+            <coyo-poll-widget edit-mode="true" settings-mode="true" widget="$ctrl.model"></coyo-poll-widget>
+        </div>
+    </div>
+</div>

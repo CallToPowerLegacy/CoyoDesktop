@@ -1,0 +1,28 @@
+{
+  "name": "COYODesktop",
+  "description": "COYO for the desktop.",
+  "author": "Denis Meyer",
+  "version": "5.0.4-beta.1",
+  "app-id": "com.coyoapp.desktop.coyo",
+  "license": "UNLICENSED",
+  "private": "true",
+  "maintainers": [
+    {
+      "name": "Denis Meyer",
+      "email": "denis.meyer@mindsmash.com",
+      "web": "https://www.coyoapp.com"
+    }
+  ],
+  "main": "main.js",
+  "productName": "COYO Desktop",
+  "devDependencies": {
+    "electron": "1.7.9"
+  },
+  "dependencies": {
+    "about-window": "1.8.0",
+    "electron-context-menu": "0.9.1",
+    "electron-settings": "3.1.4",
+    "load-json-file": "4.0.0",
+    "lodash": "4.17.4"
+  }
+}

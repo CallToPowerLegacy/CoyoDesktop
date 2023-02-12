@@ -1,0 +1,17 @@
+<ks-swiper-container class="swiper-slider"
+                     ng-class="[$ctrl.size || 'md', {'disabled': $ctrl.slides.length <= 1}]"
+                     swiper="swiper"
+                     on-ready="$ctrl.onReadySwiper(swiper)"
+                     ng-if="!$ctrl.update"
+                     override-parameters="$ctrl.settings"
+                     pagination-is-active="$ctrl.showPagination">
+    <ks-swiper-slide class="swiper-slide"
+                     ng-repeat="slide in $ctrl.slides track by $index">
+       <a ng-href="{{slide._url}}" class="slick-slide-inner" target="{{slide._newTab ? '_blank' : '_self'}}" ng-style="{'background-image':'url('+slide._image+')'}">
+         <div class="teaser-caption">
+           <h4>{{slide.headline}}</h4>
+           <p>{{slide.subheadline}}</p>
+         </div>
+       </a>
+    </ks-swiper-slide>
+</ks-swiper-container>

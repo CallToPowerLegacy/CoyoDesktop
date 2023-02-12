@@ -1,0 +1,20 @@
+.job-status {
+
+  .progress {
+    margin-bottom: 0;
+
+    .progress-bar {
+      min-width: 2em;
+    }
+  }
+
+  .job-succeeded {
+    color: $color-green;
+  }
+  .job-failed {
+    color: $color-red;
+  }
+  .job-datetime {
+    margin-left: 2px;
+  }
+}

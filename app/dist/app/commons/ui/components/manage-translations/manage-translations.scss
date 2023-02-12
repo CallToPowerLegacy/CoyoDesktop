@@ -1,0 +1,161 @@
+coyo-manage-translations {
+  .container-ui-select-translation {
+    position: relative;
+
+    .ui-select-translation {;
+      width: 210px;
+    }
+  }
+}
+
+.manage-translations-modal {
+  .checkbox {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+}
+
+/* Ui-Select translation */
+.ui-select-translation {
+  &.invalid {
+    .btn {
+      border: 2px solid $color-red !important;
+    }
+  }
+
+  &.ui-select-mobile {
+    @media screen and (max-width: $screen-sm-max) {
+      &.open {
+        .form-control {
+          display: none;
+        }
+
+        .ui-select-choices {
+          top: 46px !important;
+
+          .active > span {
+            background-color: $color-gray-lighter;
+            color: $text-color;
+            border-left: 6px solid $color-blue;
+            .ui-select-languages {
+              padding-left: 8px !important;
+            }
+          }
+        }
+
+        .ui-select-choices-row {
+          border-bottom: 1px solid $color-gray-lighter;
+          .ui-select-languages {
+            padding: 21px 14px 21px 14px !important;
+          }
+          .ui-select-config {
+            padding: 21px 14px 21px 14px !important;
+          }
+        }
+      }
+    }
+  }
+
+  .ui-select-toggle {
+    // bugfix: dropdown does not open when clicking on caret
+    // This bug appears when search-enabled="false"
+    &::after {
+      font-family: 'Material-Design-Iconic-Font';
+      content: "\f2f2";
+      position: absolute;
+      font-size: 16px;
+      right: 1em;
+      top: 0;
+      line-height: 40px;
+    }
+
+    .caret {
+      display: none;
+    }
+    // end bugfix
+  }
+
+  .ui-select-match {
+    .btn {
+      margin-left: 0;
+    }
+
+    coyo-country-flag {
+      width: 1em;
+      margin-top: 2px;
+      margin-right: 5px;
+      float: left;
+    }
+
+    .country-name {
+      width: auto;
+      float: left;
+    }
+
+    .zmdi-delete {
+      float: right;
+      line-height: 24px;
+      cursor: pointer;
+    }
+  }
+
+  .ui-select-choices-group {
+    .ui-select-choices-row:not(.active) {
+      .ui-select-languages {
+        i {
+          &.zmdi-check {
+            color: $color-green;
+          }
+
+          &.zmdi-close {
+            color: $color-red;
+          }
+
+          &.zmdi-plus {
+            color: $color-gray;
+          }
+        }
+      }
+    }
+
+    .ui-select-choices-row-inner {
+      padding: 0;
+      .ui-select-languages {
+        padding: 7px 14px 7px 14px;
+        height: auto;
+        overflow: hidden;
+        i {
+          float: right;
+          &::before {
+            line-height: 21px;
+          }
+        }
+      }
+      .ui-select-config {
+        padding: 7px 14px 7px 14px;
+      }
+
+      coyo-country-flag {
+        margin-right: 5px;
+        float: left;
+      }
+
+      .country-name {
+        width: auto;
+        float: left;
+      }
+    }
+  }
+
+  /* Style Settings */
+  &.ui-select-with-settings {
+    .ui-select-choices-group {
+      > div:last-of-type .ui-select-config {
+        border-top: 1px solid $color-gray-light;
+        @media screen and (max-width: $screen-sm-max) {
+          border-top: none;
+        }
+      }
+    }
+  }
+}

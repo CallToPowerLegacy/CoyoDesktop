@@ -1,0 +1,13 @@
+// Mixins - Buttons
+// --------------------------------------------------
+
+// example usage:
+// @include button-inverse(#ccc)
+@mixin button-inverse($color) {
+  border: 2px solid $color;
+  color: $color;
+
+  &:hover {
+    background-color: $color;
+  }
+}

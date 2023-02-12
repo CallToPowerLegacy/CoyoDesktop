@@ -1,0 +1,18 @@
+<div class="single-wiki-article-widget-settings">
+
+  <div class="text-center m-m" ng-if="$ctrl.loading">
+    <coyo-spinner size="sm"></coyo-spinner>
+  </div>
+
+  <div class="form-group" ng-if="!$ctrl.loading">
+    <label class="col-sm-2 control-label" translate="WIDGETS.WIKIARTICLE.SETTINGS.WIKIARTICLE.LABEL"></label>
+
+    <div class="col-sm-9">
+      <coyo-select-wiki-article-widget ng-required="true" ng-model="$ctrl.selectedArticle"></coyo-select-wiki-article-widget>
+    </div>
+
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="WIDGETS.WIKIARTICLE.SETTINGS.WIKIARTICLE.HELP"></coyo-help>
+    </div>
+  </div>
+</div>

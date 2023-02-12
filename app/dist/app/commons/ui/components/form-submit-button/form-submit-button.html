@@ -1,0 +1,5 @@
+<button type="submit" class="btn btn-primary" ng-disabled="disabled || formCtrl.loading || formCtrl.$invalid">
+  <span ng-class="{'hidden-xs': hideIconOnMobile}" ng-if="icon !== 'false'">
+    <i class="zmdi zmdi-hc-fw {{ formCtrl.loading ? 'zmdi-hc-spin zmdi-spinner' : (icon || 'zmdi-check') }}"></i>
+  </span><span ng-class="{'hidden-xs': hideTextOnMobile}">&nbsp;{{::label | translate}}</span>
+</button>

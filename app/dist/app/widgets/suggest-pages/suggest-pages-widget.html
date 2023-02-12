@@ -1,0 +1,17 @@
+<div class="page-widget">
+  <h4 class="widget-title">
+    {{$ctrl.widget.settings._titles[0] || ( "WIDGETS.SUGGEST_PAGES.NAME" | translate)}}
+  </h4>
+  <coyo-widget-status load-data="$ctrl.loadPages()" empty-message="WIDGETS.SUGGEST_PAGES.NO_PAGE_FOUND"></coyo-widget-status>
+  <coyo-refresh watch="$ctrl.lastUpdate">
+    <div class="sender-groups" ng-hide="$ctrl.loading">
+      <ul class="nav nav-default nav-icons">
+        <li ng-repeat="page in ::$ctrl.pages">
+          <a href ui-sref="main.page.show({ idOrSlug: page.id })">
+            <i class="zmdi zmdi-layers"></i> {{ ::page.displayName }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </coyo-refresh>
+</div>

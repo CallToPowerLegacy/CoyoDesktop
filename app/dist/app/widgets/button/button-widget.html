@@ -1,0 +1,8 @@
+<div class="button-widget">
+  <a class="btn" ng-click="$ctrl.onButtonClicked($event)" href="{{$ctrl.widget.settings._url}}"
+     ng-class="$ctrl.widget.settings._button.btnClass" target="{{$ctrl.getLinkTarget($ctrl.widget.settings)}}">
+    <input ng-if="$ctrl.editMode" ng-model="$ctrl.widget.settings.text"
+           placeholder="{{::'WIDGET.BUTTON.PLACEHOLDER' | translate}}">
+    <span ng-if="!$ctrl.editMode" ng-bind="$ctrl.widget.settings.text"></span>
+  </a>
+</div>

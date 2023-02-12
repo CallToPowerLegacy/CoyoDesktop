@@ -1,0 +1,76 @@
+.ui-select-mobile {
+  .ui-select-mobile-head {
+    display: none;
+  }
+
+  @media screen and (max-width: $screen-sm-max) {
+    &.open {
+      .ui-select-mobile-head {
+        background-color: $coyo-modal-header-bg;
+        border: 0;
+        color: $coyo-modal-header-text;
+        display: block;
+        height: 46px;
+        left: 0;
+        padding: 7px 16px;
+        position: fixed;
+        right: 0;
+        top: 0;
+
+        h3 {
+          font-size: 18px;
+          margin: 0 24px;
+          text-align: center;
+        }
+
+        .zmdi-close {
+          font-size: 20px;
+          line-height: 46px;
+          position: absolute;
+          right: 16px;
+          top: 0;
+        }
+      }
+
+      .form-control {
+        background-color: $color-gray-lighter;
+        border: 0;
+        border-bottom: 1px solid $color-gray-light;
+        border-radius: 0;
+        height: 47px;
+        left: 0;
+        padding: 11px 16px;
+        position: fixed;
+        right: 0;
+        top: 46px;
+      }
+
+      .form-control,
+      .form-control:focus {
+        border-color: $color-gray-light !important;
+        box-shadow: none !important;
+      }
+
+      .ui-select-choices {
+        background-color: #fff;
+        border: 0;
+        border-radius: 0;
+        bottom: 0;
+        box-shadow: none;
+        display: block !important;
+        left: 0;
+        margin: 0;
+        max-height: none;
+        max-width: none;
+        position: fixed !important;
+        right: 0;
+        top: 93px !important;
+      }
+
+      .ui-select-choices-row > a {
+        border-bottom: 1px solid $color-gray-lighter;
+        padding: 12px 16px;
+      }
+    }
+  }
+}

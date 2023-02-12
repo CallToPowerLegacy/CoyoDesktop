@@ -1,0 +1,4 @@
+<div class="content-sidebar content-sidebar-right" ng-show="$ctrl.user.manager || $ctrl.managedUsers.length > 0">
+  <oyoc-user-superior ng-if="$ctrl.user.manager" manager-id="$ctrl.user.manager"></oyoc-user-superior>
+  <oyoc-user-managed user="$ctrl.user" managed-users="$ctrl.managedUsers"></oyoc-user-managed>
+</div>

@@ -1,0 +1,170 @@
+<div class="account" ng-cloak>
+
+  <section class="panel panel-default">
+    <div class="panel-heading panel-heading-main">
+      <!-- Not yet implemented: Delete user account -->
+      <!--
+      <button class="btn btn-danger pull-right hidden-xs" coyo-global-permissions="MANAGE_USER">
+        <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{::'MODULE.ACCOUNT.DELETE' | translate}}
+      </button>
+      -->
+      <h1 class="panel-title" translate="MODULE.ACCOUNT.HEADER"></h1>
+    </div>
+
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6">
+          <dl class="dl-horizontal mb-0">
+            <dt class="hidden-xs hidden-sm" translate="MODULE.ACCOUNT.USER.DISPLAYNAME"></dt>
+            <dd class="hidden-xs hidden-sm">
+              <i ng-if="!vm.data.account.remoteUser" class="zmdi zmdi-edit click-to-change-icon click-to-change" coyo-global-permissions="MANAGE_USER"
+                 ng-click="vm.openChangeNameModal()">
+              </i>
+              {{ vm.data.account.displayName }}
+            </dd>
+            <dt translate="MODULE.ACCOUNT.EMAIL"></dt>
+            <dd>
+              <i ng-if="!vm.data.account.remoteUser" class="zmdi zmdi-edit click-to-change click-to-change-icon"
+                 coyo-global-permissions="MANAGE_USER"
+                 ng-click="vm.openChangeEmailAddressModal()">
+              </i>
+              {{ vm.data.account.email || '-'}}
+            </dd>
+            <dt translate="MODULE.ACCOUNT.USER.MEMBER_SINCE"></dt>
+            <dd>{{ vm.data.account.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long }}</dd>
+          </dl>
+        </div>
+        <div class="col-md-6 hidden-xs hidden-sm">
+          <dl class="dl-horizontal mb-0">
+            <dt translate="MODULE.ACCOUNT.LANGUAGE"></dt>
+            <dd>
+              <i class="zmdi zmdi-edit click-to-change-icon click-to-change" coyo-global-permissions="MANAGE_USER"
+                 ng-click="vm.openLanguageModal()">
+              </i>
+              {{ 'LANGUAGE.LANGUAGES.' + vm.data.account.language | translate }}
+            </dd>
+            <dt translate="MODULE.ACCOUNT.TIMEZONE"></dt>
+            <dd>
+              <i class="zmdi zmdi-edit click-to-change-icon click-to-change" coyo-global-permissions="MANAGE_USER"
+                 ng-click="vm.openTimeZoneModal()">
+              </i>
+              {{ 'TIMEZONES.LOCATIONS.' + vm.data.account.timezone | translate }}
+            </dd>
+            <dt translate="MODULE.ACCOUNT.PASSWORD" ng-if="!vm.data.account.remoteUser"></dt>
+            <dd ng-if="!vm.data.account.remoteUser">
+              <i class="zmdi zmdi-edit click-to-change click-to-change-icon" coyo-global-permissions="MANAGE_USER"
+                 ng-click="vm.openChangePasswordModal()">
+              </i>
+              ••••••••
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- devices desktop -->
+  <section class="panel panel-default hidden-xs hidden-sm">
+    <div class="panel-heading panel-heading-main">
+      <h1 class="panel-title" translate="MODULE.ACCOUNT.PUSH_DEVICES.HEADER"></h1>
+    </div>
+
+    <div class="panel-body">
+      <!-- devices -->
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th translate="MODULE.ACCOUNT.PUSH_DEVICES.NAME"></th>
+            <th translate="MODULE.ACCOUNT.PUSH_DEVICES.CREATED"></th>
+            <th translate="MODULE.ACCOUNT.PUSH_DEVICES.STATUS"></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if="!vm.data.devices.length">
+            <td colspan="5" class="text-center" translate="MODULE.ACCOUNT.PUSH_DEVICES.MESSAGES.NO_DEVICES_FOUND"></td>
+          </tr>
+          <tr ng-repeat="pushDevice in vm.data.devices">
+            <td>
+              <i class="zmdi zmdi-hc-fw" ng-class="{
+                  'zmdi-smartphone-iphone': pushDevice.type === vm.deviceTypes.smartphone,
+                  'zmdi-tablet-mac': pushDevice.type === vm.deviceTypes.tablet }"></i>
+            </td>
+            <td>
+              {{ pushDevice.displayName }}
+            </td>
+            <td>
+              <coyo-time-ago date="pushDevice.created"></coyo-time-ago>
+            </td>
+            <td class="column-active-label">
+              <coyo-active-label ng-model="pushDevice.active" ng-click="vm.togglePushDevice(pushDevice)"></coyo-active-label>
+            </td>
+            <td class="column-options">
+              <coyo-context-menu align-right="true" coyo-global-permissions="MANAGE_USER">
+                <li><a ng-click="vm.togglePushDevice(pushDevice)">
+                  <i class="zmdi zmdi-hc-fw" ng-class="{
+                      'zmdi-pause': pushDevice.active,
+                      'zmdi-play': !pushDevice.active }"></i>
+                  {{ pushDevice.active ? 'MODULE.ACCOUNT.PUSH_DEVICES.TOOLTIP.TOGGLE_INACTIVE' : 'MODULE.ACCOUNT.PUSH_DEVICES.TOOLTIP.TOGGLE_ACTIVE' | translate }}
+                </a></li>
+                <li><a ng-click="vm.removePushDevice(pushDevice)">
+                  <i class="zmdi zmdi-hc-fw zmdi-delete"></i>
+                  {{:: 'MODULE.ACCOUNT.PUSH_DEVICES.TOOLTIP.REMOVE' | translate }}
+                </a></li>
+              </coyo-context-menu>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="visible-xs visible-sm">
+    <div class="nav-item">
+      <coyo-mobile-menu-item on-click="vm.openChangeNameModal()"
+                            icon="'zmdi zmdi-account'"
+                            label-text="MODULE.ACCOUNT.DISPLAYNAME"
+                            preview-value="{{ vm.data.account.displayName }}">
+      </coyo-mobile-menu-item>
+
+      <coyo-mobile-menu-item on-click="vm.openLanguageModal()"
+                            icon="'zmdi zmdi-globe'"
+                            label-text="MODULE.ACCOUNT.LANGUAGE"
+                            preview-value="{{ 'LANGUAGE.LANGUAGES.' + vm.data.account.language | translate}}">
+      </coyo-mobile-menu-item>
+
+      <coyo-mobile-menu-item on-click="vm.openTimeZoneModal()"
+                            icon="'zmdi zmdi-pin'"
+                            label-text="MODULE.ACCOUNT.TIMEZONE"
+                            preview-value="{{ 'TIMEZONES.LOCATIONS.' + vm.data.account.timezone | translate}}">
+      </coyo-mobile-menu-item>
+
+      <coyo-mobile-menu-item on-click="vm.openChangeEmailAddressModal()"
+                            icon="'zmdi zmdi-email'"
+                            label-text="MODULE.ACCOUNT.EMAIL"
+                            preview-value="{{ vm.data.account.email }}">
+      </coyo-mobile-menu-item>
+
+      <coyo-mobile-menu-item ng-if="!vm.data.account.remoteUser"
+                            on-click="vm.openChangePasswordModal()"
+                            icon="'zmdi zmdi-key'"
+                            label-text="MODULE.ACCOUNT.PASSWORD"
+                            preview-value="••••••••">
+      </coyo-mobile-menu-item>
+
+      <coyo-mobile-menu-item on-click="vm.openPushDevicesModal()"
+                            icon="'zmdi zmdi-smartphone-iphone'"
+                            label-text="MODULE.ACCOUNT.PUSH_DEVICES.HEADER"
+                            preview-value="{{ vm.data.devices.length }}">
+      </coyo-mobile-menu-item>
+
+      <!-- Not yet implemented: Delete user account -->
+      <!--<coyo-mobile-menu-item class="account-delete"
+                            icon="'zmdi zmdi-delete'"
+                            label-text="MODULE.ACCOUNT.DELETE"
+                            coyo-global-permissions="MANAGE_USER">
+      </coyo-mobile-menu-item>-->
+    </div>
+  </section>
+</div>

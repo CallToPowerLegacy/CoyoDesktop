@@ -1,0 +1,11 @@
+<span class="messaging-channel-avatar {{::$ctrl.size}}">
+
+  <coyo-user-avatar ng-if="::$ctrl.channel.type === 'SINGLE'"
+               user="::$ctrl.channel.getChannelPartner($ctrl.currentUser)"
+               avatar-size="{{::$ctrl.size}}"
+               show-online-status="true"
+               no-link="true"></coyo-user-avatar>
+
+  <i ng-if="::$ctrl.channel.type === 'GROUP'" class="zmdi zmdi-accounts-alt"></i>
+
+</span>

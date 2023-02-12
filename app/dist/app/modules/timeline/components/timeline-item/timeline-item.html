@@ -1,0 +1,18 @@
+<div class="timeline-item" ng-class="::tlItem.ngModel.itemType">
+  <div class="panel panel-default panel-sm">
+    <div class="ribbon" ng-if="!tlItem.ngModel.unread && tlItem.isNew">
+      <p class="ribbon-new" translate="MODULE.TIMELINE.NEW"></p>
+    </div>
+    <div class="ribbon" ng-if="tlItem.ngModel.unread">
+      <p class="ribbon-sticky" translate="MODULE.TIMELINE.STICKY"></p>
+      <p class="ribbon-sticky-read" ng-click="tlItem.markAsRead()"><i class="zmdi zmdi-check"></i></p>
+    </div>
+    <coyo-timeline-share ng-model="tlItem.share" ng-if="tlItem.share"></coyo-timeline-share>
+    <coyo-refresh on-scope-event="timeline-item:refresh">
+      <div ng-include="::(tlItem.tplPrefix + tlItem.ngModel.itemType + '.heading.html')"></div>
+      <div ng-include="::(tlItem.tplPrefix + tlItem.ngModel.itemType + '.body.html')"></div>
+      <div ng-include="::(tlItem.tplPrefix + tlItem.ngModel.itemType + '.footer.html')"></div>
+    </coyo-refresh>
+  </div>
+  <coyo-comments target="::tlItem.ngModel" init="::tlItem.ngModel.comments" author-id="tlItem.author.id"></coyo-comments>
+</div>

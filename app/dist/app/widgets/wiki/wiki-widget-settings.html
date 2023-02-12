@@ -1,0 +1,27 @@
+<div class="wiki-widget-settings">
+  <div class="text-center m-m" ng-show="$ctrl.loading">
+    <coyo-spinner size="sm"></coyo-spinner>
+  </div>
+
+  <div ng-show="!$ctrl.loading">
+    <div class="form-group">
+      <label class="col-sm-2 control-label" translate="WIDGETS.WIKI.SETTINGS.WIKI_APP.LABEL"></label>
+      <div class="col-sm-9">
+        <coyo-select-wiki-app ng-model="$ctrl.selectedApp"></coyo-select-wiki-app>
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <help tip="WIDGETS.WIKI.SETTINGS.WIKI_APP.HELP"></help>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': settingsForm.articleCount.$invalid}">
+      <label class="col-sm-2 control-label" translate="WIDGETS.WIKI.SETTINGS.ARTICLE_COUNT.LABEL"></label>
+      <div class="col-sm-9">
+        <input name="articleCount" class="form-control" type="number" min="1" max="20" ng-model="$ctrl.model.settings._articleCount">
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <help tip="WIDGETS.WIKI.SETTINGS.ARTICLE_COUNT.HELP"></help>
+      </div>
+    </div>
+  </div>
+</div>

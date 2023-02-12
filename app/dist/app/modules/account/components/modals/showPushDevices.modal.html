@@ -1,0 +1,47 @@
+<div class="modal-content-wrapper">
+  <div class="modal-header">
+    <h3 class="modal-title" translate="MODULE.ACCOUNT.MODALS.PUSH_DEVICES.TITLE"></h3>
+    <span class="modal-close" ng-click="$dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+  </div>
+  <div class="modal-body push-device-modal">
+    <ul class="modal-mobile-options push-devices" ng-show="vm.devices.length">
+      <li ng-repeat="pushDevice in vm.devices" class="modal-mobile-option" id="push-device-{{$index}}" class="row">
+        <div class="icon col-xs-2">
+          <i class="zmdi zmdi-hc-fw" ng-class="{
+                  'zmdi-smartphone-iphone': pushDevice.type === vm.deviceTypes.smartphone,
+                  'zmdi-tablet-mac': pushDevice.type === vm.deviceTypes.tablet }"></i>
+        </div>
+        <div class="device-body col-xs-7">
+          <div class="device-name">{{ pushDevice.displayName }}</div>
+          <div class="device-created">
+            {{:: 'MODULE.ACCOUNT.PUSH_DEVICES.CREATED' | translate }}
+            <coyo-time-ago date="pushDevice.created" class="device-created"></coyo-time-ago>
+          </div>
+        </div>
+        <div class="right col-xs-3">
+          <coyo-active-label ng-model="pushDevice.active"></coyo-active-label>
+        </div>
+      </li>
+    </ul>
+
+    <p class="text-center" ng-if="!vm.devices.length"
+       translate="MODULE.ACCOUNT.PUSH_DEVICES.MESSAGES.NO_DEVICES_FOUND"></p>
+
+    <coyo-context-menu ng-repeat="pushDevice in vm.devices" toggle-element="#push-device-{{$index}}" title="{{ pushDevice.displayName }}" coyo-global-permissions="MANAGE_USER">
+      <li>
+        <a ng-click="vm.togglePushDevice(pushDevice)">
+          <i class="zmdi zmdi-hc-fw" ng-class="{'zmdi-pause': pushDevice.active,'zmdi-play': !pushDevice.active}"></i>
+          {{ pushDevice.active ? 'MODULE.ACCOUNT.PUSH_DEVICES.TOOLTIP.TOGGLE_INACTIVE' : 'MODULE.ACCOUNT.PUSH_DEVICES.TOOLTIP.TOGGLE_ACTIVE' | translate }}
+        </a>
+      </li>
+      <li class="context-menu-danger">
+        <coyo-confirm-button cb-icon-class="zmdi zmdi-hc-fw zmdi-delete"
+                        cb-on-click="vm.removePushDevice(pushDevice)"
+                        cb-str="MODULE.ACCOUNT.PUSH_DEVICES.REMOVE.REMOVE"
+                        cb-str-on-click="MODULE.ACCOUNT.PUSH_DEVICES.REMOVE.CONFIRM"
+                        cb-milliseconds-to-reset="2500">
+        </coyo-confirm-button>
+      </li>
+    </coyo-context-menu>
+  </div>
+</div>

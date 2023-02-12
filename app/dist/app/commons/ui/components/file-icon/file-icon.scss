@@ -1,0 +1,73 @@
+@font-face {
+  font-family: 'Coyo4_File_Types';
+  src: url('../assets/fonts/Coyo4_File_Types.woff') format('woff'),
+  url('../assets/fonts/Coyo4_File_Types.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.file-icon {
+  color: $color-gray-darker;
+}
+
+.zmdi.zmdi-coyo {
+  font-family: 'Coyo4_File_Types';
+
+  &.zmdi-coyo-excel {
+    color: #1c7142;
+    &:before {
+      content: '\e900';
+    }
+  }
+
+  &.zmdi-coyo-image {
+    &:before {
+      content: '\e901';
+    }
+  }
+
+  &.zmdi-coyo-pdf {
+    color: #e63522;
+    &:before {
+      content: '\e902';
+    }
+  }
+
+  &.zmdi-coyo-video {
+    &:before {
+      content: '\e903';
+    }
+  }
+
+  &.zmdi-coyo-text {
+    &:before {
+      content: '\e904';
+    }
+  }
+
+  &.zmdi-coyo-powerpoint {
+    color: #d04827;
+    &:before {
+      content: '\e905';
+    }
+  }
+
+  &.zmdi-coyo-word {
+    color: #2a569a;
+    &:before {
+      content: '\e906';
+    }
+  }
+
+  &.zmdi-coyo-zip {
+    &:before {
+      content: '\e907';
+    }
+  }
+
+  &.zmdi-coyo-file {
+    &:before {
+      content: '\e908';
+    }
+  }
+}

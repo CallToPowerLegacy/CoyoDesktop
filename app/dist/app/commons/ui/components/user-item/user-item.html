@@ -1,0 +1,13 @@
+<div class="user-item">
+  <a class="user-item-link" ui-sref="main.profile.info({userId: $ctrl.user.slug})">
+    <coyo-user-avatar user="$ctrl.user"
+                      avatar-size="sm"
+                      show-online-status="false"
+                      class="mr-xxs"
+                      no-link="true"></coyo-user-avatar>
+    <div class="user-item-container">
+      <div class="user-item-headline">{{::$ctrl.user.displayName}}</div>
+      <div ng-if="$ctrl.user.properties.jobTitle" class="user-item-subline">{{:: $ctrl.user.properties.jobTitle}}</div>
+    </div>
+  </a>
+</div>

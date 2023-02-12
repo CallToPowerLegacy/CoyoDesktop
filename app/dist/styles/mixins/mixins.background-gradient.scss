@@ -1,0 +1,62 @@
+// Mixins - Set the background gradient color
+// --------------------------------------------------
+
+// example usage:
+// @include background-gradient-left-to-right(#317dc1, #7db9e8)
+@mixin background-gradient-left-to-right($color-from, $color-to) {
+  // Old browsers
+  background: $color-from;
+
+  // scss-lint:disable VendorPrefix, DuplicateProperty
+  // Firefox
+  background: -moz-linear-gradient(left, $color-from 0%, $color-to 100%);
+
+  // Chrome,Safari4+
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, $color-from), color-stop(100%, $color-to));
+
+  // Chrome10+, Safari5.1+
+  background: -webkit-linear-gradient(left, $color-from 0%, $color-to 100%);
+
+  // Opera 11.10+
+  background: -o-linear-gradient(left, $color-from 0%, $color-to 100%);
+
+  // IE10+
+  background: -ms-linear-gradient(left, $color-from 0%, $color-to 100%);
+
+  // W3C
+  background: linear-gradient(to right, $color-from 0%, $color-to 100%);
+
+  // IE6-9
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$color-from', endColorstr='$color-to', GradientType=1);
+  // scss-lint:enable VendorPrefix, DuplicateProperty
+}
+
+// example usage:
+// @include background-gradient-top-left-to-bottom-right(#317dc1, #7db9e8)
+@mixin background-gradient-top-left-to-bottom-right($color-from, $color-to) {
+  // Old browsers
+  background: $color-from;
+
+  // scss-lint:disable VendorPrefix, DuplicateProperty
+  // Firefox
+  background: -moz-linear-gradient(bottom right, $color-from 0%, $color-to 100%);
+
+  // Chrome,Safari4+
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, $color-from), color-stop(100%, $color-to));
+
+  // Chrome10+, Safari5.1+
+  background: -webkit-linear-gradient(left top, $color-from 0%, $color-to 100%);
+
+  // Opera 11.10+
+  background: -o-linear-gradient(bottom right, $color-from 0%, $color-to 100%);
+
+  // IE10+
+  background: -ms-linear-gradient(left top, $color-from 0%, $color-to 100%);
+
+  // W3C
+  background: linear-gradient(to bottom right, $color-from 0%, $color-to 100%);
+
+  // IE6-9
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$color-from', endColorstr='$color-to', GradientType=1);
+  // scss-lint:enable VendorPrefix, DuplicateProperty
+}

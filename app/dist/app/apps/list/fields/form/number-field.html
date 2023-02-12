@@ -1,0 +1,10 @@
+<input name="{{:: settingsForm.getFieldName(config)}}" id="{{:: settingsForm.getFieldName(config)}}" class="form-control"
+       ng-model="model.value" ng-min="{{config.settings.min || -9223372036854775808}}" ng-max="{{config.settings.max || 9223372036854775807}}"
+       ng-required="config.required" type="number">
+
+<div ng-if="settingsForm.getField(config).$dirty">
+    <p class="help-block" ng-if="settingsForm.getField(config).$error.min"
+       translate="APP.LIST.FIELDS.NUMBER.ERROR.MIN" translate-values="{min: config.settings.min || -9223372036854775808}"></p>
+    <p class="help-block" ng-if="settingsForm.getField(config).$error.max"
+       translate="APP.LIST.FIELDS.NUMBER.ERROR.MAX" translate-values="{max: config.settings.max || 9223372036854775807}"></p>
+</div>

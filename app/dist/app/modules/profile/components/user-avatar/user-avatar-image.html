@@ -1,0 +1,29 @@
+<span class="user-avatar-image" title="{{$ctrl.user.displayName}}">
+
+  <coyo-refresh watch="$ctrl.user.imageUrls.avatar">
+    <coyo-avatar-image ng-if="!$subctrl.loadError" on-error="$subctrl.errorHandler()"  image-url="::$ctrl.user.imageUrls.avatar" avatar-size="{{::$ctrl.avatarSize}}" avatar-background="{{::$ctrl.user.color}}"></coyo-avatar-image>
+  </coyo-refresh>
+
+  <span class="user-avatar-empty" ng-if="!$ctrl.user.imageUrls.avatar || $subctrl.loadError"
+        ng-style="{'background-color': $ctrl.user.color}">
+    {{$ctrl.user.displayNameInitials}}
+  </span>
+
+  <span class="online-status {{$subctrl.presenceStatus.state}}"
+        ng-if="$subctrl.showOnlineStatus && $subctrl.presenceStatus && $subctrl.presenceStatus.state !== 'OFFLINE'"
+        title="{{'PRESENCE_STATUS.' + ($subctrl.presenceStatus ? $subctrl.presenceStatus.state : 'OFFLINE') |
+        translate}}{{$subctrl.presenceStatus.label.length ? ': ' : ''}}{{$subctrl.presenceStatus.label}}">
+  </span>
+
+  <coyo-user-follow ng-if="::$ctrl.showFollowButton" size="xs" user="::$ctrl.user" no-label="true"
+               dark-theme="true"></coyo-user-follow>
+
+  <a ng-if="::$ctrl.showMessagingButton" coyo-global-permissions="USE_MESSAGING" class="user-messaging" ng-click="$subctrl.startConversation($ctrl.user.id);$event.stopPropagation()">
+    <button class="btn btn-xs btn-dark btn-zmdi"
+            uib-tooltip="{{:: 'USER.CLICK_TO_SEND_MESSAGE' | translate }}"
+            tooltip-append-to-body="true">
+      <i class="zmdi zmdi-comment-text"></i>
+    </button>
+  </a>
+
+</span>

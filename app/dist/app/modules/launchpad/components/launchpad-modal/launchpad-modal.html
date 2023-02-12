@@ -1,0 +1,71 @@
+<a class="close-icon" data-ng-click="$close()">
+  <i class="zmdi zmdi-close"></i>
+</a>
+<div class="launchpad-wrapper">
+  <coyo-spinner inverted="true" size="lg" data-ng-show="vm.loading"></coyo-spinner>
+  <div class="category" data-ng-repeat="category in vm.categories" data-ng-class="{'edit': category.editMode}" data-ng-show="!vm.toEdit && !vm.loading">
+    <h3 data-ng-show="category.id !== 'personal'">{{::category.name}}</h3>
+    <h3 data-ng-show="category.id === 'personal'">{{::'LAUNCHPAD.PERSONAL' | translate}}</h3>
+    <span class="empty" data-ng-if="!category._permissions.manage && category.links.length == 0">{{::'LAUNCHPAD.EMPTY' | translate}}</span>
+    <div class="links">
+      <div class="link" data-ng-repeat="link in category.links">
+        <a target="_blank" href="{{link.url}}">
+          <div class="icon-wrapper">
+            <div class="icon" ng-style="{'background-image': 'url(' + vm.getIconUrl(link) + ')'}" data-ng-if="link.icon"></div>
+            <div class="icon" data-ng-if="!link.icon">
+              <i class="zmdi zmdi-link"></i>
+            </div>
+          </div>
+        </a>
+        <div class="title">
+          <span data-ng-if="!link.edit">{{link.name}}</span>
+          <i class="zmdi zmdi-edit" data-ng-if="category._permissions.manage" data-ng-click="vm.toggleEdit(link, $event)" data-ng-show="!link.edit"></i>
+        </div>
+      </div>
+      <div class="link new-link" data-ng-if="category._permissions.manage" data-ng-show="!category.editMode">
+        <div class="icon-wrapper">
+          <a data-ng-click="vm.addNew(category)">
+            <div class="icon">
+              <i class="zmdi zmdi-plus"></i>
+            </div>
+          </a>
+        </div>
+        <div class="title">
+          <span>{{:: 'LAUNCHPAD.ADD' | translate}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="category edit" data-ng-show="vm.toEdit">
+    <h3>{{::'LAUNCHPAD.EDIT' | translate}}</h3>
+    <div class="links">
+      <div class="link">
+        <div class="icon-wrapper">
+          <div class="upload"
+              ngf-select
+              ngf-change="vm.changeIcon(vm.toEdit)"
+              ng-model="vm.toEdit.iconToUpload"
+              ngf-accept="'image/png'">
+            <i class="zmdi zmdi-upload"></i>
+          </div>
+          <div class="icon" ng-style="{'background-image': 'url(' + vm.getIconUrl(vm.toEdit) + ')'}" data-ng-if="vm.toEdit.icon && !vm.toEdit.newIconUid"></div>
+          <div class="icon" ngf-background="vm.toEdit.iconToUpload" data-ng-if="vm.toEdit.newIconUid"></div>
+          <div class="icon" data-ng-if="!vm.toEdit.icon && !vm.toEdit.newIconUid">
+            <i class="zmdi zmdi-link"></i>
+          </div>
+        </div>
+        <form name="linkForm">
+          <label>URL</label>
+          <input type="url" ng-model="vm.toEdit.url" placeholder="Link" required ng-maxlength="2000" focus-if></input>
+          <label>Description</label>
+          <input type="text" ng-model="vm.toEdit.name" placeholder="Name" required ng-maxlength="255"></input>
+          <div class="actions">
+            <a class="btn btn-primary btn-lg" data-ng-disabled="!linkForm.$valid" data-ng-click="!linkForm.$valid || vm.saveLink()"><i class="zmdi zmdi-check"></i> {{:: 'SAVE' | translate}}</a>
+            <a class="btn btn-danger btn-lg" data-ng-click="vm.deleteLink()" data-ng-if="vm.toEdit.id"><i class="zmdi zmdi-delete"></i>{{:: 'DELETE' | translate}}</a>
+            <a class="btn btn-default btn-lg" data-ng-click="vm.deleteLink()" data-ng-if="!vm.toEdit.id"><i class="zmdi zmdi-close"></i>{{:: 'CANCEL' | translate}}</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

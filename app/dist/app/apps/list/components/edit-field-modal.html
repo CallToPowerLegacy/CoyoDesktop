@@ -1,0 +1,19 @@
+<form name="editFieldForm" coyo-form-submit="$ctrl.save()">
+    <div class="modal-content-wrapper">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                <span translate="APP.LIST.FIELD.MODAL.SETTINGS.TITLE"></span>
+                <small>{{$ctrl.fieldType.title | translate}}</small>
+            </h3>
+            <span class="modal-close" ng-click="$dismiss()">
+                <i class="zmdi zmdi-close img-close"></i>
+            </span>
+        </div>
+        <div class="modal-body">
+            <oyoc-field-settings field="$ctrl.field" field-type="$ctrl.fieldType" form-ctrl="editFieldForm"></oyoc-field-settings>
+        </div>
+        <div class="modal-footer">
+            <coyo-form-submit-button label="SAVE" form-ctrl="editFieldForm"></coyo-form-submit-button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,45 @@
+.event-information-tab {
+  .event-information-header {
+    border-bottom: 1px solid $color-border;
+    padding-bottom: 5px;
+    margin-bottom: 12px;
+    margin-top: 25px;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  .event-information-content {
+    i.zmdi {
+      margin-right: 12px;
+      line-height: 24px;
+      width: 20px;
+      float: left;
+    }
+
+    .event-info-sender {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 10px;
+      line-height: 0; // fix IE display bug
+    }
+  }
+
+  .col-md-6.pr-xxs {
+    padding-right: 0 !important;
+
+    @media screen and (min-width: $screen-md-min) {
+      padding-right: 8px !important;
+    }
+  }
+
+  .col-md-6.pl-xxs {
+    padding-left: 0 !important;
+
+    @media screen and (min-width: $screen-md-min) {
+      padding-left: 8px !important;
+    }
+  }
+}

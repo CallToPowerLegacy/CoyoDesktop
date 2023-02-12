@@ -1,0 +1,43 @@
+<div class="subscriptions-widget">
+  <div ng-if="!$ctrl.data['page'].empty || !$ctrl.data['workspace'].empty">
+    <div ng-repeat-start="type in ::['page', 'workspace'] track by $index" ng-if="!$ctrl.data[type].empty"
+         class="{{$ctrl.getComponentId(type)}}">
+      <div class="subscriptions-widget-title mb-xxs">
+        <a class="pull-right clickable" ng-hide="$ctrl.data[type].showFilter" ng-click="::$ctrl.toggleFilter(type)">
+          <i class="zmdi zmdi-search zmdi-hc-fw"></i>
+        </a>
+        <a class="pull-right clickable {{$ctrl.getComponentId(type)}}" ng-show="$ctrl.data[type].showFilter"
+           ng-click="::$ctrl.forceCloseFilter(type)">
+          <i class="zmdi zmdi-close zmdi-hc-fw {{$ctrl.getComponentId(type)}}"></i>
+        </a>
+        <div class="text-muted text-uppercase header" ng-hide="$ctrl.data[type].showFilter">
+          {{$ctrl.widget.settings._titles[$index] || ("WIDGET.SUBSCRIPTIONS." + (type | uppercase) | translate)}}
+        </div>
+        <input type="text" class="filter filter-{{::type}}" ng-show="$ctrl.data[type].showFilter"
+               ng-model="$ctrl.data[type].searchTerm" ng-model-options="{updateOn: 'default blur', debounce: {'default': $root.debounce.sm, 'blur': 0}}"
+               ng-change="::$ctrl.loadMore(type, true)" ng-click="$event.stopPropagation()" ng-blur="$ctrl.softCloseFilter(type)"
+               click-outside="$ctrl.softCloseFilter(type)" outside-if-not="{{$ctrl.getComponentId(type)}}">
+      </div>
+
+      <ul class="nav nav-default nav-icons subscriptions-widget-list-{{:: type }}">
+        <li ng-repeat="sender in $ctrl.data[type].items track by sender.id">
+          <a class="sender-display-name" ng-click="::$ctrl.open(sender)" title="{{:: sender.displayName }}"><i class="zmdi zmdi-{{:: $ctrl.data[type].icon }}"></i> {{:: sender.displayName }}</a>
+        </li>
+        <coyo-filter-expand on-click="$ctrl.loadMore(type, false)" ng-hide="$ctrl.data[type].loading || $ctrl.data[type].currentPage.last"></coyo-filter-expand>
+      </ul>
+
+      <div class="text-muted mv-xs" ng-show="!$ctrl.data[type].loading && !$ctrl.data[type].items.length">
+        <em translate="SEARCH.NO_RESULT"></em>
+      </div>
+      <div class="text-center mv-xs" ng-show="$ctrl.data[type].loading">
+        <coyo-spinner size="sm"></coyo-spinner>
+      </div>
+    </div>
+
+    <hr ng-repeat-end ng-if="!$last && !$ctrl.data['page'].empty && !$ctrl.data['workspace'].empty">
+  </div>
+
+  <div class="text-muted" ng-if="$ctrl.data['page'].empty && $ctrl.data['workspace'].empty">
+    <em translate="WIDGET.SUBSCRIPTIONS.EMPTY"></em>
+  </div>
+</div>

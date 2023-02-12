@@ -1,0 +1,38 @@
+<div class="coyo-manage-translations" ng-if="$ctrl.multiLanguageActive === 'true'">
+  <!-- Activate translations -->
+  <button class="btn btn-primary" ng-click=":: $ctrl.open()" ng-if="!$ctrl.enabled">
+    <i class="zmdi zmdi-translate"></i>&nbsp;{{:: 'COMMONS.TRANSLATIONS.ACTIVATE' | translate }}
+  </button>
+  <!-- Select translations or open conf dialog -->
+  <div class="container-ui-select-translation" ng-if="$ctrl.enabled">
+    <ui-select ui-select-mobile="{{:: 'COMMONS.TRANSLATIONS.LABEL.TRANSLATIONS' | translate}}"
+               ng-model="$ctrl.current"
+               search-enabled="false"
+               ng-class="{'invalid': $ctrl.checkValidity(), '{{::$ctrl.styleClass}}': !!$ctrl.styleClass}"
+               class="ui-select-translation ui-select-with-settings">
+      <ui-select-match placeholder="{{:: 'COMMONS.TRANSLATIONS.LABEL.TRANSLATIONS' | translate}}" allow-clear="false">
+        <div>
+          <coyo-country-flag country="$ctrl.current" form="rounded"></coyo-country-flag>
+          <span class="country-name">{{'LANGUAGE.LANGUAGES.' + $ctrl.current | uppercase | translate}}</span>
+          <i class="zmdi zmdi-delete" ng-click="$ctrl.deleteTranslation($event, $ctrl.current)" ng-if="$ctrl.current !== $ctrl.default"></i>
+        </div>
+      </ui-select-match>
+      <ui-select-choices
+          repeat="language.key as (key, language) in $ctrl.selectableLanguages | filter: {'value': {'active': true}} | orderBy:'value.name'">
+        <div ng-if="language.key !== 'config'" class="ui-select-languages" ng-click="$ctrl.applyTranslations(language.key)">
+          <coyo-country-flag country="language.key" form="rounded"></coyo-country-flag>
+          <span class="country-name">{{:: 'LANGUAGE.LANGUAGES.' + language.key | uppercase | translate}}</span>
+          <i class="zmdi"
+             ng-class="{'zmdi-check': $ctrl.languages[language.key].valid === true,
+                        'zmdi-close': $ctrl.languages[language.key].valid === false,
+                        'zmdi-plus': $ctrl.checkTranslation(language.key)}"
+             ng-if="!$ctrl.hideValidation"></i>
+        </div>
+        <div ng-if="language.key === 'config'" ng-click=":: $ctrl.open()" class="ui-select-config">
+          <i class="zmdi zmdi-hc-fw zmdi-settings"></i>
+          {{:: 'COMMONS.TRANSLATIONS.LABEL.CONFIG_LANGUAGES' | translate}}
+        </div>
+      </ui-select-choices>
+    </ui-select>
+  </div>
+</div>

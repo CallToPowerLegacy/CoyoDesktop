@@ -1,0 +1,67 @@
+<div class="text-center m-m" ng-if="$ctrl.loading">
+  <coyo-spinner></coyo-spinner>
+</div>
+<div class="event-list-component" ng-if="!$ctrl.loading">
+  <coyo-tour-step topic="events" order="105" placement="bottom" no-highlight="true" popup-class="mt-l"
+                  ng-if="::$ctrl.showTour"
+                  title="{{:: 'TOUR.EVENTS.LIST.TITLE' | translate }}"  step-id="events.list"
+                  content="{{:: 'TOUR.EVENTS.LIST' | translate }}"></coyo-tour-step>
+
+  <coyo-divider ng-if="::$ctrl.showDivider($index)" ng-repeat-start="event in $ctrl.page.content">
+    <b ng-if="$ctrl.isToday(event.startDate)" translate="MODULE.EVENTS.TODAY"></b>
+    <span ng-if="!$ctrl.isToday(event.startDate)">
+      <b>{{:: event.startDate | amDateFormat:'dddd' }}</b>,
+      {{:: event.startDate | amDateFormat:$root.dateFormat.long }}
+    </span>
+  </coyo-divider>
+
+  <div class="panel panel-default event-card" ng-repeat-end>
+    <div class="panel-body">
+      <div class="ribbon" ng-if="::$ctrl.isOngoing(event.startDate, event.endDate)">
+        <p class="ribbon-new" translate="MODULE.EVENTS.ONGOING"></p>
+      </div>
+      <coyo-event-avatar event="::event" class="visible-xs visible-sm" show-overlay="true"></coyo-event-avatar>
+      <coyo-event-avatar event="::event" avatar-size="xl" class="hidden-sm hidden-xs"
+                         show-overlay="true"></coyo-event-avatar>
+      <div class="page-card-heading">
+        <h4 class="event-title pointer"
+            ng-if="$root.screenSize.isMd || $root.screenSize.isLg"
+            ui-sref="main.event.show({idOrSlug: event.slug})"
+            ui-sref-opts="{reload: 'main.event.show', inherit: false}">{{:: event.displayName }}</h4>
+        <h4 class="event-title pointer"
+            ng-if="$root.screenSize.isXs || $root.screenSize.isSm"
+            ui-sref="main.event.show.information({idOrSlug: event.slug})"
+            ui-sref-opts="{reload: 'main.event.show', inherit: false}">{{:: event.displayName }}</h4>
+        <span class="tour-placeholder-container"><!-- avoid flex positioning -->
+          <coyo-event-participation event="event" disable-change="::$ctrl.hasStarted(event.startDate)"
+                                    ng-if="event.canParticipate()"></coyo-event-participation>
+          <coyo-tour-step ng-if=":: !ctrl.isAutoSubscribe(event) && $ctrl.showTour"
+                          topic="events" order="115" placement="left" step-id="events.attend"
+                          title="{{:: 'TOUR.EVENTS.ATTEND.TITLE' | translate }}"
+                          content="{{:: 'TOUR.EVENTS.ATTEND' | translate }}"></coyo-tour-step>
+        </span>
+      </div>
+      <div class="page-card-content">
+        <p class="event-description">{{:: event.description }}</p>
+        <div class="event-labels">
+          <span class="label label-muted"><i class="zmdi text-muted" ng-class="::event.public ? 'zmdi-globe' : 'zmdi-lock'"></i></span>
+          <coyo-event-date-label event="::event"></coyo-event-date-label>
+          <span class="label label-muted label-desktop" ng-if="event.sender"><i
+              class="zmdi zmdi-wide zmdi-account-circle"></i>&nbsp;{{:: event.sender.displayName }}</span>
+          <span class="label label-muted" ng-if="event.place"><i class="zmdi zmdi-wide zmdi-pin"></i>&nbsp;{{:: event.place }}</span>
+          <span class="label label-muted label-desktop"><i class="zmdi zmdi-wide zmdi-accounts"></i>&nbsp;{{:: event.memberCount }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- empty text -->
+  <div class="text-center text-muted ph-l pv-s"
+       ng-show="!$ctrl.loading && !$ctrl.page.totalElements" translate="MODULE.EVENTS.EMPTY">
+  </div>
+
+  <!-- pagination -->
+  <div class="col-xs-12" ng-if="$ctrl.page">
+    <coyo-table-pagination page="$ctrl.page"></coyo-table-pagination>
+  </div>
+</div>

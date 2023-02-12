@@ -1,0 +1,29 @@
+<form name="form" role="form" coyo-form-submit="$ctrl.save()" novalidate>
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="MODULE.REPORT.MODAL.TITLE"></h3>
+      <span class="modal-close" ng-click="$dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+    </div>
+    <div class="modal-body">
+      <p translate="MODULE.REPORT.MODAL.TEXT"></p>
+      <textarea ng-model="$ctrl.message" required="true" class="form-control resize-v resize-max"
+                ng-attr-placeholder="{{:: 'MODULE.REPORT.MODAL.PLACEHOLDER' | translate }}"
+                msd-elastic rows="3"></textarea>
+      <div class="form-horizontal check-anonymous-report">
+        <div class="form-group">
+          <div class="col-sm-11">
+            <label>
+              <coyo-checkbox id="reportAnonymous" name="reportAnonymous" ng-model="$ctrl.anonymous"></coyo-checkbox>&nbsp;
+              {{:: 'MODULE.REPORT.MODAL.ANONYMOUS.LABEL' | translate }}
+            </label>
+          </div>
+          <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="MODULE.REPORT.MODAL.ANONYMOUS.HELP"></coyo-help>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <coyo-form-submit-button label="MODULE.REPORT.MODAL.SUBMIT" form-ctrl="form"></coyo-form-submit-button>
+  </div>
+</form>

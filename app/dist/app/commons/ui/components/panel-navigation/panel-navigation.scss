@@ -1,0 +1,46 @@
+// DESKTOP
+.panel-navigation {
+  .panel {
+    @media screen and (min-width: $screen-md-min) {
+      padding-bottom: 16px;
+    }
+
+    .panel-body {
+      position: relative;
+
+      &:hover .btn-delete-group {
+        display: block;
+        right: 8px;
+        top: 10px;
+      }
+    }
+  }
+
+  .filterbox {
+    &.filterbox-vertical .filter {
+      .nav {
+        padding: 0;
+
+        .angular-ui-tree-placeholder {
+          width: 100%;
+          background-color: $color-gray-lighter;
+          border: 1px dashed $color-gray;
+          /* Fix bug that placeholder height is broken when context menu is open on d&d */
+          height: auto !important;
+        }
+      }
+    }
+  }
+}
+
+fb-filter,
+.nav-default {
+  &.angular-ui-tree-drag {
+    opacity: 1;
+
+    .filter-entry {
+      background-color: $color-white;
+      border: 1px dashed $color-gray;
+    }
+  }
+}

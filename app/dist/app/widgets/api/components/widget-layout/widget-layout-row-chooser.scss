@@ -1,0 +1,36 @@
+.widget-layout-row-chooser {
+  .widget-layout-row-types {
+    margin-top: -20px;
+    margin-left: -20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    .widget-layout-row-type {
+      width: 132px;
+      flex: 132px 0 0;
+      padding: 12px;
+      border-radius: 5px;
+      margin-top: 20px;
+      margin-left: 20px;
+      border: 1px solid $color-gray-light;
+
+      display: flex;
+
+      .slot-placeholder {
+        background-color: $color-gray-light;
+        height: 36px;
+        margin: 0 4px;
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: $color-gray-lighter;
+
+        .slot-placeholder {
+          background-color: $color-gray;
+        }
+      }
+    }
+  }
+}

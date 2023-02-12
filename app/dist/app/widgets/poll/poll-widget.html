@@ -1,0 +1,36 @@
+<div class="panel panel-default panel-sm">
+  <h3 class="question-title">{{$ctrl.widget.settings.question}}</h3>
+  <p class="question-description text-muted">{{$ctrl.widget.settings.description}}</p>
+  <p class="question-description text-muted">
+    <span ng-if="$ctrl.widget.settings.frozen"  class="badge badge-red" translate="WIDGET.POLL.WIDGET.FROZENREMARK"></span>
+    <span ng-if="$ctrl.widget.settings.anonymous"  class="badge badge-orange" translate="WIDGET.POLL.WIDGET.ANONYMOUSREMARK"></span>
+    <span  ng-if="$ctrl.widget.settings.maxAnswers > 1" class="badge badge-orange" translate="WIDGET.POLL.WIDGET.MAXANSWERSREMARK" translate-values="{ 'count': $ctrl.widget.settings.maxAnswers}">
+    </span>
+  </p>
+  <div class="question-container">
+    <div class="question-row" ng-repeat="option in $ctrl.checkableOptions track by $index">
+      <div class="question-radio checkbox" ng-if="!$ctrl.settingsMode">
+        <label>
+          <button type="button" class="coyo-checkbox btn btn-default" ng-class="{'checked': option.checked===true}"
+                  ng-model="option.checked" id="checkBoolean" ng-click="$ctrl.toggleOption(option, $index)" ng-disabled="!$ctrl.canVote(option)">
+            <i class="zmdi zmdi-hc-fw" ng-class="{'zmdi-check': option.checked===true}"></i>
+          </button>
+        </label>
+      </div>
+
+      <div class="question-answer">
+        <div class="vote-container" ng-if="$ctrl.widget.settings.showResults || $ctrl.settingsMode">
+          <div class="vote-bar" ng-style="{'width': option.percentage+'%'}"></div>
+        </div>
+        <div>{{option.answer}}</div>
+      </div>
+      <div class="question-votes" ng-class="{'clickable': !$ctrl.widget.settings.anonymous}" ng-if="$ctrl.widget.settings.showResults || $ctrl.settingsMode" ng-click="$ctrl.showVoters(option)">
+        <b>{{option.votes}}</b>
+        <div ng-switch="option.votes">
+          <small ng-switch-when="1" translate="WIDGET.POLL.WIDGET.VOTE"></small>
+          <small ng-switch-default translate="WIDGET.POLL.WIDGET.VOTES"></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

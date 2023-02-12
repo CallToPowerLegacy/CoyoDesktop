@@ -1,0 +1,36 @@
+.panel-footer.panel-footer-status {
+  display: flex;
+  font-size: 14px;
+  padding-bottom: 10px;
+  padding-top: 12px;
+
+  .status-options-left {
+    flex: 1;
+
+    .status-option {
+      margin-right: 16px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .status-options-right {
+    flex: none;
+    margin-left: 12px;
+    text-align: right;
+
+    .status-option {
+      margin-left: 8px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .dropdown {
+    top: -2px;
+  }
+}

@@ -1,0 +1,11 @@
+<button class="page-subscribe btn btn-zmdi {{:: $ctrl.size ? ('btn-' + $ctrl.size) : '' }}"
+        ng-class="{ 'btn-default': !$ctrl.darkTheme && !$ctrl.subscribed,
+                    'btn-dark': $ctrl.darkTheme && !$ctrl.subscribed,
+                    'btn-success': $ctrl.subscribed }"
+        ng-click="$ctrl.toggle($event)"
+        ng-show="$ctrl.show && !$ctrl.autoSubscribe">
+  <i class="zmdi zmdi-hc-fw" ng-class="{ 'zmdi-notifications-active': !$ctrl.loading && $ctrl.subscribed,
+                                         'zmdi-notifications-none': !$ctrl.loading && !$ctrl.subscribed,
+                                         'zmdi-spinner zmdi-hc-spin': $ctrl.loading }"></i><!--
+--><span class="btn-mobile-label">{{$ctrl.subscribed ? 'PAGE.SUBSCRIBED' : 'PAGE.SUBSCRIBE' | translate }}</span>
+</button>

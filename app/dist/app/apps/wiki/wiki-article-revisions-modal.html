@@ -1,0 +1,35 @@
+<div class="modal-content-wrapper">
+  <div class="modal-header">
+    <h3 class="modal-title" translate="APP.WIKI.HISTORY.TITLE"></h3>
+    <span class="modal-close" ng-click="$dismiss()"><i class="zmdi zmdi-close img-close"></i></span>
+  </div>
+  <div class="modal-body">
+    <ul class="list-unstyled">
+      <li ng-repeat="rev in vm.revisions" class="wiki-article-history-revision">
+        <span class="wiki-article-history-time">
+          <span ng-if="rev.revisionNumber === vm.currentRevisionNumber" class="text-muted">
+            <i class="zmdi zmdi-hc-fw" ng-class="{'zmdi-star': $first, 'zmdi-time-restore': !$first}"></i>
+              <span class="visible-xs-inline visible-sm-inline">{{::rev.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short}}</span>
+              <span class="hidden-xs hidden-sm">{{::rev.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short}}</span>
+          </span>
+          <a ng-if="rev.revisionNumber !== vm.currentRevisionNumber" href ng-click="$close(rev.revisionNumber)">
+            <i class="zmdi zmdi-hc-fw" ng-class="{'zmdi-star': $first, 'zmdi-time-restore': !$first}"></i>
+            <span class="visible-xs-inline visible-sm-inline">{{::rev.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short}}</span>
+            <span class="hidden-xs hidden-sm">{{::rev.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short}}</span>
+          </a>
+        </span>
+        <span class="wiki-article-history-author" ng-if="::rev.author">
+          <a coyo-sender-link="rev.author">
+            <i class="zmdi zmdi-hc-fw zmdi-account-circle"></i> {{::rev.author.displayName}}
+          </a>
+        </span>
+      </li>
+    </ul>
+    <div class="text-center mt-s" ng-show="vm.loading">
+      <coyo-spinner></coyo-spinner>
+    </div>
+    <div ng-if="vm.currentPage && !vm.currentPage.last" class="text-center mt-s">
+      <a href class="btn btn-xs btn-primary" ng-click="vm.loadMore()" translate="MORE"></a>
+    </div>
+  </div>
+</div>

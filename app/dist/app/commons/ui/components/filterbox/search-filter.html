@@ -1,0 +1,11 @@
+<div class="search-filter">
+  <i class="zmdi zmdi-search pointer" ng-class="{'active': $ctrl.filterFocus}"></i>
+  <input type="text"
+         class="input-filter"
+         ng-model="$ctrl.searchTerm"
+         ng-change="$ctrl.search()"
+         ng-focus="$ctrl.filterFocus = true"
+         ng-blur="$ctrl.filterFocus = false"
+         ng-model-options="{ updateOn: 'default blur', debounce: {'default': $root.debounce.sm, 'blur': 0} }"
+         placeholder="{{:: $ctrl.placeholder | translate }}">
+</div>

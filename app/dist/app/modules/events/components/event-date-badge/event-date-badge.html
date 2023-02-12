@@ -1,0 +1,5 @@
+<div class="event-date-badge">
+  <div class="event-day">{{:: date | amDateFormat : 'DD' }}</div>
+  <div class="event-month">{{:: date | amDateFormat : 'MMM' }}</div>
+  <div class="event-year" ng-if="!hideYear">{{:: date | amDateFormat : 'YYYY' }}</div>
+</div>

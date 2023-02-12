@@ -1,0 +1,23 @@
+.navbar.navbar-admin {
+  background-color: $color-background-admin-nav !important;
+
+  @media screen and (min-width: $screen-md-min) {
+    display: none;
+  }
+
+  @media screen and (min-width: $screen-lg-min) {
+    position: static;
+  }
+
+  .coyo-navbar-flex {
+    max-width: none;
+  }
+
+  .nav > li > a {
+    color: $color-white !important;
+  }
+
+  .nav > li > a:hover, .nav > li > a:focus {
+    background-color: darken($color-background-admin-nav, 5%) !important;
+  }
+}

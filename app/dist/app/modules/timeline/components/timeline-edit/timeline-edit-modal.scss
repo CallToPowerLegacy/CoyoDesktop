@@ -1,0 +1,32 @@
+.timeline-edit-modal {
+
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+
+    .alert {
+      margin-bottom: 12px;
+    }
+  }
+
+  textarea[name=message].form-control {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    resize: none;
+    padding: 0;
+
+    @media screen and (min-width: $screen-sm-min) {
+      min-height: 150px;
+      background: $color-white;
+      padding: 12px;
+      border: solid 1px $color-gray-light;
+      margin: 6px 0 22px;
+    }
+
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+}

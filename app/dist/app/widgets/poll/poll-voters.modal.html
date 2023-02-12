@@ -1,0 +1,28 @@
+<div class="btn-voters-modal">
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="WIDGET.POLL.WIDGET.MODAL.TITLE"></h3>
+      <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+    </div>
+    <div class="modal-body">
+      <div ng-repeat="voter in vm.voters" class="voter">
+        <coyo-sender-avatar sender="voter" avatar-size="xs"></coyo-sender-avatar>
+        <span class="pl-xxs"></span>
+        <a coyo-sender-link="voter">{{voter.displayName}}</a>
+      </div>
+
+      <!-- empty text -->
+      <div class="text-center text-muted ph-s pv-xxs"
+           ng-if="!vm.loading && !vm.currentPage.totalElements" translate="WIDGET.POLL.WIDGET.NOVOTES">
+      </div>
+
+      <!-- spinner / loading -->
+      <div ng-if="vm.loading" class="text-center">
+        <coyo-spinner></coyo-spinner>
+      </div>
+
+      <!-- load more -->
+      <button class="btn btn-primary btn-more btn-xs" ng-click="vm.loadMore()" ng-if="!vm.currentPage.last && !vm.loading" translate="MORE"></button>
+    </div>
+  </div>
+</div>

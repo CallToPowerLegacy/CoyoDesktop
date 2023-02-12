@@ -1,0 +1,102 @@
+<div class="messaging-channel">
+  <oyoc-messaging-channel-header msg-sidebar="$ctrl.msgSidebar" loading="$ctrl.loading" channel="$ctrl.channel"
+                                 current-user="$ctrl.currentUser"></oyoc-messaging-channel-header>
+
+  <div class="messaging-content" id="message-scrolling-container" scroll-glue>
+
+    <!-- Loop over message -->
+    <div id="message-{{:: message.id }}" ng-repeat="message in $ctrl.messages">
+
+      <!-- Time jump divider -->
+      <coyo-divider ng-if="::($first || (message.created - $ctrl.messages[$index-1].created) > 300000)">
+        <coyo-time-ago date="::message.created"></coyo-time-ago>
+        <span ng-if="$first && $ctrl.messages.length < $ctrl.currentPage.totalElements">-</span>
+        <a ng-if="$first && $ctrl.messages.length < $ctrl.currentPage.totalElements"
+           ng-click="$ctrl.loadMore()"
+           translate="MODULE.MESSAGING.MESSAGES.LOAD_MORE"></a>
+      </coyo-divider>
+
+      <!-- Notification message -->
+      <div class="message-notification"
+           ng-if="::message.data.notification"
+           title="{{:: message.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short }}"
+           ng-bind-html="::message.data.notification.messageKey | translate:message.data.notification.messageArgs | boldify">
+      </div>
+
+      <!-- Message -->
+      <div class="message"
+           title="{{:: message.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ', ' + $root.timeFormat.short }}"
+           ng-if="::message.data.message || message.attachments.length"
+           ng-class="{'hide-author': !message.author || message.author.id === $ctrl.currentUser.id || $ctrl.channel.type !== 'GROUP',
+                      'hide-text': !message.data.message.length,
+                       own: message.author.id == $ctrl.currentUser.id,
+                       animate : message.animate}">
+        <div class="message-body">
+          <div class="message-author"
+               ng-if="::message.author && $ctrl.channel.type === 'GROUP'"
+               ng-style="::{color: message.author.color}">{{:: message.author.displayName }}
+          </div>
+          <div class="message-text" ng-bind-html="::message.data.message | markdown | hashtag"></div>
+        </div>
+
+        <!-- Message attachments -->
+        <div class="message-attachments" ng-if="::message.attachments.length">
+          <coyo-preview-list attachments="::message.attachments"
+                             group-id="::message.channelId"
+                             backend-url="::$ctrl.backendUrl"
+                             author="::message.author"
+                             preview-url="::$ctrl.previewUrl"
+                             size="xl"></coyo-preview-list>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="messaging-channel-footer">
+    <div class="message-form-controls"><!-- Emoji Picker
+   --><coyo-emoji-picker class="hidden-xs"
+                         ng-model="$ctrl.newMessage.data.message"
+                         focus-var="$ctrl.focusMessageFormField"
+                         placement="top"></coyo-emoji-picker><!-- Select File
+   --><a ngf-select="$ctrl.addAttachments($files, $invalidFiles)" ngf-multiple="true" ng-disabled="$ctrl.saving">
+        <i class="zmdi zmdi-attachment-alt" ng-class="{'item-active': $ctrl.newMessageAttachments.length}"
+           uib-tooltip="{{::'MODULE.MESSAGING.UPLOAD.TIP' | translate}}"
+           tooltip-placement="right" tooltip-popup-delay="500"></i>
+      </a>
+    </div>
+    <div class="message-form-attachments">
+      <div class="message-form-attachment"
+           ng-repeat="attachment in $ctrl.newMessageAttachments | limitTo:20"
+           ng-class="{uploading: attachment.uploading, done: (attachment.progress === 100)}">
+        <div class="message-form-attachment-name">
+          <coyo-file-icon file="::attachment"></coyo-file-icon>
+          {{::attachment.name}}
+        </div>
+        <div class="message-form-attachment-opt">
+          <span class="text-muted" ng-if="attachment.uploading">{{attachment.progress}}%</span>
+          <a ng-if="!attachment.uploading" ng-click="$ctrl.removeAttachment(attachment)">
+            <i class="zmdi zmdi-close-circle-o"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="message-form-row">
+      <textarea class="form-control"
+                rows="1"
+                ng-attr-placeholder="{{::'MODULE.MESSAGING.MESSAGE.PLACEHOLDER' | translate}}"
+                ng-model="$ctrl.newMessage.data.message"
+                ng-required="true"
+                ng-keydown="$ctrl.messageFormFieldKeyDown($event)"
+                focus-if="$ctrl.focusMessageFormField"
+                ng-blur="$ctrl.focusMessageFormField = false"
+                msd-elastic></textarea>
+      <button type="submit"
+              ng-click="$ctrl.submitMessage($event)"
+              class="btn btn-link btn-zmdi pull-right"
+              ng-disabled="$ctrl.saving || $ctrl.isUploading() || (!$ctrl.newMessage.data.message && !$ctrl.newMessageAttachments.length)">
+        <i class="zmdi zmdi-mail-send"></i>
+      </button>
+    </div>
+  </div>
+</div>

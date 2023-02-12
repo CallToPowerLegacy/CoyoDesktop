@@ -1,0 +1,20 @@
+.reports-list {
+
+  .table {
+    margin: 0;
+
+    tr:first-child td {
+      border-top: 0;
+    }
+  }
+
+  blockquote {
+    font-size: 1em;
+    padding: 8px 16px;
+    margin: 0;
+
+    p {
+      margin-bottom: 4px;
+    }
+  }
+}

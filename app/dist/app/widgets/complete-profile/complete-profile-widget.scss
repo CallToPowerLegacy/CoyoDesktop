@@ -1,0 +1,36 @@
+.complete-profile-widget {
+
+  dl dd {
+    line-height: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    i.zmdi {
+      margin-left: 3px;
+
+      &.zmdi-close {
+        color: $color-red;
+        margin-right: 15px;
+      }
+
+      &.zmdi-check {
+        color: $color-green;
+        margin-right: 13px;
+      }
+    }
+
+    a {
+      color: $color-gray-darker;
+
+      &.completed{
+        color: $color-gray;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

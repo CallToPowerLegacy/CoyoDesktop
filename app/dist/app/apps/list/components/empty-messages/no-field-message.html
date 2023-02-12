@@ -1,0 +1,10 @@
+<div ng-if="$ctrl.managePermission" class="list-app-no-fields">
+    <span class="list-app-icon-big">
+        <i class="zmdi zmdi-hc-fw zmdi-settings"></i>
+    </span>
+    <span class="list-app-empty-text text-muted" translate="APP.LIST.CONFIGURE.NO_FIELDS"></span>
+    <button class="btn btn-primary btn-configure" ng-click="$ctrl.createFn()" translate="APP.LIST.FIELD.ADD"></button>
+</div>
+<div ng-if="!$ctrl.managePermission" class="list-app-no-fields">
+    <span class="list-app-empty-text text-muted" translate="APP.LIST.NOT_CONFIGURED"></span>
+</div>

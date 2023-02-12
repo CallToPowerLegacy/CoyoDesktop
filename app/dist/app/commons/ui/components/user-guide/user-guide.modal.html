@@ -1,0 +1,56 @@
+<!-- Spinner -->
+<div class="modal-content-wrapper" ng-show="vm.loading">
+  <div class="modal-body text-center pt-xs">
+    <coyo-spinner size="sm"></coyo-spinner>
+  </div>
+</div>
+
+<!-- Not Found -->
+<div class="modal-content-wrapper" ng-if="vm.notFound">
+  <div class="modal-header">
+    <h3 class="modal-title">{{::'USER_GUIDE.NOT_FOUND.TITLE'|translate}}</h3>
+    <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss('cancel')">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+
+  <div class="modal-body">
+    <p translate="USER_GUIDE.NOT_FOUND.TEXT"></p>
+  </div>
+
+  <div class="modal-footer">
+    <a href="{{::vm.userGuideUrl}}" target="_blank" class="btn btn-primary" translate="USER_GUIDE.MORE"></a>
+  </div>
+</div>
+
+<!-- Error -->
+<div class="modal-content-wrapper" ng-if="vm.error">
+  <div class="modal-header">
+    <h3 class="modal-title">{{::'USER_GUIDE.ERROR.TITLE'|translate}}</h3>
+    <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss('cancel')">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+
+  <div class="modal-body"><p>{{::'USER_GUIDE.ERROR.TEXT'|translate}}</p></div>
+</div>
+
+<!-- Content -->
+<div class="modal-content-wrapper" ng-if="vm.content">
+  <div class="modal-header">
+    <h3 class="modal-title">
+      <strong translate="USER_GUIDE.TITLE_PREFIX"></strong> {{vm.guide}}
+    </h3>
+    <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss('cancel')">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+
+  <div class="modal-body">
+    <div ng-bind-html="vm.content | markdown:false"></div>
+  </div>
+
+  <div class="modal-footer">
+    <a href="{{::vm.userGuideUrl}}" target="_blank" class="btn btn-primary" translate="USER_GUIDE.MORE"></a>
+  </div>
+</div>

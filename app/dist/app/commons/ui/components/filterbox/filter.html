@@ -1,0 +1,4 @@
+<div class="filter" ng-class="{loading: $ctrl.loading}">
+  <div class="filter-title text-muted text-uppercase" ng-if="::$ctrl.titleKey" translate="{{::$ctrl.titleKey}}"></div>
+  <ul class="nav nav-default" ng-transclude ng-class="::{'nav-icons': !$ctrl.noIcons}"></ul>
+</div>

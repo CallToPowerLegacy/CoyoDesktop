@@ -1,0 +1,186 @@
+<section class="pages-list content-with-sidebar">
+  <div class="content-sidebar">
+
+    <!-- Widget Slot -->
+    <coyo-widget-slot class="widget-slot-sidebar hidden-xs hidden-sm"
+                 name="pages-list-top"
+                 hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+    <div ui-tree="::ctrl.treeOptions" empty-placeholder-enabled="false" max-depth="1" ng-class="::{'category-manager': ctrl.canManagePageCategories}">
+      <div ui-tree-nodes ng-model="ctrl.categories">
+        <coyo-filterbox vertical="true" class="panel-navigation">
+          <fb-actions>
+            <li>
+              <a ui-sref="main.page.create" class="tour-placeholder-container" coyo-global-permissions="CREATE_PAGE">
+                <i class="zmdi zmdi-plus-circle"></i>&nbsp;{{:: 'MODULE.PAGES.CREATE.TITLE' | translate}}
+                <coyo-tour-step topic="pages" order="110" placement="bottom" step-id="pages.create"
+                                title="{{:: 'TOUR.PAGES.CREATE.TITLE' | translate }}"
+                                content="{{:: 'TOUR.PAGES.CREATE' | translate }}"></coyo-tour-step>
+              </a>
+            </li>
+          </fb-actions>
+          <fb-filter max-depth="1">
+            <coyo-filter class="filter-categories" title-key="MODULE.PAGES.FILTER.STATUS">
+              <coyo-filter-entry text-key="MODULE.PAGES.FILTER.ALL"
+                                 icon="zmdi-check-all"
+                                 active="ctrl.isStatus(ctrl.filterStatus.ALL)"
+                                 on-click="ctrl.setFilterStatus(ctrl.filterStatus.ALL)"
+                                 badge="ctrl.getStatusCount(ctrl.filterStatus.ALL)">
+              </coyo-filter-entry>
+              <coyo-filter-entry text-key="MODULE.PAGES.FILTER.SUBSCRIBED"
+                                 icon="zmdi-notifications"
+                                 active="ctrl.isStatus(ctrl.filterStatus.SUBSCRIBED)"
+                                 on-click="ctrl.setFilterStatus(ctrl.filterStatus.SUBSCRIBED)"
+                                 badge="ctrl.getStatusCount(ctrl.filterStatus.SUBSCRIBED)">
+              </coyo-filter-entry>
+              <coyo-filter-entry text-key="MODULE.PAGES.FILTER.ADMIN"
+                                 icon="zmdi-settings"
+                                 active="ctrl.isStatus(ctrl.filterStatus.ADMIN)"
+                                 on-click="ctrl.setFilterStatus(ctrl.filterStatus.ADMIN)"
+                                 badge="ctrl.getStatusCount(ctrl.filterStatus.ADMIN)">
+              </coyo-filter-entry>
+            </coyo-filter>
+            <coyo-filter class="filter-categories" title-key="MODULE.PAGES.FILTER.CATEGORY">
+              <coyo-filter-entry text-key="MODULE.PAGES.FILTER.ALL"
+                                 icon="zmdi-check-all"
+                                 active="ctrl.isCategoryActive()"
+                                 on-click="ctrl.toggleCategory()"
+                                 badge="ctrl.getTotalCount()">
+              </coyo-filter-entry>
+              <coyo-filter-entry ng-repeat="category in ctrl.categories"
+                                 ui-tree-node
+                                 class="filter-entry-options {{ctrl.isCategoryEdited(category) ? 'filter-entry-editing' : ''}}"
+                                 text="{{category.name}}"
+                                 icon="zmdi-layers"
+                                 active="ctrl.isCategoryActive(category)"
+                                 on-click="ctrl.toggleCategory(category)"
+                                 badge="category.count">
+                <div ng-if="::ctrl.canManagePageCategories" id="add-page-category-input-{{$index}}">
+                  <input ng-if="ctrl.isCategoryEdited(category)" type="text" ng-model="category.name" translate translate-attr-placeholder="PAGE.CATEGORY.NAME"
+                         ng-keypress="ctrl.onCategoryKeypress(category, $event)" click-outside="ctrl.onCategoryClickOutside(category)"
+                         outside-if-not="add-page-category add-page-category-input-{{$index}}">
+                  <span class="btn btn-zmdi btn-link btn-save" ng-click="ctrl.saveCategory(category, $event)"><i class="zmdi zmdi-check"></i></span>
+                  <span class="btn btn-zmdi btn-link btn-move" ui-tree-handle><i class="zmdi zmdi-swap-vertical"></i></span>
+                  <span class="btn btn-zmdi btn-link btn-edit" ng-click="ctrl.editCategory(category, $event)"><i class="zmdi zmdi-edit"></i></span>
+                  <span class="btn btn-zmdi btn-link btn-delete" ng-click="ctrl.deleteCategory(category, $event)"><i class="zmdi zmdi-delete"></i></span>
+                </div>
+              </coyo-filter-entry>
+              <coyo-filter-entry text="N/A"
+                                 icon="zmdi-layers"
+                                 active="ctrl.isCategoryActive({id: 'N/A'})"
+                                 on-click="ctrl.toggleCategory({id: 'N/A'})"
+                                 badge="ctrl.missingCount"
+                                 ng-show="ctrl.missingCount">
+              </coyo-filter-entry>
+            </coyo-filter>
+            <a class="fb-filter-action" id="add-page-category" ng-click="ctrl.addCategory($event)" class="btn btn-link" ng-if="::ctrl.canManagePageCategories">
+              <i class="zmdi zmdi-plus-circle-o"></i>{{:: 'PAGE.CATEGORY.ADD' | translate}}
+            </a>
+          </fb-filter>
+          <fb-search>
+            <coyo-search-filter change="ctrl.search" placeholder="MODULE.PAGES.FILTER.SEARCH" search-term="{{ctrl.query.term}}"></coyo-search-filter>
+          </fb-search>
+        </coyo-filterbox>
+      </div>
+    </div>
+
+    <coyo-tour-step-mobile topic="pages" order="105"
+                           image-url="assets/images/tour/tour-mobile-pages-list.jpg"
+                           title="{{:: 'TOUR.PAGES.LIST.TITLE' | translate }}"
+                           content="{{:: 'TOUR.PAGES.LIST' | translate }}"></coyo-tour-step-mobile>
+
+    <coyo-tour-step-mobile topic="pages" order="110"
+                           image-url="assets/images/tour/tour-mobile-pages-create.jpg"
+                           title="{{:: 'TOUR.PAGES.CREATE.TITLE' | translate }}"
+                           content="{{:: 'TOUR.PAGES.CREATE' | translate }}"></coyo-tour-step-mobile>
+
+    <coyo-tour-step-mobile topic="pages" order="115"
+                           image-url="assets/images/tour/tour-mobile-pages-subscribe.jpg"
+                           title="{{:: 'TOUR.PAGES.SUBSCRIBE.TITLE' | translate }}"
+                           content="{{:: 'TOUR.PAGES.SUBSCRIBE' | translate }}"></coyo-tour-step-mobile>
+
+    <!-- Widget Slot -->
+    <coyo-widget-slot class="widget-slot-sidebar hidden-xs hidden-sm"
+                 name="pages-list-bottom"
+                 hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+  </div>
+
+  <div class="content-main">
+
+    <!-- Widget Slot -->
+    <coyo-widget-slot class="widget-slot-content"
+                 name="pages-list-content"
+                 hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+    <coyo-tour-step topic="pages" order="105" placement="bottom" no-highlight="true" popup-class="mt-l"
+                    step-id="pages.list"
+                    title="{{:: 'TOUR.PAGES.LIST.TITLE' | translate }}"
+                    content="{{:: 'TOUR.PAGES.LIST' | translate }}"></coyo-tour-step>
+    <div class="row">
+      <div class="col-sm-6 col-md-12 col-xl-6" ng-repeat="page in ctrl.currentPage.content">
+        <div class="panel panel-default panel-sm page-card">
+          <div class="panel-body">
+            <div class="page-card-heading">
+              <!-- cover image -->
+              <div class="panel-card-cover">
+                <coyo-sender-cover-image image-url="page.imageUrls.cover" show-high-res="false"
+                                         ng-click="ctrl.openPage(page)"></coyo-sender-cover-image>
+              </div>
+
+              <!-- avatar image -->
+              <div class="page-avatar-wrapper" ng-click="ctrl.openPage(page)">
+                <coyo-page-avatar page="::page"></coyo-page-avatar>
+              </div>
+
+              <!-- subscription button / hint -->
+              <div class="page-subscribe-wrapper">
+                <span ng-if=":: ctrl.isAutoSubscribe(page)" class="page-autosubscription-hint">
+                  <span translate="PAGE.AUTOSUBSCRIBED"></span>
+                  <i class="zmdi zmdi-help page-autosubscription-help"
+                     uib-tooltip="{{:: 'PAGE.AUTOSUBSCRIBED.HELP' | translate }}"
+                     tooltip-placement="top auto"
+                     tooltip-append-to-body="true"></i>
+                </span>
+                <span ng-if="ctrl.subscriptionsLoaded == true" class="tour-placeholder-container">
+                  <coyo-page-subscribe page="::page" size="md"></coyo-page-subscribe>
+                  <coyo-tour-step ng-if=":: !ctrl.isAutoSubscribe(page)"
+                                  topic="pages" order="115" placement="left" step-id="pages.subscribe"
+                                  title="{{:: 'TOUR.PAGES.SUBSCRIBE.TITLE' | translate }}"
+                                  content="{{:: 'TOUR.PAGES.SUBSCRIBE' | translate }}"></coyo-tour-step>
+                </span>
+              </div>
+            </div>
+            <div class="page-card-body">
+              <h4 class="page-title pointer" ng-click="ctrl.openPage(page)">{{:: page.displayName }}</h4>
+              <div class="page-description" ng-if="!!page.description">{{:: page.description}}</div>
+              <div class="page-card-apps-list-wrapper">
+                <ul class="list-unstyled page-card-apps">
+                  <li ng-repeat="app in ::page.topApps">
+                    <a ng-click="ctrl.openApp(page, app)">{{:: app.name }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="page-card-footer">
+              <div class="page-card-labels">
+                <div class="page-card-labels-wrapper">
+                  <div class="label label-muted"><i class="zmdi zmdi-accounts"></i> {{:: page.userSubscriptionsCount }}</div>
+                  <div class="label label-muted" ng-repeat="category in ::page.categories | orderBy:'name'">{{:: category.name }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- empty text -->
+    <div class="text-center text-muted ph-l pv-s"
+         ng-show="!ctrl.loading && !ctrl.currentPage.totalElements" translate="MODULE.PAGES.EMPTY">
+    </div>
+
+    <div class="col-xs-12" ng-if="ctrl.currentPage">
+      <coyo-table-pagination page="ctrl.currentPage"></coyo-table-pagination>
+    </div>
+  </div>
+</section>

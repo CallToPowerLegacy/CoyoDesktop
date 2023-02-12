@@ -1,0 +1,188 @@
+.launchpad-backdrop {
+  background: radial-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.9));
+}
+.launchpad-modal {
+  .modal-dialog {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    transition: none;
+    .modal-content {
+      height: 100%;
+      background: none;
+      box-shadow: none;
+      border: 0;
+      overflow: scroll;
+      .close-icon {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        color: white;
+        i {
+          color: white;
+          font-size: 30px;
+          &:hover {
+            color: rgba(255, 255, 255, .8);
+          }
+        }
+        @media screen and (min-width: $screen-md-min) {
+          top: 40px;
+          right: 40px;
+        }
+      }
+      .launchpad-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .coyo-spinner {
+          margin-top: 50px;
+        }
+        .category {
+          max-width: 900px;
+          padding: 20px 0px;
+          .empty {
+            color: rgba(235, 235, 235, 1);
+            text-align: center;
+            font-style: italic;
+            display: block;
+            width: 100%;
+          }
+          h3 {
+            font-size: 30px;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+          }
+          .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            .link {
+              margin: 10px 20px;
+              position: relative;
+              .icon-wrapper {
+                background-color: rgba(255, 255, 255, 1);
+                width: 100px;
+                height: 100px;
+                padding: 20px;
+                border-radius: 50px;
+                overflow: hidden;
+                position: relative;
+                .icon {
+                  height: 100%;
+                  width: 100%;
+                  background-position: center center;
+                  background-size: contain;
+                  text-align: center;
+                  i{
+                    font-size: 40px;
+                    line-height: 60px;
+                    color: gray;
+                  }
+                }
+              }
+              &.new-link{
+                .icon-wrapper {
+                  border: 1px solid white;
+                  background-color: transparent;
+                  .icon {
+                    i{
+                      color: white;
+                    }
+                  }
+                }
+              }
+              .title {
+                span{
+                  color: white;
+                  margin-top: 10px;
+                  text-align: center;
+                  margin-right: 0px;
+                  display: inline-block;
+                  width: 100px;
+                  white-space: nowrap;
+                  overflow:hidden;
+                  text-overflow: ellipsis;
+                }
+                i {
+                  position: absolute;
+                  right: 0px;
+                  bottom: 12px;
+                  color: white;
+                  cursor:pointer;
+                  margin-left: 5px;
+                  &.zmdi-edit {
+                    display: none;
+                  }
+                }
+                &:hover{
+                  i.zmdi-edit{
+                    cursor: pointer;
+                    display: inline-block;
+                  }
+                }
+              }
+            }
+          }
+          &.edit {
+            width: 100%;
+            max-width: 500px;
+            .links {
+              justify-content: center;
+              .link{
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                align-items: center;
+                .upload {
+                  cursor: pointer;
+                  border-radius: 50px;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  height: 100%;
+                  width: 100%;
+                  background-color: rgba(0, 0, 0, .5);
+                  text-align: center;
+                  line-height: 120px;
+                  i {
+                    color: white;
+                    font-size: 40px;
+                  }
+                }
+                form {
+                  width: 100%;
+                  text-align: center;
+                  label {
+                    font-size: 20px;
+                    color: white;
+                    margin-top: 20px;
+                  }
+                  input {
+                    color: white;
+                    width: 100%;
+                    margin-top: 5px;
+                    padding: 0 10px;
+                    background-color: transparent;
+                    border: 2px dashed rgba(255, 255, 255, .7);
+                    @include placeholder-color (rgba(255, 255, 255, .7));
+                    height: 40px;
+                    border-radius: 5px;
+                  }
+                  .actions {
+                    margin-top: 20px;
+                    .btn {
+                      margin: 10px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

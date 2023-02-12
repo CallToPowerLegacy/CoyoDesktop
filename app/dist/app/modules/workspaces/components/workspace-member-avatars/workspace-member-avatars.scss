@@ -1,0 +1,16 @@
+.workspace-members {
+  display: flex;
+
+  .user-avatar {
+    margin-left: -15px;
+
+    @media screen and (min-width: $screen-md-min) {
+      margin-left: -12px;
+    }
+
+    .user-avatar-empty,
+    .user-avatar-image img {
+      box-shadow: 0 0 0 2px $color-white;
+    }
+  }
+}

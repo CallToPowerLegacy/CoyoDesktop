@@ -1,0 +1,33 @@
+<div class="form-group" ng-class="{'has-warning': !$ctrl.safeUrl}">
+  <label class="col-sm-2 control-label" translate="WIDGETS.VIDEO.SETTINGS.CONFIG.URL.LABEL"></label>
+  <div class="col-sm-9">
+    <input name="url" class="form-control" type="text" ng-model="$ctrl.model.settings.url" ng-change="$ctrl.checkUrl()"
+           translate translate-attr-placeholder="WIDGETS.VIDEO.SETTINGS.CONFIG.URL.PLACEHOLDER" required>
+    <p class="help-block" ng-show="!$ctrl.safeUrl">
+      <i class="zmdi zmdi-alert-triangle"></i>&nbsp;{{:: 'WIDGETS.VIDEO.SETTINGS.MESSAGE' | translate }}
+    </p>
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGETS.VIDEO.SETTINGS.CONFIG.URL.HELP"></coyo-help>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="WIDGETS.VIDEO.SETTINGS.CONFIG.TITLE.LABEL"></label>
+  <div class="col-sm-9">
+    <input name="title" class="form-control" type="text" ng-model="$ctrl.model.settings.title">
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGETS.VIDEO.SETTINGS.CONFIG.TITLE.HELP"></coyo-help>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label" translate="WIDGETS.VIDEO.SETTINGS.CONFIG.DESCRIPTION.LABEL"></label>
+  <div class="col-sm-9">
+    <input name="description" class="form-control" type="text" ng-model="$ctrl.model.settings.description">
+  </div>
+  <div class="col-sm-1 hidden-xs">
+    <coyo-help tip="WIDGETS.VIDEO.SETTINGS.CONFIG.DESCRIPTION.HELP"></coyo-help>
+  </div>
+</div>

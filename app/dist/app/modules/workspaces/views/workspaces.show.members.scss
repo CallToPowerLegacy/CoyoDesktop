@@ -1,0 +1,33 @@
+.members-list-options {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  > a {
+    color: $color-gray;
+  }
+}
+
+.members-tabs-wrapper {
+  display: flex;
+
+  .members-tabs {
+    flex: 1;
+  }
+
+  .user-invite-action {
+    flex: 0 1 auto;
+    border-left: 2px solid $color-gray-lighter;
+    border-bottom: 3px solid $color-gray-light;
+
+    .btn {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    &:hover {
+      border-bottom: 3px solid $color-gray;
+    }
+  }
+
+}

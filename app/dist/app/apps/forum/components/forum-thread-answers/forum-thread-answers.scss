@@ -1,0 +1,94 @@
+.forum-app {
+
+  .panel {
+    .thread-answer-info {
+      .label-default {
+        background-color: black;
+      }
+    }
+  }
+
+  .forum-thread {
+    .thread-answers {
+      .pagination {
+        margin: 0 24px 16px 24px;
+      }
+
+      .thread-answer {
+        .thread-answer-text {
+          margin-top: 10px;
+        }
+
+        @media screen and (min-width: $screen-md-min) {
+          .thread-answer-context-menu {
+            color: $color-gray;
+            float: right;
+            
+            &:hover {
+              color: $text-color;
+            }
+          }
+        }
+      }
+    }
+
+    .thread-answer-author-avatar {
+      margin-right: 20px;
+    }
+
+    .thread-answers-answers {
+      margin-bottom: 24px;
+      
+      .panel-body {
+        display: flex;
+        flex-direction: row;
+        
+        .thread-answer-author {
+          margin-top: 4px;
+          order: 1;
+          flex: 1;
+        }
+        
+        .thread-answer-data {
+          order: 2;
+          flex: 99;
+          min-width: 0;
+          
+          .author {
+            margin-right: 8px;
+          }
+          
+          .label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: normal;
+            line-height: 1em;
+            margin-right: 8px;
+            vertical-align: 2px;
+          }
+
+          .thread-time {
+            white-space: nowrap;
+          }
+
+        }
+
+        .thread-answer-context-menu-container {
+          order: 3;
+          flex: 1;
+          min-width: 30px;
+        }
+
+        .thread-answer-attachments {
+          border-top: 1px solid $color-gray-light;
+          padding-top: 20px;
+        }
+      }
+
+      .thread-answer-deleted-content {
+        color: $color-gray;
+      }
+    }
+  }
+
+}

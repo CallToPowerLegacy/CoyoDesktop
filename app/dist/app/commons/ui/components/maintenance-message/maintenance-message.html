@@ -1,0 +1,9 @@
+<div class="maintenance-message-container" ng-if="$ctrl.display">
+    <div class="maintenance-message">
+        <i class="zmdi zmdi-info"></i>
+        <span>{{$ctrl.message.message}}</span>
+        <a class="btn btn-link" ng-click="$ctrl.close()">
+            <i class="zmdi zmdi-close"></i>
+        </a>
+    </div>
+</div>

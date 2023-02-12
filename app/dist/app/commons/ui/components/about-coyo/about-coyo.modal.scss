@@ -1,0 +1,60 @@
+.about-coyo-modal {
+  .modal-header {
+    height: 100px !important;
+    margin: 0 !important;
+    background-color: $color-original;
+
+    border-top-left-radius: $border-radius-large;
+    border-top-right-radius: $border-radius-large;
+
+    .about-coyo-brand {
+      background-image: url($image-coyo-nav-hd);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      width: 100%;
+    }
+
+    .modal-close {
+      top: 16px !important;
+      right: 24px !important;
+    }
+  }
+
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid $modal-header-border-color;
+    padding: 0;
+
+    .with-love {
+      width: 100%;
+      padding: 15px;
+      background-color: $color-gray-lighter;
+      text-align: center;
+      font-weight: bold;
+      color: $color-gray-dark;
+      &:before {
+        content: url($image-coyo-heart);
+        width: 14px;
+        display: inline-block;
+        margin: 5px;
+        position: relative;
+      }
+    }
+
+    .version-container {
+      padding: 30px;
+
+      h4, span {
+        display: inline-block;
+      }
+
+      h4 {
+        font-weight: bold;
+        margin-left: .25em;
+      }
+    }
+  }
+}

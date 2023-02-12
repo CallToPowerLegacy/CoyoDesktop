@@ -1,0 +1,30 @@
+<div class="downloads-widget">
+  <h4 class="widget-title">
+    {{$ctrl.widget.settings._titles[0] || ("WIDGETS.DOWNLOADS.NAME" | translate)}}
+  </h4>
+
+  <div class="text-center" ng-if="$ctrl.loading">
+    <coyo-spinner size="sm"></coyo-spinner>
+  </div>
+
+  <!-- Error message -->
+  <div ng-if="$ctrl.widget.settings._files.length === 0 && !$ctrl.loading">
+    <cite class="text-muted" translate="WIDGETS.DOWNLOADS.NO_FILES"></cite>
+  </div>
+
+  <div class="downloads-widget-file" ng-repeat="file in $ctrl.widget.settings._files | orderBy:'name'" ng-if="!$ctrl.loading">
+    <div class="downloads-widget-icon">
+      <i class="zmdi zmdi-download"></i>
+    </div>
+    <div class="downloads-widget-link">
+      <a href  ng-if="!$ctrl.editMode"
+         coyo-download="$ctrl.getDownloadUrl(file.senderId, file.id)"
+         title="{{::file.title || file.name}}">
+        <span class="file-name">{{::file.title || file.name}}</span>
+      </a>
+      <span ng-if="$ctrl.editMode">
+        <input type="text" ng-model="file.title" placeholder="{{::file.name}}" class="inplace-edit">
+      </span>
+    </div>
+  </div>
+</div>

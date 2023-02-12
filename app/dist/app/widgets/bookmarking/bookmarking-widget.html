@@ -1,0 +1,113 @@
+<div class="bookmarking-widget">
+  <h4 class="widget-title">
+    {{$ctrl.widget.settings._titles[0] || ("WIDGETS.BOOKMARKING.NAME" | translate)}}
+  </h4>
+
+  <!-- Error message -->
+  <div ng-if="!$ctrl.editMode && !$ctrl.widget.settings._validBookmarkList">
+    <cite class="text-muted" translate="WIDGETS.BOOKMARKING.NO_BOOKMARKS"></cite>
+  </div>
+
+  <!-- Bookmarks -->
+  <div class="bookmark" ng-repeat="bookmark in $ctrl.widget.settings._bookmarks"
+       ng-hide="!$ctrl.editMode && bookmarkForm.bookmarkUrl.$invalid">
+    <form name="bookmarkForm" class="flex">
+      <div class="bookmark-icon">
+        <i class="zmdi zmdi-bookmark" ng-class="{'has-error': bookmarkForm.bookmarkUrl.$invalid}"></i>
+      </div>
+
+      <!-- Bookmark title -->
+      <div class="bookmark-settings flex">
+        <div class="bookmark-title" ng-if="$ctrl.editUrlWithIndex !== $index">
+          <a ng-click="$ctrl.onBookmarkLinkClicked($event)" href="{{bookmark.url}}"
+             target="{{$ctrl.isRelativeUrl(bookmark.url) ? '_self' : '_blank'}}">
+            <input class="inplace-edit"
+                   maxlength="50"
+                   ng-model="bookmark.title"
+                   ng-if="$ctrl.editMode"
+                   placeholder="{{::'WIDGETS.BOOKMARKING.TITLE.PLACEHOLDER' | translate}}"
+                   autocomplete="off"
+                   ng-change="$ctrl.validateBookmarkList()">
+            <span ng-if="!$ctrl.editMode">{{bookmark.title || bookmark.url}}</span>
+          </a>
+        </div>
+
+        <!-- Bookmark url -->
+        <div class="bookmark-url" ng-show="$ctrl.editMode && $ctrl.editUrlWithIndex === $index">
+          <input ng-if="$ctrl.linkPattern"
+                 class="inplace-edit"
+                 name="bookmarkUrl"
+                 placeholder="{{::'WIDGETS.BOOKMARKING.URL.PLACEHOLDER' | translate}}"
+                 ng-model="bookmark.url"
+                 ng-pattern="$ctrl.linkPattern"
+                 ng-required="true"
+                 autocomplete="off"
+                 ng-change="$ctrl.validateBookmarkList()">
+        </div>
+
+        <!-- Edit buttons -->
+        <div class="edit-bookmark flex" ng-if="$ctrl.editMode">
+          <div class="toggle-icon" ng-click="$ctrl.editUrlWithIndex = $index" ng-if="$ctrl.editUrlWithIndex !== $index">
+            <i class="zmdi zmdi-link"></i>
+          </div>
+
+          <div class="toggle-icon" ng-click="$ctrl.editUrlWithIndex = null" ng-if="$ctrl.editUrlWithIndex === $index">
+            <i class="zmdi zmdi-format-size"></i>
+          </div>
+
+          <div class="delete-icon" ng-click="$ctrl.removeBookmark($index)">
+            <i class="zmdi zmdi-delete"></i>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Open add bookmark panel -->
+  <div class="text-center open-panel">
+    <a class="text-muted small text-center" translate='WIDGETS.BOOKMARKING.ADD_BOOKMARK'
+       ng-if="$ctrl.editMode && !$ctrl.addBookmarkPanel" ng-hide="$ctrl.widget.settings._bookmarks.length === 0"
+       ng-click="$ctrl.addBookmarkPanel = true">
+    </a>
+  </div>
+
+  <!-- Add bookmark -->
+  <div class="add-bookmark"
+       ng-if="$ctrl.editMode && ($ctrl.addBookmarkPanel || $ctrl.widget.settings._bookmarks.length === 0)">
+    <form name="addBookmarkForm" class="flex">
+      <div class="add-bookmark-url-icon">
+        <i class="zmdi zmdi-plus-circle-o" ng-class="{'has-error': addBookmarkForm.bookmarkUrl.$invalid}"></i>
+      </div>
+
+      <div class="bookmark-settings flex">
+
+        <!-- Bookmark url -->
+        <div class="add-bookmark-url" ng-show="!$ctrl.saveBookmark">
+          <input ng-if="$ctrl.linkPattern"
+                 class="inplace-edit"
+                 placeholder="{{ ::'WIDGETS.BOOKMARKING.URL.PLACEHOLDER' | translate }}"
+                 ng-model="$ctrl.bookmarkUrl"
+                 ng-pattern="$ctrl.linkPattern"
+                 name="bookmarkUrl"
+                 ng-required="true"
+                 autocomplete="off">
+        </div>
+
+        <!-- Bookmark title -->
+        <div class="add-bookmark-title" ng-if="$ctrl.saveBookmark">
+          <a>
+            <input class="inplace-edit"
+                   maxlength="50"
+                   ng-model="$ctrl.bookmarkTitle"
+                   placeholder="{{ ::'WIDGETS.BOOKMARKING.TITLE.PLACEHOLDER' | translate }}"
+                   autocomplete="off">
+          </a>
+        </div>
+
+        <div class="check-icon" ng-click="addBookmarkForm.bookmarkUrl.$valid && $ctrl.addBookmark()">
+          <i class="zmdi" ng-class="{'zmdi-check': $ctrl.saveBookmark, 'zmdi-arrow-right': !$ctrl.saveBookmark}"></i>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

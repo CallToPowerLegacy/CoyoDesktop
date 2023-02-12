@@ -1,0 +1,7 @@
+<div ng-show="$ctrl.user && $ctrl.user.moderatorMode" class="moderator-bar" ng-class="{compact: $ctrl.compact}">
+  <coyo-help class="pull-left" tip="USER.MODERATOR.BAR.HELP" placement="top-left"></coyo-help>
+  <span class="ml-xxs" translate="USER.MODERATOR.BAR.DESCRIPTION"></span>
+  <a class="btn btn-link" ng-click="$ctrl.deactivate()">
+    <i class="zmdi zmdi-close"></i>&nbsp;{{::'USER.MODERATOR.BAR.DISABLE' | translate}}
+  </a>
+</div>

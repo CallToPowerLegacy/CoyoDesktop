@@ -1,0 +1,10 @@
+<div class="input-group">
+    <span class="input-group-addon pointer" ng-click="openPicker = true"><i class="zmdi zmdi-calendar"></i></span>
+    <input type="text" class="form-control" id="{{:: settingsForm.getFieldName(config)}}" name="{{:: settingsForm.getFieldName(config)}}"
+           ng-model="model.value"
+           ng-focus="openPicker = true"
+           datetime-picker="yyyy-MM-dd"
+           enable-time="false"
+           is-open="openPicker"
+           ng-required="config.required">
+</div>

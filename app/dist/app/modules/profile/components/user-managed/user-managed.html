@@ -1,0 +1,17 @@
+<div ng-if="$ctrl.managedUsers.length > 0" class="user-managed panel panel-sm">
+  <!-- headline -->
+  <h4 class="user-managed-title"
+       translate="MODULE.PROFILE.HEADING.MANAGED"
+       translate-value-name="{{::$ctrl.user.displayName}}"></h4>
+
+  <!-- user list -->
+  <coyo-user-item ng-repeat="user in $ctrl.managedUsers" user="user"></coyo-user-item>
+
+  <!-- spinner / loading -->
+  <div ng-if="$ctrl.loading" class="text-center">
+    <coyo-spinner></coyo-spinner>
+  </div>
+
+  <!-- load more -->
+  <button class="btn btn-link btn-more btn-xs" ng-click="$ctrl.loadMore()" ng-if="!$ctrl.currentPage.last && !$ctrl.loading" translate="MORE"></button>
+</div>

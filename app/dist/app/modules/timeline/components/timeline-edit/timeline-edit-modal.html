@@ -1,0 +1,28 @@
+<div>
+  <form class="timeline-edit-modal" name="editForm" coyo-form-submit="vm.save()">
+    <div class="modal-content-wrapper">
+      <div class="modal-header">
+        <h3 class="modal-title" translate="MODULE.TIMELINE.EDIT.MODAL.TITLE"></h3>
+        <span class="modal-close" ng-click="$dismiss('cancel')">
+          <i class="zmdi zmdi-close img-close"></i>
+        </span>
+      </div>
+
+      <div class="modal-body">
+        <div ng-if="vm.error"
+             class="alert alert-warning" translate="MODULE.TIMELINE.EDIT.MODAL.PERMISSIONS.WARNING"></div>
+        <textarea id="message" name="message" required
+                  class="form-control"
+                  ng-disabled="vm.error"
+                  ng-model="vm.item.data.message"
+                  coyo-check-boolean="{{!vm.error}}"
+                  coyo-mention-select></textarea>
+      </div>
+
+      <div class="modal-footer">
+        <coyo-form-submit-button label="SAVE" form-ctrl="editForm"></coyo-form-submit-button>
+        <a class="btn btn-default" ng-click="$dismiss('cancel')" translate="CANCEL"></a>
+      </div>
+    </div>
+  </form>
+</div>

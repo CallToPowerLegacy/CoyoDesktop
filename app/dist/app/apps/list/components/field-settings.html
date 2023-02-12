@@ -1,0 +1,52 @@
+<div class="form-horizontal">
+    <div class="form-group">
+        <label for="field-name" class="col-sm-2 control-label" translate="APP.LIST.FIELDS.SETTINGS.NAME"></label>
+        <div class="col-sm-9">
+            <input id="field-name" name="field-name" class="form-control" type="text" ng-model="$ctrl.field.name" maxlength="255" required>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="APP.LIST.FIELDS.SETTINGS.NAME.HELP"></coyo-help>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="field-required" class="col-sm-2 control-label" translate="APP.LIST.FIELDS.SETTINGS.REQUIRED"></label>
+        <div class="col-sm-9">
+            <div class="checkbox">
+                <label>
+                    <coyo-checkbox id="field-required" name="field-required" ng-model="$ctrl.field.required"></coyo-checkbox>
+                    {{'APP.LIST.FIELDS.SETTINGS.REQUIRED.LABEL' | translate}}
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="APP.LIST.FIELDS.SETTINGS.REQUIRED.HELP"></coyo-help>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="field-hidden" class="col-sm-2 control-label" translate="APP.LIST.FIELDS.SETTINGS.HIDDEN"></label>
+        <div class="col-sm-9">
+            <div class="checkbox">
+                <label>
+                    <coyo-checkbox id="field-hidden" name="field-hidden" ng-model="$ctrl.field.hidden"></coyo-checkbox>
+                    {{'APP.LIST.FIELDS.SETTINGS.HIDDEN.LABEL' | translate}}
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="APP.LIST.FIELDS.SETTINGS.HIDDEN.HELP"></coyo-help>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="field-description" class="col-sm-2 control-label" translate="APP.LIST.FIELDS.SETTINGS.DESCRIPTION"></label>
+        <div class="col-sm-9">
+            <textarea id="field-description" name="field-description" class="form-control" type="text" ng-model="$ctrl.field.help" maxlength="255"></textarea>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+            <coyo-help tip="APP.LIST.FIELDS.SETTINGS.DESCRIPTION.HELP"></coyo-help>
+        </div>
+    </div>
+    <oyoc-settings-view model="$ctrl.field.settings"
+                        config="$ctrl.fieldType"
+                        form-ctrl="$ctrl.formCtrl">
+    </oyoc-settings-view>
+</div>

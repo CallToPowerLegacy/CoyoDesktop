@@ -1,0 +1,179 @@
+<div class="profile-group">
+  <form name="profileGroupCtrl.form"
+        class="form-horizontal"
+        coyo-toggle-form="profileGroupCtrl.isEditable"
+        ng-submit="profileGroupCtrl.onSubmit({ group: profileGroupCtrl.group })"
+        coyo-delay-form="profileGroupCtrl.user.properties"
+        ng-class="{'is-editing': profileGroupCtrl.isEditable}">
+
+    <!-- Form Header -->
+    <div class="form-group profile-group-header-group" ng-if="profileGroupCtrl.setHeader">
+      <label for="header-{{:: profileGroupCtrl.group.name }}" class="col-sm-4 control-label">
+        <h4 class="control-label-header">{{:: 'MODULE.PROFILE.GROUP.' + profileGroupCtrl.group.name | uppercase | translate }}</h4>
+      </label>
+
+      <div class="col-sm-8" id="header-{{:: profileGroupCtrl.group.name }}">
+        <ng-transclude></ng-transclude>
+      </div>
+    </div>
+
+    <!-- Insert field 'email' if this is the special group 'contact' and the user has an email attribute -->
+    <div class="form-group" id="editable-contact-email" ng-if="profileGroupCtrl.group.name === 'contact' && profileGroupCtrl.user.email">
+      <label for="input-editable-contact-email" class="col-sm-4 control-label control-label-content" translate="USER.EMAIL"></label>
+      <div ng-show="!profileGroupCtrl.isEditable" class="form-control-static col-sm-8">
+        <a href="mailto:{{:: profileGroupCtrl.user.email }}">{{:: profileGroupCtrl.user.email }}</a>
+      </div>
+      <div ng-show="profileGroupCtrl.isEditable" class="col-sm-8" id="input-editable-contact-email" name="input-editable-contact-email"
+           uib-tooltip="{{:: 'MODULE.PROFILE.GROUP.EMAIL_TIP' | translate }}">
+        <input type="email" class="form-control" disabled="disabled"
+               ng-model="profileGroupCtrl.user.email"
+               coyo-toggle-field>
+      </div>
+    </div>
+
+    <!-- Render all other fields -->
+    <div ng-repeat="field in profileGroupCtrl.group.fields"
+         class="form-group" id="{{:: 'editable-' + profileGroupCtrl.group.name + '-' + field.name }}"
+         ng-init="fieldName = 'input-editable-' + profileGroupCtrl.group.name + '-' + field.name"
+         ng-if="profileGroupCtrl.isEditable || profileGroupCtrl.user.properties[field.name] || field.type === 'CHECKBOX'">
+
+      <!-- Label -->
+      <label class="col-sm-4 control-label control-label-content"
+             for="{{:: fieldName }}">{{:: 'USER.' + field.name | uppercase | translate }}</label>
+
+      <div class="col-sm-8">
+
+        <!-- Render value if not TEXT nor TEXTAREA -->
+        <coyo-render-value ng-show="!profileGroupCtrl.isEditable && (field.type !== 'TEXT' && field.type !== 'TEXTAREA')"
+                           class="form-control-static"
+                           field="field"
+                           value="profileGroupCtrl.user.properties[field.name]"
+                           config="profileGroupCtrl.getConfig(field.type)"></coyo-render-value>
+
+        <!-- TEXT field -->
+        <input type="text" class="form-control" id="{{:: fieldName }}" name="{{:: fieldName }}"
+               ng-if=":: field.type === 'TEXT'"
+               ng-model="profileGroupCtrl.user.properties[field.name]"
+               ng-disabled="profileGroupCtrl.group.saving || field.immutable"
+               coyo-toggle-field="profileGroupCtrl.user.properties[field.name] | hashtag">
+
+
+        <!-- TEXTAREA field -->
+        <textarea class="form-control" id="{{:: fieldName }}" name="{{:: fieldName }}"
+                  ng-if=":: field.type === 'TEXTAREA'"
+                  ng-model="profileGroupCtrl.user.properties[field.name]"
+                  ng-disabled="profileGroupCtrl.group.saving || field.immutable"
+                  coyo-toggle-field="profileGroupCtrl.user.properties[field.name] | hashtag | nl2br"
+                  msd-elastic
+                  rows="3"></textarea>
+
+        <!-- CHECKBOX field -->
+        <div ng-if=":: field.type === 'CHECKBOX'">
+          <div ng-show="profileGroupCtrl.isEditable" class="checkbox">
+            <label>
+              <coyo-checkbox id="{{:: fieldName }}" name="{{:: fieldName }}"
+                            ng-model="profileGroupCtrl.user.properties[field.name]"
+                            ng-disabled="profileGroupCtrl.group.saving || field.immutable"></coyo-checkbox>
+            </label>
+          </div>
+        </div>
+
+        <!-- PHONE field -->
+        <div ng-if=":: field.type === 'PHONE'">
+          <div ng-show="profileGroupCtrl.isEditable" class="input-group" ng-class="{'has-error': !field.valid}">
+            <span class="input-group-addon"><i class="zmdi zmdi-phone"></i></span>
+            <input type="tel" class="form-control" id="{{:: fieldName }}" name="{{:: fieldName }}"
+                   ng-model="profileGroupCtrl.user.properties[field.name]"
+                   ng-change="profileGroupCtrl.validatePattern(field, profileGroupCtrl.phonePattern)"
+                   ng-disabled="profileGroupCtrl.group.saving || field.immutable"
+                   placeholder="{{:: 'MODULE.PROFILE.PLACEHOLDER.TEL' | translate}}">
+          </div>
+          <p class="help-block validation-incorrect"
+             ng-show="!field.valid && profileGroupCtrl.form[fieldName].$touched && profileGroupCtrl.form[fieldName].$dirty"
+             translate="MODULE.PROFILE.ERROR.PHONE.INVALID"></p>
+        </div>
+
+        <!-- DATE field -->
+        <div ng-if=":: field.type === 'DATE'">
+          <div ng-show="profileGroupCtrl.isEditable" class="input-group" ng-class="{'has-error': !field.valid}">
+            <span class="input-group-addon pointer" ng-click="openPicker = true"><i class="zmdi zmdi-calendar"></i></span>
+            <input type="text" class="form-control" id="{{:: fieldName }}" name="{{:: fieldName }}"
+                   ng-model="profileGroupCtrl.user.properties[field.name]"
+                   ng-change="profileGroupCtrl.validateDate(field)"
+                   ng-focus="openPicker = true"
+                   datetime-picker="{{:: profileGroupCtrl.dateFormat }}"
+                   enable-time="false"
+                   read-as="profileGroupCtrl.readDate"
+                   save-as="profileGroupCtrl.saveDate"
+                   ng-disabled="profileGroupCtrl.group.saving || field.immutable"
+                   is-open="openPicker">
+          </div>
+          <p class="help-block validation-incorrect"
+             ng-show="!field.valid && profileGroupCtrl.form[fieldName].$touched && profileGroupCtrl.form[fieldName].$dirty"
+             translate="MODULE.PROFILE.ERROR.DATE.INVALID" translate-values="{format: profileGroupCtrl.dateFormat}"></p>
+        </div>
+
+        <!-- LINK field -->
+        <div ng-if=":: field.type === 'LINK'">
+          <div ng-show="profileGroupCtrl.isEditable" class="input-group" ng-class="{'has-error': !field.valid}">
+            <span class="input-group-addon"><i class="zmdi zmdi-link"></i></span>
+            <input type="text" class="form-control" id="{{:: fieldName }}" name="{{:: fieldName }}"
+                   ng-model="profileGroupCtrl.user.properties[field.name]"
+                   ng-change="profileGroupCtrl.validatePattern(field, profileGroupCtrl.linkPattern)"
+                   ng-disabled="profileGroupCtrl.group.saving || field.immutable"
+                   placeholder="{{:: 'MODULE.PROFILE.PLACEHOLDER.LINK' | translate}}">
+          </div>
+          <p class="help-block validation-incorrect"
+             ng-show="!field.valid && profileGroupCtrl.form[fieldName].$touched && profileGroupCtrl.form[fieldName].$dirty"
+             translate="MODULE.PROFILE.ERROR.LINK.INVALID"></p>
+        </div>
+
+        <!-- EMAIL field -->
+        <div ng-if=":: field.type === 'EMAIL'">
+          <div ng-show="profileGroupCtrl.isEditable" class="input-group" ng-class="{'has-error': !field.valid}">
+            <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+            <input type="text" class="form-control" id="{{:: fieldName }}" name="{{:: fieldName }}"
+                   ng-model="profileGroupCtrl.user.properties[field.name]"
+                   ng-change="profileGroupCtrl.validatePattern(field, profileGroupCtrl.emailPattern)"
+                   ng-disabled="profileGroupCtrl.group.saving || field.immutable || (!profileGroupCtrl.group.modifiable && field.name === 'email')">
+          </div>
+          <p class="help-block validation-incorrect"
+             ng-show="!field.valid && profileGroupCtrl.form[fieldName].$touched && profileGroupCtrl.form[fieldName].$dirty"
+             translate="MODULE.PROFILE.ERROR.EMAIL.INVALID"></p>
+        </div>
+
+        <!-- OPTIONS field -->
+        <div ng-if=":: field.type === 'OPTIONS'">
+          <div ng-show="profileGroupCtrl.isEditable" class="btn-group dropdown options-btn" uib-dropdown dropdown-append-to-body>
+            <button type="button" class="form-control" id="{{:: fieldName }}" name="{{:: fieldName }}"
+                    uib-dropdown-toggle
+                    ng-disabled="profileGroupCtrl.group.saving || field.immutable">
+              <span ng-if="profileGroupCtrl.user.properties[field.name] === ''"></span>
+              <span class="options" ng-if="profileGroupCtrl.user.properties[field.name] !== ''">{{ 'USER.VALUES.' + field.name + '.' + profileGroupCtrl.user.properties[field.name] | uppercase | translate }}</span>
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+              <li role="menuitem" ng-repeat="option in field.options">
+                <a href="#" ng-click="profileGroupCtrl.selectOption(field, option)">
+                  {{:: 'USER.VALUES.' + field.name + '.' + option | uppercase | translate }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form controls -->
+    <div class="form-group" ng-if="profileGroupCtrl.isEditable">
+      <div class="col-sm-8 col-sm-offset-4">
+        <button type="submit" class="btn btn-primary mr-xxs" ng-disabled="profileGroupCtrl.group.saving || !profileGroupCtrl.formValid">
+          <i class="zmdi zmdi-hs-fw zmdi-check"></i>&nbsp;{{:: 'SAVE' | translate}}
+        </button><!--
+     --><button type="reset" class="btn btn-default" ng-disabled="profileGroupCtrl.group.saving"
+                ng-click="profileGroupCtrl.onCancel({ group: profileGroupCtrl.group })">
+          <i class="zmdi zmdi-hs-fw zmdi-close"></i>&nbsp;{{:: 'CANCEL' | translate}}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

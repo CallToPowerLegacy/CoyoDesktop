@@ -1,0 +1,19 @@
+<div class="wiki-widget">
+  <h4 class="widget-title">
+    {{$ctrl.widget.settings._titles[0] || ("WIDGETS.WIKI.NAME" | translate)}}
+  </h4>
+  <coyo-widget-status load-data="$ctrl.loadArticles()" empty-message="WIDGETS.WIKI.NO_ARTICLES"></coyo-widget-status>
+  <coyo-refresh watch="$ctrl.lastUpdate">
+    <div class="wiki-widget-article" ng-repeat="article in ::$ctrl.articles">
+      <div class="wiki-widget-icon">
+        <i class="zmdi zmdi-library"></i>
+      </div>
+      <div class="wiki-widget-info">
+        <a href ng-click="$ctrl.go(article.articleTarget)">{{::article.title}}</a>
+        <div class="small text-muted">
+          <coyo-time-ago date="article.updated"></coyo-time-ago>&nbsp;in&nbsp;<a href ng-click="$ctrl.go(article.senderTarget)">{{::article.senderName}}</a>
+        </div>
+      </div>
+    </div>
+  </coyo-refresh>
+</div>

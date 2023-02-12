@@ -1,0 +1,27 @@
+<div class="admin-statistics" ng-cloak>
+  <div class="panel panel-default panel-tabs">
+    <uib-tabset justified="true" active="-1">
+      <uib-tab ui-sref="admin.statistics.accounts" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-account zmdi-wide"></i> <span class="tab-text" translate="ADMIN.STATISTICS.ACCOUNT.TITLE"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.statistics.dailyactiveusers" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-accounts zmdi-wide"></i> <span class="tab-text" translate="ADMIN.STATISTICS.DAILYACTIVEUSERS.TITLE"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.statistics.dailycreatedcontent" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-plus zmdi-wide"></i> <span class="tab-text" translate="ADMIN.STATISTICS.DAILYCREATEDCONTENT.TITLE"></span>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ui-sref="admin.statistics.search" ui-sref-active="active">
+        <uib-tab-heading>
+          <i class="zmdi zmdi-search zmdi-wide"></i> <span class="tab-text" translate="ADMIN.STATISTICS.SEARCH.TITLE"></span>
+        </uib-tab-heading>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+  <div ui-view></div>
+</div>

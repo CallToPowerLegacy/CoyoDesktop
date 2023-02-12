@@ -1,0 +1,32 @@
+<div class="modal-sub-nav">
+  <ul class="nav nav-tabs" id="tabs-widget-config">
+    <li ng-repeat="categories in widgetCategories" ng-show="!$ctrl.filterActive" ng-class="{active:$first}">
+      <a data-toggle="tab" data-target="#{{ categories }}-widgets" translate="WIDGETS.CHOOSER.TABS.{{ categories | uppercase }}"></a>
+    </li>
+    <li ng-show="$ctrl.filterActive"><a data-toggle="tab" data-target="#all-widgets" id="tab-all-widgets" translate="WIDGETS.CHOOSER.TABS.ALL"></a></li>
+  </ul>
+  <div class="hidden-vertical"></div>
+  <div class="widget-filter-container">
+    <input type="text" class="filter" ng-model="$ctrl.filter" placeholder="{{::'SEARCH' | translate}}" ng-change="$ctrl.filterWidgets($ctrl.filter)"/>
+  </div>
+</div>
+<div class="text-center" ng-if="loading">
+  <coyo-spinner size="lg"></coyo-spinner>
+</div>
+<p ng-if="!loading && !widgetConfigs.length" translate="WIDGETS.CHOOSER.EMPTY"></p>
+<div class="widget-config-chooser tab-content">
+  <div ng-repeat="categories in widgetCategories" id="{{ categories }}-widgets" class="tab-pane fade" ng-class="{'in active':$first}">
+    <div class="widget-entry" ng-repeat="config in configs = (widgetConfigs | filter: {categories: categories} | orderBy: 'translation')" ng-click="selectConfig(config)">
+      <i class="zmdi zmdi-hc-fw img-thumbnail" ng-class="config.icon"></i>
+      <h5 translate="{{::config.name}}"></h5>
+    </div>
+    <p ng-hide="configs.length" translate="WIDGETS.CHOOSER.EMPTY" class="widgets-empty text-center text-muted"></p>
+  </div>
+  <div id="all-widgets" class="tab-pane fade">
+    <div class="widget-entry" ng-repeat="config in configsAll = (widgetConfigs | filter: { translation: $ctrl.filter } | orderBy: 'translation')" ng-click="selectConfig(config)">
+      <i class="zmdi zmdi-hc-fw img-thumbnail" ng-class="config.icon"></i>
+      <h5 translate="{{::config.name}}"></h5>
+    </div>
+    <p ng-hide="configsAll.length" translate="WIDGETS.CHOOSER.EMPTY" class="widgets-empty text-center text-muted"></p>
+  </div>
+</div>

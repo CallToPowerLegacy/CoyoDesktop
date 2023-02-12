@@ -1,0 +1,10 @@
+<coyo-refresh on-scope-event="like:refresh"><!--
+--><span ng-if="::$ctrl.likeData" class="btn-likes btn-likes-condensed" ng-class="::{ loading: $ctrl.isLoading, active: $ctrl.likeData.self }" ng-show="::$ctrl.visible"><!--
+  --><span class="btn-likes-handle disabled" ng-if="::$ctrl.target._permissions.like !== true"><i class="zmdi zmdi-star"></i></span><!--
+  --><a class="btn-likes-handle" ng-if="::$ctrl.target._permissions.like === true" ng-click="$ctrl.like()"><i class="zmdi zmdi-star"></i></a><!--
+  --><span class="btn-likes-count"><!--
+     --><a ng-click="$ctrl.show()" uib-tooltip-template="::$ctrl.tooltipUrlCondensed"
+           tooltip-append-to-body="true" tooltip-enable="::(!$ctrl.isLoading && $ctrl.likeData.totalCount)">{{:: $ctrl.likeData.totalCount }}</a><!--
+  --></span>
+  </span>
+</coyo-refresh>

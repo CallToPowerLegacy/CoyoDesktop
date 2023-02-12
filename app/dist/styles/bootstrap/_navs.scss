@@ -1,0 +1,146 @@
+.nav {
+  > li {
+    > a {
+      color: $color-gray-darker;
+      transition: background-color linear 0.1s;
+
+      .badge.pull-right {
+        margin-top: 2px;
+      }
+    }
+
+    &.active > a, &.active > a:hover {
+      color: $text-color;
+      background-color: $color-gray-lighter;
+    }
+
+    &.disabled > a {
+      color: $color-gray-light;
+    }
+  }
+}
+
+.nav.nav-default {
+  > li {
+    > a {
+      border-left: 3px solid transparent;
+
+      &:hover {
+        border-color: $color-gray-light;
+      }
+    }
+
+    &.active > a, &.active > a:hover {
+      border-color: $color-blue;
+    }
+
+    &.divider {
+      border-bottom: 1px solid $color-gray-light;
+      padding: 12px 0 0 0;
+      margin: 0 0 12px 0;
+    }
+  }
+}
+
+.nav.nav-icons {
+  > li {
+    > a {
+      padding-left: 43px;
+
+      > i {
+        float: left;
+        margin-left: -28px;
+        text-align: center;
+        line-height: 24px;
+        width: 20px;
+      }
+    }
+  }
+}
+
+.nav.nav-tabs, .nav.nav-tabs.nav-justified {
+  border: 0;
+  border-bottom: 3px solid $color-gray-light;
+
+  > li {
+    overflow: hidden;
+    margin: 0 0 -3px 0;
+    padding: 0;
+  }
+
+  > li > a {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 3px solid transparent;
+    color: $color-gray-dark;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &:hover, &:focus, &:active {
+      background-color: transparent;
+      border-bottom: 3px solid $color-gray;
+    }
+  }
+
+  > li.disabled > a {
+    border-color: transparent;
+    color: $color-gray-light;
+  }
+
+  > li.active > a {
+    border: 0;
+    color: $text-color;
+    border-bottom: 3px solid $color-blue;
+    background-color: transparent;
+  }
+}
+
+.nav.nav-tabs.nav-justified {
+  display: flex;
+
+  > li {
+    display: block;
+    width: auto;
+    flex: 1;
+  }
+}
+
+.panel {
+  .nav {
+    > li > a,
+    &.nav-panel > li > a {
+      padding: 6px 30px 6px 26px;
+    }
+    &.nav-icons > li > a, &.nav-icons.nav-panel > li > a {
+      padding-left: 52px;
+    }
+  }
+
+  &.panel-sm {
+    .nav {
+      > li > a,
+      &.nav-panel > li > a {
+        padding-left: 22px;
+        padding-right: 24px;
+      }
+      &.nav-icons > li > a, &.nav-icons.nav-panel > li > a {
+        padding-left: 46px;
+      }
+    }
+  }
+
+  &.panel-xs {
+    .nav {
+      > li > a,
+      &.nav-panel > li > a {
+        padding-left: 18px;
+        padding-right: 15px;
+      }
+      &.nav-icons > li > a, &.nav-icons.nav-panel > li > a {
+        padding-left: 40px;
+      }
+    }
+  }
+}

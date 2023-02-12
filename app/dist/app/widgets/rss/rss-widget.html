@@ -1,0 +1,25 @@
+<div class="rss-widget">
+  <h4 class="widget-title">{{$ctrl.widget.settings._titles[0] || ("WIDGET.RSS.NAME" + (type | uppercase) | translate)}}</h4>
+  <coyo-widget-status load-data="$ctrl.loadData" empty-message="WIDGET.RSS.ERRORS.URL.INVALID"></coyo-widget-status>
+  <div class="rss-entry" data-ng-repeat="entry in $ctrl.entries" ng-class-even="'even'" ng-class-odd="'odd'">
+    <div class="image" ng-if="$ctrl.widget.settings.displayImage && entry.imageUrl">
+      <a ng-href="{{:: entry.feedUri}}" target="_blank">
+        <img class="rss-entry-image"
+             ng-src="{{ entry.imageUrl }}">
+      </a>
+    </div>
+    <div class="rss-body">
+      <div class="rss-content">
+        <h2 class="rss-title">
+          <a ng-href="{{:: entry.feedUri}}" target="_blank">{{:: entry.title }}</a>
+        </h2>
+        <p class="rss-description" ng-bind-html="::entry.description | nl2br"></p>
+        <div class="rss-time-readmore">
+          <coyo-time-ago class="entryDate rss-time" date=":: entry.publishedDate"></coyo-time-ago>
+          <p class="entryDate rss-time">-</p>
+          <a class="rss-readmore" ng-href="{{:: entry.feedUri}}" target="_blank">{{("WIDGET.RSS.READ_MORE" | translate)}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

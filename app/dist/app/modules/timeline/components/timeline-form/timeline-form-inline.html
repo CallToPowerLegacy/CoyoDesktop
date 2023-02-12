@@ -1,0 +1,103 @@
+<div class="timeline-form-inline panel panel-default">
+  <form name="$ctrl.form" class="form-horizontal" coyo-form-submit="$ctrl.save()"
+        ng-class="{ expanded : !$ctrl.form.$pristine }">
+
+    <coyo-select-sender ng-if="::$ctrl.canActAsSender"
+                        ng-model="$ctrl.author"
+                        required="true"
+                        parameters="::{ 'staticOptions' : $ctrl.staticSenderOptions,
+                                      'allowedTypeNames': ['page', 'workspace', 'event'],
+                                      'selectSenderOptionGroups':  $ctrl.selectSenderOptionGroups,
+                                      'findOnlyManagedSenders': true,
+                                      'onlyShowAvatarForMatches' : true,
+                                      'searchDisabled': true,
+                                      'class': 'select-sender-inline'}">
+    </coyo-select-sender>
+
+    <textarea id="message" name="message"
+              class="form-control"
+              ng-attr-placeholder="{{::'MODULE.TIMELINE.FORM.PLACEHOLDER' | translate}}"
+              ng-model="$ctrl.newItemModel.data.message"
+              ng-required="true"
+              ng-keydown="$ctrl.onKeyDown($event)"
+              ng-focus="$ctrl.form.$pristine = false"
+              ng-blur="$ctrl.onBlur()"
+              focus-on="$ctrl.focusMessageField"
+              msd-elastic rows="1"
+              coyo-mention-select></textarea>
+
+    <div class="timeline-item-attachments-panel">
+      <coyo-link-preview ng-model="$ctrl.newItemLinkPreviews" edit-mode="true" focus-var="$ctrl.focusMessageField">
+      </coyo-link-preview>
+
+      <coyo-video-preview ng-model="$ctrl.newItemVideoPreviews" edit-mode="true" focus-var="$ctrl.focusMessageField">
+      </coyo-video-preview>
+
+      <oyoc-timeline-form-attachment-list attachments="$ctrl.newItemAttachments"
+                                          file-library-attachments="$ctrl.newItemModel.fileLibraryAttachments">
+      </oyoc-timeline-form-attachment-list>
+    </div>
+
+    <div class="timeline-form-actions clearfix">
+      <coyo-emoji-picker ng-model="$ctrl.newItemModel.data.message"
+                         focus-var="$ctrl.focusMessageField">
+      </coyo-emoji-picker>
+      <span>
+        <coyo-btn-attachments
+            author="$ctrl.author"
+            active="$ctrl.newItemAttachments.length || $ctrl.newItemModel.fileLibraryAttachments.length"
+            context-id="{{::$ctrl.contextId}}"
+            timeline-type="::$ctlr.timelineType"
+            on-select-attachments="$ctrl.addAttachments(files)"
+            on-select-file-library="$ctrl.addFileLibraryAttachments(files)"
+            class="timeline-form-sticky-trigger"></coyo-btn-attachments>
+      </span>
+      <span class="timeline-form-sticky-trigger" coyo-global-permissions="CREATE_STICKY_TIMELINE_ITEM">
+        <a id="sticky-toggle-{{::$ctrl.uuid}}"
+           tooltip-popup-delay="750"
+           uib-tooltip="{{($ctrl.stickyExpiry ? 'MODULE.TIMELINE.TOOLTIPS.STICKY.SELECTED' : 'MODULE.TIMELINE.TOOLTIPS.STICKY.UNSELECTED') | translate}}">
+          <i class="zmdi zmdi-alert-circle-o" ng-class="{'item-active': $ctrl.stickyExpiry}"></i>
+        </a>
+        <coyo-context-menu toggle-element="#sticky-toggle-{{::$ctrl.uuid}}">
+          <li class="timeline-form-settings-header">{{::'MODULE.TIMELINE.STICKY.EXPIRY.LABEL' | translate}} <coyo-help
+              tip="MODULE.TIMELINE.STICKY.EXPIRY.HELP"></coyo-help></li>
+          <li class="divider"></li>
+          <li ng-repeat="option in $ctrl.stickyExpiryOptions"
+              ng-class="{'active': $ctrl.stickyExpiry === option.expiry}">
+            <a href ng-click="$ctrl.stickyExpiry = option.expiry"><i class="zmdi zmdi-time zmdi-hc-fw"></i>&nbsp;{{::option.label | translate}}</a>
+          </li>
+          <li ng-if="$ctrl.stickyExpiry">
+            <a href ng-click="$ctrl.stickyExpiry = null">
+              <i class="zmdi zmdi-minus zmdi-hc-fw"></i>&nbsp;{{::'MODULE.TIMELINE.STICKY.EXPIRY.NONE' | translate}}
+            </a>
+          </li>
+        </coyo-context-menu>
+      </span>
+
+      <span class="timeline-form-restriction-trigger" coyo-global-permissions="CREATE_RESTRICTED_TIMELINE_ITEM">
+        <a id="restricted-toggle-{{::$ctrl.uuid}}"
+           ng-disabled="$ctrl.saving"
+           tooltip-popup-delay="750"
+           uib-tooltip="{{($ctrl.newItemModel.restricted ? 'MODULE.TIMELINE.RESTRICTION.TOOLTIP.SELECTED' : 'MODULE.TIMELINE.RESTRICTION.TOOLTIP.UNSELECTED') | translate}}">
+          <i class="zmdi"
+             ng-class="{'zmdi-lock-open': !$ctrl.newItemModel.restricted, 'zmdi-lock-outline item-active': $ctrl.newItemModel.restricted}"></i>
+        </a>
+        <coyo-context-menu toggle-element="#restricted-toggle-{{::$ctrl.uuid}}">
+          <li class="timeline-form-settings-header">{{::'MODULE.TIMELINE.RESTRICTION.LABEL' | translate}} <coyo-help
+              tip="MODULE.TIMELINE.RESTRICTION.HELP" class="pull-right"></coyo-help></li>
+          <li class="divider"></li>
+          <li ng-repeat="option in ::$ctrl.restrictionOptions"
+              ng-class="{'active': $ctrl.newItemModel.restricted === option.restricted}">
+            <a href ng-click="$ctrl.newItemModel.restricted = option.restricted"><i class="zmdi {{::option.icon}}"></i>&nbsp;{{::option.label | translate}}</a>
+          </li>
+        </coyo-context-menu>
+      </span>
+
+      <coyo-form-submit-button label="SEND" form-ctrl="$ctrl.form"></coyo-form-submit-button>
+
+      <coyo-help guide="misc_markdown" class="hidden-xs hidden-sm help-markdown"
+                 tip="MODULE.TIMELINE.FORM.HELP" placement="left"></coyo-help>
+
+    </div>
+  </form>
+</div>

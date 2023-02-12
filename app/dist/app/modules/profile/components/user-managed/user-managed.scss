@@ -1,0 +1,17 @@
+.user-managed {
+  padding: 16px 0;
+
+  &-title {
+    padding: 0 24px;
+    margin: 8px 0 14px;
+    color: $color-gray;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .btn-more {
+    margin: 16px auto;
+    display: block;
+  }
+
+}

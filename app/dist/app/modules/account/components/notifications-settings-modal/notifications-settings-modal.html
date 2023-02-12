@@ -1,0 +1,38 @@
+<form ng-submit="vm.save()">
+    <div class="modal-content-wrapper account-notification-settings">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                {{:: 'MODULE.ACCOUNT.NOTIFICATION_SETTINGS.CHANNEL.' + vm.setting.channel + '.NAME' | translate }}
+            </h3>
+            <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss('cancel')">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <coyo-checkbox ng-model="vm.setting.active"></coyo-checkbox>
+                        {{:: 'MODULE.ACCOUNT.NOTIFICATION_SETTINGS.FORM.STATE' | translate }}
+                    </label>
+                </div>
+                <oyoc-notifications-source-select ng-if="vm.metadata.browserNotificationsConfigurable"
+                                                  class="form-group form-group-sm mt-xs"
+                                                  setting="vm.setting"
+                                                  on-selection-change="ctrl.save(vm.setting)"></oyoc-notifications-source-select>
+
+                <div class="alert alert-warning"
+                     ng-if="vm.setting.active && vm.setting.channel === 'BROWSER' && !vm.browserNotificationsActive">
+                    {{:: 'MODULE.ACCOUNT.NOTIFICATION_SETTINGS.FORM.NOTIFICATIONS.BROWSER.WARNING' | translate }}
+                </div>
+
+            </div>
+            <oyoc-notifications-interval-select class="form-group mb-xs"
+                                                ng-if="vm.metadata.intervalConfigurable"
+                                                setting="vm.setting"></oyoc-notifications-interval-select>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary"><i class="zmdi zmdi-hc-fw zmdi-check"></i>&nbsp;{{::'SAVE' | translate}}</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,31 @@
+<coyo-filterbox filter-active="$ctrl.dateRange.length">
+  <fb-filter>
+    <coyo-filter title-key="MODULE.EVENTS.FILTER.DATE">
+      <coyo-date-range-header date-range="$ctrl.dateRange"></coyo-date-range-header>
+      <coyo-date-range-picker ng-model="$ctrl.dateRange" ng-change="$ctrl.filter($ctrl.dateRange)"></coyo-date-range-picker>
+      <button type="button" class="btn btn-block btn-link" ng-click="$ctrl.clearDate()" ng-disabled="!$ctrl.dateRange.length">
+        <i class="zmdi zmdi-close-circle-o"></i>&nbsp;{{::'MODULE.EVENTS.FILTER.DATE.CLEAR' | translate}}
+      </button>
+    </coyo-filter>
+  </fb-filter>
+  <fb-search>
+    <coyo-search-filter change="$ctrl.search"
+                        placeholder="APP.EVENTS.LIST.SEARCH"
+                        search-term="{{$ctrl.query.term}}"></coyo-search-filter>
+  </fb-search>
+  <fb-count>
+    <coyo-counter value="$ctrl.currentPage.totalElements"
+                  key-none="APP.EVENTS.LIST.NONE"
+                  key-singular="APP.EVENTS.LIST.SINGULAR"
+                  key-plural="APP.EVENTS.LIST.PLURAL"></coyo-counter>
+  </fb-count>
+  <fb-actions ng-if="$ctrl.sender._permissions.createEvent">
+    <li>
+      <a ui-sref="main.event.create({host: $ctrl.sender.id})" coyo-global-permissions="CREATE_EVENT">
+        <i class="zmdi zmdi-plus-circle"></i>&nbsp;{{:: 'MODULE.EVENTS.CREATE.TITLE' | translate}}
+      </a>
+    </li>
+  </fb-actions>
+</coyo-filterbox>
+
+<coyo-event-list page="$ctrl.currentPage" loading="$ctrl.loading"></coyo-event-list>

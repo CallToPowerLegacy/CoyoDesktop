@@ -1,0 +1,32 @@
+.coyo-toggle-active {
+
+  .coyo-toggle-hide {
+    display: none;
+  }
+}
+
+.coyo-toggle-inactive {
+
+  .coyo-toggle-show {
+    display: none;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .form-control-static {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    min-height: 32px;
+  }
+
+  &.form-horizontal .control-label {
+    color: $color-gray;
+    font-weight: 400;
+
+    @include sm-and-up {
+      padding-top: 4px;
+    }
+  }
+}

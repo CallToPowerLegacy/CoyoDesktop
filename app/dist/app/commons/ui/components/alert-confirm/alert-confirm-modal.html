@@ -1,0 +1,23 @@
+<div class="modal-content-wrapper">
+  <div class="modal-header">
+    <h3 class="modal-title">{{ vm.title | translate:vm.translationContext }}</h3>
+    <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss('cancel')">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+  <div class="modal-body">
+    <div>{{ vm.text | translate:vm.translationContext }}</div>
+    <div ng-repeat="alert in vm.alerts" class="mt-xs alert {{alert.alertClass}}">
+      <strong>{{::alert.alertTitle | translate:vm.translationContext}}</strong>
+      <span>{{::alert.alertText | translate:vm.translationContext}}</span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button ng-repeat="button in vm.buttons" class="btn {{ button.style }}"
+            ng-class="{ 'btn-zmdi': !button.title, 'modal-mobile-hide': button.hideMobile }"
+            ng-click="button.onClick()">
+      <i ng-if="button.icon" class="zmdi zmdi-hc-fw zmdi-{{ button.icon }}"></i><!--
+   --><span ng-if="button.title">&nbsp;{{button.title | translate:vm.translationContext}}</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<div class="curtain" ng-if="$root.curtain.loading" ng-class="{'blank-only': $root.curtain.blankOnly}">
+  <div class="curtain-content" ng-if="$root.curtain.loading">
+    <div class="mb-xs"><coyo-spinner inverted="true" size="lg"></coyo-spinner></div>
+    <div class="curtain-tip">{{ $ctrl.tip }}</div>
+  </div>
+</div>

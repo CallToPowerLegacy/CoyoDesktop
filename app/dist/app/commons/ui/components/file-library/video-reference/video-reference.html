@@ -1,0 +1,20 @@
+<div class="loading text-center" ng-if="$ctrl.isProcessing">
+  <coyo-spinner size="sm"></coyo-spinner>
+</div>
+<div class="video-reference" ng-if="$ctrl.showPreview && $ctrl.videoUrl && !$ctrl.isProcessing && $ctrl.previewAvailable">
+  <video controls ng-if="$ctrl.showControls" ng-src="{{$ctrl.videoUrl}}" type="{{$ctrl.file.contentType}}">
+  </video>
+  <video ng-if="!$ctrl.showControls" ng-src="{{$ctrl.videoUrl}}" type="{{$ctrl.file.contentType}}">
+  </video>
+</div>
+
+<div class="video-cover" ng-if="!$ctrl.showPreview && $ctrl.previewAvailable">
+  <span class="play-button">
+    <i class="zmdi zmdi-play-circle"></i>
+  </span>
+</div>
+
+<div class="broken-image-placeholder text-muted" ng-if="!$ctrl.isProcessing && !$ctrl.previewAvailable">
+  <i class="zmdi zmdi-broken-image"></i>
+  <span class="no-preview-text" translate="PREVIEW_NOT_AVAILABLE"></span>
+</div>

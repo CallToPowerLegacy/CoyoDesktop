@@ -1,0 +1,8 @@
+<section class="list-app-field-types">
+    <div class="list-app-field-type" ng-repeat="type in $ctrl.fieldTypes" ng-click="$ctrl.select(type)">
+        <i class="field-type-icon zmdi zmdi-hc-2x" ng-class="type.icon"></i>
+        <span class="field-type-title">{{type.title | translate}}</span>
+        <div class="field-type-description">{{type.description | translate}}</div>
+        <i class="field-type-arrow zmdi zmdi-hc-fw zmdi-hc-2x zmdi-arrow-right"></i>
+    </div>
+</section>

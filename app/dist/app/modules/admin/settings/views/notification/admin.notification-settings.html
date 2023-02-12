@@ -1,0 +1,28 @@
+<form name="notificationForm" class="form-horizontal" coyo-form-submit="$ctrl.save()">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title" translate="ADMIN.SETTINGS.NOTIFICATION"></h3>
+        </div>
+        <div class="panel-body">
+            <div ng-repeat="notification in $ctrl.channelMetadata">
+                <div class="form-group">
+                    <label for="{{notification.key}}-notifications"
+                           class="col-sm-3 control-label"
+                           translate="ADMIN.SETTINGS.{{notification.id}}.NOTIFICATIONS"></label>
+                    <div class="col-sm-8">
+                        <coyo-checkbox id="{{notification.key}}-notifications"
+                                       ng-disabled="notification.disabled && notification.disabled()"
+                                       ng-model="$ctrl.settings[notification.model]"></coyo-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer panel-actions">
+            <div class="row">
+                <div class="col-sm-9 col-sm-push-3">
+                    <coyo-form-submit-button label="SAVE" form-ctrl="notificationForm"></coyo-form-submit-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,202 @@
+$aspect-ratio: 0.5625; // this is 16:9
+$modal-width: 90vw;
+$modal-max-width: 1180px;
+$modal-height: $modal-width * $aspect-ratio;
+$modal-max-height: $modal-max-width * $aspect-ratio;
+$modal-height-max-breakpoint: 1310px; // $modal-max-width / 90vw;
+
+.modal-xl {
+  @media screen and (min-width: $screen-sm-min) {
+    width: $modal-width;
+    max-width: $modal-max-width;
+  }
+}
+
+.lightbox-modal {
+  background-color: #000;
+  @media screen and (min-width: $screen-sm-min) {
+    border-radius: 5px;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    min-height: 24px;
+    margin: 0;
+    padding: 10px 20px;
+    border-bottom: 0;
+    text-align: center;
+    color: $color-white;
+
+    @media screen and (max-width: $screen-sm-min) {
+      padding: 10px;
+    }
+
+    .header-left {
+      margin-left: 0;
+      text-align: left;
+
+      .index {
+        margin-right: 8px;
+        @media screen and (min-width: $screen-sm-min) {
+          margin-left: -12px;
+        }
+      }
+
+      .download {
+        i.zmdi {
+          cursor: pointer;
+          font-size: 125%;
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .header-middle {
+      padding-right: 100px;
+      @include truncate-text(80%);
+
+      @media screen and (max-width: $screen-md-min) {
+        padding-right: 80px;
+      }
+      @media screen and (min-width: 600px) and (max-width: $screen-sm-min) {
+        padding-right: 110px;
+      }
+      @media screen and (max-width: 600px) {
+        padding-right: 50px;
+        @include truncate-text(80%);
+      }
+
+      text-align: center;
+      line-height: 1.175;
+      vertical-align: middle;
+
+
+      .description {
+        font-weight: bold;
+
+        &.separator {
+          margin: 0 3px;
+
+          &::after {
+            content: "/";
+          }
+        }
+      }
+
+      @media screen and (max-width: $screen-sm-min) {
+        .title { display: none; }
+        .description { &.separator { display: none; } }
+      }
+    }
+
+    .header-right {
+      padding: 0;
+      text-align: right;
+
+      .modal-close {
+        position: relative;
+        color: $color-white;
+      }
+    }
+  }
+
+  .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    overflow: hidden;
+
+    @media screen and (min-width: $screen-sm-min) {
+      height: $modal-height;
+      max-height: $modal-max-height;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    .chevron-left,
+    .chevron-right {
+      position: absolute;
+      top: 45%;
+      padding: 1%;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .chevron-left {
+      left: 1%;
+    }
+
+    .chevron-right {
+      right: 1%;
+    }
+
+    i.zmdi {
+      color: $color-white;
+      font-size: 250%;
+      text-shadow: 0 0 3px rgba($color-black, 0.5);
+    }
+
+    .broken-image-placeholder {
+      i.zmdi-broken-image {
+        color: $color-white;
+        font-size: 500%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .loading {
+      .coyo-spinner {
+        vertical-align: middle;
+        font-size: 5px;
+        border-top-color: rgba(255, 255, 255, 0.25);
+        border-right-color: rgba(255, 255, 255, 0.25);
+        border-bottom-color: rgba(255, 255, 255, 0.25);
+        border-left-color: rgba(255, 255, 255, 1);
+      }
+    }
+
+    img,
+    video {
+      max-width: 100%;
+      @media screen and (max-width: $screen-sm-min) {
+        max-height: calc(100vh - 46px);
+      }
+      @media screen and (min-width: $screen-sm-min) {
+        max-height: $modal-height;
+      }
+      @media screen and (min-width: $modal-height-max-breakpoint) {
+        max-height: $modal-max-height;
+      }
+    }
+
+    .video-reference {
+      line-height: 1.0; // fix small margin at bottom of videos
+    }
+
+    video::-internal-media-controls-download-button {
+      display: none;
+    }
+
+    video::-webkit-media-controls-enclosure {
+      overflow: hidden;
+    }
+
+    video::-webkit-media-controls-panel {
+      width: calc(100% + 25px); // recalculate panel width after download icon is disabled
+
+      @media screen and (max-width: $screen-sm-min) {
+        width: calc(100% + 35px);
+      }
+    }
+  }
+}

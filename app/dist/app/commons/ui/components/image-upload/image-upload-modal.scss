@@ -1,0 +1,10 @@
+.image-upload-modal {
+
+  @media screen and (min-width: $screen-sm-min) {
+    min-height: 443px;
+  }
+
+  @media screen and (min-width: $screen-md-min) {
+    min-height: 543px;
+  }
+}

@@ -1,0 +1,7 @@
+<div class="rte-widget">
+  <div class="rte-html-container" ng-bind-html="$ctrl.widget.settings.html_content | hashtag | trusthtml" ng-if="!$ctrl.editMode"></div>
+  <coyo-rte
+      height="$ctrl.height"
+      ng-model="$ctrl.widget.settings.html_content"
+      ng-if="$ctrl.editMode"></coyo-rte>
+</div>

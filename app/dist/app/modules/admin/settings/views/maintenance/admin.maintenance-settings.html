@@ -1,0 +1,58 @@
+<form name="maintenanceForm" class="form-horizontal" coyo-form-submit="$ctrl.submit()">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title" translate="ADMIN.SETTINGS.MAINTENANCE.TITLE"></h3>
+        </div>
+        <div class="panel-body">
+            <div class="row ml-0 mr-0">
+                <div class="alert alert-warning col-xs-12" ng-if="$ctrl.maintenance.active === 'true' || true">
+                    <span translate="ADMIN.SETTINGS.MAINTENANCE.FORM.WARNING"
+                          translate-value-permission="{{::('ADMIN.USER_MGMT.ROLES.PERMISSIONS.ADMINISTRATION.MANAGE_MAINTENANCE' | translate)}}"></span>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error': maintenanceForm.maintenanceHeadline.$error.required}">
+                <label for="maintenanceHeadline" class="col-sm-3 control-label"
+                       translate="ADMIN.SETTINGS.MAINTENANCE.FORM.HEADLINE"></label>
+                <div class="col-sm-8">
+                    <input id="maintenanceHeadline" name="maintenanceHeadline" type="text" class="form-control"
+                           ng-model="$ctrl.maintenance.headline" ng-required="$ctrl.maintenance.active === 'true'" maxlength="255">
+                    <ng-messages for="maintenanceForm.maintenanceHeadline.$error" class="help-block validation">
+                        <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                    </ng-messages>
+                </div>
+                <div class="col-sm-1 hidden-xs">
+                    <coyo-help tip="ADMIN.SETTINGS.MAINTENANCE.FORM.HEADLINE_HELP"></coyo-help>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error': maintenanceForm.maintenanceMessage.$error.required}">
+                <label for="maintenance-message" class="col-sm-3 control-label"
+                       translate="ADMIN.SETTINGS.MAINTENANCE.FORM.MESSAGE"></label>
+                <div class="col-sm-8">
+                    <textarea id="maintenance-message" name="maintenanceMessage" class="form-control resize-none" rows="5" maxlength="255"
+                              ng-model="$ctrl.maintenance.message" ng-required="$ctrl.maintenance.active === 'true'"></textarea>
+                    <ng-messages for="maintenanceForm.maintenanceMessage.$error" class="help-block validation">
+                        <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                    </ng-messages>
+                </div>
+                <div class="col-sm-1 hidden-xs">
+                    <coyo-help tip="ADMIN.SETTINGS.MAINTENANCE.FORM.MESSAGE_HELP"></coyo-help>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="maintenance-active" class="col-sm-3 control-label"
+                       translate="ADMIN.SETTINGS.MAINTENANCE.FORM.ACTIVE.LABEL"></label>
+                <div class="col-sm-9">
+                    <coyo-checkbox id="maintenance-active" name="maintenance-active"
+                                  ng-model="$ctrl.maintenance.active"></coyo-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-sm-9 col-sm-push-3">
+                    <coyo-form-submit-button form-ctrl="maintenanceForm" icon="zmdi-check" label="SAVE"></coyo-form-submit-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

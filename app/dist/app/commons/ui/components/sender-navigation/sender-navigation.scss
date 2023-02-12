@@ -1,0 +1,155 @@
+.dropdown-menu-nav-sender,
+.nav.nav-tabs.nav-sender,
+.nav.nav-default.nav-sender {
+  > li.app-inactive > a {
+    color: $color-gray-light;
+  }
+
+  > li.active.app-inactive > a {
+    color: inherit;
+  }
+}
+
+.dropdown-menu-nav-sender li > a {
+  color: $dropdown-link-color;
+  display: block;
+  padding: 8px 16px;
+  white-space: nowrap;
+
+  &:focus,
+  &:hover {
+    background-color: $dropdown-link-hover-bg;
+  }
+}
+
+.sender-navigation {
+
+  // mobile navigation
+  .nav-tabs.nav-sender {
+    background-color: $color-white;
+    border-top: 1px solid $color-gray-lighter;
+
+    @media screen and (min-width: $screen-md-min) {
+      display: none;
+    }
+
+    li {
+      padding-top: 3px;
+
+      a {
+        font-size: 24px;
+        line-height: 24px;
+        padding-left: 0;
+        padding-right: 0;
+
+        i {
+          margin: 0;
+        }
+      }
+
+      .dropdown-more {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+
+        i {
+          align-self: center;
+        }
+      }
+    }
+
+    span {
+      font-size: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+  }
+
+  .nav-sender-title {
+    background: transparent;
+    border: 0;
+    color: $color-gray;
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    width: 100%;
+
+    &:focus {
+      color: $color-gray-darker;
+      outline: 0;
+    }
+  }
+
+  .angular-ui-tree-empty {
+    background: transparent;
+    border: 0;
+    min-height: 36px;
+  }
+
+  .angular-ui-tree-placeholder {
+    background: $color-gray-lighter;
+    border: 1px dashed $color-gray;
+    margin: 0;
+  }
+}
+
+.nav-panel {
+  > li {
+    line-height: inherit;
+    min-height: inherit;
+
+    a {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  li:hover .btn-sort-handle,
+  li:hover .btn-settings {
+    display: block;
+  }
+}
+
+.panel .nav > li > a .btn {
+  border: 0;
+  color: $color-gray;
+  display: none;
+  line-height: 24px;
+  padding: 6px 4px;
+  position: absolute;
+  top: 0;
+  width: 24px;
+  z-index: 1;
+
+  &:hover {
+    color: $color-gray-darker;
+  }
+  &.disabled,
+  &.disabled:hover {
+    color: $color-gray-light;
+  }
+}
+
+.panel-navigation .btn-delete-group,
+.panel-navigation-mobil .btn-sort-handle,
+.panel-navigation-mobil .btn-settings {
+  border: 0;
+  color: $color-gray;
+  display: none;
+  line-height: 24px;
+  padding: 6px 4px;
+  position: absolute;
+  top: 0;
+  width: 24px;
+  z-index: 1;
+
+  &:hover {
+    color: $color-gray-darker;
+  }
+  &.disabled,
+  &.disabled:hover {
+    color: $color-gray-light;
+  }
+}

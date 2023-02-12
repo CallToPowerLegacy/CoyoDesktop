@@ -1,0 +1,54 @@
+<table class="table table-condensed table-hover table-tasks" ui-tree="::$ctrl.treeOptions" empty-placeholder-enabled="false" max-depth="0"
+       data-drag-enabled="{{::$ctrl.dragEnabled}}"
+       ui-tree-nodes ng-model="$ctrl.shownTasks" ng-if="$ctrl.shownTasks.length">
+  <thead>
+    <tr>
+      <th class="table-tasks-check">
+      </th>
+      <th class="table-tasks-details">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat-start="task in $ctrl.shownTasks" ng-if="$ctrl.editedTaskId !== task.id" ui-tree-node>
+      <td class="table-tasks-check">
+        <coyo-checkbox ng-model="task.done" ng-model-options="{'debounce': 500}" ng-change="$ctrl.toggleTask(task)"></coyo-checkbox>
+      </td>
+      <td class="table-tasks-details">
+        <div class="drag-handle" ui-tree-handle ng-if="::$ctrl.dragEnabled">
+          <span class="btn btn-zmdi btn-link btn-move" ui-tree-handle><i class="zmdi zmdi-swap-vertical"></i></span>
+        </div>
+        <div class="table-tasks-header">
+          <span class="table-tasks-title" ng-bind="task.title"></span>
+          <div class="table-tasks-meta hidden-xs">
+            <oyoc-task-due-date ng-if="task.dueDate" task="task"></oyoc-task-due-date>
+            <coyo-user-avatar ng-if="task.assignee" user="task.assignee" avatar-size="xs"></coyo-user-avatar>
+          </div>
+        </div>
+        <div class="table-tasks-description" ng-if="task.description" ng-bind="task.description"></div>
+        <div class="table-tasks-meta hidden-sm hidden-md hidden-lg hidden-print row">
+          <oyoc-task-due-date class="col-xs-12" ng-if="task.dueDate" task="task"></oyoc-task-due-date>
+          <a class="col-xs-12" coyo-sender-link="task.assignee" ng-if="task.assignee" ng-bind="task.assignee.displayName"></a>
+        </div>
+        <coyo-context-menu align-right="true" ng-if="$ctrl.app._permissions.manageTask">
+          <li>
+            <a href ng-click="$ctrl.editTask(task)">
+              <i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;{{'APP.TASK.TASKS.CONTEXT_MENU.EDIT' | translate}}
+            </a>
+          </li>
+          <li>
+            <a href ng-click="$ctrl.deleteTask(task)">
+              <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{'APP.TASK.TASKS.CONTEXT_MENU.DELETE' | translate}}
+            </a>
+          </li>
+        </coyo-context-menu>
+      </td>
+    </tr>
+    <tr class="table-tasks-edit" ng-if="$ctrl.editedTaskId === task.id" ng-repeat-end>
+      <td colspan="2">
+        <oyoc-edit-task task="task" cancel="$ctrl.editTask()"></oyoc-edit-task>
+      </td>
+    </tr>
+  </tbody>
+
+</table>

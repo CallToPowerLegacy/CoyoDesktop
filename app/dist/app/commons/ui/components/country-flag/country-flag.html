@@ -1,0 +1,5 @@
+<span class="country-flag flag-icon flag-icon-{{$ctrl.getCountry()}}"
+      ng-if=":: $ctrl.country !== 'NONE' && $ctrl.enabled"
+      ng-class="{'flag-icon-squared': $ctrl.form === 'squared',
+                 'flag-icon-squared flag-icon-rounded': $ctrl.form === 'rounded'}">
+</span>

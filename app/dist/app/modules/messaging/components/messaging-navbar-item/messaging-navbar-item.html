@@ -1,0 +1,8 @@
+<li class="nav-item messaging-navbar-item hidden-lg" coyo-global-permissions="USE_MESSAGING">
+  <a class="nav-item-icon zmdi zmdi-comment-text" ng-click="$ctrl.openMessagingSidebar()">
+    <span class="messaging-navbar-item-unread" ng-if="$ctrl.unreadCount > 0">
+      <span ng-if="$ctrl.unreadCount < 100">{{$ctrl.unreadCount}}</span>
+      <span ng-if="$ctrl.unreadCount >= 100">+</span>
+    </span>
+  </a>
+</li>

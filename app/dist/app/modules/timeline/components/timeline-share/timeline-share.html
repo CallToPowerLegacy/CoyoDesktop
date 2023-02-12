@@ -1,0 +1,33 @@
+<div class="timeline-share">
+  <coyo-refresh on-scope-event="timelineShare:refresh">
+    <div class="panel-body">
+      <div class="timeline-share-author-avatar" ng-if="::tlShare.ngModel.author">
+        <coyo-sender-avatar sender="::tlShare.ngModel.author" avatar-size="xs"></coyo-sender-avatar>
+      </div>
+      <div class="timeline-share-body">
+        <span class="small">
+          <a class="timeline-share-author-name" coyo-sender-link="::tlShare.ngModel.author"
+             ng-if="::tlShare.ngModel.author && tlShare.ngModel.author.id !== tlShare.currentUser.id">{{::tlShare.ngModel.author.displayName }}</a>
+          <span class="text-muted" ng-if="tlShare.showOriginalAuthor">&nbsp;({{tlShare.originalAuthor.displayName}})</span>
+          <span class="text-muted" translate="{{ ::tlShare.headline }}" translate-value-time="{{::tlShare.ngModel.created | amTimeAgo}}"></span>
+          <a class="timeline-share-recipient-name" coyo-sender-link="::tlShare.ngModel.recipient"
+             ng-if="::tlShare.ngModel.recipient && tlShare.ngModel.recipient.id !== tlShare.currentUser.id">{{::tlShare.ngModel.recipient.displayName }}</a>
+          <span class="text-muted" translate="{{::tlShare.headlineSuffix }}" translate-value-time="{{::tlShare.ngModel.created | amTimeAgo }}"></span>
+        </span>
+        <div class="timeline-share-message" ng-if="::tlShare.ngModel.data.message" coyo-mention-encode="::tlShare.ngModel.data.message | markdown"></div>
+      </div>
+      <div>
+        <coyo-context-menu class="status-option" align-right="true"
+                           ng-if="tlShare.ngModel.author.id !== tlShare.currentUser.id && tlShare.accessOriginalAuthor">
+          <li>
+            <a href ng-click="tlShare.toggleOriginalAuthor()">
+              <i class="zmdi zmdi-hc-fw"
+                 ng-class="{'zmdi-account': !tlShare.showOriginalAuthor, 'zmdi-account-o': tlShare.showOriginalAuthor}"></i>&nbsp;
+              {{ 'MODULE.TIMELINE.ORIGINAL_AUTHOR.' + (!tlShare.showOriginalAuthor ? '' : 'UN') + 'REVEAL' | translate}}
+            </a>
+          </li>
+        </coyo-context-menu>
+      </div>
+    </div>
+  </coyo-refresh>
+</div>

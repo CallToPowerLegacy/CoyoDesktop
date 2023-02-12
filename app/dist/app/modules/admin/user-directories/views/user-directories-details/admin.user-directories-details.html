@@ -1,0 +1,55 @@
+<form name="userDirectoryForm" coyo-form-submit="$ctrl.save()" novalidate>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title" ng-if="!$ctrl.userDirectory.isNew()">{{:: 'ADMIN.USER_DIRECTORIES.OPTIONS.EDIT' | translate}} <small>{{:: $ctrl.userDirectory.displayName }}</small></h3>
+      <h3 class="panel-title" ng-if="$ctrl.userDirectory.isNew()" translate="ADMIN.USER_DIRECTORIES.OPTIONS.CREATE"></h3>
+    </div>
+    <div class="panel-body form-horizontal">
+      <div class="form-group" ng-class="{'has-error': userDirectoryForm.inputName.$invalid && userDirectoryForm.inputName.$touched}">
+        <label for="inputName" class="col-sm-2 control-label" translate="ADMIN.USER_DIRECTORIES.LABEL.NAME"></label>
+        <div class="col-sm-9">
+          <input id="inputName" name="inputName" type="text" class="form-control" ng-model="$ctrl.userDirectory.name"
+                 maxlength="255" ng-required="true">
+          <ng-messages for="userDirectoryForm.inputName.$error" class="help-block validation">
+            <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+          </ng-messages>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': userDirectoryForm.selectType.$invalid && userDirectoryForm.selectType.$touched}">
+        <label for="selectType" class="col-sm-2 control-label" translate="ADMIN.USER_DIRECTORIES.LABEL.TYPE"></label>
+        <div class="col-sm-9">
+          <coyo-select-user-directory-type id="selectType" name="selectType" ng-model="$ctrl.userDirectory.type" ng-required="true" placeholder="{{:: 'ADMIN.USER_DIRECTORIES.LABEL.TYPE.PLACEHOLDER' | translate }}"></coyo-select-user-directory-type>
+          <ng-messages for="userDirectoryForm.selectType.$error" class="help-block validation">
+            <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+          </ng-messages>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="checkActive" class="col-sm-2 control-label" translate="ADMIN.USER_DIRECTORIES.LABEL.ACTIVE"></label>
+        <div class="col-sm-9">
+          <div class="checkbox">
+            <label>
+              <coyo-checkbox id="checkActive" ng-model="$ctrl.userDirectory.active"></coyo-checkbox>
+              {{:: 'ADMIN.USER_DIRECTORIES.LABEL.ACTIVE.DESCRIPTION' | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <oyoc-user-directory-settings form="userDirectoryForm" directory="$ctrl.userDirectory" validation-errors="$ctrl.validationErrors"></oyoc-user-directory-settings>
+    </div>
+
+    <div class="panel-footer panel-actions">
+      <div class="row">
+        <div class="col-sm-9 col-sm-push-2">
+          <coyo-form-submit-button form-ctrl="userDirectoryForm" label="SAVE"></coyo-form-submit-button><!--
+       --><a ui-sref="^.list" class="btn btn-default">
+            <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{:: 'CANCEL' | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

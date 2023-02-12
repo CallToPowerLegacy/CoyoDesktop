@@ -1,0 +1,305 @@
+<form name="form" coyo-form-submit="ctrl.save()" class="article">
+  <div class="panel">
+    <div class="blog-article-header" ng-class="{'unpublished': !ctrl.originalArticle.published}">
+      <div class="panel-heading panel-heading-main article-header mb-xxs">
+        <h1 class="panel-title article-title"><!--
+       --><span ng-if="!ctrl.originalArticle.isNew()">{{:: ctrl.originalArticle.title }}</span><!--
+       --><span ng-if="ctrl.originalArticle.isNew()" translate="APP.BLOG.CREATE"></span><!--
+       -->&nbsp;
+        </h1>
+        <coyo-manage-translations ng-if="ctrl.isSenderTranslated" current="ctrl.currentLanguage"
+                                  default="ctrl.defaultLanguage" disable-config="true"
+                                  on-change="ctrl.onLanguageChange" on-delete="ctrl.onLanguageDeleted"
+                                  languages="ctrl.languages"></coyo-manage-translations>
+
+      </div>
+      <div class="panel-heading panel-heading-sub article-header mb-s">
+        <oyoc-blog-article-time article="ctrl.originalArticle"></oyoc-blog-article-time>
+      </div>
+    </div>
+
+    <uib-tabset justified="true" type="tabs"
+                ng-repeat="(key, value) in ctrl.languages"
+                ng-if="ctrl.isTranslationRequired(key)"
+                ng-show="value.active && (key === ctrl.currentLanguage || key === 'NONE')"
+                active="ctrl.activeTab">
+      <uib-tab>
+        <uib-tab-heading>
+          {{:: 'APP.BLOG.TAB.ARTICLE' | translate }}
+          <i ng-if="form['title-' + key].$invalid"
+             class="tab-indicator zmdi zmdi-alert-triangle"
+             uib-tooltip="{{:: 'APP.BLOG.ARTICLE.TITLE.REQUIRED' | translate}}"
+             tooltip-placement="top"
+             tooltip-append-to-body="true"></i>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab>
+        <uib-tab-heading>
+          {{:: 'APP.BLOG.TAB.TEASER' | translate }}
+          <i ng-if="form['teaserText-' + key].$invalid"
+             class="tab-indicator zmdi zmdi-alert-triangle"
+             uib-tooltip="{{:: 'APP.BLOG.ARTICLE.TEASER.REQUIRED' | translate}}"
+             tooltip-placement="top"
+             tooltip-append-to-body="true"></i>
+        </uib-tab-heading>
+      </uib-tab>
+      <uib-tab ng-if="ctrl.app._permissions.publishArticle">
+        <uib-tab-heading>
+          {{:: 'APP.BLOG.TAB.PUBLICATION' | translate }}
+        </uib-tab-heading>
+      </uib-tab>
+    </uib-tabset>
+
+    <div class="panel-body">
+
+      <!-- Tab 1 -->
+      <div ng-show="ctrl.activeTab === 0">
+        <div class="inner-tab">
+          <div class="row">
+            <div class="col-sm-12 blog-article-title">
+              <div class="form-group last-form-group"
+                   ng-class="{'has-error': form['title-' + key].$invalid && form['title-' + key].$touched}"
+                   ng-repeat="(key, value) in ctrl.languages"
+                   ng-if="ctrl.isTranslationRequired(key)"
+                   ng-show="value.active && (key === ctrl.currentLanguage || key === 'NONE')">
+                <label for="title-{{key}}" class="control-label">
+                  {{:: "APP.BLOG.ARTICLE.TITLE" | translate }}&nbsp;
+                  <coyo-country-flag country="ctrl.currentLanguage" form="rounded" dependent-to-translations="true">
+                  </coyo-country-flag>
+                </label>
+                <input id="title-{{key}}"
+                       name="title-{{key}}"
+                       type="text"
+                       class="form-control"
+                       maxlength="255"
+                       ng-model="ctrl.languages[key].translations.title"
+                       ng-change="ctrl.checkValidity(key, form['title-' + key].$valid)"
+                       ng-required="true"/>
+                <ng-messages for="form['title-' + key].$error" class="help-block validation">
+                  <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                </ng-messages>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 blog-article-text" ng-repeat="(key, value) in ctrl.languages"
+                 ng-if="ctrl.isTranslationRequired(key)"
+                 ng-show="value.active && (key === ctrl.currentLanguage || key === 'NONE')">
+              <coyo-widget-layout name="{{ctrl.article.buildLayoutName(ctrl.app.id, key)}}"
+                                  parent="ctrl.article"
+                                  create-mode="ctrl.article.isNew() || (ctrl.currentLanguage != ctrl.defaultLanguage)"
+                                  global-events="false"
+                                  can-manage="ctrl.app._permissions.createArticle"
+                                  render-style="plain"
+                                  simple-mode="ctrl.simpleMode"
+                                  add-initial-widget="ctrl.simpleMode && !ctrl.languageInitialised[ctrl.currentLanguage]">
+              </coyo-widget-layout>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tab 2 -->
+      <div ng-show="ctrl.activeTab === 1">
+        <div class="inner-tab">
+          <div class="form-horizontal">
+            <label for="teaserText-{{key}}" class="blog-label control-label">
+              {{:: 'APP.BLOG.ARTICLE.TEASER.TEASER' | translate}}&nbsp;
+              <coyo-country-flag country="ctrl.currentLanguage" form="rounded" dependent-to-translations="true">
+              </coyo-country-flag>
+            </label>
+            <div class="form-group"
+                 ng-class="{'has-error': form['teaserText-' + key].$invalid && form['teaserText-' + key].$touched}"
+                 ng-repeat="(key, value) in ctrl.languages"
+                 ng-if="ctrl.isTranslationRequired(key)"
+                 ng-show="value.active && (key === ctrl.currentLanguage || key === 'NONE')">
+              <div class="col-sm-11">
+                <textarea id="teaserText-{{key}}"
+                          name="teaserText-{{key}}"
+                          class="form-control"
+                          maxlength="500"
+                          ng-model="ctrl.languages[key].translations.teaserText"
+                          ng-change="ctrl.checkValidity(key, form['teaserText-' + key].$valid)"
+                          rows="5"
+                          required>
+                </textarea>
+                <ng-messages for="form['teaserText-' + key].$error" class="help-block validation">
+                  <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+                </ng-messages>
+              </div>
+              <div class="col-sm-1 hidden-xs">
+                <coyo-help placement="left" tip="APP.BLOG.ARTICLE.TEASER.TEASER_HELP"></coyo-help>
+              </div>
+            </div>
+            <div coyo-global-permissions="ACCESS_FILES">
+              <label for="teaserImage" class="blog-label control-label">
+                {{:: "APP.BLOG.ARTICLE.TEASER.TEASER_IMAGE" | translate }}&nbsp;
+                <coyo-country-flag country="ctrl.currentLanguage" form="rounded" dependent-to-translations="true">
+                </coyo-country-flag>
+              </label>
+              <div class="form-group" ng-repeat="(key, value) in ctrl.languages" ng-if="ctrl.isTranslationRequired(key)"
+                   ng-show="value.active && (key === ctrl.currentLanguage || key === 'NONE')">
+                <div class="col-sm-11">
+                  <coyo-image-picker id="teaserImage"
+                                     sender="ctrl.sender"
+                                     options="{initialFolder: {id: ctrl.app.rootFolderId}, selectMode: 'single'}"
+                                     ng-model="ctrl.languages[key].translations.teaserImage"
+                                     crop-settings="{cropImage: true, cropAspectRatio: '1', imageSize: {w: 320, h: 320}}">
+                  </coyo-image-picker>
+                </div>
+                <div class="col-sm-1 hidden-xs">
+                  <coyo-help placement="left" tip="APP.BLOG.ARTICLE.TEASER.TEASER_IMAGE_HELP"></coyo-help>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <div class="checkbox" ng-repeat="(key, value) in ctrl.languages"
+                       ng-if="ctrl.isTranslationRequired(key)"
+                       ng-show="value.active && (key === ctrl.currentLanguage || key === 'NONE')">
+                    <label>
+                      <coyo-checkbox id="showTeaserWithText"
+                                     ng-model="ctrl.languages[key].translations.showTeaserWithText"
+                                     ng-disabled="!ctrl.languages[key].translations.teaserText">
+                      </coyo-checkbox>
+                      {{:: 'APP.BLOG.ARTICLE.TEASER.SHOW_TEASER_WITH_TEXT' | translate }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <hr/>
+              <label for="teaserImageWide" class="blog-label control-label">
+                {{:: 'APP.BLOG.ARTICLE.TEASER.TEASER_IMAGE_WIDE' | translate }}&nbsp;
+                <coyo-country-flag country="ctrl.currentLanguage" form="rounded" dependent-to-translations="true">
+                </coyo-country-flag>
+              </label>
+              <div class="form-group last-form-group" ng-repeat="(key, value) in ctrl.languages"
+                   ng-if="ctrl.isTranslationRequired(key)"
+                   ng-show="value.active && (key === ctrl.currentLanguage || key === 'NONE')">
+                <div class="col-sm-11" coyo-global-permissions="ACCESS_FILES">
+                  <coyo-image-picker id="teaserImageWide"
+                                     sender="ctrl.sender"
+                                     options="{initialFolder: {id: ctrl.app.rootFolderId}, selectMode: 'single'}"
+                                     ng-model="ctrl.languages[key].translations.teaserImageWide"
+                                     crop-settings="{cropImage: true, cropAspectRatio: '3/1', imageSize: {w: 960, h: 320}}">
+                  </coyo-image-picker>
+                </div>
+                <div class="col-sm-1 hidden-xs">
+                  <coyo-help placement="left" tip="APP.BLOG.ARTICLE.TEASER.TEASER_IMAGE_WIDE_HELP"></coyo-help>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tab 3 -->
+      <div ng-show="ctrl.activeTab === 2">
+        <div class="inner-tab">
+          <div class="form-horizontal">
+            <div class="alert alert-warning" ng-if="article.shared" translate="APP.BLOG.PUBLISHERS.ALREADY_SHARED">
+
+            </div>
+            <div class="form-group"
+                 ng-class="{
+                 'has-error': ctrl.publishStatus === 'PUBLISHED'
+                              && form.publishDate.$invalid
+                              && form.publishDate.$touched
+                 }">
+              <label class="col-sm-2 control-label" translate="APP.BLOG.ARTICLE.STATUS.STATUS"></label>
+              <div class="col-sm-10">
+                <div class="radio">
+                  <label>
+                    <input name="visibility" type="radio" ng-model="ctrl.publishStatus" value="DRAFT"/>
+                    {{:: 'APP.BLOG.ARTICLE.STATUS.DRAFT.LABEL' | translate }}<br>
+                    <span class="text-muted" translate="APP.BLOG.ARTICLE.STATUS.DRAFT.HELP"></span>
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input name="visibility" type="radio" ng-model="ctrl.publishStatus" value="PUBLISHED"/>
+                    {{:: 'APP.BLOG.ARTICLE.STATUS.PUBLISHED.LABEL' | translate }}<br>
+                    <span class="text-muted" translate="APP.BLOG.ARTICLE.STATUS.PUBLISHED.HELP"></span>
+                  </label>
+                  <div class="publish-date-options" ng-show="ctrl.publishStatus === 'PUBLISHED'">
+                    <div class="checkbox">
+                      <label>
+                        <coyo-checkbox id="raiseNotification" ng-model="ctrl.raiseNotification"></coyo-checkbox>
+                        {{:: 'APP.BLOG.ARTICLE.STATUS.PUBLISHED.RAISE_NOTIFICATION' | translate }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input name="visibility" type="radio" ng-model="ctrl.publishStatus" value="PUBLISHED_AT"/>
+                    {{:: 'APP.BLOG.ARTICLE.STATUS.PUBLISHED_AT.LABEL' | translate }}<br>
+                    <span class="text-muted" translate="APP.BLOG.ARTICLE.STATUS.PUBLISHED_AT.HELP"></span>
+                  </label>
+                  <div class="publish-date-options" ng-show="ctrl.publishStatus === 'PUBLISHED_AT'">
+                    <div class="input-group">
+                      <div class="input-group-addon pointer" ng-click="openPicker = true"><i
+                          class="zmdi zmdi-calendar"></i></div>
+                      <input type="text" id="publishDate" name="publishDate" class="form-control"
+                             ng-required="ctrl.publishStatus === 'PUBLISHED_AT'"
+                             ng-model="ctrl.article.publishDate"
+                             ng-focus="openPicker = true"
+                             datetime-picker="yyyy-MM-dd HH:mm"
+                             is-open="openPicker">
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <coyo-checkbox id="raiseNotification" ng-model="ctrl.raiseNotification"></coyo-checkbox>
+                        {{:: 'APP.BLOG.ARTICLE.STATUS.PUBLISHED.RAISE_NOTIFICATION' | translate }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" ng-if="ctrl.canActAsSender">
+              <label class="col-sm-2 control-label" translate="APP.BLOG.AUTHOR"></label>
+              <div class="col-sm-9">
+                <div class="radio">
+                  <label>
+                    <input name="publishAs"
+                           type="radio"
+                           ng-model="ctrl.publishAs"
+                           value="AUTHOR"
+                           ng-change="ctrl.toggleAuthor()"/>
+                    {{:: 'APP.BLOG.ARTICLE.PUBLISH_AS_AUTHOR' | translate }}
+                    <span ng-if="ctrl.article.originalAuthorName">(<strong>{{ctrl.article.originalAuthorName}}</strong>)</span>
+                    <span
+                        ng-if="!ctrl.article.originalAuthorName">(<strong>{{ctrl.currentUser.displayName}}</strong>)</span>
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input name="publishAs"
+                           type="radio"
+                           ng-model="ctrl.publishAs"
+                           value="SENDER"
+                           ng-change="ctrl.toggleAuthor()"/>
+                    {{:: 'APP.BLOG.ARTICLE.PUBLISH_AS_SENDER' | translate }}
+                    (<strong>{{ctrl.sender.displayName}}</strong>)
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-1 hidden-xs">
+                <coyo-help placement="left" tip="APP.BLOG.ARTICLE.PUBLISH_AS_AUTHOR_HELP"></coyo-help>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer panel-actions">
+      <coyo-form-submit-button form-ctrl="form" label="SAVE" class="article-save"></coyo-form-submit-button><!--
+   --><a ng-click="ctrl.cancel()" class="btn btn-default article-cancel">
+      <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{:: 'CANCEL' | translate }}
+    </a>
+      <a href class="btn btn-link btn-right" ng-click="ctrl.simpleMode = !ctrl.simpleMode">
+        <span ng-if="!ctrl.simpleMode">{{::'WIDGETS.LAYOUT.EDIT_MODE.SIMPLE' | translate}}</span>
+        <span ng-if="ctrl.simpleMode">{{::'WIDGETS.LAYOUT.EDIT_MODE.ADVANCED' | translate}}</span>
+      </a>
+    </div>
+  </div>
+</form>

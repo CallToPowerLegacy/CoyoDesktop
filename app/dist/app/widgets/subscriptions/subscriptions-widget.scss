@@ -1,0 +1,35 @@
+.panel .subscriptions-widget .nav li {
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+.subscriptions-widget {
+  hr {
+    border-color: $color-gray-light;
+    margin: 12px -30px 24px;
+  }
+
+  .subscriptions-widget-title {
+    .header {
+      padding-bottom: 3px;
+    }
+
+    a {
+      color: $color-gray;
+      &:hover, &:focus {
+        color: $color-gray-darker;
+      }
+    }
+
+    .filter {
+      border: 0;
+      border-bottom: 1px solid $color-gray-light;
+      outline: none;
+      width: calc(100% - 24px);
+    }
+  }
+
+  .sender-display-name {
+    @include ellipsis();
+  }
+}

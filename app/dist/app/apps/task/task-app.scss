@@ -1,0 +1,374 @@
+.task-list-nav.nav.nav-default li a {
+  border-top: 1px solid $gray-lighter;
+  border-bottom: 1px solid $gray-lighter;
+  padding: 10px 133px 10px 24px;
+  @include ellipsis();
+
+  .btn-zmdi {
+    display: none;
+  }
+
+  .badge {
+    position: absolute;
+    right: 24px;
+    top: 10px;
+    margin: 0;
+  }
+
+  &:hover {
+    border-top-color: $gray-lighter;
+    border-bottom-color: $gray-lighter;
+  }
+
+  @include sm-and-up() {
+    padding-right: 68px;
+
+    .badge {
+      right: 24px;
+    }
+  }
+}
+
+.panel, .modal-body {
+  .nav.nav-default.task-list-nav li a {
+    margin-top: -1px;
+  }
+}
+
+.task-lists-manager {
+  .nav.nav-default.task-list-nav li a {
+    .btn-zmdi {
+      display: inline-block;
+      color: $gray;
+      position: absolute;
+      top: 0;
+      padding: 6px 4px;
+      font-size: 18px;
+    }
+    .btn-move {
+      right: 48px;
+    }
+    .btn-settings {
+      right: 14px;
+    }
+
+    .badge {
+      right: 88px;
+    }
+
+    @include sm-and-up() {
+      .btn-zmdi {
+        display: none;
+        top: 1px;
+        padding: 8px;
+        width: auto;
+
+        &:hover,
+        &:focus,
+        &:hover:active {
+          color: $gray-darker;
+        }
+      }
+      .btn-move {
+        right: 49px;
+      }
+      .btn-settings {
+        right: 19px;
+      }
+
+      .badge {
+        right: 24px;
+      }
+
+      &:hover {
+        padding-right: 80px;
+
+        .badge {
+          display: none;
+        }
+        .btn-zmdi {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.task-app,
+.modal-task-list {
+  &.modal-body {
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .btn-add {
+    padding: 16px 24px;
+  }
+
+  form[name="taskListForm"] {
+    border-bottom: 1px solid $gray-lighter;
+    padding-right: 14px;
+
+    .task-list-input,
+    .task-list-input:focus {
+      border: 0;
+      box-shadow: none;
+      padding: 16px 24px;
+      height: auto;
+    }
+
+    .btn-zmdi,
+    .btn-zmdi:hover,
+    .btn-zmdi:focus,
+    .btn-zmdi:hover:active {
+      background: none;
+      border: none;
+      box-shadow: none;
+      outline: none;
+      color: $gray;
+      padding: 8px 4px;
+      font-size: 18px;
+    }
+
+    @include sm-and-up() {
+      padding-right: 15px;
+
+      .btn-zmdi:hover,
+      .btn-zmdi:focus,
+      .btn-zmdi:hover:active {
+        color: $gray-darker;
+      }
+    }
+  }
+}
+
+.task-app {
+  .panel-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @include sm-and-up() {
+      display: none;
+    }
+
+    .title {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: $gray-darker;
+      font-size: 18px;
+      line-height: 24px;
+    }
+
+    .btn-link {
+      margin-top: -$panel-nav-padding-v;
+      margin-bottom: -$panel-nav-padding-v;
+      margin-right: -12px;
+      align-self: center;
+    }
+  }
+
+  .task-app-content {
+    display: flex;
+  }
+
+  .task-lists {
+    width: 30%;
+    max-width: 225px;
+    display: none;
+    border-right: 1px solid $gray-light;
+    padding-left: 0;
+    padding-right: 0;
+
+    @include sm-and-up() {
+      display: block;
+    }
+  }
+
+  .task-details {
+    flex-grow: 2;
+    width: 67%;
+  }
+}
+
+oyoc-create-task {
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 24px;
+
+  @include sm-and-up() {
+    margin-top: 0;
+  }
+
+  .create-task-additional {
+    @include animate(fadein .75s);
+
+    @include sm-and-up() {
+      border-bottom: 1px solid $gray-light;
+      padding-bottom: 24px;
+      margin-bottom: 24px;
+    }
+
+    #taskAssignee > p:first-child {
+      margin-top: 8px;
+    }
+  }
+}
+
+.table-tasks, .angular-ui-tree-drag{
+  margin: 0;
+  table-layout: fixed;
+  width: 100%;
+
+  thead {
+    tr {
+      th {
+        border: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  tr:first-child td {
+    border-top: 0;
+  }
+
+  tr:hover .context-menu {
+    display: block;
+  }
+
+  .table-tasks-check {
+    padding-left: 12px;
+    width: 46px;
+
+    button {
+      margin: 2px 0;
+    }}
+
+  .table-tasks-details {
+    position: relative;
+
+    .table-tasks-header {
+      padding: 4px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @include xs() {
+        margin-right: 40px;
+      }
+    }
+
+    .table-tasks-meta {
+
+      @include sm-and-up() {
+        align-items: center;
+        display: flex;
+        float: right;
+        height: 28px;
+        margin-top: -4px;
+        margin-right: 26px;
+
+        .badge {
+          position: static;
+          top: 0;
+          margin-left: 16px;
+          margin-right: 16px;
+        }
+      }
+
+      @include xs() {
+        .badge {
+          margin-top: 5px;
+        }
+      }
+
+      .user-avatar {
+        margin-top: 2px;
+      }
+
+      .is-due {
+        background-color: $color-red;
+      }
+
+
+    }
+
+    .table-tasks-title {
+      color: $color-gray-darker;
+      font-weight: 600;
+    }
+
+    .context-menu {
+      position: absolute;
+      top: 12px;
+      right: 6px;
+
+      @include sm-and-up() {
+        display: none;
+      }
+    }
+
+    .table-tasks-description {
+      color: $color-gray;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .drag-handle {
+      position: absolute;
+
+      @include sm-and-up() {
+        width: 100%;
+        height: 100%;
+        margin-top: -8px;
+        margin-left: -6px;
+
+        .btn {
+          display: none;
+        }
+      }
+
+      @include xs() {
+        top: 5px;
+        right: 20px;
+
+        .btn {
+          color: $color-gray;
+        }
+      }
+    }
+
+    @include xs() {
+      .table-tasks-description {
+        font-size: 90%;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  .table-tasks-edit {
+    @include animate(fadein .75s);
+    &.buttons {
+      min-width: 50px;
+      max-width: 50px;
+      .context-menu {
+        padding-top: 7px;
+      }
+    }}
+}
+
+.task-list-done {
+  .table-tasks-check button {
+    color: $color-green;
+  }
+}
+
+.clear-tasks {
+  color: $color-red;
+
+  &:hover {
+    color: darken($color-red, 10)
+  }
+}

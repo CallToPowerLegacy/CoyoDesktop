@@ -1,0 +1,85 @@
+<div class="comments" ng-class="{ empty : (!$ctrl.comments.length && !$ctrl.newComments.length) }">
+  <div class="panel panel-default panel-sm">
+    <div class="comments-list panel-body">
+
+      <div ng-if="$ctrl.total > ($ctrl.comments.length + $ctrl.newComments.length)" class="load-more">
+        <a ng-click="$ctrl.loadMore()" translate="COMMENTS.LOAD_MORE"></a>
+        <span>
+          <i ng-show="$ctrl.loading" class="zmdi zmdi-spinner zmdi-hc-spin"></i>
+          <small ng-hide="$ctrl.loading" class="text-muted">{{($ctrl.comments.length + $ctrl.newComments.length)}} /
+            {{$ctrl.total}}
+          </small>
+        </span>
+      </div>
+
+      <coyo-comment ng-model="::comment" author-id="$ctrl.authorId" ng-repeat="comment in $ctrl.comments track by comment.id" ng-class="{last: $last}"></coyo-comment>
+
+      <div class="comments-new-divider" ng-if="$ctrl.newComments.length && $ctrl.comments.length">
+        <span class="line"></span>
+        <span class="text" translate="COMMENTS.NEW"></span>
+        <span class="line"></span>
+      </div>
+
+      <coyo-comment ng-model="::comment" author-id="$ctrl.authorId" ng-repeat="comment in $ctrl.newComments track by comment.id" ng-class="{last: $last}"></coyo-comment>
+    </div>
+
+    <div class="comments-form panel-footer" ng-show="::$ctrl.currentPage" coyo-global-permissions="CREATE_COMMENT" ng-if="$ctrl.target._permissions.comment === true && $ctrl.showAddComment">
+      <form name="$ctrl.form" class="form-horizontal" coyo-form-submit="$ctrl.submitForm()">
+        <div class="comments-form-inner">
+          <textarea name="message"
+                    class="form-control"
+                    ng-model="$ctrl.formModel.message"
+                    ng-required="true"
+                    ng-attr-placeholder="{{::'COMMENTS.FORM.PLACEHOLDER' | translate}}"
+                    msd-elastic rows="1"
+                    ng-keypress="$ctrl.formKeyPress($event)"
+                    focus-if="$ctrl.focusMessageField"
+                    ng-blur="$ctrl.focusMessageField = false"
+                    coyo-mention-select></textarea>
+
+          <coyo-emoji-picker ng-model="$ctrl.formModel.message"
+                             focus-var="$ctrl.focusMessageField"></coyo-emoji-picker>
+
+          <coyo-btn-attachments author="::$ctrl.author"
+                                active="$ctrl.newItemAttachments.length || $ctrl.formModel.fileLibraryAttachments.length"
+                                context-id="{{::$ctrl.target.id}}"
+                                on-select-attachments="$ctrl.addAttachments(files)"
+                                on-select-file-library="$ctrl.addFileLibraryAttachments(files)"
+                                class="comments-form-attachment-trigger"></coyo-btn-attachments>
+
+          <coyo-form-submit-button label="SEND" form-ctrl="::$ctrl.form" disabled="$ctrl.isUploading()"></coyo-form-submit-button>
+        </div>
+      </form>
+    </div>
+
+    <div class="comments-form-attachments" ng-if="$ctrl.newItemAttachments.length || $ctrl.formModel.fileLibraryAttachments.length">
+      <div class="comments-form-attachment"
+           ng-repeat="attachment in $ctrl.newItemAttachments"
+           ng-class="{ uploading : attachment.uploading, done : (attachment.progress === 100) }">
+        <div class="comments-form-attachment-icon">
+          <coyo-file-icon file="::attachment" class="zmdi-hc-lg"></coyo-file-icon>
+        </div>
+        <div class="comments-form-attachment-name">{{::attachment.name}}</div>
+        <div class="comments-form-attachment-opt">
+          <span class="text-muted" ng-if="attachment.uploading">{{attachment.progress}}%</span>
+          <a ng-if="!attachment.uploading" ng-click="$ctrl.removeAttachment(attachment)">
+            <i class="zmdi zmdi-close-circle-o red"></i>
+          </a>
+        </div>
+      </div>
+      <div class="comments-form-attachment"
+           ng-repeat="attachment in $ctrl.formModel.fileLibraryAttachments | limitTo:20">
+        <div class="comments-form-attachment-icon">
+          <coyo-file-icon file="::attachment" class="zmdi-hc-lg"></coyo-file-icon>
+        </div>
+        <div class="comments-form-attachment-name">{{::attachment.displayName}}</div>
+        <div class="comments-form-attachment-opt">
+          <a ng-if="!attachment.uploading" ng-click="$ctrl.removeFileLibraryAttachment(attachment)">
+            <i class="zmdi zmdi-close-circle-o red"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

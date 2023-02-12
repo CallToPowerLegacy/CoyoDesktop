@@ -1,0 +1,36 @@
+<div class="panel">
+  <div ng-if="$ctrl.error" ng-class="{'error-message': $ctrl.error, 'fade-in': $ctrl.error}">
+    {{$ctrl.error | translate}}
+  </div>
+  <div class="panel-body">
+    <h2 translate="MODULE.LOGIN.CONFIGURE.TITLE"></h2>
+    <form name="form" id="configure-form" ng-submit="$ctrl.save()" role="form">
+      <div class="form-group" ng-class="{'has-error': form.url.$dirty && form.url.$error.required}">
+        <div class="input-wrapper">
+          <input type="url"
+                 class="form-control"
+                 placeholder="{{:: 'MODULE.LOGIN.CONFIGURE.URL' | translate }}"
+                 name="url"
+                 id="url"
+                 ng-model="$ctrl.url"
+                 focus-if
+                 required>
+          <i class="zmdi zmdi-globe"></i>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" ng-disabled="form.$invalid || $ctrl.loading" class="btn btn-primary btn-block">
+          <span ng-show="!$ctrl.loading" translate="MODULE.LOGIN.CONFIGURE.SUBMIT"></span>
+          <i ng-show="$ctrl.loading" class="zmdi zmdi-spinner zmdi-hc-spin"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-6">
+        <div class="pull-right copyright"></div>
+      </div>
+    </div>
+  </div>
+</div>

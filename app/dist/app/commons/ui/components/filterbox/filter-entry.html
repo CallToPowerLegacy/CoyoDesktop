@@ -1,0 +1,7 @@
+<li ng-class="{'active': $ctrl.active}" class="filter-entry">
+  <a href ng-click="::$ctrl.clickHandler()">
+    <i ng-if="$ctrl.icon" class="zmdi {{$ctrl.loading ? 'zmdi-spinner zmdi-hc-spin' : $ctrl.icon}}" style="{{::$ctrl.iconStyle}}"></i><span>{{$ctrl.text}}</span><span translate="{{::$ctrl.textKey}}"></span>
+    <ng-transclude></ng-transclude>
+    <span ng-if="$ctrl.badge" class="badge">{{$ctrl.badge}}</span>
+  </a>
+</li>

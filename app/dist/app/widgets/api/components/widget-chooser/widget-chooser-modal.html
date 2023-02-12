@@ -1,0 +1,26 @@
+<form name="createWidgetForm" coyo-form-submit="vm.save()">
+  <div class="modal-content-wrapper">
+    <div class="modal-header" ng-class="{'with-tabs': !vm.widgetConfig}">
+      <h3 class="modal-title" ng-if="!vm.widgetConfig" translate="WIDGETS.CHOOSER.TITLE"></h3>
+      <h3 class="modal-title" ng-if="vm.widgetConfig" translate="WIDGETS.SETTINGS.TITLE"></h3>
+      <span class="modal-close" ng-click="$dismiss()">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+    </div>
+    <oyoc-widget-config-chooser ng-if="!vm.widgetConfig || vm.widgetConfig.settings.skipOnCreate" class="modal-body oyoc-widget-config-chooser" ng-model="vm.widgetConfig" required></oyoc-widget-config-chooser>
+    <div class="modal-body" ng-if="vm.widgetConfig && !vm.widgetConfig.settings.skipOnCreate">
+      <div class="form-horizontal">
+        <oyoc-settings-view model="vm.widget"
+                            config="vm.widgetConfig"
+                            form-ctrl="createWidgetForm"
+                            save-callbacks="vm.saveCallbacks"></oyoc-settings-view>
+      </div>
+    </div>
+    <div class="modal-footer" ng-if="vm.widget">
+      <coyo-form-submit-button label="SAVE" form-ctrl="createWidgetForm"></coyo-form-submit-button><!--
+   --><button class="btn btn-default" ng-click="vm.goBack()">
+        <i class="zmdi zmdi-hc-fw zmdi-arrow-left"></i>&nbsp;{{::'BACK' | translate}}
+      </button>
+    </div>
+  </div>
+</form>

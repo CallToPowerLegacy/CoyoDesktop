@@ -1,0 +1,21 @@
+// Coyo main Sass that handles all includes for Coyo
+
+// injectorvar
+// endinjectorvar
+
+//scss-lint:disable ImportPath
+@import "variables"; // allow overriding bootstrap variables
+@import "bootstrap/bootstrap.variables";
+//scss-lint:enable ImportPath
+
+//scss-lint:enable ImportPath
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap"; // load original bootstrap
+//scss-lint:enable ImportPath
+
+@import "imports";
+
+// injectorstyles
+// endinjectorstyles
+
+// injectorcustomstyles
+// endinjectorcustomstyles

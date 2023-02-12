@@ -1,0 +1,153 @@
+.tour-placeholder-container {
+  position: relative;
+}
+
+.tour-backdrop {
+  background-color: #000;
+  transition: opacity .4s;
+  z-index: $zindex-modal-background;
+  opacity: .5;
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .tour-placeholder {
+    display: block;
+    height: 0;
+    width: 100%;
+  }
+
+  .tour-placeholder-highlight {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.tourStep {
+  background-color: $color-white;
+  padding: 0 0 24px;
+  min-width: 85%;
+  min-height: 70%;
+
+  @media screen and (min-width: $screen-md-min) {
+    padding: 0;
+  }
+
+  &:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  @media screen and (min-width: $screen-md-min) {
+    min-width: 400px;
+    min-height: 0;
+  }
+
+  .arrow {
+    display: none;
+
+    @media screen and (min-width: $screen-md-min) {
+      display: block;
+    }
+  }
+
+  .tour-step-inner {
+    background-color: $color-white;
+    border-radius: 0 0 5px 5px;
+
+    .tour-step-close {
+      position: absolute;
+      color: #AAA;
+      font-size: 20px;
+      line-height: 32px;
+      padding: 0;
+      top: 9px;
+      right: 24px;
+      cursor: pointer;
+    }
+
+    h3.popover-title {
+      background-color: $color-white;
+      font-size: 18px;
+      font-family: inherit;
+      font-weight: normal;
+      line-height: 1em;
+      color: inherit;
+      padding: 6px 0 12px;
+      margin: 12px 24px;
+    }
+
+    .tour-step-content {
+      padding: 0;
+
+      .tour-step-content-inner {
+        padding: 6px 24px 18px;
+
+        img {
+          display: block;
+          max-width: 80%;
+          margin: 24px auto;
+          border: 4px solid $color-gray-light;
+          border-radius: 5px;
+        }
+      }
+    }
+
+    .tour-step-navigation {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+
+      @media screen and (min-width: $screen-md-min) {
+        position: relative;
+      }
+
+      .btn {
+        flex: 0 0 auto;
+        border-radius: 0;
+
+        &:last-child {
+          border-bottom-right-radius: 5px;
+        }
+      }
+
+      .progress-bar-wrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        background-color: $color-gray-lighter;
+        padding-left: 24px;
+        border-radius: 0 0 5px 5px;
+        width: 100%;
+
+        .progress-steps {
+          font-weight: bold;
+        }
+
+        .progress {
+          flex: 1;
+          margin: 0 12px;
+          height: 10px;
+          box-shadow: none;
+          background-color: $color-gray-light;
+
+          .progress-bar {
+            background-color: $color-gray-darker;
+          }
+        }
+      }
+    }
+  }
+}

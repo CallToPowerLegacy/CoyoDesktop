@@ -1,0 +1,123 @@
+$rte-background-color: $color-red;
+$rte-border-color: #ddd;
+
+.rte-wrapper {
+  .note-editor {
+    border: 1px solid rgba(51, 51, 51, 0.15);
+
+    .note-toolbar {
+      margin: 0 5px;
+    }
+  }
+}
+
+.rte-wrapper,
+.rte-widget {
+  .note-video-clip {
+    width: 100%;
+  }
+
+  .note-file-link {
+    cursor: pointer;
+    color: $link-color;
+
+    &:hover {
+      color: $link-hover-color;
+    }
+  }
+
+  .note-alignment {
+    .note-list {
+      display: none;
+    }
+  }
+
+  .note-editable {
+    script {
+      background-color: $rte-background-color;
+      border: 1px solid $rte-border-color;
+      display: block;
+      padding: 5px 10px;
+
+      &:before {
+        content: '<script>// ATTENTION: This block will be completely removed!';
+        display: block;
+      }
+
+      &:after {
+        content: '</''script>';
+        display: block;
+      }
+    }
+  }
+
+  .note-editable,
+  .rte-html-container {
+    overflow: auto;
+    word-wrap: break-word;
+    word-break: normal;
+  }
+
+  img {
+    /* Important for migrate older versions */
+    box-sizing: border-box;
+    padding: 16px 24px;
+    /* End migration */
+
+    max-width: 100%;
+
+    &.note-image {
+      margin-bottom: 16px;
+      margin-top: 16px;
+      padding: 0;
+
+      &.pull-left {
+        margin-right: 24px;
+      }
+
+      &.pull-right {
+        margin-left: 24px;
+      }
+    }
+  }
+
+
+  .dropdown-menu {
+    z-index: 2000;
+  }
+
+  .note-btn-group {
+    .dropdown-menu {
+      min-width: 164px;
+      padding: 4px;
+
+      .note-btn-group:first-child {
+        margin-bottom: 4px;
+      }
+    }
+
+    .note-btn {
+      box-shadow: none;
+    }
+  }
+
+  .note-color-reset {
+    box-shadow: none !important;
+  }
+
+  .note-btn {
+    box-shadow: none !important;
+
+    &.btn {
+      margin-left: 0;
+    }
+
+    .custom-btn {
+      margin-top: 3px;
+    }
+  }
+}
+
+.note-image-popover.bottom {
+  margin-top: -16px;
+}

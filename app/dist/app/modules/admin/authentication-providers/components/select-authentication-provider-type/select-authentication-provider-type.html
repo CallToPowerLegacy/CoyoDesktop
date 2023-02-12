@@ -1,0 +1,11 @@
+<ui-select ui-select-mobile="{{:: 'ADMIN.AUTHENTICATION.DETAILS.TYPE' | translate }}"
+           ng-model="$ctrl.data.selected" ng-disabled="{{$ctrl.ngDisabled}}"
+           class="select-authentication-provider-type">
+  <ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="{{$ctrl.allowClear ? 'true' : 'false'}}">
+    {{$select.selected.name}}
+  </ui-select-match>
+  <ui-select-choices repeat="providerType.key as providerType in $ctrl.data.providerTypes | filter: $select.search">
+    <div ng-bind-html="providerType.name | highlight: $select.search"></div>
+    <div class="small text-muted" ng-bind-html="providerType.description | highlight: $select.search"></div>
+  </ui-select-choices>
+</ui-select>

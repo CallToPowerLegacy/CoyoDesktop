@@ -1,0 +1,37 @@
+// Mixins - Define keyframes
+// --------------------------------------------------
+
+// example usage:
+// @include keyframes(name) {
+//    0% {
+//      transform: translateX(0)
+//    }
+//
+//    50% {
+//      transform: translateX(-6px) rotateY(0deg)
+//    }
+//
+//    100% {
+//      transform: translateX(0)
+//    }
+//
+// }
+@mixin keyframes($name) {
+  // scss-lint:disable VendorPrefix
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+  // scss-lint:enable VendorPrefix
+}

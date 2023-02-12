@@ -1,0 +1,104 @@
+$grid-gutter-width-admin-role-permission: 0px; // $grid-gutter-width;
+
+.permissions-column {
+  @media screen and (min-width: $screen-sm-min) {
+    width: 45%;
+  }
+}
+
+.permission-group {
+  padding-bottom: 24px;
+
+  .collapse {
+    margin-top: -($grid-gutter-width-admin-role-permission / 2);
+    margin-bottom: -($grid-gutter-width-admin-role-permission / 2);
+  }
+
+  .permission-group-title {
+    text-transform: uppercase;
+
+    @media screen and (min-width: $screen-sm-min) {
+      text-align: right;
+    }
+  }
+
+  .permission-group-toggle {
+    padding-left: 24px;
+    padding-top: 2px;
+
+    @media screen and (max-width: $screen-xs-max) {
+      text-align: right;
+      padding-right: 26px;
+      padding-left: 0;
+    }
+  }
+
+  .permission-row {
+    margin-top: ($grid-gutter-width-admin-role-permission / 2);
+    margin-bottom: ($grid-gutter-width-admin-role-permission / 2);
+    color: $color-gray-dark;
+
+    .row {
+      display: flex;
+      align-items: center;
+
+      &.checked {
+        color: $color-gray-darker;
+
+        .help {
+          color: $color-gray-darker;
+        }
+      }
+    }
+  }
+
+  .permission-label {
+    @media screen and (min-width: $screen-sm-min) {
+      text-align: right;
+    }
+    label {
+      font-weight: normal;
+    }
+
+    .help {
+      font-size: inherit;
+    }
+  }
+
+  .permission-checkbox {
+    @media screen and (max-width: $screen-xs-max) {
+      text-align: right;
+    }
+
+    .btn.coyo-checkbox {
+      width: 30px;
+      height: 30px;
+      border: 2px solid $color-gray-light;
+      border-radius: 15px;
+      margin: 5px 0;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &:before {
+        color: $color-gray-light;
+        line-height: 26px;
+        text-align: center;
+        font-family: Material-Design-Iconic-Font, serif;
+        content: '\f136';
+      }
+
+      &.checked {
+        &:before {
+          color: $color-green;
+          content: '\f26b';
+        }
+        border-color: $color-green;
+      }
+      i.zmdi {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+/* Display the Emoji Picker */
+
+/* ... in comments */
+.emoji-picker {
+    display: inline-block !important;
+    align-self: center !important;
+    margin-right: 10px !important;
+}
+
+/* ... in chats */
+div.messaging-channel-footer > div.message-form-controls > span {
+    display: inline-block !important;
+    margin-right: 0px !important;
+}

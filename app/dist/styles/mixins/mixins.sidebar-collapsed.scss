@@ -1,0 +1,24 @@
+// Mixins - Sidebar Collapsed
+// --------------------------------------------------
+
+// example usage:
+// @include sidebar-collapsed()
+@mixin sidebar-collapsed() {
+  width: auto;
+
+  .nav-sidebar-item a {
+    padding-left: 20px;
+    padding-right: 23px;
+    text-align: center;
+
+    > i {
+      float: none;
+      font-size: 24px;
+      margin: 0;
+    }
+
+    > span {
+      display: none;
+    }
+  }
+}

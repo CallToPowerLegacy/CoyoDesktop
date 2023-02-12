@@ -1,0 +1,103 @@
+<div class="modal-content-wrapper list-entry-details-modal">
+  <div class="modal-header">
+    <h3 ng-if="$ctrl.activeTab !== 'edit'" class="modal-title" translate="APP.LIST.DETAIL.MODAL.TITLE.VIEW"></h3>
+    <h3 ng-if="$ctrl.activeTab === 'edit'" class="modal-title" translate="APP.LIST.DETAIL.MODAL.TITLE.EDIT"></h3>
+    <span class="modal-close" ng-click="$dismiss()">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+  <div class="modal-mobileheader">
+    <div class="tab" ng-class="{'active': $ctrl.activeTab === 'details'}">
+      <a href ng-click="$ctrl.switchTab('details')">
+        <i class="zmdi zmdi-hc-fw zmdi-assignment"></i>
+        <span translate="APP.LIST.DETAIL.MODAL.ENTRY"></span>
+      </a>
+    </div>
+    <div class="tab" ng-class="{'active': $ctrl.activeTab === 'comments'}">
+      <a href ng-click="$ctrl.switchTab('comments')">
+        <i class="zmdi zmdi-hc-fw zmdi-comments"></i>
+        <span translate="APP.LIST.DETAIL.MODAL.COMMENTS"></span>
+      </a>
+    </div>
+    <div class="tab" ng-class="{'active': $ctrl.activeTab === 'history'}">
+      <a href ng-click="$ctrl.switchTab('history')">
+        <i class="zmdi zmdi-hc-fw zmdi-time"></i>
+        <span translate="APP.LIST.DETAIL.MODAL.HISTORY"></span>
+      </a>
+    </div>
+  </div>
+  <div class="modal-subheader">
+    <div class="action">
+      <coyo-btn-subscribe target="$ctrl.entry" tooltip-subscribe="APP.LIST.DETAIL.MODAL.SUBSCRIBE.TOOLTIP"></coyo-btn-subscribe>
+    </div>
+    <div class="action hidden-xs" ng-if="$ctrl.activeTab !== 'details'">
+      <a href ng-click="$ctrl.switchTab('details')"><i class="zmdi zmdi-hc-fw zmdi-assignment"></i> <span translate="APP.LIST.DETAIL.MODAL.ENTRY"></span></a>
+    </div>
+    <div class="action hidden-xs" ng-if="$ctrl.activeTab !== 'history'">
+      <a href ng-click="$ctrl.switchTab('history')"><i class="zmdi zmdi-hc-fw zmdi-time"></i> <span translate="APP.LIST.DETAIL.MODAL.HISTORY"></span></a>
+    </div>
+    <div class="action"  ng-if="$ctrl.activeTab !== 'edit' && $ctrl.entry._permissions.edit">
+      <a href ng-click="$ctrl.enableEditMode()"><i class="zmdi zmdi-hc-fw zmdi-edit"></i> <span translate="APP.LIST.DETAIL.MODAL.EDIT"></span></a>
+    </div>
+  </div>
+  <div class="modal-body list-entry-details" ng-if="$ctrl.activeTab === 'details'">
+    <div class="table">
+      <div ng-repeat="field in $ctrl.fields">
+        <div class="table-label" ng-bind="field.name"></div>
+        <div class="table-content" ng-class="'field-' + field.key">
+          <coyo-list-value app="$ctrl.app" entry="$ctrl.entry" field="field" on-save="$ctrl.updateHistory"></coyo-list-value>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body list-entry-comments-tab" ng-if="$ctrl.activeTab === 'comments'">
+    <coyo-comments class="hidden-sm hidden-md hidden-lg comments" target="::$ctrl.entry"></coyo-comments>
+  </div>
+  <div class="modal-body list-entry-history" ng-if="$ctrl.activeTab === 'history'">
+    <div class="col-flex">
+      <div class="icon-wrapper">
+        <i class="zmdi zmdi-plus"></i>
+      </div>
+      <label translate="APP.LIST.DETAIL.MODAL.HISTORY.AUTHOR"></label>
+      <p class="user-field-wrapper">
+        <coyo-user-avatar user="$ctrl.history.author" avatar-size="xs" show-online-status="false" class="mr-xxs" no-link="true"></coyo-user-avatar>
+        <a ui-sref="main.profile({userId: $ctrl.history.author.slug})">{{::$ctrl.history.author.displayName}}</a>
+      </p>
+      <p class="list-entry-history-date">
+        {{$ctrl.history.created | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ' HH:mm'}}
+      </p>
+    </div>
+    <div class="mobile-spacer visible-xs"></div>
+    <div class="col-flex">
+      <div class="icon-wrapper">
+        <i class="zmdi zmdi-edit"></i>
+      </div>
+      <label translate="APP.LIST.DETAIL.MODAL.HISTORY.EDITOR"></label>
+      <p class="user-field-wrapper">
+        <coyo-user-avatar user="$ctrl.history.editor" avatar-size="xs" show-online-status="false" class="mr-xxs" no-link="true"></coyo-user-avatar>
+        <a ui-sref="main.profile({userId: $ctrl.history.editor.slug})">{{::$ctrl.history.editor.displayName}}</a>
+      </p>
+      <p class="list-entry-history-date">
+        {{$ctrl.history.modified | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.long + ' HH:mm'}}
+      </p>
+    </div>
+  </div>
+
+  <div class="modal-details-edit-body" ng-if="$ctrl.activeTab === 'edit' && $ctrl.entry._permissions.edit"
+       ng-controller="ListEntryEditController as $editCtrl">
+    <form name="editEntryForm" coyo-form-submit="$editCtrl.save()" novalidate>
+      <div class="modal-body" ng-if="!loading && $editCtrl.entry">
+        <oyoc-entry-form entry="$editCtrl.entry" fields="$ctrl.fields" form-ctrl="editEntryForm"></oyoc-entry-form>
+      </div>
+      <div class="modal-footer">
+        <coyo-form-submit-button label="SAVE" form-ctrl="editEntryForm"></coyo-form-submit-button>
+        <a class="btn btn-default" ng-click="$dismiss()">
+          <i class="zmdi zmdi-hc-fw zmdi-close-circle"></i>&nbsp;{{::'CLOSE' | translate}}
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+<coyo-comments class="hidden-xs list-entry-modal-comments" target="$ctrl.entry" ng-if="$ctrl.activeTab !== 'edit'"></coyo-comments>
+
+

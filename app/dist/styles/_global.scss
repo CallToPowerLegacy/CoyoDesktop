@@ -1,0 +1,72 @@
+// Global
+// --------------------------------------------------
+html {
+  height: 100%;
+  min-height: 100%;
+
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+
+  @media screen and (min-width: $screen-md-min) {
+    height: auto;
+  }
+}
+
+body {
+  background-color: $color-background-main;
+  color: $text-color;
+}
+
+html, body, .body {
+  margin: 0;
+  width: 100%;
+}
+
+body, .body {
+  height: auto;
+  min-height: 550px;
+
+  /**
+   * BUGFIX for page jumping on mobile safari when search field get focused
+   * mobile Safari has a bug when input in fixed div getting focus
+   * ! don´t work when <html> miss height="100%"
+   * ! If html not equal to 100% and the fix is used, the content is cut off in mobile Safari when the mobile navigation is open
+   */
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  @media screen and (min-width: $screen-md-min) {
+    -webkit-overflow-scrolling: auto;
+    overflow: auto;
+    height: 100%;
+  }
+}
+
+body.backdrop-visible,
+body.backdrop-visible .body {
+  overflow: visible;
+}
+
+.body {
+  position: inherit;
+
+  @media screen and (min-width: $screen-md-min) {
+    position: absolute !important;
+  }
+}
+
+a {
+  cursor: pointer;
+}
+
+a.no-link {
+  cursor: default;
+  color: $text-color;
+}
+
+[ng\:cloak], [ng-cloak], [ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  // scss-lint:disable ImportantRule
+  display: none !important;
+  // scss-lint:enable ImportantRule
+}

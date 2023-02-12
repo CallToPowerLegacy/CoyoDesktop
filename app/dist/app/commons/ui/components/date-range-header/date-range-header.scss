@@ -1,0 +1,17 @@
+div.kalendae-header {
+  display: inline-flex;
+  width: 100%;
+
+  div.kalendae-date-label-container {
+    background-color: $gray-lighter;
+    border-bottom: 1px solid $color-border;
+    border-top: 1px solid $color-border;
+    padding: 8px;
+    text-align: center;
+    width: 50%;
+
+    &:first-child {
+      border-right: 1px solid $color-border;
+    }
+  }
+}

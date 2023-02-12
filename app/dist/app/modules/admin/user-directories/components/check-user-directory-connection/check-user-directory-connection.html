@@ -1,0 +1,10 @@
+<div class="connection-check">
+  <button type="button" class="btn btn-mobile {{ $ctrl.state.btnClass }}"
+          ng-disabled="$ctrl.loading"
+          ng-click="$ctrl.checkConnection()">
+    <i class="zmdi zmdi-hc-fw {{ $ctrl.state.iconClass }}"></i>&nbsp;{{:: 'ADMIN.USER_DIRECTORIES.LDAP.CONNECTION.BUTTON.TEST_CONNECTION' | translate }}
+  </button>
+  <div class="has-error">
+    <p class="help-block" ng-if="$ctrl.error">{{ $ctrl.error }}</p>
+  </div>
+</div>

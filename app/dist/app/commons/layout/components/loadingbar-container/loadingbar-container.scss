@@ -1,0 +1,30 @@
+.loading-bar-container {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: $color-navbar-border;
+  z-index: 994;
+
+  &.is-loading {
+    background-color: $color-gray;
+  }
+
+  @media screen and (min-width: $screen-lg-min) {
+    position: relative;
+    top: 0;
+  }
+
+  #loading-bar .bar {
+    position: fixed;
+    top: 50px;
+    background-color: $color-navbar-border;
+
+    @media screen and (min-width: $screen-lg-min) {
+      position: absolute;
+      top: 0;
+    }
+  }
+
+}

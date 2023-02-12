@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+    <div class="panel-heading statistics-heading">
+        <h3 class="panel-title" translate="ADMIN.STATISTICS.{{$ctrl.statisticName}}.TITLE"></h3>
+        <button class="btn btn-xs btn-primary visible-xs" ng-click="$ctrl.openDateRangePicker()">
+            <i class="zmdi zmdi-calendar"></i> {{:: 'ADMIN.STATISTICS.DATE_RANGE.LABEL' | translate}}
+        </button>
+        <form class="form-inline statistics-filter-date hidden-xs">
+            <div class="form-group">
+                <label for="filterDate">{{:: 'ADMIN.STATISTICS.DATE_RANGE.LABEL' | translate}}</label>
+                <div class="input-group">
+                    <input id="filterDate"
+                           name="filterDate"
+                           class="form-control"
+                           value="{{$ctrl.dateRange | dateRange}}"
+                           ng-click="$ctrl.openDateRangePicker()"
+                           ng-focus="$ctrl.handleFocus($event)">
+                    <div class="input-group-addon pointer" ng-click="$ctrl.openDateRangePicker()"><i class="zmdi zmdi-calendar"></i></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel-body">
+        <div>
+            <coyo-statistic-filter-list ng-if="::$ctrl.showFilters"
+                                        labels="::$ctrl.allSeries"
+                                        colors="::$ctrl.colors"
+                                        active-labels="$ctrl.series"
+                                        statistic-name="::$ctrl.statisticName"
+                                        on-click-label="$ctrl.onClickFilter(label)"
+                                        data="$ctrl.data">
+            </coyo-statistic-filter-list>
+            <div id="wrapper" ng-style="$ctrl.style" ng-if="$ctrl.hasData()">
+                <canvas id="statistics-account"
+                        chart-base
+                        chart-type="$ctrl.type"
+                        chart-colors="$ctrl.colors"
+                        chart-data="$ctrl.data"
+                        chart-options="$ctrl.options"
+                        chart-series="$ctrl.series"
+                        chart-labels="$ctrl.labels"
+                        chart-dataset-override="$ctrl.datasetOverride">
+                </canvas>
+            </div>
+        </div>
+        <div ng-if="!$ctrl.loading && !$ctrl.hasData()" class="statistic-empty-warning">
+            <span class="alert alert-warning" translate="ADMIN.STATISTICS.EMPTY.WARNING">No data available yet.</span>
+        </div>
+    </div>
+</div>

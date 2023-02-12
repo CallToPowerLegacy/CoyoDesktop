@@ -1,0 +1,110 @@
+<div class="modal-content-wrapper">
+  <div class="visible-xs">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="{{:: vm.title}}"></h3>
+      <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss()">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="modal-body user-chooser">
+    <span class="modal-close hidden-xs" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss()">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+
+    <uib-tabset active="vm.tab">
+
+      <!-- Current Selection Tab -->
+      <uib-tab>
+        <uib-tab-heading translate="USER_CHOOSER.TABS.SELECTION"></uib-tab-heading>
+        <div class="user-chooser-list-wrapper">
+          <div class="user-chooser-list" ng-if="::!vm.settings.usersOnly">
+            <oyoc-user-chooser-item ng-repeat="group in vm.selection.groups.newly" item="group" item-type="group"
+                                    selection-type="vm.groupSelectionType(group)" ng-click="vm.toggleSelectionGroup(group)"></oyoc-user-chooser-item>
+            <oyoc-user-chooser-item ng-repeat="group in vm.selection.groups.existing" item="group" item-type="group"
+                                    selection-type="vm.groupSelectionType(group)" ng-click="vm.toggleSelectionGroup(group)"></oyoc-user-chooser-item>
+          </div>
+          <div class="user-chooser-list" ng-if="::!vm.settings.groupsOnly">
+            <oyoc-user-chooser-item ng-repeat="user in vm.selection.users.newly" item="user" item-type="user" fields="vm.profileFields"
+                                    selection-type="vm.userSelectionType(user)" ng-click="vm.toggleSelectionUser(user)"></oyoc-user-chooser-item>
+            <oyoc-user-chooser-item ng-repeat="user in vm.selection.users.existing" item="user" item-type="user" fields="vm.profileFields"
+                                    selection-type="vm.userSelectionType(user)" ng-click="vm.toggleSelectionUser(user)"></oyoc-user-chooser-item>
+          </div>
+          <div ng-show="!vm.selection.users.ids.length && !vm.selection.groups.ids.length && !vm.selection.users.loading" class="text-muted text-center mv-xs" translate="USER_CHOOSER.SELECTION.EMPTY"></div>
+          <button class="btn btn-primary btn-more" ng-click="vm.loadNextSelectedPage()" ng-if="vm.canLoadMoreSelected" translate="MORE"></button>
+          <div ng-if="vm.selection.users.loading" class="text-center m-m">
+            <coyo-spinner></coyo-spinner>
+          </div>
+        </div>
+      </uib-tab>
+
+      <!-- User Selection Tab -->
+      <uib-tab select="vm.searchUsers(vm.users.term)" ng-if="::!vm.settings.groupsOnly">
+        <uib-tab-heading translate="USER_CHOOSER.TABS.USERS"></uib-tab-heading>
+        <coyo-filterbox filter-active="vm.users.filters.length">
+          <fb-filter>
+            <coyo-filter title-key="USER_CHOOSER.USERS.FILTER.{{field}}" ng-repeat="(field, aggregations) in vm.users.aggregations">
+              <coyo-filter-entry ng-repeat="aggregation in aggregations | limitTo : 5"
+                                 on-click="vm.toggleFilterUser(field, aggregation)"
+                                 active="vm.isFilteredUser(field, aggregation)"
+                                 icon="{{field === 'location' ? 'zmdi-pin' : 'zmdi-folder-person'}}"
+                                 text="{{aggregation.key}}"
+                                 badge="aggregation.count"></coyo-filter-entry>
+            </coyo-filter>
+          </fb-filter>
+          <fb-search>
+            <coyo-search-filter change="vm.searchUsers" placeholder="USER_CHOOSER.USERS.SEARCH"></coyo-search-filter>
+          </fb-search>
+          <fb-count>
+            <coyo-counter value="vm.countUsers()"
+                          key-none="USER_CHOOSER.USERS.COUNTER.NONE"
+                          key-singular="USER_CHOOSER.USERS.COUNTER.SINGULAR"
+                          key-plural="USER_CHOOSER.USERS.COUNTER.PLURAL"></coyo-counter>
+          </fb-count>
+        </coyo-filterbox>
+        <div class="user-chooser-list-wrapper">
+          <div class="user-chooser-list">
+            <oyoc-user-chooser-item ng-repeat="user in vm.users.list" item="user" item-type="user" fields="vm.profileFields"
+                                    selection-type="vm.userSelectionType(user)" ng-click="vm.toggleSelectionUser(user)"></oyoc-user-chooser-item>
+          </div>
+          <div ng-if="vm.users.loading" class="text-center m-m">
+            <coyo-spinner></coyo-spinner>
+          </div>
+          <div ng-if="!vm.users.loading && !vm.users.list.length" class="text-muted text-center m-m" translate="USER_CHOOSER.USERS.EMPTY"></div>
+          <button class="btn btn-primary btn-more" ng-click="vm.loadUsers()" ng-if="!vm.users.page.last && !vm.users.loading" translate="MORE"></button>
+        </div>
+      </uib-tab>
+
+      <!-- Group Selection Tab -->
+      <uib-tab select="vm.searchGroups(vm.groups.term)" ng-if="::!vm.settings.usersOnly">
+        <uib-tab-heading translate="USER_CHOOSER.TABS.GROUPS"></uib-tab-heading>
+        <coyo-filterbox>
+          <fb-search>
+            <coyo-search-filter change="vm.searchGroups" placeholder="USER_CHOOSER.GROUPS.SEARCH"></coyo-search-filter>
+          </fb-search>
+          <fb-count>
+            <coyo-counter value="vm.countGroups()"
+                          key-none="USER_CHOOSER.GROUPS.COUNTER.NONE"
+                          key-singular="USER_CHOOSER.GROUPS.COUNTER.SINGULAR"
+                          key-plural="USER_CHOOSER.GROUPS.COUNTER.PLURAL"></coyo-counter>
+          </fb-count>
+        </coyo-filterbox>
+        <div class="user-chooser-list-wrapper">
+          <div class="user-chooser-list">
+            <oyoc-user-chooser-item ng-repeat="group in vm.groups.list" item="group" item-type="group"
+                                    selection-type="vm.groupSelectionType(group)" ng-click="vm.toggleSelectionGroup(group)"></oyoc-user-chooser-item>
+          </div>
+          <div ng-if="vm.groups.loading" class="text-center m-m">
+            <coyo-spinner></coyo-spinner>
+          </div>
+          <div ng-if="!vm.groups.loading && !vm.groups.list.length" class="text-muted text-center m-m" translate="USER_CHOOSER.GROUPS.EMPTY"></div>
+          <button class="btn btn-primary btn-more" ng-click="vm.loadGroups()" ng-if="!vm.groups.page.last && !vm.groups.loading" translate="MORE"></button>
+        </div>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="vm.save()" translate="USER_CHOOSER.SAVE"></button>
+  </div>
+</div>

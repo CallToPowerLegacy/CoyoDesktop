@@ -1,0 +1,6 @@
+<span class="btn-flag" ng-class="{ loading: $ctrl.isLoading, active: $ctrl.isActive }">
+  <a class="handle" ng-click="$ctrl.flag()"
+     uib-tooltip="{{ $ctrl.isActive ? 'MODULE.TIMELINE.TOOLTIPS.UNFLAG' : 'MODULE.TIMELINE.TOOLTIPS.FLAG' | translate}}"
+     tooltip-popup-delay="750" tooltip-append-to-body="true"
+  ><i class="zmdi zmdi-flag"></i></a>
+</span>

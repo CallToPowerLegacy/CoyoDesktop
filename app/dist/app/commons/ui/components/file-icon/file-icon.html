@@ -1,0 +1,4 @@
+<i ng-if="$ctrl.getFileIcons() && $ctrl.getFileIcons().length === 1" class="file-icon zmdi {{::$ctrl.getFileIcons()[0]}}"></i>
+<span ng-if="$ctrl.getFileIcons() && $ctrl.getFileIcons().length > 1" class="zmdi-hc-stack">
+    <i ng-repeat="icon in $ctrl.getFileIcons() track by $index" class="file-icon zmdi {{icon}}"></i>
+</span>

@@ -1,0 +1,30 @@
+<div class="job-status" ng-if="$ctrl.jobStatus" ng-click="$ctrl.goToJobs()" ng-class="{pointer: $ctrl.linkToJobs}">
+    <div class="progress" ng-if="$ctrl.isRunning">
+        <div class="progress-bar progress-bar-info"
+             ng-class="{'progress-bar-striped active': !$ctrl.hasProgress}" role="progressbar"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ $ctrl.progressPercent }}"
+             style="width: {{$ctrl.progressPercent}}%;">
+            <span>{{ $ctrl.hasProgress ? $ctrl.progressPercent + '%' : ($ctrl.hasCustomProgress ? $ctrl.jobStatus.customProgress : $ctrl.labelUnknownProgress) }}</span>
+        </div>
+    </div>
+    <div ng-if="!$ctrl.isRunning">
+        <span class="job-succeeded" ng-if="$ctrl.isSuccess">
+            <span ng-if="!$ctrl.compact" translate="ADMIN.USER_DIRECTORIES.SYNC_JOB.LABEL.STATUS.SUCCESS"></span>
+            <i class="zmdi zmdi-check-circle"></i>
+            <span class="job-datetime" ng-if="!$ctrl.withoutTime">
+                {{ $ctrl.jobStatus.endTime | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.short + ' ' + $root.timeFormat.short }}
+            </span>
+        </span>
+        <span class="job-failed" ng-if="$ctrl.isFailure">
+            <span ng-if="!$ctrl.compact" translate="ADMIN.USER_DIRECTORIES.SYNC_JOB.LABEL.STATUS.FAILURE"></span>
+            <i class="zmdi zmdi-close-circle"></i>
+            <span class="job-datetime" ng-if="!$ctrl.withoutTime">
+                {{ $ctrl.jobStatus.endTime | amTimezone: $root.timezone | amDateFormat:$root.dateFormat.short + ' ' + $root.timeFormat.short }}
+            </span>
+            <div ng-if="!$ctrl.compact" translate="ADMIN.USER_DIRECTORIES.SYNC_JOB.LABEL.STATUS.FAILURE_NOTICE"></div>
+        </span>
+    </div>
+</div>
+<div ng-if="!$ctrl.jobStatus && $ctrl.labelNoStatus">
+    {{ $ctrl.labelNoStatus }}
+</div>

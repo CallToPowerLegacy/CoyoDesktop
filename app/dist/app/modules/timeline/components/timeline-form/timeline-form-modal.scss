@@ -1,0 +1,130 @@
+.modal-options {
+  .modal-options-options {
+    font-size: 20px;
+    margin: -16px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .modal-options-option {
+    border-bottom: 1px solid $color-gray-light;
+    padding: 12px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.active {
+      background-color: $color-gray-light;
+    }
+  }
+}
+
+.timeline-form-modal {
+
+  .modal-header {
+    .select-sender-inline {
+      position: inherit;
+
+      .ui-select-toggle {
+        padding: 6px 16px;
+        background-color: transparent !important;
+        color: $color-white;
+        float: left;
+      }
+    }
+
+    coyo-select-sender {
+      position: absolute;
+      top: 2px;
+      right: auto;
+      bottom: auto;
+      left: 0;
+
+      .sender-avatar-empty {
+        padding: 3px;
+      }
+    }
+  }
+
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+
+  .modal-footer {
+    padding: 0;
+
+    .post-action-bar {
+      background-color: $color-gray-lighter;
+      height: 42px;
+      padding: 3px 10vw 0 10vw;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+
+      .zmdi-hc-2x {
+        font-size: 1.6em;
+      }
+    }
+
+    .zmdi {
+      &.item-active {
+        color: $color-blue;
+      }
+    }
+
+    .btn-primary {
+      margin: 16px;
+    }
+
+    .zmdi {
+      color: $color-gray-dark;
+    }
+  }
+
+  textarea[name=message].form-control {
+    flex: 1;
+
+    border: 0;
+    background: transparent;
+    resize: none;
+    padding: 0;
+
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+
+  .timeline-form-attachments {
+    margin: 12px 0 0 0;
+    padding-top: 6px;
+    font-size: 14px;
+    border-top: 1px solid $color-gray-light;
+
+    .timeline-form-attachment {
+      display: flex;
+      min-width: 0;
+      padding: 4px 0;
+
+      .timeline-form-attachment-icon {
+        flex: none;
+        padding-right: 4px;
+      }
+
+      .timeline-form-attachment-name {
+        flex: 1;
+        padding-right: 4px;
+        @include ellipsis();
+      }
+
+      .timeline-form-attachment-opt {
+        flex: none;
+        font-size: 16px;
+      }
+    }
+  }
+}

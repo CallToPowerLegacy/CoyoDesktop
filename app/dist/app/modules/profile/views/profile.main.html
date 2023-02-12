@@ -1,0 +1,150 @@
+<section class="profile" ng-cloak>
+
+  <div class="panel panel-default image-header" ng-class="{'has-cover': profileCtrl.user.imageUrls.cover}">
+
+    <coyo-tour-step-mobile topic="profile" order="105"
+                           image-url="assets/images/tour/tour-mobile-profile-1.jpg"
+                           title="{{:: 'TOUR.PROFILE.NAME.TITLE' | translate }}"
+                           content="{{:: 'TOUR.PROFILE.NAME' | translate }}"></coyo-tour-step-mobile>
+
+    <coyo-tour-step-mobile topic="profile" order="110"
+                           image-url="assets/images/tour/tour-mobile-profile-2.jpg"
+                           title="{{:: 'TOUR.PROFILE.AVATAR.TITLE' | translate }}"
+                           content="{{:: 'TOUR.PROFILE.AVATAR' | translate }}"></coyo-tour-step-mobile>
+
+    <coyo-tour-step-mobile topic="profile" order="115"
+                           image-url="assets/images/tour/tour-mobile-profile-3.jpg"
+                           title="{{:: 'TOUR.PROFILE.ACTIVITY.TITLE' | translate }}"
+                           content="{{:: 'TOUR.PROFILE.ACTIVITY' | translate }}"></coyo-tour-step-mobile>
+
+    <coyo-tour-step-mobile topic="profile" order="120"
+                           image-url="assets/images/tour/tour-mobile-profile-4.jpg"
+                           title="{{:: 'TOUR.PROFILE.INFO.TITLE' | translate }}"
+                           content="{{:: 'TOUR.PROFILE.INFO' | translate }}"></coyo-tour-step-mobile>
+
+    <div class="sender-actions">
+      <!-- Follow/Unfollow -->
+      <coyo-user-follow ng-if="profileCtrl.currentUser.id !== profileCtrl.user.id"
+                   user="profileCtrl.user"
+                   text-follow="USER.FOLLOW"
+                   dark-theme="true"></coyo-user-follow>
+
+      <!-- Start Conversation -->
+      <a class="btn btn-zmdi btn-dark" coyo-global-permissions="USE_MESSAGING" ng-if="profileCtrl.currentUser.id !== profileCtrl.user.id" ng-click="profileCtrl.startConversation(profileCtrl.user.id)">
+        <i class="zmdi zmdi-comment-text"></i>&nbsp;<span class="btn-mobile-label" translate="MODULE.PROFILE.BUTTONS.SEND_MESSAGE"></span>
+      </a>
+
+      <!-- Change Cover -->
+      <a class="btn btn-zmdi btn-dark" ng-if="profileCtrl.user._permissions.manage" ng-click="profileCtrl.changeCover(profileCtrl.user)">
+        <i class="zmdi zmdi-camera"></i>&nbsp;<span class="btn-mobile-label" translate="MODULE.PROFILE.BUTTONS.CHANGE_COVER"></span>
+      </a>
+    </div>
+
+    <!-- The cover image on top -->
+    <coyo-sender-cover-image image-url="profileCtrl.user.imageUrls.cover"></coyo-sender-cover-image>
+
+    <!-- The foreground containing the display name, the job title and the menu -->
+    <div class="panel-foreground">
+
+      <!-- The avatar image "floating" left -->
+      <div class="profile-avatar">
+        <div class="profile-avatar-inner">
+          <coyo-tour-step topic="profile" order="110" step-id="profile.avatar"
+                          title="{{:: 'TOUR.PROFILE.AVATAR.TITLE' | translate }}"
+                          content="{{:: 'TOUR.PROFILE.AVATAR' | translate }}"></coyo-tour-step>
+          <span ng-if="profileCtrl.user._permissions.manage">
+            <oyoc-user-avatar-overlay class="md visible-xs"
+                                      click-fn="profileCtrl.changeAvatar(profileCtrl.user)"
+                                      icon-class="zmdi-camera"></oyoc-user-avatar-overlay>
+
+            <oyoc-user-avatar-overlay class="lg visible-md visible-sm"
+                                      click-fn="profileCtrl.changeAvatar(profileCtrl.user)"
+                                      icon-class="zmdi-camera"></oyoc-user-avatar-overlay>
+
+            <oyoc-user-avatar-overlay class="xl visible-lg"
+                                      click-fn="profileCtrl.changeAvatar(profileCtrl.user)"
+                                      icon-class="zmdi-camera"></oyoc-user-avatar-overlay>
+          </span>
+
+          <!-- XS -->
+          <coyo-user-avatar ng-if="$root.screenSize.isXs"
+                            avatar-size="md"
+                            user="profileCtrl.user"
+                            show-unread-messages="false"
+                            show-online-status="true"
+                            no-link="true"></coyo-user-avatar>
+
+          <!-- SM, MD -->
+          <coyo-user-avatar ng-if="$root.screenSize.isSm || $root.screenSize.isMd"
+                            avatar-size="lg"
+                            user="profileCtrl.user"
+                            show-unread-messages="false"
+                            show-online-status="true"
+                            no-link="true"></coyo-user-avatar>
+
+          <!-- LG -->
+          <coyo-user-avatar ng-if="$root.screenSize.isLg"
+                            avatar-size="xl"
+                            user="profileCtrl.user"
+                            show-unread-messages="false"
+                            show-online-status="true"
+                            no-link="true"></coyo-user-avatar>
+        </div>
+      </div>
+
+      <!-- The display name + job title -->
+      <div class="titles-container">
+        <div class="title">{{ profileCtrl.user.displayName }}
+          <coyo-tour-step topic="profile" order="105" step-id="profile.name" placement="bottom"
+                          title="{{:: 'TOUR.PROFILE.NAME.TITLE' | translate }}"
+                          content="{{:: 'TOUR.PROFILE.NAME' | translate }}"></coyo-tour-step>
+        </div>
+        <div class="subtitle">{{ profileCtrl.user.properties.jobTitle }}</div>
+      </div>
+
+      <!-- The navigation menu -->
+      <div class="profile-nav">
+        <uib-tabset justified="true" active="-1" type="tabs">
+          <uib-tab ui-sref="main.profile.overview" ui-sref-active="active" ng-if="false">
+            <uib-tab-heading>
+              <i class="zmdi zmdi-account-o zmdi-hc-fw"></i>
+              <br/>
+              <span class="hidden-xs hidden-sm tab-text" translate="MODULE.PROFILE.TAB.OVERVIEW"></span>
+            </uib-tab-heading>
+          </uib-tab>
+          <uib-tab ui-sref="main.profile.activity" ui-sref-active="active"
+                   coyo-global-permissions="ACCESS_SENDER_TIMELINE">
+            <uib-tab-heading>
+              <i class="zmdi zmdi-comment-outline"></i>
+              <coyo-tour-step topic="profile" order="115" step-id="profile.activity"
+                              title="{{:: 'TOUR.PROFILE.ACTIVITY.TITLE' | translate }}"
+                              content="{{:: 'TOUR.PROFILE.ACTIVITY' | translate }}"></coyo-tour-step>
+              <br/>
+              <span class="hidden-xs hidden-sm tab-text" translate="MODULE.PROFILE.TAB.ACTIVITY"></span>
+            </uib-tab-heading>
+          </uib-tab>
+          <uib-tab ui-sref="main.profile.info" ui-sref-active="active">
+            <uib-tab-heading>
+              <i class="zmdi zmdi-info-outline"></i>
+              <coyo-tour-step topic="profile" order="120" step-id="profile.info"
+                              title="{{:: 'TOUR.PROFILE.INFO.TITLE' | translate }}"
+                              content="{{:: 'TOUR.PROFILE.INFO' | translate }}"></coyo-tour-step>
+              <br/>
+              <span class="hidden-xs hidden-sm tab-text" translate="MODULE.PROFILE.TAB.INFO"></span>
+            </uib-tab-heading>
+          </uib-tab>
+          <uib-tab ui-sref="main.profile.blog" ui-sref-active="active" ng-if="false">
+            <uib-tab-heading>
+              <i class="zmdi zmdi-format-align-left"></i>
+              <br/>
+              <span class="hidden-xs hidden-sm tab-text" translate="MODULE.PROFILE.TAB.BLOG"></span>
+            </uib-tab-heading>
+          </uib-tab>
+        </uib-tabset>
+      </div>
+
+    </div>
+  </div>
+  <div ui-view></div>
+
+</section>

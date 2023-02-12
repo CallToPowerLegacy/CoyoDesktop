@@ -1,0 +1,76 @@
+<div class="button-widget-settings">
+  <div class="form-group">
+    <label class="col-sm-2 control-label" translate="WIDGET.BUTTON.SETTINGS.TEXT"></label>
+    <div class="col-sm-9">
+      <input class="form-control" type="text" ng-model="$ctrl.model.settings.text" maxlength="255">
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="WIDGET.BUTTON.SETTINGS.TEXT.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" translate="WIDGET.BUTTON.SETTINGS.URL"></label>
+    <div class="col-sm-9">
+      <div class="input-group" ng-class="{'has-error': !$ctrl.urlValid}">
+        <div class="input-group-addon">
+          <i class="zmdi zmdi-link"></i>
+        </div>
+        <input ng-if="$ctrl.linkPattern"
+               class="form-control"
+               placeholder="{{ ::'WIDGET.BUTTON.SETTINGS.URL.PLACEHOLDER' | translate }}"
+               ng-model="$ctrl.model.settings._url"
+               ng-pattern="$ctrl.linkPattern"
+               ng-required="true"
+               ng-change="$ctrl.validate()">
+      </div>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="WIDGET.BUTTON.SETTINGS.URL.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" translate="WIDGET.BUTTON.SETTINGS.STYLE"></label>
+    <div class="col-sm-9">
+      <ui-select ng-model="$ctrl.model.settings._button">
+        <ui-select-match allow-clear="false">
+          {{$ctrl.model.settings._button.title | translate}}
+        </ui-select-match>
+        <ui-select-choices repeat="buttonStyle in $ctrl.buttonStyles">
+          <div translate="{{::buttonStyle.title}}"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="WIDGET.BUTTON.SETTINGS.STYLE.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-9">
+      <div class="input-group">
+        <label>
+          <coyo-checkbox ng-model="$ctrl.model.settings._linkTarget" true-value="'_blank'"
+                         false-value="'_self'"></coyo-checkbox>
+          <span class="control-label ml-xxs" translate="WIDGET.BUTTON.SETTINGS.LINK_TARGET"></span>
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-1 hidden-xs">
+      <coyo-help tip="WIDGET.BUTTON.SETTINGS.LINK_TARGET.HELP"></coyo-help>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="form-group preview-field">
+    <label class="col-sm-2 control-label" translate="WIDGET.BUTTON.SETTINGS.PREVIEW"></label>
+    <div class="col-sm-10">
+      <a class="btn" ng-class="$ctrl.model.settings._button.btnClass" ng-href="{{ $ctrl.validUrl }}" target="_blank">
+        {{ $ctrl.model.settings.text }}
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,142 @@
+<div class="panel forum-panel-list">
+  <coyo-filterbox attached="true" no-mobile-context-menu="true" filter-active="$ctrl.statusFilterActive()">
+    <fb-filter class="forum-list-filter">
+      <coyo-filter title-key="APP.FORUM.FILTER.STATUS.TITLE">
+        <coyo-filter-entry text-key="APP.FORUM.FILTER.STATUS.OPEN"
+                            active="$ctrl.forumThreads._queryParams.includeOpen"
+                            icon="zmdi-comments"
+                            on-click="$ctrl.toggleIncludeOpen()"></coyo-filter-entry>
+        <coyo-filter-entry text-key="APP.FORUM.FILTER.STATUS.CLOSED"
+                            active="$ctrl.forumThreads._queryParams.includeClosed"
+                            icon="zmdi-lock"
+                            on-click="$ctrl.toggleIncludeClosed()"></coyo-filter-entry>
+      </coyo-filter>
+    </fb-filter>
+    <fb-search>
+      <coyo-search-filter change="$ctrl.search"
+                          placeholder="APP.FORUM.SEARCH.LIST"
+                          search-term="{{$ctrl.query.term}}"></coyo-search-filter>
+    </fb-search>
+    <fb-count>
+      <coyo-counter value="$ctrl.threadCount"
+                    key-none="APP.FORUM.THREAD_NONE"
+                    key-singular="APP.FORUM.THREAD_SINGULAR"
+                    key-plural="APP.FORUM.THREAD_PLURAL"></coyo-counter>
+    </fb-count>
+    <fb-actions>
+      <li ng-if="!$ctrl.isMobile">
+        <a ui-sref=".create" class="forum-thread-create">
+          <i class="zmdi zmdi-plus-circle"></i><span class="hidden-xs hidden-sm">&nbsp;{{:: 'APP.FORUM.CREATE' | translate }}</span>
+        </a>
+      </li>
+      <div ng-if="$ctrl.isMobile">
+        <a ui-sref=".create" class="forum-thread-create">
+          <i class="zmdi zmdi-plus-circle"></i><span>&nbsp;{{:: 'APP.FORUM.CREATE' | translate }}</span>
+        </a>
+      </div>
+    </fb-actions>
+  </coyo-filterbox>
+  <div class="panel-body" ng-if="$ctrl.forumThreads.content.length > 0 && !$ctrl.loading">
+    <span ng-if="$ctrl.forumThreads.content.length > 0 && !$ctrl.loading">
+      <table class="table forum-threads hidden-xs hidden-sm">
+        <thead>
+          <tr>
+            <th class="thread-icon-shrink"></th>
+            <th coyo-table-sorting page="$ctrl.forumThreads" property="title.sort" title="{{:: 'APP.FORUM.THREAD.LIST.TITLE' | translate }}"></th>
+            <th coyo-table-sorting page="$ctrl.forumThreads" property="answerCount" title="{{:: 'APP.FORUM.THREAD.LIST.ANSWERS' | translate }}" class="custom-hidden-xl"></th>
+            <th coyo-table-sorting page="$ctrl.forumThreads" property="created" title="{{:: 'APP.FORUM.THREAD.LIST.CREATED' | translate }}"></th>
+            <th coyo-table-sorting page="$ctrl.forumThreads" property="lastAnswerDate" title="{{:: 'APP.FORUM.THREAD.LIST.LATESTACTIVITY' | translate }}" class="custom-hidden-xl"></th>
+            <th><!-- context menu --></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="thread" ng-repeat="thread in $ctrl.forumThreads.content" ng-show="!!thread">
+            <td class="thread-icon">
+              <span class="zmdi-hc-stack zmdi-hc-lg">
+                <i class="thread-icon-background zmdi zmdi-circle zmdi-hc-stack-2x"
+                   ng-class="{'closed': thread.closed, 'pinned': thread.pinned || thread.closed && thread.pinned}"></i>
+                <i class="thread-icon-foreground zmdi zmdi-hc-stack-1x zmdi-hc-inverse"
+                   ng-class="{'zmdi-star': thread.pinned && !thread.closed, 'zmdi-comments': !thread.pinned && !thread.closed, 'zmdi-lock-outline': thread.closed}"></i>
+              </span>
+            </td>
+            <td class="thread-title"><a ui-sref=".view({id:thread.id})">{{::thread.title}}</a></td>
+            <td class="thread-comment-info custom-hidden-xl">
+              <span class="thread-comment-count">
+                <i class="zmdi zmdi-comments"></i> <span class="comment-count">{{::thread.answerCount}}</span></span>
+            </td>
+            <td class="thread-created">
+              <coyo-time-ago class="thread-created" date="thread.created" tooltip-placement="auto top"></coyo-time-ago><br/>
+              <i class="zmdi zmdi-account-circle"></i>
+              <a class="thread-author" href coyo-sender-link="thread.author">{{::thread.author.displayName}}</a>
+            </td>
+            <td class="thread-lastanswer custom-hidden-xl">
+              <span class="no-answer" data-ng-if="!(thread.lastAnswerDate && thread.lastAnswerAuthor)">
+                <span>-</span>
+              </span>
+              <span class="thread-answer" data-ng-if="thread.lastAnswerDate && thread.lastAnswerAuthor">
+                <coyo-time-ago class="thread-last-answer" date="thread.lastAnswerDate" tooltip-placement="auto top"></coyo-time-ago><br/>
+                <i class="zmdi zmdi-account-circle"></i>
+                <a class="thread-answer-author" href coyo-sender-link="thread.lastAnswerAuthor">{{::thread.lastAnswerAuthor.displayName}}</a>
+              </span>
+            </td>
+            <td class="thread-context-menu-container thread-status-options-list">
+              <span ng-include="$ctrl.contextMenuTemplate"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="thread-mobile hidden-md hidden-lg">
+        <div class="thread-wrapper" ng-repeat="thread in $ctrl.forumThreads.content">
+          <div class="thread-icon-mobile thread-icon">
+            <span class="zmdi-hc-stack zmdi-hc-lg">
+              <i class="thread-icon-background zmdi zmdi-circle zmdi-hc-stack-2x"
+                 ng-class="{'closed': thread.closed, 'pinned': thread.pinned || thread.closed && thread.pinned}"></i>
+              <i class="thread-icon-foreground zmdi zmdi-hc-stack-1x zmdi-hc-inverse"
+                 ng-class="{'zmdi-star': thread.pinned && !thread.closed, 'zmdi-comments': !thread.pinned && !thread.closed, 'zmdi-lock-outline': thread.closed}"></i>
+            </span>
+          </div>
+          <div class="thread-info-mobile">
+            <div class="thread-title-mobile"><a ui-sref=".view({id:thread.id})">{{::thread.title}}</a></div>
+            <div class="thread-data-mobile">
+              <div class="thread-author-mobile">
+                <i class="zmdi zmdi-account-circle"></i>
+                <a class="thread-author" href coyo-sender-link="thread.author">{{::thread.author.displayName}}</a>
+                <span class="thread-comment-count-mobile"><i class="zmdi zmdi-comments"></i> <span class="comment-count">{{::thread.answerCount}}</span></span>
+              </div>
+              <div class="thread-lastanswer-mobile">
+                <span translate="APP.FORUM.THREAD.LIST.LATESTACTIVITY"></span>:
+                <span class="no-answer" data-ng-if="!thread.lastAnswerDate">
+                  <span>-</span>
+                </span>
+                <span class="thread-answer" data-ng-if="thread.lastAnswerDate">
+                  <a class="thread-answer-author-mobile" href coyo-sender-link="thread.lastAnswerAuthor" ng-if="thread.lastAnswerAuthor">{{::thread.lastAnswerAuthor.displayName}}</a>
+                  <coyo-time-ago class="thread-last-answer" date="thread.lastAnswerDate" tooltip-placement="auto top"></coyo-time-ago><br/>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="thread-context-menu" ng-include="$ctrl.contextMenuTemplate"></div>
+        </div>
+      </div>
+
+      <coyo-table-pagination page="$ctrl.forumThreads"></coyo-table-pagination>
+    </span>
+  </div>
+
+  <div class="panel-body no-threads-found" ng-if="$ctrl.forumThreads.content.length <= 0 && !$ctrl.loading">
+    <p class="text-muted text-center m-0" ng-if="!$ctrl.statusFilterActive() && !$ctrl.searchTermFilterActive()">
+      <span translate="APP.FORUM.EMPTY"></span><br>
+      <a ui-sref=".create" translate="APP.FORUM.EMPTY_LINK"></a>
+    </p>
+    <p class="text-muted text-center m-0" ng-if="$ctrl.statusFilterActive() || $ctrl.searchTermFilterActive()">
+      <span translate="APP.FORUM.EMPTY.FILTER"></span>
+    </p>
+  </div>
+
+  <div class="panel-body" ng-if="$ctrl.loading">
+    <p class="text-center m-m">
+      <coyo-spinner></coyo-spinner>
+    </p>
+  </div>
+</div>

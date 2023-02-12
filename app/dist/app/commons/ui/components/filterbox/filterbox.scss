@@ -1,0 +1,302 @@
+.filterbox-attached {
+  &.panel-heading {
+    align-items: center;
+    background-color: $color-gray-lighter;
+    border: 0;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+
+    .fb-col {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .fb-col-filter,
+    .fb-col-count,
+    .fb-col-actions {
+      flex: 0 0 auto;
+    }
+
+    .fb-col-search {
+      flex: 1;
+      overflow: hidden;
+
+      > ng-transclude {
+        width: 100%;
+      }
+    }
+
+    .fb-col-filter {
+      border-right: 1px solid $color-gray-light;
+      .active {
+        color: $color-link;
+      }
+    }
+
+    .fb-col-actions {
+      border-left: 1px solid $color-gray-light;
+      padding: 16px 17px 13px 18px;
+      overflow: hidden;
+      
+      .zmdi {
+        font-size: 1.4em;
+      }
+
+      @media screen and (min-width: $screen-md-min) {
+        padding: 0;
+        
+        .zmdi {
+          font-size: 1em;
+        }
+      }
+
+      .context-menu-toggle {
+        padding: 16px 24px;
+      }
+      
+      .fb-col-actions-context-menu {
+        padding: 0;
+
+        .zmdi {
+          font-size: 1em;
+        }
+        
+        .context-menu-toggle {
+          padding: 0;
+        }
+      }
+
+      .fb-actions-inline {
+        li {
+          @media screen and (min-width: $screen-md-min) {
+            display: inline;
+            &:not(:last-child) {
+              margin-right: 16px;
+            }
+
+            a {
+              padding: 16px 24px;
+              display: flex;
+              align-items: center;
+              line-height: 14px;
+              > i {
+                margin-right: 4px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.filterbox {
+
+  .actions-vertical {
+    display: none;
+  }
+
+  &.filterbox-vertical {
+    .actions-vertical {
+      @media screen and (min-width: $screen-md-min) {
+        display: block;
+      }
+    }
+
+    .panel.panel-default.panel-filterbox {
+
+      @media screen and (min-width: $screen-md-min) {
+        .panel-body-filterbox {
+          flex-direction: column;
+
+          .fb-filter-toggle {
+            display: none;
+          }
+          .fb-col {
+            height: inherit;
+          }
+          .fb-col-filter {
+            order: 2;
+            border-right: none;
+            padding: 0;
+
+            .fb-col-filter-transclude {
+              width: 100%;
+            }
+          }
+          .fb-col-search {
+            order: 1;
+            border-bottom: 1px solid $color-gray-light;
+            padding-left: 24px;
+
+            > ng-transclude {
+              width: 100%;
+            }
+
+            &.hidden-vertical {
+              display: none;
+            }
+          }
+          .fb-col-actions {
+            display: none;
+          }
+        }
+      }
+
+      .panel-body-filterbox .fb-filter-inline {
+        @media screen and (max-width: $screen-sm-max) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .panel.panel-default.panel-filterbox {
+
+    .panel-body-filterbox {
+      padding: 0;
+      display: flex;
+      justify-content: center;
+
+      .fb-col {
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .fb-col-filter,
+      .fb-col-count,
+      .fb-col-actions {
+        flex: 0 0 auto;
+      }
+
+      .fb-col-search {
+        flex: 1;
+        overflow: hidden;
+
+        > ng-transclude {
+          width: 100%;
+        }
+      }
+
+      .fb-col-filter {
+        border-right: 1px solid $color-gray-light;
+        .active {
+          color: $color-link;
+        }
+      }
+
+      .fb-col-actions {
+        border-left: 1px solid $color-gray-light;
+        padding-left: 0;
+        padding-right: 0;
+        overflow: hidden;
+
+        @media screen and (min-width: $screen-md-min) {
+          padding: 0;
+        }
+
+        .context-menu-toggle {
+          padding: 16px 24px;
+        }
+
+        .fb-actions-inline {
+          li {
+            @media screen and (min-width: $screen-md-min) {
+              display: inline;
+              &:not(:last-child) {
+                margin-right: 16px;
+              }
+
+              a {
+                padding: 16px 24px;
+                display: flex;
+                align-items: center;
+                line-height: 14px;
+                > i {
+                  margin-right: 4px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  fb-filter {
+    .fb-filter-action {
+      @include ellipsis();
+      i {
+        margin-right: 4px;
+      }
+
+      border-top: 1px solid $color-gray-light;
+      padding: 10px 20px;
+      width: 100%;
+      text-align: center;
+      display: block;
+      margin-top: 10px;
+
+      @media screen and (min-width: $screen-sm-min) {
+        margin-left: 24px;
+      }
+
+      @media screen and (min-width: $screen-md-min) {
+        margin-left: 0;
+        margin-bottom: -17px;
+      }
+    }
+  }
+
+  .fb-filter {
+    background-color: $color-white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1040;
+
+    @media screen and (min-width: $screen-sm-min) {
+      @include dropdown();
+
+      position: absolute;
+      top: auto;
+      left: auto;
+      width: 580px;
+      height: auto;
+      margin-top: -22px;
+
+      fb-filter {
+        display: flex;
+        flex-flow: row wrap;
+        margin-left: -24px;
+
+        coyo-filter {
+          margin-left: 24px;
+          width: 100%;
+
+          @media screen and (min-width: $screen-md-min) {
+            flex: 1;
+            flex-basis: 33%;
+            width: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+body:not(.filter-active) {
+  #filter-menu {
+    @media screen and (min-width: $screen-md-min) {
+      display: none;
+    }
+  }
+}

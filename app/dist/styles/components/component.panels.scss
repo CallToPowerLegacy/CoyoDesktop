@@ -1,0 +1,57 @@
+// shows a deeper shadow when hovering
+.panel.panel-hoverable {
+  &:hover {
+    box-shadow: inset 0 -3px 0 -1px $color-gray-light;
+  }
+}
+
+// styles for panel with a list in it
+.panel-list {
+  .panel-body {
+    @media screen and (max-width: $screen-sm-max) {
+      padding: 0;
+    }
+
+    .list-group {
+      @media (max-width: $screen-sm-max) {
+        margin-bottom: 0;
+      }
+
+      .list-group-item {
+        @media (max-width: $screen-sm-max) {
+          &:first-child, &:last-child {
+            border-radius: 0;
+          }
+          &:first-child {
+            border-top: 0;
+          }
+          border-left: 0;
+          border-right: 0;
+        }
+      }
+    }
+  }
+}
+
+.panel {
+  .panel-heading-full-width {
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-left: 0;
+    margin-right: 0;
+    @media screen and (min-width: $screen-sm-min) {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+  .panel-body {
+    .divider-full-width {
+      margin-left: -18px;
+      margin-right: -18px;
+      @media screen and (min-width: $screen-sm-min) {
+        margin-left: -30px;
+        margin-right: -30px;
+      }
+    }
+  }
+}

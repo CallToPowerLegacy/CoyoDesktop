@@ -1,0 +1,6 @@
+<span class="workspace-visibility" ng-switch="::workspace.visibility || visibility"
+      uib-tooltip="{{:: 'WORKSPACE.VISIBILITY.' + (workspace.visibility || visibility) + '.LABEL' | translate }}" tooltip-popup-delay="500" tooltip-append-to-body="true">
+  <i ng-switch-when="PRIVATE" class="zmdi zmdi-hc-fw zmdi-eye-off"></i>
+  <i ng-switch-when="PROTECTED" class="zmdi zmdi-hc-fw zmdi-lock"></i>
+  <i ng-switch-default class="zmdi zmdi-hc-fw zmdi-globe"></i>
+</span>

@@ -1,0 +1,41 @@
+<span ng-if="$ctrl.workspace.membershipStatus !== 'APPROVED'"
+      class="card-actions"
+      ng-class="{'card-actions-multiple': $ctrl.workspace.membershipStatus === 'INVITED'}">
+
+      <coyo-tour-step topic="workspaces" order="115" placement="bottom" step-id="workspaces.join"
+                      image-url="assets/images/tour/tour-workspaces-join.jpg"
+                      title="{{:: 'TOUR.WORKSPACES.JOIN.TITLE' | translate }}"
+                      content="{{:: 'TOUR.WORKSPACES.JOIN' | translate }}"></coyo-tour-step>
+
+      <coyo-tour-step topic="workspaces" order="120" placement="bottom" step-id="workspaces.request"
+                      image-url="assets/images/tour/tour-workspaces-request.jpg"
+                      title="{{:: 'TOUR.WORKSPACES.REQUEST.TITLE' | translate }}"
+                      content="{{:: 'TOUR.WORKSPACES.REQUEST' | translate }}"></coyo-tour-step>
+
+      <coyo-tour-step topic="workspaces" order="125" placement="bottom" step-id="workspaces.invited"
+                      image-url="assets/images/tour/tour-workspaces-invited.jpg"
+                      title="{{:: 'TOUR.WORKSPACES.INVITED.TITLE' | translate }}"
+                      content="{{:: 'TOUR.WORKSPACES.INVITED' | translate }}"></coyo-tour-step>
+
+  <!-- Join Button -->
+  <a ng-if="$ctrl.workspace.membershipStatus !== 'REQUESTED'"
+     ng-click="$ctrl.join()"
+     class="btn btn-inverse btn-zmdi tour-placeholder-container"
+     ng-class="{'btn-primary': $ctrl.workspace.membershipStatus !== 'INVITED', 'btn-success': $ctrl.workspace.membershipStatus === 'INVITED'}"
+     uib-tooltip="{{ 'WORKSPACE.ACTION.JOIN.' + $ctrl.workspace.membershipStatus | translate }}"
+     tooltip-placement="left"
+     tooltip-append-to-body="true"
+     tooltip-popup-delay="500">
+    <i class="zmdi zmdi-hc-fw" ng-class="$ctrl.joinIcon"></i>
+  </a>
+  <!-- Decline Button -->
+  <a ng-if="$ctrl.workspace.membershipStatus === 'INVITED' || $ctrl.workspace.membershipStatus === 'REQUESTED'"
+     ng-click="$ctrl.leave()"
+     class="btn btn-inverse btn-danger btn-zmdi tour-placeholder-container"
+     uib-tooltip="{{ 'WORKSPACE.ACTION.LEAVE.' + $ctrl.workspace.membershipStatus | translate }}"
+     tooltip-placement="left"
+     tooltip-append-to-body="true"
+     tooltip-popup-delay="500">
+    <i class="zmdi zmdi-hc-fw zmdi-close"></i>
+  </a>
+</span>

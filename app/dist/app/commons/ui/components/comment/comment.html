@@ -1,0 +1,113 @@
+<div class="comment">
+  <div class="comment-header">
+    <div class="comment-author-avatar hidden-xs" ng-if="::$ctrl.ngModel.author">
+      <coyo-sender-avatar sender="::$ctrl.ngModel.author" avatar-size="xs"></coyo-sender-avatar>
+    </div>
+    <a ng-if="::$ctrl.ngModel.author" coyo-sender-link="::$ctrl.ngModel.author" class="comment-author">{{::$ctrl.ngModel.author.displayName}}</a>
+    <small class="text-muted comment-time">
+      <i class="zmdi zmdi-hc-fw zmdi-time"></i>&nbsp;<coyo-time-ago date="::$ctrl.ngModel.created"></coyo-time-ago>
+      <div ng-if="$ctrl.originalAuthorDisplayed"><i class="zmdi zmdi-hc-fw zmdi-account"></i>&nbsp;{{::$ctrl.originalAuthor.displayName}}</div>
+    </small>
+    <small ng-if="!$ctrl.editMode">
+      <coyo-btn-likes target="::$ctrl.ngModel" init="::$ctrl.ngModel.likes" author-id="$ctrl.authorId" condensed></coyo-btn-likes>
+    </small>
+    <span class="label label-warning label-editing" ng-if="$ctrl.editMode">
+      {{:: 'EDITING' | translate}}
+    </span>
+    <coyo-context-menu class="comment-context-menu" align-right="true" ng-if="$ctrl.contextMenuDisplayed && !$ctrl.editMode">
+      <li ng-if="::$ctrl.originalAuthorOptionDisplayed">
+        <a href ng-click="$ctrl.toggleOriginalAuthor()">
+          <i class="zmdi zmdi-hc-fw"
+             ng-class="{'zmdi-account': !$ctrl.originalAuthorDisplayed, 'zmdi-account-o': $ctrl.originalAuthorDisplayed}"></i>&nbsp;
+          {{:: 'MODULE.TIMELINE.ORIGINAL_AUTHOR.' + (!$ctrl.originalAuthorDisplayed ? '' : 'UN') + 'REVEAL' | translate}}
+        </a>
+      </li>
+      <li ng-if="$ctrl.editOptionDisplayed">
+        <a ng-click="$ctrl.edit()"><i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;{{:: 'EDIT' | translate}}</a>
+      </li>
+      <li ng-if="::$ctrl.deleteOptionDisplayed">
+        <a ng-click="$ctrl.remove()"><i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'DELETE' | translate}}</a>
+      </li>
+    </coyo-context-menu>
+  </div>
+  <div class="comment-body" ng-class="{'comment-edited': $ctrl.ngModel.edited}" ng-if="!$ctrl.editMode">
+    <coyo-refresh on-scope-event="'comment.' + $ctrl.ngModel.id + ':updateDone'">
+      <div class="comment-message" coyo-mention-encode="::$ctrl.ngModel.message | markdown | hashtag"></div>
+      <small ng-if="::$ctrl.ngModel.edited && !$ctrl.editMode"
+              class="text-muted edit-remark"
+              translate="MODULE.TIMELINE.COMMENT.EDIT.REMARK"
+              translate-value-modified="{{::$ctrl.ngModel.modified | amTimeAgo}}"></small>
+    </coyo-refresh>
+  </div>
+  <div class="comment-body-edit" ng-if="$ctrl.editMode">
+    <div class="comment-form panel-footer">
+      <form name="$ctrl.form" class="form-horizontal" coyo-form-submit="$ctrl.submitForm()">
+        <div class="comment-form-inner">
+          <textarea name="message"
+                    class="form-control comment-form-textarea"
+                    ng-model="$ctrl.formModel.message"
+                    ng-required="true"
+                    ng-attr-placeholder="{{::'COMMENTS.FORM.PLACEHOLDER' | translate}}"
+                    msd-elastic rows="1"
+                    ng-keypress="$ctrl.formModel.formKeyPress($event)"
+                    focus-if="$ctrl.formModel.focusMessageField"
+                    ng-blur="$ctrl.formModel.focusMessageField = false"
+                    coyo-mention-select></textarea>
+        </div>
+        <div class="comment-form-actions" ng-class="{'border-bottom': $ctrl.error}">
+          <coyo-emoji-picker ng-model="$ctrl.formModel.message"
+                             focus-var="$ctrl.formModel.focusMessageField"></coyo-emoji-picker>
+          <coyo-btn-attachments author="::$ctrl.formModel.author"
+                                active="$ctrl.formModel.attachments.length || $ctrl.formModel.fileLibraryAttachments.length"
+                                context-id="{{::$ctrl.formModel.target.id}}"
+                                on-select-attachments="$ctrl.addAttachments(files)"
+                                on-select-file-library="$ctrl.addFileLibraryAttachments(files)"
+                                class="comment-form-attachment-trigger"></coyo-btn-attachments>
+          <button type="reset" class="btn btn-default button-cancel-edit" ng-click="$ctrl.resetForm(true)">
+            <i class="zmdi zmdi-hs-fw zmdi-close zmdi-hc-fw"></i><span>&nbsp;{{:: 'CANCEL' | translate}}</span>
+          </button>
+          <coyo-form-submit-button label="SAVE" hide-text-on-mobile="false" form-ctrl="::$ctrl.form" disabled="$ctrl.isUploading()"></coyo-form-submit-button>
+        </div>
+        <div ng-if="$ctrl.error" class="edit-permissions-warning alert alert-warning" translate="MODULE.TIMELINE.COMMENT.EDIT.PERMISSIONS.WARNING"></div>
+      </form>
+    </div>
+  </div>
+  <coyo-refresh on-scope-event="'comment.' + $ctrl.ngModel.id + ':updateDone'" ng-if="!$ctrl.editMode">
+    <div class="panel-body comment-item-attachments" ng-if="::$ctrl.ngModel.attachments.length">
+      <coyo-preview-list attachments="::$ctrl.ngModel.attachments"
+                        group-id="::$ctrl.ngModel.id"
+                        backend-url="::$ctrl.backendUrl"
+                        author="::$ctrl.ngModel.author"
+                        preview-url="::$ctrl.previewUrl"
+                        size="xl"></coyo-preview-list>
+    </div>
+  </coyo-refresh>
+  <div class="comment-form-attachments" ng-if="$ctrl.editMode && ($ctrl.formModel.attachments.length || $ctrl.formModel.fileLibraryAttachments.length)">
+    <div class="comment-form-attachment"
+         ng-repeat="attachment in $ctrl.formModel.attachments | limitTo:20"
+         ng-class="{ uploading : attachment.uploading, done : (attachment.progress === 100) }">
+      <div class="comment-form-attachment-icon">
+        <coyo-file-icon file="::attachment" class="zmdi-hc-lg"></coyo-file-icon>
+      </div>
+      <div class="comment-form-attachment-name">{{::attachment.name}}</div>
+      <div class="comment-form-attachment-opt">
+        <span class="text-muted" ng-if="attachment.uploading">{{attachment.progress}}%</span>
+        <a ng-if="!attachment.uploading" ng-click="$ctrl.removeAttachment(attachment)">
+          <i class="zmdi zmdi-close-circle-o red"></i>
+        </a>
+      </div>
+    </div>
+    <div class="comment-form-attachment"
+         ng-repeat="attachment in $ctrl.formModel.fileLibraryAttachments | limitTo:20">
+      <div class="comment-form-attachment-icon">
+        <coyo-file-icon file="::attachment" class="zmdi-hc-lg"></coyo-file-icon>
+      </div>
+      <div class="comment-form-attachment-name">{{::attachment.displayName}}</div>
+      <div class="comment-form-attachment-opt">
+        <a ng-if="!attachment.uploading" ng-click="$ctrl.removeFileLibraryAttachment(attachment)">
+          <i class="zmdi zmdi-close-circle-o red"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

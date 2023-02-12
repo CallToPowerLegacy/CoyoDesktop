@@ -1,0 +1,21 @@
+<form name="filenameForm" ng-submit="$ctrl.onSubmit({file: $ctrl.file, newFilename: $ctrl.newFilename})">
+  <div class="form-group" ng-class="{'has-error': filenameForm.$invalid, 'has-success': filenameForm.$valid}">
+    <div class="input-group">
+      <input class="form-control input-sm"
+             focus-if="$ctrl.focusTrigger"
+             ng-blur="$ctrl.onSubmit({file: $ctrl.file, newFilename: $ctrl.newFilename})"
+             type="text"
+             ng-model="$ctrl.newFilename"
+             ng-pattern="/^[\u00C0-\u017F\w\-.\(\) ]+$/"
+             maxlength="255"
+             required>
+      <span class="input-group-addon"
+            uib-tooltip="{{ ::'FILE_LIBRARY.VALIDATION.FILENAME' | translate }}"
+            tooltip-placement="top"
+            tooltip-append-to-body="true"
+            tooltip-enable="filenameForm.$invalid">
+        <i class="zmdi" ng-class="{'zmdi-close': filenameForm.$invalid, 'zmdi-check': filenameForm.$valid}"></i>
+      </span>
+    </div>
+  </div>
+</form>

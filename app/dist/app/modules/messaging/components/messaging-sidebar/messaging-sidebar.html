@@ -1,0 +1,32 @@
+<section class="messaging-sidebar-wrapper" coyo-global-permissions="USE_MESSAGING">
+
+  <div class="messaging-sidebar-spacer" ng-class="{'compact' : msgSidebar.compact}"></div>
+
+  <nav class="messaging sidebar" ng-class="{'compact' : msgSidebar.compact, 'slide-in' : msgSidebar.show}">
+
+    <oyoc-messaging-channels ng-if="::msgSidebar.currentUser"
+                             ng-show="!msgSidebar.view || msgSidebar.compact"
+                             msg-sidebar="msgSidebar"
+                             current-user="::msgSidebar.currentUser"></oyoc-messaging-channels>
+
+    <oyoc-messaging-presence-status ng-if="!msgSidebar.compact && msgSidebar.view === 'presenceStatus'"
+                                    presence-status="msgSidebar.presenceStatus"
+                                    msg-sidebar="::msgSidebar"
+                                    current-user="::msgSidebar.currentUser"></oyoc-messaging-presence-status>
+
+    <oyoc-messaging-channel-form ng-if="!msgSidebar.compact && msgSidebar.view === 'channelForm'"
+                                 msg-sidebar="::msgSidebar"
+                                 current-user="::msgSidebar.currentUser"
+                                 channel="msgSidebar.currentChannel"></oyoc-messaging-channel-form>
+
+    <oyoc-messaging-channel ng-if="!msgSidebar.compact && msgSidebar.view === 'channel'"
+                            channel="msgSidebar.currentChannel"
+                            current-user="::msgSidebar.currentUser"
+                            msg-sidebar="::msgSidebar"></oyoc-messaging-channel>
+
+    <oyoc-messaging-channel-info ng-if="!msgSidebar.compact && msgSidebar.view === 'channelInfo'"
+                                 channel="msgSidebar.currentChannel"
+                                 msg-sidebar="::msgSidebar"
+                                 current-user="::msgSidebar.currentUser"></oyoc-messaging-channel-info>
+  </nav>
+</section>

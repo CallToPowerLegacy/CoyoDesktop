@@ -1,0 +1,160 @@
+<form name="landingPageForm" coyo-form-submit="$ctrl.save()" novalidate>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h1 class="panel-title" ng-if="!$ctrl.landingPage.isNew()">{{:: 'ADMIN.LANDING_PAGES.OPTIONS.EDIT' | translate}} <small>{{:: $ctrl.landingPage.displayName }}</small></h1>
+      <h1 class="panel-title" ng-if="$ctrl.landingPage.isNew()" translate="ADMIN.LANDING_PAGES.OPTIONS.CREATE"></h1>
+    </div>
+    <div class="panel-body form-horizontal">
+      <div class="form-group" ng-class="{'has-error': landingPageForm.name.$invalid && landingPageForm.name.$touched}">
+        <label for="name" class="col-sm-2 control-label" translate="ADMIN.LANDING_PAGES.NAME.LABEL"></label>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <input id="name" name="name" type="text" class="form-control"
+                   ng-model="$ctrl.landingPage.name" maxlength="255"
+                   ng-required="true" coyo-check-landing-page-name="{{$ctrl.landingPage.id}}"
+                   ng-model-options="{ updateOn: 'default blur', debounce: {'default': $root.debounce.sm, 'blur': 0} }">
+            <div class="input-group-addon">
+              <coyo-validation-status-icon form-field="landingPageForm.name"></coyo-validation-status-icon>
+            </div>
+          </div>
+          <ng-messages for="landingPageForm.name.$error" class="help-block validation">
+            <p ng-message="required" translate="ERRORS.VALIDATION.REQUIRED"></p>
+            <p ng-message="pageName" translate="ERRORS.VALIDATION.ALREADY_TAKEN"></p>
+          </ng-messages>
+        </div>
+      </div>
+
+      <div ng-if="!$ctrl.landingPage.isNew()" class="form-group" ng-class="{'has-error': landingPageForm.slug.$invalid, 'has-warning': ($ctrl.oldSlug != $ctrl.landingPage.slug)}">
+        <label for="name" class="col-sm-2 control-label" translate="ADMIN.LANDING_PAGES.SLUG.LABEL"></label>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <span class="visible-xs">/</span>
+              <span class="hidden-xs">{{::$ctrl.baseUrl}}</span>
+            </div>
+            <input id="slug"
+                    name="slug" type="text" class="form-control"
+                    ng-model="$ctrl.landingPage.slug"
+                    ng-disabled="$ctrl.landingPage.configuredUrl"
+                    ng-required="true"
+                    coyo-check-sender-slug="{{$ctrl.landingPage.id}}"
+                    ng-pattern="'^[a-z0-9-]+$'"
+                    ng-model-options="{ updateOn: 'default blur', debounce: {'default': $root.debounce.sm, 'blur': 0} }">
+            <div class="input-group-addon">
+              <coyo-validation-status-icon form-field="landingPageForm.slug"></coyo-validation-status-icon>
+            </div>
+          </div>
+          <p class="help-block" ng-show="$ctrl.oldSlug != $ctrl.landingPage.slug && !landingPageForm.slug.$invalid">
+            <i class="zmdi zmdi-alert-triangle"></i>&nbsp;{{:: 'ADMIN.LANDING_PAGES.SLUG.WARNING' | translate }}
+          </p>
+          <ng-messages for="landingPageForm.slug.$error" class="help-block validation">
+            <p ng-message="required">{{:: 'ERRORS.VALIDATION.REQUIRED' | translate }}</p>
+            <p ng-message="pattern">{{:: 'ERRORS.VALIDATION.PATTERN' | translate }}</p>
+            <p ng-message="senderSlug">{{:: 'ERRORS.VALIDATION.ALREADY_TAKEN' | translate }}</p>
+          </ng-messages>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.LANDING_PAGES.SLUG.URL.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="active" class="col-sm-2 control-label" translate="ADMIN.LANDING_PAGES.ACTIVE.LABEL"></label>
+        <div class="col-sm-9">
+          <div class="checkbox">
+            <label>
+              <coyo-checkbox id="active" ng-model="$ctrl.landingPage.active"></coyo-checkbox>
+              {{:: 'ADMIN.LANDING_PAGES.ACTIVE.HELP' | translate}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <hr class="lighter">
+
+      <div class="form-group" ng-class="{'has-error': landingPageForm.admins.$invalid}">
+        <label class="col-sm-2 control-label" translate="ADMIN.LANDING_PAGES.ADMINS.LABEL"></label>
+        <div class="col-sm-10">
+          <coyo-user-chooser ng-model="$ctrl.landingPage" users-field="adminIds" groups-field="adminGroupIds"></coyo-user-chooser>
+        </div>
+      </div>
+
+      <hr class="lighter">
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" translate="ADMIN.LANDING_PAGES.VISIBILITY.LABEL"></label>
+        <div class="col-sm-10">
+          <div class="radio">
+            <label>
+              <input name="visibility" type="radio" ng-model="$ctrl.landingPage.visibility" value="PUBLIC">
+              <i class="zmdi zmdi-hc-fw zmdi-globe"></i>&nbsp;{{:: 'ADMIN.LANDING_PAGES.VISIBILITY.PUBLIC' | translate}}<br>
+              <span class="text-muted" translate="ADMIN.LANDING_PAGES.VISIBILITY.PUBLIC.HELP"></span>
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input name="visibility" type="radio" ng-model="$ctrl.landingPage.visibility" value="PRIVATE">
+              <i class="zmdi zmdi-hc-fw zmdi-eye-off"></i>&nbsp;{{:: 'ADMIN.LANDING_PAGES.VISIBILITY.PRIVATE' | translate}}<br>
+              <span class="text-muted" translate="ADMIN.LANDING_PAGES.VISIBILITY.PRIVATE.HELP"></span>
+              <div class="mt-xs" ng-show="$ctrl.landingPage.visibility == 'PRIVATE'">
+                <coyo-user-chooser ng-model="$ctrl.landingPage" users-field="userIds" groups-field="userGroupIds"></coyo-user-chooser>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <coyo-divider ng-click="$ctrl.showAdvanced = !$ctrl.showAdvanced">
+        <span translate="ADMIN.LANDING_PAGES.SETTINGS.ADVANCED"></span>
+        <i class="zmdi zmdi-hc-fw"
+           ng-class="{'zmdi-caret-down': !$ctrl.showAdvanced, 'zmdi-caret-up': $ctrl.showAdvanced}"></i>
+      </coyo-divider>
+
+      <div class="form-group" ng-show="$ctrl.showAdvanced">
+        <label for="configuredUrl" class="col-sm-2 control-label" translate="ADMIN.LANDING_PAGES.CONFIGURE.SLUG.LABEL"></label>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <input type="text"
+                    id="configuredUrl" name="configuredUrl" type="text" class="form-control"
+                    placeholder="{{::'ADMIN.LANDING_PAGES.URL.PLACEHOLDER' | translate}}"
+                    ng-model="$ctrl.landingPage.configuredUrl"
+                    ng-pattern="'((https?|ftp)://)?[^ ]+'"
+                    maxlength="2000">
+            <div class="input-group-addon">
+              <coyo-validation-status-icon form-field="landingPageForm.configuredUrl"></coyo-validation-status-icon>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.LANDING_PAGES.CONFIGURE.URL.HELP"></coyo-help>
+        </div>
+      </div>
+
+      <div class="form-group" ng-show="$ctrl.showAdvanced">
+        <label class="col-sm-2 control-label" translate="ADMIN.LANDING_PAGES.CONFIGURE.NEWTAB.LABEL"></label>
+        <div class="col-sm-9">
+          <div class="checkbox">
+            <label>
+              <coyo-checkbox id="newTab" ng-model="$ctrl.landingPage.newTab" ng-disabled="!$ctrl.landingPage.configuredUrl"></coyo-checkbox>
+              {{:: 'ADMIN.LANDING_PAGES.CONFIGURE.NEWTAB.CHECKBOX' | translate}}
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="ADMIN.LANDING_PAGES.CONFIGURE.NEWTAB.HELP"></coyo-help>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer panel-actions">
+      <div class="row">
+        <div class="col-sm-10 col-sm-push-2">
+          <coyo-form-submit-button form-ctrl="landingPageForm" label="SAVE"></coyo-form-submit-button><!--
+       --><a ui-sref="^.list" class="btn btn-default">
+            <i class="zmdi zmdi-hc-fw zmdi-close"></i>&nbsp;{{::'CANCEL' | translate}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

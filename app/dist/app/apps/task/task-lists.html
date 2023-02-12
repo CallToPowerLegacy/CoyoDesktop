@@ -1,0 +1,54 @@
+<div class="panel task-app">
+  <!-- Panel mobile navigation -->
+  <div class="panel-nav">
+    <span class="title" ng-bind="$ctrl.getActiveList().title"></span>
+    <span>
+          <span class="badge" ng-style="{'background-color': $ctrl.getActiveList().color}"
+                ng-bind="$ctrl.getActiveList().count"></span>
+    </span>
+    <a href="" ng-click="$ctrl.selectList()" class="btn btn-sm btn-link btn-zmdi">
+      <i class="zmdi zmdi-hc-fw zmdi-hc-2x zmdi-view-toc"></i>
+    </a>
+  </div>
+
+  <div class="task-app-content">
+    <div class="panel-body task-lists" ng-class="::{'task-lists-manager': $ctrl.app._permissions.manageList}">
+      <!-- List of task lists -->
+      <div ui-tree="::$ctrl.treeOptions" empty-placeholder-enabled="false" max-depth="0">
+        <ul class="nav nav-default task-list-nav" ui-tree-nodes ng-model="$ctrl.lists">
+          <li ng-repeat="list in $ctrl.lists" ui-sref-active="active" ui-tree-node data-collapsed="true">
+            <a href="" ui-sref=".details({id: list.id})">
+              <span ng-bind="list.title"></span>
+              <span class="badge" ng-style="{'background-color': list.color}" ng-bind="list.count"></span>
+              <span class="btn btn-zmdi btn-link btn-move" ui-tree-handle><i class="zmdi zmdi-swap-vertical"></i></span>
+              <span class="btn btn-zmdi btn-link btn-settings" ng-click="$ctrl.editList(list, $event)"><i class="zmdi zmdi-settings"></i></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Empty task list placeholder -->
+      <div class="text-center text-muted pt-xs pb-xxs" ng-if="!$ctrl.lists.length" translate="APP.TASK.LISTS.EMPTY"></div>
+
+      <!-- Task list form -->
+      <div class="task-list-form" ng-if="::$ctrl.app._permissions.manageList">
+        <a href="" id="task-list-form-add" class="btn btn-block btn-link btn-add" ng-click="$ctrl.showForm($event)" ng-hide="$ctrl.formVisible">
+          <i class="zmdi zmdi-plus-circle-o"></i>&nbsp;{{:: 'APP.TASK.LIST.ADD' | translate}}
+        </a>
+        <form name="taskListForm" coyo-form-submit="$ctrl.createList()" ng-show="$ctrl.formVisible"
+              click-outside="$ctrl.hideForm()" outside-if-not="task-list-form-add">
+          <div class="input-group">
+            <input type="text" class="form-control task-list-input" ng-model="$ctrl.listTitle" required
+                   translate translate-attr-placeholder="APP.TASK.LIST.ADD.PLACEHOLDER">
+            <div class="input-group-btn">
+              <coyo-form-submit-button form-ctrl="taskListForm" class="btn-zmdi"></coyo-form-submit-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Task list details view -->
+    <div class="panel-body task-details" ui-view></div>
+  </div>
+</div>

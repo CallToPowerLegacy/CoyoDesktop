@@ -1,0 +1,225 @@
+.teaser-widget-settings {
+  .btn-add-slide {
+    margin-top: 15px;
+  }
+
+  .teaser-slide-list {
+    padding-bottom: 15px;
+  }
+
+  .teaser-sizes {
+    height: auto;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+
+    .teaser-size {
+      width: 33%;
+      padding: 0 5px;
+      box-sizing: border-box;
+
+      @media screen and (min-width: $screen-xs-min) {
+        padding: 0 12px;
+      }
+
+      .teaser-size-placeholder {
+        border-radius: 5px;
+        margin-top: 20px;
+        padding: 5px;
+        border: 1px solid $color-gray-light;
+        background-color: $color-gray-lighter;
+
+        @media screen and (min-width: $screen-xs-min) {
+          padding: 12px;
+        }
+
+        &::after {
+          content: "";
+          background-color: $color-gray-light;
+          display: block;
+          width: 100%;
+        }
+
+        &:hover,
+        &.active {
+          cursor: pointer;
+          background-color: $color-white;
+
+          &::after {
+            background-color: $color-gray;
+          }
+        }
+      }
+
+      &.teaser-size-xs {
+        padding-left: 0;
+
+        .teaser-size-placeholder {
+          &::after {
+            padding-top: 20%;
+          }
+        }
+      }
+
+      &.teaser-size-sm {
+        .teaser-size-placeholder {
+          &::after {
+            padding-top: 30%;
+          }
+        }
+      }
+
+      &.teaser-size-md {
+        .teaser-size-placeholder {
+          &::after {
+            padding-top: 50%;
+          }
+        }
+      }
+
+      &.teaser-size-lg {
+        padding-right: 0;
+
+        .teaser-size-placeholder {
+          &::after {
+            padding-top: 70%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.teaser-widget-settings-config-slide {
+  .btns-config-slide {
+    margin-left: -8px;
+    margin-right: -8px;
+    padding: 0;
+
+    button[type="submit"],
+    .btn {
+      width: 100%;
+    }
+
+    button[type="submit"] {
+      margin-bottom: 10px;
+    }
+
+    @media screen and (min-width: $screen-sm-min) {
+      text-align: left;
+      padding: 0 5px 0 9px;
+      margin: 0;
+
+      button[type="submit"],
+      .btn {
+        width: auto;
+        margin-bottom: 0;
+      }
+
+      button[type="submit"] {
+        margin-right: 10px;
+      }
+    }
+
+    @media screen and (min-width: "991px") {
+      padding: 0 5px 0 16px;
+    }
+  }
+}
+
+/* This is defined outside of teaser-widget to apply the styles when dragging */
+.teaser-slide-list {
+  float: left;
+  width: 100%;
+
+  .teaser-slide-li {
+    float: left;
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid $color-gray-lighter;
+
+    .teaser-slide-preview {
+      padding: 0;
+
+      div {
+        display: block;
+        width: 100%;
+        padding-bottom: 100%;
+        background-size: cover;
+        background-position: center;
+        background-color: $color-gray-lighter;
+        margin-top: 7px;
+
+        @media screen and (min-width: $screen-xs-min) {
+          padding-bottom: 80%;
+          margin-top: 0px;
+        }
+      }
+    }
+
+    .teaser-slide-text {
+      @include ellipsis();
+      span {
+        font-weight: normal;
+      }
+    }
+
+    .teaser-slide-options {
+      padding-top: 12px;
+      text-align: right;
+      padding-right: 0;
+    }
+  }
+}
+
+/* This is defined outside of wiki-app to hide when dragging. */
+.angular-ui-tree-drag .teaser-slide-options {
+  display: none;
+}
+
+.teaser-widget-settings {
+  .angular-ui-tree-placeholder {
+    float: left;
+    width: 100%;
+    background-color: $color-gray-lighter;
+    border: 1px dashed $color-gray;
+    /* Fix bug that placeholder height is broken when context menu is open on d&d */
+    height: auto !important;
+  }
+}
+
+/* Highlighted Formgroup */
+.form-container {
+  border: 1px solid $color-gray-light;
+  background-color: $color-gray-lighter;
+  margin: 0;
+  border-radius: 5px;
+  padding: 20px;
+
+  .form-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .form-headline {
+    border-bottom: 1px solid $color-gray-light;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    height: auto;
+
+    h3 {
+      margin: 0;
+      float: left;
+      line-height: 40px;
+    }
+
+    .btn.pull-right {
+      margin: 0;
+    }
+  }
+}
+
+.clear {
+  clear: both;
+}

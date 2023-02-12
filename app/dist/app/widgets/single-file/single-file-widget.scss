@@ -1,0 +1,185 @@
+@mixin split-view-single-file($max-height) {
+  display: flex;
+  flex-direction: row;
+
+  .single-file-widget-file-image {
+    width: 33%;
+    border-bottom: 0 none;
+    max-height: $max-height;
+
+    .zmdi-hc-5x {
+      margin: 15px 0;
+    }
+
+    .img-file-preview {
+      .pi-container {
+        height: 100%;
+
+        .pi-spinner-container, .pi-spinner-vert-container {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+
+  .single-file-widget-details-text {
+    width: 67%;
+    padding: 24px 30px 24px 30px;
+
+    h4 {
+      text-align: left;
+
+      input {
+        text-align: left;
+      }
+    }
+
+    .single-file-widget-details-infos {
+      text-align: left;
+    }
+  }
+}
+
+coyo-file-preview {
+  display: block;
+}
+
+.single-file-widget {
+  .single-file-widget-details {
+    .single-file-widget-file-image {
+      width: 100%;
+      max-height: 250px;
+      overflow: hidden;
+
+      .img-file-preview {
+        .pi-container {
+          background: url('../assets/images/bg_grid.jpg') repeat;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+
+          &.loading,
+          &.unavailable,
+          &.processing  {
+            background: none;
+            border: 0 none;
+          }
+        }
+
+        img {
+          width: 100%;
+          cursor: pointer;
+        }
+
+        .pi-spinner-container, .pi-spinner-vert-container {
+          padding-top: 25px;
+        }
+      }
+
+      .preview-image {
+        width: 100%;
+        padding-top: 100%;
+        display:block;
+      }
+
+      .zmdi-hc-5x {
+        display: block;
+        width: 100%;
+        margin: 15px 0 0 0;
+        text-align: center;
+        cursor: pointer;
+      }
+    }
+
+    .single-file-widget-details-text {
+      width: 100%;
+      padding: 10px 18px 10px 18px;
+
+      @media screen and (min-width: $screen-xs-min) {
+        padding: 15px 30px 24px 30px;
+      }
+
+      > a {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        outline: 0 none;
+      }
+
+      h4 {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+
+        a {
+          color: #333;
+        }
+
+        input {
+          text-align: center;
+        }
+      }
+
+      .single-file-widget-details-infos {
+        display: block;
+        line-height: 1.4em;
+        text-align: center;
+      }
+
+      .single-file-download {
+        white-space: nowrap;
+
+        i {
+          margin-right: 4px;
+        }
+      }
+    }
+
+    @media screen and (max-width: $screen-md-min) and (min-width: $screen-xs-min) {
+      @include split-view-single-file(200px);
+    }
+  }
+}
+
+.widget-layout-row-slot-wrapper {
+  &.col-md-8 .single-file-widget-details {
+    @media screen and (min-width: $screen-xs-min) {
+      @include split-view-single-file(200px);
+    }
+  }
+
+  &.col-md-12 .single-file-widget-details {
+    @media screen and (min-width: $screen-xs-min) {
+      @include split-view-single-file(250px);
+    }
+  }
+}
+
+// Stretch the image over widget border
+// only in seperate widget slots
+.widget-slot-panels,
+.widget-slot-panel {
+  .single-file-widget {
+    margin: $panel-body-padding-negate-sm;
+    overflow: hidden;
+
+    @media screen and (min-width: $screen-md-min) {
+      border-radius: $panel-border-radius;
+    }
+
+    @media screen and (min-width: $screen-sm-min) {
+      margin: $panel-body-padding-negate-md;
+    }
+  }
+}
+
+.single-file-widget-setting {
+  .file-input-label,
+  .file-input-help {
+    position: relative;
+    top: 11px;
+  }
+}

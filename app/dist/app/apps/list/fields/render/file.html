@@ -1,0 +1,10 @@
+<span ng-repeat="file in value">
+  <div class="row">
+    <div class="col-xs-12">
+      <a ng-if="!file.deleted" href ng-click="::$ctrl.openDetails(file)">{{::file.displayName}}</a>
+      <span ng-if="file.deleted">{{::file.displayName}}
+        <span class="text-muted">({{::'APP.LIST.FIELDS.FILE.DELETED' | translate}})</span>
+      </span>
+    </div>
+  </div>
+</span>

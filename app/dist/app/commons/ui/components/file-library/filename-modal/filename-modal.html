@@ -1,0 +1,26 @@
+<form name="folderForm">
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="{{:: vm.modalTitle}}"></h3>
+      <span class="modal-close" ng-click="$dismiss()">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+    </div>
+    <div class="modal-body p-s">
+      <div class="form-group" ng-class="{'has-error': folderForm.$invalid}">
+        <input type="text"
+               focus-if
+               ng-model="vm.filename"
+               ng-pattern="/^[\u00C0-\u017F\w\-.\(\) ]+$/"
+               class="form-control"
+               placeholder="{{::'FILE_LIBRARY.MODAL.FILENAME.PLACEHOLDER' | translate}}"
+               maxlength="255"
+               required>
+        <p ng-if="folderForm.$error.pattern" class="help-block" translate="FILE_LIBRARY.VALIDATION.FILENAME"></p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <coyo-form-submit-button label="SAVE" form-ctrl="folderForm" ng-click="$close(vm.filename)"></coyo-form-submit-button>
+    </div>
+  </div>
+</form>

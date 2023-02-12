@@ -1,0 +1,10 @@
+<div class="user-online-widget">
+  <div class="user-online-data" ng-if="!$ctrl.loading">
+    <div class="user-online-count">{{:: $ctrl.onlineData.count }}</div>
+    <div class="user-online-text">
+      <div translate="WIDGET.USERONLINE.USERS" translate-values="::$ctrl.onlineData"></div>
+      <div translate="WIDGET.USERONLINE.ONLINE"></div>
+    </div>
+  </div>
+  <coyo-spinner size="sm" ng-if="$ctrl.loading"></coyo-spinner>
+</div>

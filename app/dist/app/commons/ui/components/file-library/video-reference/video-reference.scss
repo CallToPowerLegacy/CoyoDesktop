@@ -1,0 +1,21 @@
+.no-preview-text {
+  margin-left: 10px;
+}
+
+.video-cover {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #000;
+
+  .play-button {
+    i.zmdi-play-circle {
+      color: $color-white;
+      font-size: 24px;
+      text-shadow: 0 0 3px rgba($color-black, 0.5);
+    }
+  }
+}

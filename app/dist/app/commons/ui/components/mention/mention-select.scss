@@ -1,0 +1,48 @@
+mentio-menu {
+  .mention-menu {
+    display: block;
+
+    a {
+      min-width: 200px;
+      max-width: 320px;
+      border-left: 0 !important;
+      border-bottom: 1px solid $color-gray-light;
+      padding: 4px 8px !important;
+    }
+
+    li:last-child a {
+      border-bottom: 0;
+    }
+
+    .user-avatar {
+      float: left;
+      margin: 6px 8px 6px 4px;
+    }
+
+    .mention-title,
+    .mention-subtitle {
+      @include ellipsis();
+      margin-left: 42px;
+    }
+
+    .mention-subtitle {
+      color: $color-gray;
+      margin-top: -2px;
+    }
+  }
+
+  @media screen and (max-width: $screen-md-min) {
+    left: 0 !important;
+    right: 0 !important;
+
+    .mention-menu {
+      left: 5px;
+      right: 5px;
+      margin-top: 16px;
+
+      a {
+        max-width: none;
+      }
+    }
+  }
+}

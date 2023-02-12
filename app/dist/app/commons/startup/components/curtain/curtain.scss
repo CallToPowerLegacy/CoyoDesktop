@@ -1,0 +1,36 @@
+.curtain:not(.custom-theme-pending) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: $color-primary;
+  @include background-gradient-top-left-to-bottom-right($color-primary, $color-secondary);
+
+  display: flex;
+  align-content: center;
+  align-items: center;
+
+  cursor: default;
+
+  .curtain-content {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .curtain-tip {
+    color: rgba($color-white, 0.5);
+    font-size: 20px;
+  }
+
+  &.blank-only {
+    background: $color-background-main;
+    .curtain-content {
+      display: none;
+    }
+  }
+}

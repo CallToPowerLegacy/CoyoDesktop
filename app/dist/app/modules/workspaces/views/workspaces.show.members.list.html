@@ -1,0 +1,30 @@
+<div class="workspace-members-list content-main">
+  <div class="row">
+    <div class="col-xl-6" ng-repeat="membership in $ctrl.currentPage.content">
+      <coyo-user-card user="membership.user"
+                      current-user="$ctrl.currentUser"
+                      subtitle="{{:: 'WORKSPACE.ROLE.' + membership.role.name | translate }}">
+        <card-header ng-if="$ctrl.workspace._permissions.manage && membership.user.id !== $ctrl.currentUser.id">
+          <span class="members-list-options" uib-dropdown dropdown-append-to-body>
+            <a class="btn btn-zmdi btn-link" uib-dropdown-toggle ng-click="$event.stopPropagation()"><i class="zmdi zmdi-hc-fw zmdi-more-vert"></i></a>
+            <ul uib-dropdown-menu class="dropdown-menu-right">
+              <li ng-if="membership.role.name === 'ADMIN'"><a ng-click="$ctrl.demote(membership.user.id, $event)"><i class="zmdi zmdi-hc-fw zmdi-long-arrow-down"></i>&nbsp;{{:: 'WORKSPACE.ACTION.DEMOTE' | translate}}</a></li>
+              <li ng-if="membership.role.name !== 'ADMIN'"><a ng-click="$ctrl.promote(membership.user.id, $event)"><i class="zmdi zmdi-hc-fw zmdi-long-arrow-up"></i>&nbsp;{{:: 'WORKSPACE.ACTION.PROMOTE' | translate}}</a></li>
+              <li><a ng-click="$ctrl.remove(membership.user.id, $event)"><i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'WORKSPACE.ACTION.REMOVE' | translate}}</a></li>
+            </ul>
+          </span>
+        </card-header>
+      </coyo-user-card>
+    </div>
+  </div>
+
+  <!-- empty text -->
+  <div class="col-xs-12 text-center text-muted ph-l pv-s"
+       ng-show="!$ctrl.loading && !$ctrl.currentPage.totalElements" translate="WORKSPACE.MEMBERS.EMPTY">
+  </div>
+
+  <div class="col-xs-12" ng-if="$ctrl.currentPage.content">
+    <coyo-table-pagination page="$ctrl.currentPage"></coyo-table-pagination>
+  </div>
+
+</div>

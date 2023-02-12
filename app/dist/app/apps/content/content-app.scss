@@ -1,0 +1,100 @@
+.panel-body-content-app.panel-body {
+  position: relative;
+  padding-top: 24px;
+}
+
+#panel-content-app.panel-heading {
+  background-color: $breadcrumb-bg;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  align-items: center;
+  margin: 0;
+  border: 0;
+
+  .btn {
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .btn-primary {
+    line-height: 24px;
+  }
+
+  coyo-manage-translations {
+    .container-ui-select-translation {
+      position: relative;
+      @media screen and (max-width: $screen-xs-max) {
+        .ui-select-translation {;
+          width: 180px;
+        }
+      }
+    }
+
+    .btn {
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
+  .panel-heading-single-item {
+    padding: 12px;
+    border-left: 1px solid $color-gray-light;
+    margin-left: auto;
+  }
+
+  .panel-heading-item {
+    padding: 12px;
+    border: none;
+
+    &:not(:first-child) {
+      margin-left: auto;
+    }
+  }
+  @media screen and (max-width: $screen-sm-max) {
+    & a.panel-heading-item {
+      border-radius: 0;
+    }
+  }
+}
+
+.panel-content-app {
+  .ui-select-languages {
+    padding: 10px 14px 10px 14px !important;
+    height: 48px;
+  }
+
+  .ui-select-choices {
+    border-radius: 0 0 4px 4px;
+  }
+
+  .form-control {
+    &.ui-select-toggle {
+      padding: 12px 14px 10px 14px !important;
+      height: 48px;
+      box-shadow: none;
+      border: none;
+      border-left: 1px solid $color-gray-light;
+      border-radius: 0 !important;
+      background-color: $color-gray-lighter !important;
+
+      &::after {
+        top: 4px;
+      }
+
+      &:hover {
+        box-shadow: none;
+        border-radius: 0 !important;
+      }
+      &:focus {
+        box-shadow: none;
+        border-radius: 0 !important;
+      }
+      &:active {
+        box-shadow: none;
+        border-radius: 0 !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<div class="modal-content-wrapper widget-layout-row-chooser">
+  <div class="modal-header">
+    <h3 class="modal-title" translate="WIDGETS.LAYOUT.ROW.CHOOSER.TITLE"></h3>
+      <span class="modal-close" ng-click="$dismiss()">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+  </div>
+  <div class="modal-body">
+
+    <!-- Spinner -->
+    <div class="text-center mb-s mt-s" ng-if="vm.loading">
+      <coyo-spinner></coyo-spinner>
+    </div>
+
+    <div class="widget-layout-row-types" ng-if="!vm.loading">
+      <div class="widget-layout-row-type" ng-repeat="type in vm.rowTypes" ng-click="vm.save(type)">
+        <div class="slot-placeholder" ng-repeat="slot in type.slots track by $index"
+             ng-style="{'flex-basis': (slot * (100/12)) + '%'}"></div>
+      </div>
+    </div>
+  </div>
+</div>

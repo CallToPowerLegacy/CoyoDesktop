@@ -1,0 +1,82 @@
+<div class="messaging-channel-info">
+
+  <oyoc-messaging-channel-header msg-sidebar="$ctrl.msgSidebar" loading="$ctrl.loading" channel="$ctrl.channel"
+                                 current-user="$ctrl.currentUser"></oyoc-messaging-channel-header>
+
+  <div class="messaging-content">
+
+    <!-- Members -->
+    <div class="messaging-channel-info-members" ng-if="$ctrl.channel.type === 'GROUP'">
+      <div class="text-muted text-uppercase ml-xs mb-xxs mt-xs mr-xs">
+        {{::'MODULE.MESSAGING.CHANNEL.MEMBERS' | translate}}
+
+        <a ng-click="$ctrl.msgSidebar.switchView('channelForm')"
+           ng-if="$ctrl.channel.isAdmin($ctrl.currentUser.id)"
+           uib-tooltip="{{::'MODULE.MESSAGING.CHANNEL.EDIT_MEMBERS' | translate}}"
+           tooltip-placement="left"
+           class="pull-right">
+          <i class="zmdi zmdi-settings text-muted"></i>
+        </a>
+      </div>
+
+      <div class="messaging-channel-info-member list-item"
+           ng-repeat="member in $ctrl.channel.members | limitTo:$ctrl.memberLimit | filter: { deleted: false } | orderBy:['role', 'user.lastname', 'user.firstname']">
+        <coyo-user-avatar user="member.user" avatar-size="xs" show-online-status="true" class="mr-xxs"></coyo-user-avatar>
+        <a coyo-sender-link="member.user" class="user-name">{{member.user.displayName}}</a>
+        <span class="user-role" ng-if="member.role === 'ADMIN'" translate="MODULE.MESSAGING.CHANNEL.ROLE.ADMIN"></span>
+        <coyo-context-menu align-right="true"
+                      ng-if="$ctrl.channel.isAdmin($ctrl.currentUser.id) && member.user.id !== $ctrl.currentUser.id"
+                      title="{{member.user.displayName}}">
+          <li><a ng-click="$ctrl.toggleMemberRole(member)">
+            <span ng-if="member.role === 'MEMBER'">
+              <i class="zmdi zmdi-hc-fw zmdi-long-arrow-up"></i>&nbsp;{{:: 'MODULE.MESSAGING.CHANNEL.MEMBER.PROMOTE' | translate}}
+            </span>
+            <span ng-if="member.role === 'ADMIN'">
+              <i class="zmdi zmdi-hc-fw zmdi-long-arrow-down"></i>&nbsp;{{:: 'MODULE.MESSAGING.CHANNEL.MEMBER.DEMOTE' | translate}}
+            </span>
+          </a></li>
+          <li><a ng-click="$ctrl.deleteMember(member.user.id)">
+            <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'MODULE.MESSAGING.CHANNEL.MEMBER.DELETE' | translate}}
+          </a></li>
+        </coyo-context-menu>
+      </div>
+
+      <a class="load-more"
+         ng-if="$ctrl.channel.members.length > $ctrl.memberLimit"
+         ng-click="$ctrl.memberLimit = 99999"
+         translate="MODULE.MESSAGING.CHANNEL.MEMBERS.SHOW_ALL">
+      </a>
+    </div>
+
+    <!-- Attachments -->
+    <div class="messaging-channel-info-attachments" ng-if="$ctrl.attachmentData.attachments.length">
+      <div class="text-muted text-uppercase ml-xs mb-xxs mt-xs mr-xs"
+           translate="MODULE.MESSAGING.CHANNEL.ATTACHMENTS"></div>
+
+      <a class="messaging-channel-info-attachment list-item" coyo-download="$ctrl.backendUrl + attachment.downloadUrl"
+         ng-repeat="attachment in $ctrl.attachmentData.attachments" title="{{attachment.name}}">
+        <div class="attachment-name-row">
+          <coyo-file-icon file="::attachment" class="zmdi-hc-fw zmdi-hc-lg"></coyo-file-icon>
+          <span class="attachment-name">{{attachment.name}}</span>
+        </div>
+        <div class="attachment-info-row">
+          <span class="attachment-length">{{attachment.length | fileSize}}</span> /
+          <coyo-time-ago date="attachment.created" class="attachment-created" tooltip-placement="auto top"></coyo-time-ago>
+        </div>
+      </a>
+
+      <a class="load-more"
+         ng-if="!$ctrl.attachmentData.currentPage.last"
+         ng-click="$ctrl.loadMoreAttachments()"
+         translate="MODULE.MESSAGING.CHANNEL.ATTACHMENTS.LOAD_MORE">
+      </a>
+    </div>
+
+    <!-- Empty message -->
+    <div class="text-muted text-center p-s"
+         ng-if="$ctrl.channel.type === 'SINGLE' && !$ctrl.attachmentData.attachments.length"
+         translate="MODULE.MESSAGING.CHANNEL.INFO.EMPTY"></div>
+
+  </div>
+
+</div>

@@ -1,0 +1,43 @@
+<div class="filterbox" ng-class="{'filterbox-vertical': $ctrl.vertical, 'filterbox-attached': $ctrl.attach}">
+  <div class="actions-vertical">
+    <ng-transclude ng-transclude-slot="fb-actions" class="list-unstyled"></ng-transclude>
+  </div>
+  <div class="panel panel-default panel-filterbox panel-sm">
+    <div class="panel-body panel-body-filterbox">
+      <div ng-if="::$ctrl.showFilter" class="fb-col fb-col-filter fb-filter-toggle dropdown pointer" ng-click="$ctrl.toggleFilter()">
+        <span ng-class="{active: $ctrl.filterActive}">
+          <i class="zmdi zmdi-filter-list zmdi-hc-fw"></i>
+        </span>
+      </div>
+      <div class="fb-col fb-col-filter fb-filter-inline" ng-if="::($ctrl.vertical && $ctrl.showFilter)">
+        <ng-transclude ng-transclude-slot="fb-filter" class="fb-col-filter-transclude"></ng-transclude>
+      </div>
+
+      <div class="fb-col fb-col-search" ng-class="{'hidden-vertical': !$ctrl.showSearch}">
+        <ng-transclude ng-transclude-slot="fb-search"></ng-transclude>
+      </div>
+
+      <div class="fb-col fb-col-count" ng-if="::$ctrl.showCount">
+        <ng-transclude ng-transclude-slot="fb-count"></ng-transclude>
+      </div>
+
+      <div class="fb-col fb-col-actions" ng-if="$ctrl.showActions">
+        <coyo-context-menu class="visible-xs visible-sm">
+          <ng-transclude ng-transclude-slot="fb-actions"></ng-transclude>
+        </coyo-context-menu>
+        <ng-transclude class="hidden-xs hidden-sm fb-actions-inline" ng-transclude-slot="fb-actions"></ng-transclude>
+      </div>
+    </div>
+  </div>
+  <div id="filter-menu" class="fb-filter" ng-show="$ctrl.filterOpen" click-outside="$ctrl.toggleFilter(false)" ng-class="{'filter-menu-attached': $ctrl.attach}">
+    <div class="mb-xxs visible-xs">
+      <div class="modal-header">
+        <h3 class="modal-title" translate="COMMONS.FILTERS.TITLE"></h3>
+        <span class="modal-close" ng-click="$ctrl.toggleFilter(false)">
+          <i class="zmdi zmdi-close img-close"></i>
+        </span>
+      </div>
+    </div>
+    <ng-transclude ng-transclude-slot="fb-filter"></ng-transclude>
+  </div>
+</div>

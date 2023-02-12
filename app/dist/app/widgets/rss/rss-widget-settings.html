@@ -1,0 +1,84 @@
+<div class="rss-container">
+  <div class="tab-bar">
+    <ul class="nav nav-tabs">
+      <li class="col-xs-6" data-ng-class="{active: $ctrl.tab == 1}">
+        <a data-toggle="tab" translate="WIDGET.RSS.SETTINGS.CONFIG" ng-click="$ctrl.tab = 1"></a>
+      </li>
+      <li class="col-xs-6" data-ng-class="{active: $ctrl.tab == 2}">
+        <a data-toggle="tab" translate="WIDGET.RSS.SETTINGS.CONFIG.FURTHER.CONFIG" ng-click="$ctrl.tab = 2"></a>
+      </li>
+    </ul>
+  </div>
+  <div ng-show="$ctrl.tab == 1">
+    <div class="form-group row">
+      <label class="col-sm-2 control-label" translate="WIDGET.RSS.SETTINGS.CONFIG.URL.LABEL"></label>
+      <div class="col-sm-9">
+        <div class="input-group">
+        <input name="rssUrl" class="form-control" type="url"
+               focus-if="$ctrl.tab == 1"
+               ng-model="$ctrl.model.settings.rssUrl" ng-required="true" placeholder="https://">
+        <div class="input-group-addon">
+          <coyo-validation-status-icon form-field="settingsForm.rssUrl"></coyo-validation-status-icon>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="form-group row" ng-show="$ctrl.unauthorized || $ctrl.model.settings.userName">
+      <label class="col-sm-2 control-label" translate="WIDGET.RSS.SETTINGS.CONFIG.USER.LABEL"></label>
+      <div class="col-sm-9">
+        <input name="user" focus-if="$ctrl.unauthorized" class="form-control" type="text" ng-model="$ctrl.model.settings.userName" >
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="WIDGET.RSS.SETTINGS.CONFIG.USER.HELP"></coyo-help>
+      </div>
+    </div>
+    <div class="form-group row" ng-show="$ctrl.unauthorized || $ctrl.model.settings._encrypted_password">
+      <label class="col-sm-2 control-label" translate="WIDGET.RSS.SETTINGS.CONFIG.PASSWORD.LABEL"></label>
+      <div class="col-sm-9">
+        <input name="password" class="form-control" type="password" ng-model="$ctrl.model.settings._encrypted_password" >
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="WIDGET.RSS.SETTINGS.CONFIG.PASSWORD.HELP"></coyo-help>
+      </div>
+    </div>
+    <div class="form-group row" ng-class="{'has-error': $ctrl.valid === false, 'has-success' : $ctrl.valid}">
+      <div class="col-sm-10 col-sm-offset-2">
+        <div class="verify-button-container">
+          <button type="button" ng-disabled="!$ctrl.model.settings.rssUrl || $ctrl.loading" class="btn btn-primary"
+                  ng-click="$ctrl.verifyUrl(settingsForm)">
+            <span>{{:: 'WIDGET.RSS.SETTINGS.CONFIG.VERIFY.LABEL' | translate}}</span>
+          </button>
+          <div ng-switch="$ctrl.validationMessage" class="help-block">
+            <p ng-switch-when="invalidUrl" translate="WIDGET.RSS.ERRORS.VALIDATION.INVALID_URL"></p>
+            <p ng-switch-when="validUrl" translate="WIDGET.RSS.ERRORS.VALIDATION.VALID_URL"></p>
+            <p ng-switch-when="unauthorized" translate="WIDGET.RSS.ERRORS.AUTHENTICATION"></p>
+            <p ng-switch-when="invalidCredentials" translate="WIDGET.RSS.SETTINGS.CONFIG.CREDENTIALS.INVALID"></p>
+            <p ng-switch-when="connectionFailure" translate="WIDGET.RSS.SETTINGS.CONFIG.CONNECTIONFAILURE"></p>
+            <p ng-switch-when="loading" translate="WIDGET.RSS.SETTINGS.CONFIG.LOADING"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-show="$ctrl.tab == 2">
+    <div class="form-group">
+      <label class="col-sm-3 control-label" translate="WIDGET.RSS.SETTINGS.CONFIG.MAX.COUNT"></label>
+      <div class="col-sm-8">
+        <input name="maxCount" class="form-control" min="1" type="number" ng-model="$ctrl.model.settings.maxCount">
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="WIDGET.RSS.SETTINGS.CONFIG.MAX.COUNT.HELP"></coyo-help>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label" translate="WIDGET.RSS.SETTINGS.CONFIG.IMAGE"></label>
+      <div class="col-sm-8">
+        <coyo-checkbox name="image" ng-model="$ctrl.model.settings.displayImage"></coyo-checkbox>
+        <img class="example-image" src="assets/images/widgets/rss/rss-image-icon.png">
+      </div>
+      <div class="col-sm-1 hidden-xs">
+        <coyo-help tip="WIDGET.RSS.SETTINGS.CONFIG.IMAGE.HELP"></coyo-help>
+      </div>
+    </div>
+  </div>
+</div>

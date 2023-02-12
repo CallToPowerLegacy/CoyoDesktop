@@ -1,0 +1,258 @@
+<div coyo-infinite-scroll="$ctrl.loadMore()" coyo-infinite-scroll-element="{{$ctrl.scrollElement}}">
+  <!-- Breadcrumbs - hidden in home view -->
+  <div class="fl-header" ng-hide="$ctrl.view === 'home' || ($ctrl.parentDropZone && $ctrl.dragging)" coyo-global-permissions="ACCESS_FILES">
+    <ul class="fl-breadcrumbs breadcrumb">
+      <li ng-if="::(!$ctrl.options.senderAsRoot && !$ctrl.options.initialFolderAsRoot)"><a ng-click="$ctrl.openHome()"><i class="zmdi zmdi-home"></i></a></li>
+      <li ng-if="$ctrl.options.senderAsRoot && $ctrl.breadcrumbs.length > 0 && !$ctrl.options.initialFolderAsRoot"><a ng-click="$ctrl.openSender($ctrl.sender)"><i class="zmdi zmdi-home"></i></a></li>
+      <li ng-if="($ctrl.options.senderAsRoot || $ctrl.options.initialFolderAsRoot) && !$ctrl.breadcrumbs.length"><i class="zmdi zmdi-home"></i></li>
+      <li ng-if="($ctrl.view == 'senders' || $ctrl.view == 'files') && $ctrl.senderType && !$ctrl.options.senderAsRoot">
+        <a href ng-click="$ctrl.openSenders($ctrl.senderType)" translate="{{::$ctrl.senderType.plural}}"></a>
+      </li>
+      <li ng-if="$ctrl.view == 'files' && !$ctrl.options.senderAsRoot && !$ctrl.options.initialFolderAsRoot"><a ng-click="$ctrl.openSender($ctrl.sender)">{{$ctrl.sender.displayName}}</a></li>
+      <li ng-if="$ctrl.options.initialFolder && $ctrl.options.initialFolderAsRoot && $ctrl.breadcrumbs.length > 0"><a ng-click="$ctrl.openSender($ctrl.sender, $ctrl.options.initialFolder)"><i class="zmdi zmdi-home"></i></a></li>
+      <li ng-repeat="file in $ctrl.breadcrumbs">
+        <span ng-if="::file.id == $ctrl.parent.id">{{::file.name}}</span>
+        <a ng-click="$ctrl.handleClick($ctrl.sender, file)" ng-if="::file.id != $ctrl.parent.id">{{::file.name}}</a>
+      </li>
+    </ul>
+    <div class="fl-actions" ng-if="$ctrl.canManageFiles && (($ctrl.view === 'files' && $ctrl.canManageFolder) || $ctrl.options.selectMode === 'multiple')">
+      <a class="btn btn-xs btn-link hidden-xs"
+         ng-if="$ctrl.view == 'files' && $ctrl.canManageFolder"
+         ng-click="$ctrl.createFolder()"
+         uib-tooltip="{{:: 'FILE_LIBRARY.ACTIONS.NEW_FOLDER' | translate }}"
+         tooltip-placement="left"
+         tooltip-popup-delay="500"
+         tooltip-append-to-body="true">
+        <i class="zmdi zmdi-hc-lg zmdi-folder-star-alt"></i>
+      </a>
+      <a class="btn btn-xs btn-link visible-xs-inline-block"
+         ng-if="$ctrl.view == 'files' && $ctrl.canManageFolder"
+         ng-click="$ctrl.openFolderModal()">
+        <i class="zmdi zmdi-hc-lg zmdi-folder-star-alt"></i>
+      </a>
+      <a class="btn btn-xs btn-link"
+         ng-if="$ctrl.view == 'files' && $ctrl.canManageFolder && $ctrl.options.selectMode !== 'folder'"
+         ngf-select="$ctrl.uploadFiles($files, $invalidFiles)"
+         ngf-multiple="::$ctrl.options.uploadMultiple"
+         uib-tooltip="{{:: 'FILE_LIBRARY.ACTIONS.UPLOAD_FILES' | translate }}"
+         tooltip-placement="left"
+         tooltip-popup-delay="500"
+         tooltip-append-to-body="true">
+        <i class="zmdi zmdi-hc-lg zmdi-upload"></i>
+      </a>
+      <a class="btn btn-xs btn-link"
+         ng-if="::$ctrl.options.selectMode === 'multiple'"
+         ng-click="$ctrl.selectAll()"
+         uib-tooltip="{{:: 'FILE_LIBRARY.ACTIONS.SELECT_ALL' | translate }}"
+         tooltip-placement="left"
+         tooltip-popup-delay="500"
+         tooltip-append-to-body="true">
+        <i class="zmdi zmdi-hc-lg zmdi-check-all"></i>
+      </a>
+      <a class="btn btn-xs btn-link"
+         ng-if="::$ctrl.options.selectMode === 'multiple'"
+         ng-click="$ctrl.deselectAll()"
+         uib-tooltip="{{:: 'FILE_LIBRARY.ACTIONS.DESELECT_ALL' | translate }}"
+         tooltip-placement="left"
+         tooltip-popup-delay="500"
+         tooltip-append-to-body="true">
+        <i class="zmdi zmdi-hc-lg zmdi-minus"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="fl-header drop-zone" ng-show="$ctrl.parentDropZone && $ctrl.dragging">
+    <ul class="fl-breadcrumbs breadcrumb"
+        ng-drop="true"
+        ng-drop-success="$ctrl.moveFile($data, $data.parent.parent)">
+      <li>
+        <i class="zmdi zmdi-mail-reply"></i><!--
+     --><span translate="FILE_LIBRARY.PARENT_DROPZONE"></span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Other sender warning -->
+  <div class="alert alert-warning"
+       ng-if="$ctrl.options.selectMode && $ctrl.sender.id !== $ctrl.originalSender.id && $ctrl.view !== 'home' && $ctrl.view !== 'senders'">
+    {{:: 'FILE_LIBRARY.OTHER_SENDER_WARNING' | translate }}
+  </div>
+
+  <!-- Home view -->
+  <div class="fl-table" ng-if="$ctrl.view == 'home'">
+    <div class="fl-table-row" ng-click="$ctrl.openSender($ctrl.currentUser)">
+      <div class="fl-table-cell name">
+        <div class="name-inner">
+          <span class="file-type-icon sender-type-icon"><i class="zmdi zmdi-account-circle"></i></span>
+          <span class="text" translate="FILE_LIBRARY.MY_FILES"></span>
+        </div>
+      </div>
+    </div>
+    <div class="fl-table-row" ng-repeat="(key, type) in $ctrl.senderTypes | filter:{hasPermission: true}" ng-click="$ctrl.openSenders(type)">
+      <div class="fl-table-cell name">
+        <div class="name-inner">
+          <span class="file-type-icon sender-type-icon"><i class="zmdi zmdi-{{::type.icon}}" ng-style="::{ color: type.color }"></i></span>
+          <span class="text">{{::type.plural | translate}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Senders list view -->
+  <div class="fl-table" ng-if="$ctrl.view == 'senders' && $ctrl.senders.length">
+    <div class="fl-table-row" ng-repeat="sender in $ctrl.senders" ng-click="$ctrl.openSender(sender)">
+      <div class="fl-table-cell name">
+        <div class="name-inner">
+          <span class="file-type-icon sender-icon"><coyo-sender-avatar sender="::sender" avatar-size="xs" no-link="true"></coyo-sender-avatar></span>
+          <span class="text">{{::sender.displayName}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-if="$ctrl.view == 'senders' && !$ctrl.loading && !$ctrl.senders.length" class="text-center text-muted"
+       translate="FILE_LIBRARY.EMPTY_SENDERS" translate-values="{senderName: ($ctrl.senderType.plural | translate)}"></div>
+
+  <!-- Files list view -->
+  <div ng-if="$ctrl.view == 'files'  && !$ctrl.loading"
+       class="drop-area"
+       ngf-drop
+       ng-model="$ctrl.droppedFiles"
+       ngf-drop-disabled="$ctrl.view !== 'files' || !$ctrl.canManageFolder || $ctrl.options.selectMode == 'folder'"
+       ngf-drag-over-class="'dragover'"
+       ngf-multiple="$ctrl.options.uploadMultiple"
+       ngf-allow-dir="$ctrl.options.uploadMultiple">
+
+    <div class="fl-table" ng-if="$ctrl.view == 'files'">
+      <div class="fl-table-head">
+        <div class="fl-table-cell name" translate="FILE_LIBRARY.HEAD.NAME"></div>
+        <div class="fl-table-cell changed" translate="FILE_LIBRARY.HEAD.CHANGED"></div>
+        <div class="fl-table-cell size" translate="FILE_LIBRARY.HEAD.SIZE"></div>
+        <div class="fl-table-cell author" translate="FILE_LIBRARY.HEAD.AUTHOR"></div>
+        <div class="fl-table-cell options"></div>
+      </div>
+
+      <div ng-if="$ctrl.newFolder" class="fl-table-row edit-mode">
+        <div class="fl-table-cell name">
+          <div class="name-inner">
+            <i class="zmdi zmdi-folder-star-alt zmdi-hc-fw file-icon"></i>
+            <oyoc-filename-form class="filename-form" file="$ctrl.newFolder" focus-trigger="$ctrl.newFolder" on-submit="$ctrl.saveNewFolder(file, newFilename)"></oyoc-filename-form>
+          </div>
+        </div>
+        <div class="fl-table-cell changed"></div>
+        <div class="fl-table-cell size"></div>
+        <div class="fl-table-cell author"></div>
+        <div class="fl-table-cell options"></div>
+      </div>
+
+      <div class="fl-table-row"
+           ng-class="{'selected': $ctrl.isSelected(file),
+                    'muted': !$ctrl.isSelectable(file),
+                    'highlighted': file.id && $ctrl.options.highlightedFileId === file.id,
+                    'file': !file.folder,
+                    'folder': file.folder,
+                    'edit-mode': file.editMode}"
+           ng-repeat="file in $ctrl.files | orderBy: '-folder'"
+           ng-drag-data="file"
+           ng-drag="!$ctrl.options.selectMode && $ctrl.canManageFolder && !file.editMode && !file.appRoot"
+           ng-drop="true"
+           ng-drop-success="$ctrl.moveFile($data, file)">
+        <div class="fl-table-cell name" ng-click="$ctrl.handleClick($ctrl.sender, file)">
+          <div class="name-inner">
+            <span class="file-type-icon" ng-if="$ctrl.loadingMove[file.id]">
+              <i class="zmdi zmdi-hc-fw zmdi-hc-spin zmdi-spinner"></i>
+            </span>
+            <i class="zmdi zmdi-link fl-shared-icon" ng-if="file.activePublicLink"></i>
+            <coyo-file-icon file="::file" class="zmdi-hc-fw" ng-if="!$ctrl.loadingMove[file.id]"
+                            uib-tooltip="{{$ctrl.getFileIconTooltip(file) | translate}}" tooltip-placement="bottom" tooltip-popup-delay="500">
+            </coyo-file-icon>
+            <oyoc-filename-form class="filename-form" ng-if="file.editMode" file="file" focus-trigger="file.editMode"
+                                on-submit="$ctrl.renameFile(file, newFilename)"></oyoc-filename-form>
+            <span ng-if="!file.editMode" class="text" ng-class="{'text-muted': file.uploading}"
+                  uib-tooltip="{{file.name}}" tooltip-placement="top" tooltip-popup-delay="500">{{file.name}}</span>
+          </div>
+        </div>
+        <div class="fl-table-cell changed" ng-click="$ctrl.handleClick($ctrl.sender, file)">
+          <coyo-time-ago date="::file.modified"></coyo-time-ago>
+        </div>
+        <div class="fl-table-cell size" ng-click="$ctrl.handleClick($ctrl.sender, file)">
+          <span ng-if="file.folder"
+                translate="FILE_LIBRARY.FILE_COUNT"
+                translate-values="{count: file.childCount}"></span>
+          <span ng-if="!file.folder && !file.uploading && !file.uploadFailed">{{::file.length | fileSize}}</span>
+          <span ng-if="!file.folder && file.uploading && !file.uploadFailed">{{file.progress}}%</span>
+        </div>
+        <div class="fl-table-cell author" ng-click="$ctrl.handleClick($ctrl.sender, file)">
+          <div class="name-inner">
+            <a ui-sref="main.profile({userId: user.slug})" ng-click="$event.stopPropagation()">{{::file.author.displayName}}</a>
+          </div>
+        </div>
+        <div class="fl-table-cell options">
+          <coyo-spinner ng-if="file.uploading" size="sm"></coyo-spinner>
+
+          <a ng-if="!file.folder && !file.uploading" href coyo-download="$ctrl.getDownloadUrl($ctrl.sender, file)">
+            <i class="zmdi zmdi-hc-fw zmdi-download"></i></a>
+
+          <coyo-context-menu ng-if="!file.appRoot && !file.uploading && (file._permissions.manage || !file.folder)"
+                             title="{{file.name}}"
+                             align-right="true">
+            <li ng-hide="file.folder">
+              <a href ng-click="$ctrl.showDetails($ctrl.sender, file)">
+                <i class="zmdi zmdi-hc-fw zmdi-info-outline"></i>&nbsp;{{::'DETAILS' | translate}}
+              </a>
+            </li>
+            <li ng-if="file._permissions.publicLink && !file.folder">
+              <a href ng-click="$ctrl.openPublicLinkModal($ctrl.sender.id, file)">
+                <i class="zmdi zmdi-hc-fw zmdi-link"></i>&nbsp;{{:: 'PUBLIC_LINK.MENU' | translate}}
+              </a>
+            </li>
+            <li class="hidden-xs" ng-if="file._permissions.manage">
+              <a href ng-click="$ctrl.toggleRename(file)">
+                <i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;{{:: 'RENAME' | translate}}
+              </a>
+            </li>
+            <li class="visible-xs" ng-if="file._permissions.manage">
+              <a href ng-click="$ctrl.openFilenameModal(file)">
+                <i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;{{:: 'RENAME' | translate}}
+              </a>
+            </li>
+            <li ng-if="!file.folder && file._permissions.manage">
+              <a href ngf-select="$ctrl.uploadVersion(file, $files)"
+                 ngf-multiple="false">
+                <i class="zmdi zmdi-hc-fw zmdi-file-plus"></i>&nbsp;{{:: 'NEW_VERSION' | translate}}
+              </a>
+            </li>
+            <li ng-if="file._permissions.manage">
+              <a href ng-click="$ctrl.deleteFile(file)">
+                <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'DELETE' | translate}}
+              </a>
+            </li>
+          </coyo-context-menu>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty message for files list -->
+    <div class="fl-empty" ng-if="$ctrl.view == 'files' && !$ctrl.loading && !$ctrl.folderNotFound && !$ctrl.files.length">
+      <a ng-if="$ctrl.canManageFolder"
+         ngf-select="$ctrl.uploadFiles($files, $invalidFiles)" ngf-multiple="::$ctrl.options.uploadMultiple">
+        <i class="zmdi zmdi-upload"></i>
+        <span class="text-muted" translate="FILE_LIBRARY.EMPTY_UPLOAD"></span>
+      </a>
+      <span ng-if="!$ctrl.canManageFolder">
+        <i class="zmdi zmdi-folder-outline text-muted"></i>
+        <span class="text-muted" translate="FILE_LIBRARY.EMPTY"></span>
+      </span>
+    </div>
+
+    <!-- Missing folder for files list -->
+    <div class="fl-empty" ng-if="$ctrl.view == 'files' && !$ctrl.loading && $ctrl.folderNotFound">
+      <i class="zmdi zmdi-block text-muted"></i>
+      <span class="text-muted" translate="FILE_LIBRARY.FOLDER_NOT_FOUND"></span>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div class="fl-loader text-center mb-xs mt-xs" ng-show="$ctrl.loading">
+    <coyo-spinner></coyo-spinner>
+  </div>
+</div>

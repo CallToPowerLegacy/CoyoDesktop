@@ -1,0 +1,73 @@
+<span class="thread-answers">
+
+   <div class="panel" ng-if="$ctrl.status.loadingAnswers">
+    <div class="panel-body text-center m-m">
+      <coyo-spinner></coyo-spinner>
+    </div>
+  </div>
+
+  <coyo-table-pagination page="$ctrl.forumThreadAnswers"
+                         ng-if="!$ctrl.status.loadingAnswers && $ctrl.forumThreadAnswers.content.length > 0">
+  </coyo-table-pagination>
+
+  <div class="thread-answers-answers panel"
+       ng-if="!$ctrl.status.loadingAnswers && $ctrl.forumThreadAnswers.content.length > 0"
+       ng-repeat="answer in $ctrl.forumThreadAnswers.content">
+    <coyo-refresh watch="answer.lastUpdate">
+      <div class="panel-body thread-answer" ng-class="{'thread-answer-deleted': answer.deleted}">
+        <div class="thread-answer-author">
+          <span class="thread-answer-author-avatar">
+            <coyo-user-avatar user="::answer.author"
+                              avatar-size="sm"
+                              show-online-status="false"
+                              class="mr-xxs"
+                              no-link="false">
+            </coyo-user-avatar>
+          </span>
+        </div>
+        <div class="thread-answer-data">
+          <div class="thread-answer-info">
+            <a class="author" href coyo-sender-link="::answer.author">{{::answer.author.displayName}}</a>
+            <span class="label label-default"
+                  ng-if="$ctrl.thread.author.id === answer.author.id"
+                  translate="APP.FORUM.THREAD.CREATOR">
+            </span>
+            <span class="label label-danger"
+                  ng-if="answer.deleted"
+                  translate="APP.FORUM.THREAD.ANSWER.DELETED.LABEL">
+            </span>
+            <br class="visible-xs visible-s" />
+            <span class="thread-time text-muted">
+              <i class="zmdi zmdi-time zmdi-wide"></i>
+              <coyo-time-ago date="::answer.created"></coyo-time-ago>
+            </span>
+          </div>
+          <div class="thread-answer-text">
+            <div class="rte-wrapper">
+              <span ng-bind-html="::answer.text | hashtag | trusthtml" ng-if="!answer.deleted"></span>
+            </div>
+            <span class="thread-answer-deleted-content" translate="APP.FORUM.THREAD.ANSWER.DELETED" ng-if="answer.deleted"></span>
+          </div>
+          <div class="thread-answer-attachments" data-ng-if="::(answer.attachments && answer.attachments.length > 0)">
+            <coyo-preview-list attachments="::answer.attachments"
+                                group-id="::answer.id"
+                                backend-url="::$ctrl.backendUrl"
+                                author="::answer.author"
+                                preview-url="::answer.previewUrl()"
+                                same-size="true"
+                                size="md">
+            </coyo-preview-list>
+          </div>
+        </div>
+        <div class="thread-answer-context-menu-container" ng-if="!answer.deleted">
+          <span ng-include="$ctrl.contextMenuTemplate"></span>
+        </div>
+      </div>
+    </coyo-refresh>
+  </div>
+
+  <coyo-table-pagination page="$ctrl.forumThreadAnswers"
+                         ng-if="!$ctrl.status.loadingAnswers && $ctrl.forumThreadAnswers.content.length > 0">
+  </coyo-table-pagination>
+
+</span>

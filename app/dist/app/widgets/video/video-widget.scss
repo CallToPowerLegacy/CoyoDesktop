@@ -1,0 +1,59 @@
+.video-widget {
+  .iframe-wrapper {
+    position: relative;
+
+    .video-wrapper {
+      width: 100%;
+      height: 100%;
+      border: none;
+      position: absolute;
+      top: 0;
+      background-color: #000;
+
+      iframe {
+        height: 100% !important;
+        width: 100% !important;
+      }
+    }
+  }
+
+  .video-error {
+    text-align: center;
+    background-color: #000;
+    color: $color-white;
+  }
+
+  .video-error,
+  .video-info {
+    padding: $panel-xs-body-padding;
+    @media screen and (min-width: $screen-sm-min) {
+      padding: $panel-sm-body-padding;
+    }
+    @media screen and (min-width: $screen-md-min) {
+      padding: $panel-body-padding;
+    }
+  }
+}
+
+// Stretch the image over widget border only in separate widget slots
+.widget-slot-panels,
+.widget-slot-panel {
+  .video-widget {
+    overflow: hidden;
+    margin: $panel-body-padding-negate-sm;
+    @media screen and (min-width: $screen-sm-min) {
+      margin: $panel-body-padding-negate-md;
+    }
+    @media screen and (min-width: $screen-md-min) {
+      border-radius: $panel-border-radius;
+    }
+  }
+}
+
+// Workaround
+// Insert padding in edit mode to get a small space to hover and show panel settings
+.edit-mode {
+  .video-widget {
+    padding: 8px;
+  }
+}

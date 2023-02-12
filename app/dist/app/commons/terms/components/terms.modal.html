@@ -1,0 +1,9 @@
+<div class="modal-content-wrapper">
+  <div class="modal-header">
+    <h3 class="modal-title">{{:: vm.terms.title }}</h3>
+    <span class="modal-close" ng-click="$dismiss('cancel')"><i class="zmdi zmdi-close img-close"></i></span>
+  </div>
+  <div class="modal-body">
+    <div class="rte-html-container" ng-bind-html=":: vm.terms.text | trusthtml"></div>
+  </div>
+</div>

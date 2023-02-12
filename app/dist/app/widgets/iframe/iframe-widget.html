@@ -1,0 +1,8 @@
+<div class="iframe-widget">
+  <iframe ng-src="{{$ctrl.widget.settings.url | trustUrl}}"
+          ng-style="{'height': $ctrl.widget.settings.height + 'px'}"
+          frameborder="0"
+          allowfullscreen
+          scrolling="{{$ctrl.scrolling}}">
+  </iframe>
+</div>

@@ -1,0 +1,17 @@
+<dl class="dl-horizontal">
+  <dt translate="USER.EMAIL"></div>
+  <dd>
+    <coyo-render-value value="$ctrl.user.email"
+                    config="$ctrl.getConfig('EMAIL')"></coyo-render-value>
+  </dd>
+  <div class="clearfix"></div>
+</dl>
+<dl class="dl-horizontal" ng-repeat="field in $ctrl.profileFields">
+  <dt>{{:: 'USER.' + field.name | uppercase | translate }}</dt>
+  <dd>
+    <coyo-render-value field="field"
+                      value="$ctrl.user.properties[field.name]"
+                      config="$ctrl.getConfig(field.type)"></coyo-render-value>
+  </dd>
+  <div class="clearfix"></div>
+</dl>

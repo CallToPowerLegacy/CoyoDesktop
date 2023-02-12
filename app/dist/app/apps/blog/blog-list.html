@@ -1,0 +1,119 @@
+<coyo-filterbox filter-active="ctrl.filterActive()" hide-actions="!ctrl.app._permissions.createArticle">
+  <fb-filter class="blog-list-filter">
+    <coyo-filter title-key="APP.BLOG.FILTER.STATUS.TITLE">
+      <coyo-filter-entry text-key="APP.BLOG.FILTER.STATUS.PUBLISHED"
+                         active="ctrl.blogArticles._queryParams.includePublished"
+                         icon="zmdi-file-text"
+                         on-click="ctrl.toggleIncludePublished()"></coyo-filter-entry>
+      <coyo-filter-entry text-key="APP.BLOG.FILTER.STATUS.SCHEDULED"
+                         active="ctrl.blogArticles._queryParams.includeScheduled"
+                         icon="zmdi-time"
+                         on-click="ctrl.toggleIncludeScheduled()"></coyo-filter-entry>
+      <coyo-filter-entry text-key="APP.BLOG.FILTER.STATUS.DRAFT"
+                         active="ctrl.blogArticles._queryParams.includeDrafts"
+                         icon="zmdi-lock-outline"
+                         on-click="ctrl.toggleIncludeDrafts()"></coyo-filter-entry>
+    </coyo-filter>
+    <coyo-filter title-key="APP.BLOG.FILTER.DATE.TITLE" class="filter-time" no-icons="true">
+      <li ng-repeat="(year, months) in ctrl.timeFilter" ng-class="{ toggled: ctrl.filterYear === year, active: ctrl.filterYearActive === year }">
+        <a ng-click="ctrl.toggleFilterYear(year)">{{::year}}<span class="badge pull-right">{{months.sum}}</span></a>
+        <ul class="nav nav-default filter-time-months">
+          <li ng-repeat="data in months" ng-class="{ active: ctrl.blogArticles._queryParams.limitDate === data.time }">
+            <a ng-click="ctrl.toggleFilterMonth(data.time)">{{::data.moment | amTimezone: $root.timezone | amDateFormat:'MMMM' }}<span class="badge pull-right">{{data.count}}</span></a>
+          </li>
+        </ul>
+      </li>
+    </coyo-filter>
+  </fb-filter>
+  <fb-count>
+    <coyo-counter value="ctrl.blogArticles.totalElements"
+             key-none="APP.BLOG.ARTICLE_NONE"
+             key-singular="APP.BLOG.ARTICLE_SINGULAR"
+             key-plural="APP.BLOG.ARTICLE_PLURAL"></coyo-counter>
+  </fb-count>
+  <fb-actions>
+    <li>
+      <a ui-sref=".create">
+        <i class="zmdi zmdi-plus-circle"></i>&nbsp;{{:: 'APP.BLOG.CREATE' | translate }}
+      </a>
+    </li>
+  </fb-actions>
+</coyo-filterbox>
+
+<div ng-repeat="article in ctrl.blogArticles.content" class="article"
+     ng-class="::{'follow-up-article': $index > 0}">
+
+  <coyo-divider ng-if="::article.publishDate && ctrl.isNewMonth($index)">{{::article.publishDate | amTimezone: $root.timezone | amDateFormat:'MMMM YYYY'}}</coyo-divider>
+
+  <section class="panel panel-default">
+    <div class="panel-heading panel-heading-main article-header">
+      <h1 class="panel-title article-title clickable" ng-click="ctrl.openView(article)">
+        {{:: article.title }}&nbsp;<oyoc-blog-article-time article="::article"></oyoc-blog-article-time>
+      </h1>
+      <div class="article-status-options">
+        <coyo-context-menu class="article"
+                      title="{{:: article.title }}"
+                      ng-if="::article._permissions.edit || article._permissions.delete"
+                      align-right="true">
+          <li ng-if="::article._permissions.edit">
+            <a ui-sref=".edit({id: article.id})">
+              <i class="zmdi zmdi-hc-fw zmdi-edit"></i>&nbsp;{{:: 'EDIT' | translate }}
+            </a>
+          </li>
+          <li ng-if="::article._permissions.delete">
+            <a ng-click="ctrl.deleteArticle(article)">
+              <i class="zmdi zmdi-hc-fw zmdi-delete"></i>&nbsp;{{:: 'DELETE' | translate }}
+            </a>
+          </li>
+        </coyo-context-menu>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <div class="panel-body article-body">
+        <div class="article-content">
+          <span ng-if="article.teaserImage" class="article-teaser-image-wrapper">
+            <a class="article-teaser-image" ng-click="ctrl.openView(article)">
+              <coyo-image-reference file-id="::article.teaserImage.fileId"
+                                    sender-id="::article.teaserImage.senderId"
+                                    size-definitions="{'default': 'S', 'screen-lg': 'M'}"></coyo-image-reference>
+            </a>
+          </span>
+          <span class="article-text-wrapper">
+            <span ng-bind-html=":: article.teaserText | hashtag | nl2br"></span>
+            <a ng-click="ctrl.openView(article)" translate="APP.BLOG.READ_MORE"></a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer panel-footer-status">
+
+      <div class="status-options status-options-left">
+        <coyo-btn-likes class="status-option" target="::article"></coyo-btn-likes>
+        <coyo-btn-comments ng-if="::ctrl.app.settings.commentsAllowed"
+                           class="status-option"
+                           target="::article"
+                           on-click="ctrl.openView(article)"></coyo-btn-comments>
+        <coyo-btn-shares class="status-option" target="::article" ng-if="article._permissions.share"></coyo-btn-shares>
+      </div>
+
+      <div ng-if="::article.author" class="article-author">
+        <i class="zmdi zmdi-hc-fw zmdi-account-circle"></i>
+        <a coyo-sender-link="::article.author">{{:: article.author.displayName }}</a>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<coyo-table-pagination page="ctrl.blogArticles"></coyo-table-pagination>
+
+<div class="panel" ng-if="ctrl.blogArticles.content.length <= 0 && !ctrl.blogArticles.loading">
+  <div class="panel-body">
+    <p class="text-muted text-center m-0">
+      <span translate="APP.BLOG.EMPTY"></span><br>
+      <a ng-show="::ctrl.app._permissions.createArticle" ui-sref=".create" translate="APP.BLOG.EMPTY_LINK"></a>
+    </p>
+  </div>
+</div>

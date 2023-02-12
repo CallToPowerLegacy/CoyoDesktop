@@ -1,0 +1,15 @@
+<div class="user-chooser-item" ng-class="{'existing' : $ctrl.selectionType === 'EXISTING', 'new' : $ctrl.selectionType === 'NEW', 'removed' : $ctrl.selectionType === 'REMOVED'}">
+  <coyo-user-avatar ng-if="::($ctrl.itemType === 'user')" user="$ctrl.item" no-link="true"></coyo-user-avatar>
+  <div class="user-avatar group-avatar" ng-if="::($ctrl.itemType === 'group')">
+    <span class="user-avatar-empty"><i class="zmdi zmdi-accounts"></i></span>
+  </div>
+  <div class="item-info">
+    <div class="item-headline">{{:: $ctrl.item.displayName }}</div>
+    <div ng-if="::($ctrl.itemType === 'user')">
+        <coyo-render-value class="item-subline" data-ng-repeat="field in $ctrl.fields"
+                        field="$ctrl.field" config="$ctrl.getConfig(field.type)"
+                        value="$ctrl.item.properties[field.name]"></coyo-render-value>
+    </div>
+    <div class="item-subline" ng-if="::($ctrl.itemType === 'group')" translate="USER_CHOOSER.GROUPS.USER_COUNT" translate-values="{count: $ctrl.item.userCount}"></div>
+  </div>
+</div>

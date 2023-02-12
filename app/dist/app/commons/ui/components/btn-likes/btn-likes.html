@@ -1,0 +1,24 @@
+<coyo-refresh on-scope-event="like:refresh"><!--
+--><span ng-if="::$ctrl.likeData" class="btn-likes" ng-class="::{ loading: $ctrl.isLoading, active: $ctrl.likeData.self }" ng-show="::$ctrl.visible"><!--
+  --><span class="visible-xs-inline visible-sm-inline btn-likes-handle disabled" ng-if="::($ctrl.target._permissions.like !== true && ($ctrl.likeData.self || $ctrl.likeData.othersCount))"><i class="zmdi zmdi-star"></i></span><!--
+  --><span class="hidden-xs hidden-sm btn-likes-handle disabled" ng-if="::($ctrl.target._permissions.like !== true && ($ctrl.likeData.self || $ctrl.likeData.othersCount))"><i class="zmdi zmdi-star"></i></span><!--
+  --><a class="btn-likes-handle btn-likes-handle-hover" ng-click="$ctrl.like()" ng-if="::$ctrl.target._permissions.like === true"><i class="zmdi zmdi-star"></i> <span class="btn-likes-handle-text"><span translate="ENTITY_TYPE.LIKE"></span></span></a><!--
+  --><span class="btn-likes-text"><!--
+   --><span ng-if="::($ctrl.likeData.self || $ctrl.likeData.othersCount)"><!--
+     --><span class="btn-likes-divider" ng-if="::$ctrl.target._permissions.like === true">&ndash;</span><!--
+     --><a class="visible-xs-inline visible-sm-inline" ng-click="$ctrl.show()"
+           uib-tooltip-template="::$ctrl.tooltipUrlCondensed" tooltip-append-to-body="true" tooltip-enable="::(!$ctrl.isLoading && $ctrl.likeData.othersCount)">{{::($ctrl.likeData.othersCount + $ctrl.likeData.self)}}</a><!--
+     --><span class="hidden-xs hidden-sm"><!--
+       --><span ng-if="::$ctrl.likeData.self" translate="LIKE.SELF" translate-values="::$ctrl.likeData"></span><!--
+       --><a ng-if="::$ctrl.likeData.others.length" coyo-sender-link="::$ctrl.likeData.others[0]">{{:: $ctrl.likeData.others[0].displayName }}</a><!--
+       --><span ng-if="::$ctrl.likeData.othersCount > 1"><!--
+         --><span translate="LIKE.AND"></span><!--
+         --><a ng-click="$ctrl.show()" translate="LIKE.OTHERS" translate-values="::$ctrl.likeData"
+               uib-tooltip-template="::$ctrl.tooltipUrl" tooltip-append-to-body="true" tooltip-enable="::!$ctrl.isLoading"></a><!--
+       --></span><!--
+       --><span translate="LIKE.THIS" translate-values="::$ctrl.likeData"></span><!--
+     --></span><!--
+   --></span><!--
+  --></span><!--
+--></span>
+</coyo-refresh>

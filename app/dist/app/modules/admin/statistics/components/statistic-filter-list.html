@@ -1,0 +1,15 @@
+<div class="statistic-filter-container">
+    <div ng-if="::$ctrl.showCount">
+        <h4 class="hidden-xs"> {{"ADMIN.STATISTICS.TOTAL" | translate}}<span class="total-count" ng-bind="$ctrl.totalCount"></span></h4>
+    </div>
+    <div class="filter-list">
+        <div ng-repeat="dataSet in $ctrl.labels" class="filter-data-set">
+            <div ng-if="::$ctrl.showCount" class="hidden-xs filter-count" ng-bind="$ctrl.counts[dataSet]"></div>
+            <span class="label btn-statistic-filter"
+                  ng-click="$ctrl.clicked(dataSet)" ng-style="$ctrl.buttonStyle[$index]"
+                  ng-class="{'not-shown': $ctrl.isDisabled(dataSet)}">
+                {{"ADMIN.STATISTICS." + $ctrl.statisticName + '.' + dataSet | translate}}
+                <span class="hidden-xl hidden-print hidden-lg hidden-md hidden-sm count" ng-if="::$ctrl.showCount">({{ $ctrl.counts[dataSet]  }})</span></span>
+        </div>
+    </div>
+</div>

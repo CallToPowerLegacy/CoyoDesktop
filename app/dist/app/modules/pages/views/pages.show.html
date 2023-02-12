@@ -1,0 +1,154 @@
+<section class="page" ng-cloak>
+
+  <div class="panel panel-default image-header" ng-class="{'has-cover': $ctrl.page.imageUrls.cover}">
+
+    <div class="sender-actions">
+
+      <!-- Follow/Unfollow button -->
+      <coyo-page-subscribe page="$ctrl.page" dark-theme="true"></coyo-page-subscribe>
+
+      <!-- Change cover image -->
+      <button class="btn btn-zmdi btn-dark change-cover" ng-if="$ctrl.page._permissions.manage" ng-click="$ctrl.changeCover($ctrl.page)">
+        <i class="zmdi zmdi-hc-fw zmdi-camera"></i><!--
+     --><span class="btn-mobile-label">{{::'MODULE.PAGES.BUTTONS.CHANGE_COVER' | translate}}</span>
+      </button>
+    </div>
+
+    <!-- The cover image -->
+    <coyo-sender-cover-image image-url="$ctrl.page.imageUrls.cover"></coyo-sender-cover-image>
+
+    <div class="panel-foreground">
+
+      <!-- The avatar image -->
+      <div class="page-avatar-container">
+        <span ng-if="$ctrl.page._permissions.manage">
+          <oyoc-user-avatar-overlay class="md visible-xs"
+                                    click-fn="$ctrl.changeAvatar($ctrl.page)"
+                                    icon-class="zmdi-camera"></oyoc-user-avatar-overlay>
+          <oyoc-user-avatar-overlay class="lg hidden-lg hidden-xs"
+                                    click-fn="$ctrl.changeAvatar($ctrl.page)"
+                                    icon-class="zmdi-camera"></oyoc-user-avatar-overlay>
+          <oyoc-user-avatar-overlay class="xl visible-lg"
+                                    click-fn="$ctrl.changeAvatar($ctrl.page)"
+                                    icon-class="zmdi-camera"></oyoc-user-avatar-overlay>
+        </span>
+        <coyo-refresh on-scope-event="pageAvatar:changed">
+          <coyo-page-avatar ng-if="$root.screenSize.isXs"
+                            page="$ctrl.page"
+                            avatar-size="md"
+                            no-link="true"></coyo-page-avatar>
+          <coyo-page-avatar ng-if="$root.screenSize.isSm || $root.screenSize.isMd"
+                            page="$ctrl.page"
+                            avatar-size="lg"
+                            no-link="true"></coyo-page-avatar>
+          <coyo-page-avatar ng-if="$root.screenSize.isLg"
+                            page="$ctrl.page"
+                            avatar-size="xl"
+                            no-link="true"></coyo-page-avatar>
+        </coyo-refresh>
+      </div>
+
+      <!-- The page name + follower count -->
+      <div class="titles-container">
+        <div class="title-description-wrapper">
+          <div class="title">{{:: $ctrl.page.displayName }}</div>
+          <div class="description hidden-xs">{{:: $ctrl.page.description}}</div>
+        </div>
+        <div class="subscriptions">
+          <div class="label label-muted" translate="MODULE.PAGES.SUBSCRIPTIONS"
+               translate-values="{count : $ctrl.page.userSubscriptionsCount}"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div ng-if="$ctrl.displayMobileNavigation">
+      <coyo-sender-navigation-mobile sender="$ctrl.page" apps="$ctrl.apps" current-app="$ctrl.currentApp">
+        <nav-bottom>
+          <li ng-if="$ctrl.page._permissions.manage">
+            <a ui-sref="main.page.show.files">
+              <i class="zmdi zmdi-hc-fw zmdi-file"></i> <span translate="MODULE.SENDER.FILES.NAVIGATION"></span>
+            </a>
+          </li>
+          <li ng-if="$ctrl.page._permissions.manage">
+            <a ui-sref="main.page.show.settings">
+              <i class="zmdi zmdi-hc-fw zmdi-settings"></i> <span translate="SETTINGS"></span>
+            </a>
+          </li>
+        </nav-bottom>
+      </coyo-sender-navigation-mobile>
+    </div>
+  </div>
+
+  <div class="content-with-sidebar">
+    <div class="hidden-xs hidden-sm content-sidebar">
+
+      <coyo-widget-slot class="widget-slot-sidebar"
+                   name="page-sidebar-top"
+                   parent="$ctrl.page"
+                   can-manage="$ctrl.page._permissions.manageSlots"
+                   hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+      <!-- Navigation -->
+      <coyo-sender-navigation sender="$ctrl.page" apps="$ctrl.apps" apps-status="$ctrl.appsStatus"></coyo-sender-navigation>
+
+      <!-- Options -->
+      <div ng-if="$ctrl.page._permissions.manage || $ctrl.page._permissions.manageApps" class="panel panel-sm">
+        <div class="panel-body pb-xxs">
+          <div class="text-muted text-uppercase" translate="PAGE.OPTIONS"></div>
+        </div>
+        <ul class="nav nav-default nav-icons nav-sender-options pb-xs">
+          <li ng-if="$ctrl.page._permissions.manageApps" ng-class="{disabled: $ctrl.appsStatus.busy}">
+            <a ng-click="$ctrl.addApp($ctrl.page, $ctrl.apps)">
+              <i class="zmdi zmdi-plus-circle-o"></i><span translate="APPS.ADD"></span>
+            </a>
+          </li>
+          <li ng-if="$ctrl.page._permissions.manageApps" ng-class="{disabled: $ctrl.appsStatus.busy}">
+            <a ng-click="$ctrl.addGroup()">
+              <i class="zmdi zmdi-plus-circle-o-duplicate"></i><span translate="APPS.ADD_GROUP"></span>
+            </a>
+          </li>
+          <li ui-sref-active="active" ng-if="$ctrl.page._permissions.manage">
+            <a ui-sref="main.page.show.files">
+              <i class="zmdi zmdi-file"></i> <span translate="MODULE.SENDER.FILES.NAVIGATION"></span>
+            </a>
+          </li>
+          <li ng-if="$ctrl.page._permissions.manage">
+            <a ui-sref="main.page.show.settings">
+              <i class="zmdi zmdi-settings"></i><span translate="SETTINGS"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <coyo-widget-slot class="widget-slot-sidebar"
+                   name="page-sidebar-bottom"
+                   parent="$ctrl.page"
+                   can-manage="$ctrl.page._permissions.manageSlots"
+                   hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+      <div ui-view="app-sidebar"></div>
+    </div>
+    <div class="content-main">
+      <div class="alert alert-warning" role="alert" ng-if="$ctrl.currentApp && !$ctrl.currentApp.active">
+        <i class="zmdi zmdi-alert-triangle"></i> <span translate="APPS.INACTIVE"></span>
+      </div>
+
+      <coyo-widget-slot class="widget-slot-content"
+                   name="page-content"
+                   parent="$ctrl.page"
+                   can-manage="$ctrl.page._permissions.manageSlots"
+                   hide-slot-placeholder="!$root.globalEditMode"></coyo-widget-slot>
+
+      <ui-view></ui-view>
+      <div class="panel" ng-if="!$ctrl.apps.length && ('main.page.show' | isState)">
+        <div class="panel-body">
+          <p class="text-muted text-center m-0">
+            <span translate="MODULE.PAGES.APPS.EMPTY"></span><br>
+            <a ng-if="$ctrl.page._permissions.manageApps" ng-click="$ctrl.addApp($ctrl.page, $ctrl.apps)" translate="MODULE.PAGES.APPS.EMPTY_LINK"></a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

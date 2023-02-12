@@ -1,0 +1,67 @@
+<form name="settingsForm" coyo-form-submit="$ctrl.save()" class="manage-translations-modal">
+  <div class="modal-content-wrapper">
+    <div class="modal-header">
+      <h3 class="modal-title" translate="COMMONS.TRANSLATIONS.TITLE"></h3>
+      <span class="modal-close" ng-click="$dismiss()">
+        <i class="zmdi zmdi-close img-close"></i>
+      </span>
+    </div>
+    <div class="text-center m-m" ng-if="$ctrl.loading">
+      <coyo-spinner></coyo-spinner>
+    </div>
+    <div class="modal-body p-s" ng-if="!$ctrl.loading">
+      <!-- Default language -->
+      <div class="form-group">
+        <label class="col-sm-2 control-label" translate="COMMONS.TRANSLATIONS.LABEL.DEFAULT_LANGUAGE"></label>
+        <div class="col-sm-9">
+          <ui-select ui-select-mobile="{{:: 'COMMONS.TRANSLATIONS.LABEL.DEFAULT_LANGUAGE' | translate }}"
+                     ng-model="$ctrl.data.default"
+                     search-enabled="false"
+                     on-select="$ctrl.updateLanguages()"
+                     class="ui-select-translation"
+                     ng-disabled="::$ctrl.defaultLanguageExists">
+            <ui-select-match placeholder="{{::'COMMONS.TRANSLATIONS.LABEL.DEFAULT_LANGUAGE' | translate}}" allow-clear="false">
+              <div>
+                <coyo-country-flag country="$ctrl.data.default" form="rounded"></coyo-country-flag>
+                {{'LANGUAGE.LANGUAGES.' + $ctrl.data.default | uppercase | translate}}
+              </div>
+            </ui-select-match>
+            <ui-select-choices repeat="language.language as language in ::$ctrl.availableLanguages | orderBy:'name'">
+              <div class="ui-select-languages">
+                <coyo-country-flag country="language.language" form="rounded"></coyo-country-flag>{{language.name}}
+              </div>
+            </ui-select-choices>
+          </ui-select>
+          <span class="help-block" translate="COMMONS.TRANSLATIONS.LABEL.DEFAULT_LANGUAGE.HINT"></span>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="COMMONS.TRANSLATIONS.DESC.DEFAULT_LANGUAGE"></coyo-help>
+        </div>
+      </div>
+      <!-- Additional languages -->
+      <div class="form-group">
+        <label class="col-sm-2 control-label" translate="COMMONS.TRANSLATIONS.LABEL.ADDITIONAL_LANGUAGES"></label>
+        <div class="col-sm-9">
+          <div class="checkbox" ng-repeat="language in ::$ctrl.availableLanguages | orderBy:'name'">
+            <label ng-class="{'text-muted': $ctrl.data.default === (language.language | uppercase)}">
+              <coyo-checkbox ng-model="$ctrl.data.languages[(language.language  | uppercase)].active"
+                             ng-disabled="$ctrl.data.default === (language.language | uppercase)"
+                             ng-change="$ctrl.handleLanguageChange((language.language  | uppercase))"
+                             checked></coyo-checkbox>
+              <coyo-country-flag country="language.language" form="rounded"></coyo-country-flag>{{language.name}}
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-1 hidden-xs">
+          <coyo-help tip="COMMONS.TRANSLATIONS.DESC.ADDITIONAL_LANGUAGES"></coyo-help>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <coyo-form-submit-button label="APPLY" form-ctrl="settingsForm"></coyo-form-submit-button><!--
+   --><button class="btn btn-default" ng-click="$dismiss('cancel')">
+        <i class="zmdi zmdi-hc-fw zmdi-close-circle"></i>&nbsp;{{:: 'CANCEL' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

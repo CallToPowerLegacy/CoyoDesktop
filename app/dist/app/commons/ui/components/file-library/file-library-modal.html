@@ -1,0 +1,31 @@
+<div class="file-library modal-content-wrapper">
+
+  <div class="modal-header">
+    <h3 class="modal-title" translate="{{::vm.title}}"></h3>
+    <span class="modal-close" ng-click="vm.onDismiss ? vm.onDismiss() : $dismiss('cancel')">
+      <i class="zmdi zmdi-close img-close"></i>
+    </span>
+  </div>
+
+  <div class="modal-body">
+    <coyo-file-library sender="vm.sender"
+                       selected-files="vm.selectedFiles"
+                       options="vm.options"
+                       crop-settings="vm.cropSettings"
+                       modal-mode="true">
+    </coyo-file-library>
+  </div>
+
+  <div class="modal-footer" ng-if="vm.options.selectMode">
+    <button class="btn btn-primary" ng-disabled="!vm.selectedFiles || vm.selectedFiles.length === 0" ng-click="vm.saveAndClose()">
+      <span ng-if="vm.options.selectMode === 'multiple'"
+            translate="FILE_LIBRARY.SELECT_FILES"
+            translate-values="{count: vm.selectedFiles.length}"></span>
+      <span ng-if="vm.options.selectMode === 'single'"
+            translate="FILE_LIBRARY.SELECT"></span>
+      <span ng-if="vm.options.selectMode === 'folder'"
+            translate="FILE_LIBRARY.SELECT_FOLDER"></span>
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,22 @@
+<div class="panel terms">
+  <div class="panel-body">
+    <h2>{{:: $ctrl.terms.title }}</h2>
+    <div class="rte-html-container" ng-bind-html=":: $ctrl.terms.text | trusthtml"></div>
+    <div class="form-actions text-center">
+      <a href="#" ng-click="$ctrl.accept()" ng-disabled="$ctrl.accepting || $ctrl.declining" class="btn btn-primary"><!--
+     --><i class="zmdi zmdi-hc-fw zmdi-check" ng-if="!$ctrl.accepting"></i><!--
+     --><i class="zmdi zmdi-hc-fw zmdi-hc-spin zmdi-spinner" ng-if="$ctrl.accepting"></i>&nbsp;{{ 'MODULE.LOGIN.TERMS.ACCEPT' | translate }}</a><!--
+   --><a href="#" ng-click="$ctrl.decline()" ng-disabled="$ctrl.accepting || $ctrl.declining" class="btn btn-danger ml-xxs"><!--
+     --><i class="zmdi zmdi-hc-fw zmdi-close" ng-if="!$ctrl.declining"></i><!--
+     --><i class="zmdi zmdi-hc-fw zmdi-hc-spin zmdi-spinner" ng-if="$ctrl.declining"></i>&nbsp;{{ 'MODULE.LOGIN.TERMS.DECLINE' | translate }}
+      </a>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-6">
+        <div class="pull-right copyright"></div>
+      </div>
+    </div>
+  </div>
+</div>
